@@ -1,0 +1,15 @@
+link
+http://odds.500.com/fenxi/europe_xls.php?fixtureid=736666
+
+
+
+<form name="plform" action="/fenxi/europe_xls.php" method="post" id="plform">
+  <input name="fixtureid" type="hidden" value="736666">
+  <input name="excelst" id="excelst" type="hidden" value="1">
+  <input name="style" type="hidden" value="0">
+  <input name="ctype" type="hidden" value="1">
+  <input name="dcid" id="dcid" type="hidden" value="">
+  <input name="scid" id="scid" type="hidden" value="">
+
+  <input name="r" type="hidden" value="1">
+/form>
