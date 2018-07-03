@@ -35,17 +35,28 @@ worksheet = workbook.sheet_by_index(1)
 cell_c4 = worksheet.cell(7, 1).value
 # Or you can use:
 #cell_c4 = sh.cell(rowx=3, colx=2).value
+print ('cell_c4')
 print (cell_c4)
 
 exit()
 
 # Iterate through rows, returning each as a list that you can index:
 for rownum in range(sh.nrows):
-    print sh.row_values(rownum)
+    print (sh.row_values(rownum))
+
+# row
+first_column = sh.row_values(0)
 
 # If you just want the first column:
 first_column = sh.col_values(0)
-print first_column
+print (first_column)
+
+# Serialize the list of dicts to JSON
+output = json.dumps(cars_list)
+
+# Write to file
+with open('data.json', 'w') as f:
+    f.write(output)
 
 #
 data = []
