@@ -8,10 +8,21 @@ import re
 from bs4 import BeautifulSoup
 
 
+# @param encode = "utf-8"
+def getWebSource(url, encode="gb2312"):
+  requestObj = requests.get(url)
+  requestObj.encoding = encode
+
+  return requestObj
+  return requestObj.text
+
 url = 'http://odds.500.com/fenxi/ouzhi-736656.shtml'
-requestObj = requests.get(url)
-requestObj.encoding = 'utf-8'
+requestObj = getWebSource(url)
+
 print(requestObj.url)
+print(requestObj.text)
+
+
+
 
 exit()
-print(requestObj.text)
