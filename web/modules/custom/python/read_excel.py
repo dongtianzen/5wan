@@ -1,5 +1,5 @@
-# cd web/modules/custom/python
-# python3 read_excel.py
+#
+# python3 web/modules/custom/python/read_excel.py
 
 #
 

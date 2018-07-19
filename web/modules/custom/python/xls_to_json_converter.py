@@ -1,4 +1,5 @@
-"""XLS -> json converter
+"""
+XLS -> json converter
 first:
   $ pip install xlrd
 then:
