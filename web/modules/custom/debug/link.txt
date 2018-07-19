@@ -3,8 +3,8 @@ link
 // 页面
 http://odds.500.com/fenxi/ouzhi-736666.shtml
 // 下载链接
-http://odds.500.com/fenxi/europe_xls.php?fixtureid=736666
-http://odds.500.com/fenxi/europe_xls.php?fixtureid=736666&excelst=2
+http://odds.500.com/fenxi/europe_xls.php?fixtureid=736656
+http://odds.500.com/fenxi/europe_xls.php?fixtureid=736656&excelst=2
 http://odds.500.com/fenxi/europe_xls.php?fixtureid=718646&excelst=2
 
 

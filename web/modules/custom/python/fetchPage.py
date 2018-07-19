@@ -8,7 +8,10 @@ import re
 from bs4 import BeautifulSoup
 
 
-url = 'http://odds.500.com/fenxi/europe_xls.php?fixtureid=736666'
-request = requests.get(url)
-print(request.url)
-print(request.text)
+url = 'http://odds.500.com/fenxi/ouzhi-736656.shtml'
+requestObj = requests.get(url)
+requestObj.encoding = 'utf-8'
+print(requestObj.url)
+
+exit()
+print(requestObj.text)
