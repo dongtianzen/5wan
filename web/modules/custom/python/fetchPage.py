@@ -4,8 +4,9 @@ python3 web/modules/custom/python/fetchPage.py
 """
 
 import requests
-from bs4 import BeautifulSoup
 import re
+
+from bs4 import BeautifulSoup
 
 
 # @param encode = "utf-8"
@@ -26,7 +27,16 @@ def convertWebSourceToList(requestObj):
   soup = BeautifulSoup(requestObj.text, "html.parser")
 
   pageTitle = soup.title.text
+  pageTitle = soup.title.text
+
+  gameTimeHtml = soup.find(name = "p", attrs = {"class": "game_time"})
+  gameTimeHtmlArray = soup.findAll(name = "p", attrs = {"class": "game_time"})
+
   print(pageTitle)
+
+  print(gameTimeHtml.string)
+  print(gameTimeHtmlArray[0].string)
+
   return pageTitle
 
 
