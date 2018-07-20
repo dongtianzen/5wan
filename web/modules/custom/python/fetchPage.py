@@ -42,12 +42,15 @@ def convertWebSourceToList(requestObj):
 
   #
   gameOddHtmlArray = soup.findAll(name = "td", attrs = {"onclick": "OZ.r(this)"})
-  # gameOdd = gameOddHtmlArray[0].string
 
+  gameOddList = []
   for row in gameOddHtmlArray:
-    print(row.string)
+    oddValue = row.string.strip()
+    oddValue = oddValue.strip()     # filter space
 
+    gameOddList.append(oddValue)
 
+  print(gameOddList)
 
   return
 
