@@ -15,6 +15,7 @@ class RunGetHistData:
   #
   def __init__(self, url):
     self.url = url
+    self.soup = self.getSoupFromWebSource()
 
   # @param encode = "utf-8"
   def getWebSourceObject(self, encode = "gb2312"):
@@ -42,24 +43,29 @@ class RunGetHistData:
 
   #
   def getPageTitle(self):
-    soup = self.getSoupFromWebSource()
-    pageTitle = soup.title.text
+    pageTitle = self.soup.title.text
     return pageTitle
 
   #
-  def getPageTitle2(self):
-    gameTimeHtml = soup.find(name = "p", attrs = {"class": "game_time"})
+  def getGameTime(self):
+    gameTimeHtml = self.soup.find(name = "p", attrs = {"class": "game_time"})
     gameTime = gameTimeHtml.string
     #
-    gameTimeHtmlArray = soup.findAll(name = "p", attrs = {"class": "game_time"})
+    gameTimeHtmlArray = self.soup.findAll(name = "p", attrs = {"class": "game_time"})
     gameTime = gameTimeHtmlArray[0].string
 
-    #
-    gameResultHtml = soup.find(name = "p", attrs = {"class": "odds_hd_bf"})
+    return gameTime
+
+  #
+  def getGameResult(self):
+    gameResultHtml = self.soup.find(name = "p", attrs = {"class": "odds_hd_bf"})
     gameResult = gameResultHtml.string
 
-    #
-    gameOddHtmlArray = soup.findAll(name = "td", attrs = {"onclick": "OZ.r(this)"})
+    return gameResult
+
+  #
+  def getGameOddList(self):
+    gameOddHtmlArray = self.soup.findAll(name = "td", attrs = {"onclick": "OZ.r(this)"})
 
     gameOddList = []
     for row in gameOddHtmlArray:
