@@ -26,23 +26,36 @@ def convertWebSourceToList(requestObj):
 
   soup = BeautifulSoup(requestObj.text, "html.parser")
 
+  #
   pageTitle = soup.title.text
 
-  print(pageTitle)
-
+  #
   gameTimeHtml = soup.find(name = "p", attrs = {"class": "game_time"})
+  gameTime = gameTimeHtml.string
+  #
   gameTimeHtmlArray = soup.findAll(name = "p", attrs = {"class": "game_time"})
+  gameTime = gameTimeHtmlArray[0].string
+
+  #
+  gameResultHtml = soup.find(name = "p", attrs = {"class": "odds_hd_bf"})
+  gameResult = gameResultHtml.string
+
+  #
+  gameOddHtmlArray = soup.findAll(name = "td", attrs = {"onclick": "OZ.r(this)"})
+  # gameOdd = gameOddHtmlArray[0].string
+
+  for row in gameOddHtmlArray:
+    print(row.string)
 
 
-  print(gameTimeHtml.string)
-  print(gameTimeHtmlArray[0].string)
 
-  return pageTitle
+  return
 
 
 url = 'http://odds.500.com/fenxi/ouzhi-523656.shtml'
 requestObj = getWebSource(url)
 
+print('1123456789')
 convertWebSourceToList(requestObj)
 
 
