@@ -11,62 +11,65 @@ from bs4 import BeautifulSoup
 
 # define a class
 class RunGetHistData:
-# @param encode = "utf-8"
-# print(requestObj.url)
-# print(requestObj.text)
-#
-def getWebSource(url, encode="gb2312"):
-  requestObj = requests.get(url)
-  requestObj.encoding = encode
 
-  return requestObj
+  # @param encode = "utf-8"
+  # print(requestObj.url)
+  # print(requestObj.text)
+  #
+  def getWebSource(self, url, encode="gb2312"):
+    requestObj = requests.get(url)
+    requestObj.encoding = encode
 
-
-#
-def convertWebSourceToList(requestObj):
-  requestObjText = requestObj.text
-  # requestObjText = requestObj.content
-
-  soup = BeautifulSoup(requestObj.text, "html.parser")
+    return requestObj
 
   #
-  pageTitle = soup.title.text
+  def getSoupFromWebSource(self, requestObj):
+    requestObjText = requestObj.text
+    # requestObjText = requestObj.content
+
+    soup = BeautifulSoup(requestObj.text, "html.parser")
+
+    return soup
 
   #
-  gameTimeHtml = soup.find(name = "p", attrs = {"class": "game_time"})
-  gameTime = gameTimeHtml.string
-  #
-  gameTimeHtmlArray = soup.findAll(name = "p", attrs = {"class": "game_time"})
-  gameTime = gameTimeHtmlArray[0].string
+  def getPageTitle(self, soup):
+    pageTitle = soup.title.text
+    return pageTitle
 
   #
-  gameResultHtml = soup.find(name = "p", attrs = {"class": "odds_hd_bf"})
-  gameResult = gameResultHtml.string
+  def getPageTitle2(self):
+    gameTimeHtml = soup.find(name = "p", attrs = {"class": "game_time"})
+    gameTime = gameTimeHtml.string
+    #
+    gameTimeHtmlArray = soup.findAll(name = "p", attrs = {"class": "game_time"})
+    gameTime = gameTimeHtmlArray[0].string
 
-  #
-  gameOddHtmlArray = soup.findAll(name = "td", attrs = {"onclick": "OZ.r(this)"})
+    #
+    gameResultHtml = soup.find(name = "p", attrs = {"class": "odds_hd_bf"})
+    gameResult = gameResultHtml.string
 
-  gameOddList = []
-  for row in gameOddHtmlArray:
-    oddValue = row.string.strip()
-    oddValue = oddValue.strip()     # filter space
+    #
+    gameOddHtmlArray = soup.findAll(name = "td", attrs = {"onclick": "OZ.r(this)"})
 
-    gameOddList.append(oddValue)
+    gameOddList = []
+    for row in gameOddHtmlArray:
+      oddValue = row.string.strip()
+      oddValue = oddValue.strip()     # filter space
 
-  print(gameOddList)
+      gameOddList.append(oddValue)
 
-  return
+    print(gameOddList)
+
+    return
 
 
 url = 'http://odds.500.com/fenxi/ouzhi-523656.shtml'
-requestObj = getWebSource(url)
 
-print('1123456789')
-convertWebSourceToList(requestObj)
+requestObj = RunGetHistData().getWebSource(url)
+soup = RunGetHistData().getSoupFromWebSource(requestObj)
+pageTitle = RunGetHistData().getPageTitle(soup)
 
-
-
-
+print(pageTitle)
 
 
 exit()
