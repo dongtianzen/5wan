@@ -12,27 +12,37 @@ from bs4 import BeautifulSoup
 # define a class
 class RunGetHistData:
 
-  # @param encode = "utf-8"
-  # print(requestObj.url)
-  # print(requestObj.text)
   #
-  def getWebSource(self, url, encode="gb2312"):
-    requestObj = requests.get(url)
+  def __init__(self, url):
+    self.url = url
+
+  # @param encode = "utf-8"
+  def getWebSourceObject(self, encode = "gb2312"):
+    requestObj = requests.get(self.url)
     requestObj.encoding = encode
 
     return requestObj
 
   #
-  def getSoupFromWebSource(self, requestObj):
+  def getWebSourceText(self):
+    requestObj = self.getWebSourceObject()
     requestObjText = requestObj.text
-    # requestObjText = requestObj.content
 
-    soup = BeautifulSoup(requestObj.text, "html.parser")
+    # requestObjContent = requestObj.content
+
+    return requestObjText
+
+  #
+  def getSoupFromWebSource(self):
+    requestObjText = self.getWebSourceText()
+
+    soup = BeautifulSoup(requestObjText, "html.parser")
 
     return soup
 
   #
-  def getPageTitle(self, soup):
+  def getPageTitle(self):
+    soup = self.getSoupFromWebSource()
     pageTitle = soup.title.text
     return pageTitle
 
@@ -63,11 +73,9 @@ class RunGetHistData:
     return
 
 
-url = 'http://odds.500.com/fenxi/ouzhi-523656.shtml'
+url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
 
-requestObj = RunGetHistData().getWebSource(url)
-soup = RunGetHistData().getSoupFromWebSource(requestObj)
-pageTitle = RunGetHistData().getPageTitle(soup)
+pageTitle = RunGetHistData(url).getPageTitle()
 
 print(pageTitle)
 
