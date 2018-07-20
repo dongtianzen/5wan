@@ -9,6 +9,8 @@ import re
 from bs4 import BeautifulSoup
 
 
+# define a class
+class RunGetHistData:
 # @param encode = "utf-8"
 # print(requestObj.url)
 # print(requestObj.text)
@@ -23,6 +25,7 @@ def getWebSource(url, encode="gb2312"):
 #
 def convertWebSourceToList(requestObj):
   requestObjText = requestObj.text
+  # requestObjText = requestObj.content
 
   soup = BeautifulSoup(requestObj.text, "html.parser")
 
