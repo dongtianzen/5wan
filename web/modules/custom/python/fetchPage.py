@@ -58,8 +58,8 @@ class RunGetHistData:
 
     return gameTime
 
-  # @return string like "比赛时间2016-02-28 03:00"
-  def getGameTimeValue(self):
+  # @return string like "2016-02-28"
+  def gameDate(self):
     gameTime = self.getGameTime()
 
     matchObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})",gameTime)
@@ -72,6 +72,13 @@ class RunGetHistData:
     gameResult = gameResultHtml.string
 
     return gameResult
+
+  #
+  def getGameResultList(self):
+    gameResult = self.getGameResult()
+    gameResultList = gameResult.split(':')
+
+    return gameResultList
 
   #
   def getCompanyList(self):
@@ -122,6 +129,11 @@ class RunGetHistData:
     output['avdrawj2'] = self.getValueByHtmlTagByHtmlId('td', 'avdrawj2')
     output['avlostj2'] = self.getValueByHtmlTagByHtmlId('td', 'avlostj2')
 
+    output['goalHome'] = self.getGameResultList()[0]
+    output['goalAway'] = self.getGameResultList()[1]
+
+    output['gameDate'] = self.gameDate()
+
 
     # output['pageTitle'] = self.getPageTitle()
 
@@ -140,13 +152,10 @@ url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
 
 gameObj   = RunGetHistData(url)
 
-# gameObj.getPageResultDict()
+gameObj.getPageResultDict()
 
 # pageTitle = gameObj.getPageTitle()
 # print(pageTitle)
-
-gameTime  = gameObj.getGameTimeValue()
-print(gameTime)
 
 exit()
 
