@@ -17,8 +17,8 @@ class RunGetHistData:
     self.url = url
     self.soup = self.getSoupFromWebSource()
 
-  # @param encode = "utf-8"
-  def getWebSourceObject(self, encode = "gb2312"):
+  # @param encode = "utf-8", "gb2312"
+  def getWebSourceObject(self, encode = "utf-8"):
     requestObj = requests.get(self.url)
     requestObj.encoding = encode
 
@@ -90,18 +90,25 @@ class RunGetHistData:
       gameOddList.append(oddValue)
 
     print(len(gameOddList))
+    print((gameOddList))
 
     return
 
-
+# getPageTitle, getGameTime, getGameResult, use this url
 url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
-url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156'
 
+# getGameOddList and getCompanyList use this url
+url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156&style=1&start=1&last=1'
+
+print(8989000)
 gameObj   = RunGetHistData(url)
+
 gameObj.getCompanyList()
 gameObj.getGameOddList()
-
 exit()
+
+gameObj.getWebSourceText()
+
 
 pageTitle = gameObj.getPageTitle()
 print(pageTitle)

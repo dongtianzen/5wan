@@ -9,7 +9,10 @@ http://odds.500.com/fenxi/europe_xls.php?fixtureid=718646&excelst=2
 
 
 http://odds.500.com/fenxi1/ouzhi.php?id=523156
+
+
 http://odds.500.com/fenxi1/ouzhi.php?id=523156&start=30
+http://odds.500.com/fenxi1/ouzhi.php?id=523156&start=0&last=1
 
 
 // 下载POST form 代码
