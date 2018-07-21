@@ -21,7 +21,7 @@ class RunGetHistData:
   def getWebSourceObject(self, encode = "gb2312"):
     requestObj = requests.get(self.url)
     requestObj.encoding = encode
-    print(24)
+
     return requestObj
 
   #
@@ -38,7 +38,7 @@ class RunGetHistData:
     requestObjText = self.getWebSourceText()
 
     soup = BeautifulSoup(requestObjText, "html.parser")
-
+    print(soup)
     return soup
 
   # @return string, "图卢兹VS雷恩(2015/2016法甲)-百家欧赔-500彩票网"
@@ -75,6 +75,8 @@ class RunGetHistData:
       companyList.append(companyName)
 
     print(companyList)
+    print(len(companyList))
+
 
     return
 
@@ -89,20 +91,22 @@ class RunGetHistData:
 
       gameOddList.append(oddValue)
 
-    print(gameOddList)
+    print(len(gameOddList))
 
     return
 
 
 url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
 
-gameObj = RunGetHistData(url)
-pageTitle = gameObj.getPageTitle()
-gameTime  = gameObj.getGameTime()
-
-print(pageTitle)
-print(gameTime)
-print(gameObj.getCompanyList())
-
+gameObj   = RunGetHistData(url)
+gameObj.getCompanyList()
+gameObj.getGameOddList()
 
 exit()
+
+pageTitle = gameObj.getPageTitle()
+print(pageTitle)
+
+gameTime  = gameObj.getGameTime()
+print(gameTime)
+
