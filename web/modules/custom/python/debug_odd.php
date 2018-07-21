@@ -25,17 +25,13 @@ function getStdevp($arr){
 
 // 方差
 function getFangcha($arr){
-  $sum = 0;
-
-  foreach ($arr as $key => $v) {
-    $sum += intval($v);
-  }
+  $sum = array_sum($arr);
   $ave = $sum / count($arr);
 
   $devsq = 0;//返回数据点与各自样本平均值差的平方和
 
   foreach ($arr as $key => $v) {
-    $num = intval($v);
+    $num = $v;
     $devsq += ($num - $ave) * ($num - $ave);
   }
 
@@ -51,7 +47,7 @@ function standard_deviation_population($a) {
   $the_variance = 0.0;
   $the_mean = 0.0;
   $the_array_sum = array_sum($a); //sum the elements
-  $number_elements = count($a); //count the number of elements
+  $number_elements = count($a);   //count the number of elements
 
   // calculate the mean
   $the_mean = $the_array_sum / $number_elements;
