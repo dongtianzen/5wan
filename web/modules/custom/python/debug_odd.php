@@ -17,21 +17,8 @@ foreach ($cc as $key => $value) {
 
 // 标准差
 function getStdevp($arr){
-  $sum = 0;
-
-  foreach ($arr as $key => $v) {
-    $sum += intval($v);
-  }
-  $ave = $sum/count($arr);
-
-  $devsq = 0;//返回数据点与各自样本平均值差的平方和
-
-  foreach ($arr as $key => $v) {
-    $num = intval($v);
-    $devsq += ($num-$ave)*($num-$ave);
-  }
-
-  $stdevp = sqrt($devsq/count($arr));
+  $getFangcha = getFangcha($arr);
+  $stdevp = sqrt($getFangcha);
 
   return $stdevp;
 }
@@ -43,22 +30,22 @@ function getFangcha($arr){
   foreach ($arr as $key => $v) {
     $sum += intval($v);
   }
-  $ave = $sum/count($arr);
+  $ave = $sum / count($arr);
 
   $devsq = 0;//返回数据点与各自样本平均值差的平方和
 
   foreach ($arr as $key => $v) {
     $num = intval($v);
-    $devsq += ($num-$ave)*($num-$ave);
+    $devsq += ($num - $ave) * ($num - $ave);
   }
 
-  $stdevp = ($devsq/count($arr));
+  $stdevp = ($devsq / count($arr));
 
   return $stdevp;
 }
 
 
-function standard_deviation_population ($a) {
+function standard_deviation_population($a) {
   //variable and initializations
   $the_standard_deviation = 0.0;
   $the_variance = 0.0;
@@ -66,10 +53,10 @@ function standard_deviation_population ($a) {
   $the_array_sum = array_sum($a); //sum the elements
   $number_elements = count($a); //count the number of elements
 
-  //calculate the mean
+  // calculate the mean
   $the_mean = $the_array_sum / $number_elements;
 
-  //calculate the variance
+  // calculate the variance
   for ($i = 0; $i < $number_elements; $i++) {
     //sum the array
     $the_variance = $the_variance + ($a[$i] - $the_mean) * ($a[$i] - $the_mean);
@@ -77,20 +64,17 @@ function standard_deviation_population ($a) {
 
   $the_variance = $the_variance / $number_elements;
 
-  //calculate the standard deviation
-  $the_standard_deviation = pow( $the_variance, 0.5);
+  // calculate the standard deviation
+  $the_standard_deviation = pow($the_variance, 0.5);
 
-  //return the variance
-  return $the_standard_deviation;
+  // return the variance
+  return $the_variance;
 }
 
 foreach ($fenbu as $key => $value) {
   $avg = array_sum($value) / count($value);
-  $sd = standard_deviation_population($value);
-  $sd2 = getStdevp($value);
-  $sd2 = getFangcha($value);
   dpm($key . ' - ' . $avg);
-  dpm($sd);
-  dpm($sd2);
-  dpm($fangcha);
+  dpm(standard_deviation_population($value));
+  dpm(getStdevp($value));
+  dpm(getFangcha($value));
 }
