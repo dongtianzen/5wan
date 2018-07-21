@@ -15,62 +15,37 @@ foreach ($cc as $key => $value) {
   $fenbu[$yushu][] = $value;
 }
 
-// 标准差
-function getStdevp($arr){
-  $getFangcha = getFangcha($arr);
-  $stdevp = sqrt($getFangcha);
-
-  return $stdevp;
-}
 
 // 方差
-function getFangcha($arr){
+function getVariance($arr){
   $sum = array_sum($arr);
   $ave = $sum / count($arr);
 
-  $devsq = 0;//返回数据点与各自样本平均值差的平方和
+  $devsq = 0;
 
+  // 返回数据点与各自样本平均值差的平方和
   foreach ($arr as $key => $v) {
     $num = $v;
     $devsq += ($num - $ave) * ($num - $ave);
   }
 
-  $stdevp = ($devsq / count($arr));
+  $variance = ($devsq / count($arr));
+
+  return $variance;
+}
+
+// 标准差
+function getStandardDeviation($arr){
+  $getFangcha = getVariance($arr);
+  $stdevp = sqrt($getFangcha);
 
   return $stdevp;
 }
 
 
-function standard_deviation_population($a) {
-  //variable and initializations
-  $the_standard_deviation = 0.0;
-  $the_variance = 0.0;
-  $the_mean = 0.0;
-  $the_array_sum = array_sum($a); //sum the elements
-  $number_elements = count($a);   //count the number of elements
-
-  // calculate the mean
-  $the_mean = $the_array_sum / $number_elements;
-
-  // calculate the variance
-  for ($i = 0; $i < $number_elements; $i++) {
-    //sum the array
-    $the_variance = $the_variance + ($a[$i] - $the_mean) * ($a[$i] - $the_mean);
-  }
-
-  $the_variance = $the_variance / $number_elements;
-
-  // calculate the standard deviation
-  $the_standard_deviation = pow($the_variance, 0.5);
-
-  // return the variance
-  return $the_variance;
-}
-
 foreach ($fenbu as $key => $value) {
   $avg = array_sum($value) / count($value);
   dpm($key . ' - ' . $avg);
-  dpm(standard_deviation_population($value));
-  dpm(getStdevp($value));
-  dpm(getFangcha($value));
+  dpm(getVariance($value));
+  dpm(getStandardDeviation($value));
 }
