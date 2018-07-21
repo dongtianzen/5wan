@@ -38,7 +38,6 @@ class RunGetHistData:
     requestObjText = self.getWebSourceText()
 
     soup = BeautifulSoup(requestObjText, "html.parser")
-    print(soup)
     return soup
 
   # @return string, "图卢兹VS雷恩(2015/2016法甲)-百家欧赔-500彩票网"
@@ -77,7 +76,6 @@ class RunGetHistData:
     print(companyList)
     print(len(companyList))
 
-
     return
 
   #
@@ -97,6 +95,7 @@ class RunGetHistData:
 
 
 url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
+url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156'
 
 gameObj   = RunGetHistData(url)
 gameObj.getCompanyList()

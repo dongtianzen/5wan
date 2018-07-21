@@ -8,6 +8,10 @@ http://odds.500.com/fenxi/europe_xls.php?fixtureid=736656&excelst=2
 http://odds.500.com/fenxi/europe_xls.php?fixtureid=718646&excelst=2
 
 
+http://odds.500.com/fenxi1/ouzhi.php?id=523156
+http://odds.500.com/fenxi1/ouzhi.php?id=523156&start=30
+
+
 // 下载POST form 代码
 <form name="plform" action="/fenxi/europe_xls.php" method="post" id="plform">
   <input name="fixtureid" type="hidden" value="736666">
