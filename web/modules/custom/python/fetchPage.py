@@ -94,18 +94,35 @@ class RunGetHistData:
 
     return
 
+  #
+  def getValueByHtmlTagByHtmlId(self, htmlTag, htmlId):
+    output = self.soup.find(name = "td", attrs = {"id": htmlId})
+    print(output.string)
+
+    return output.string
+
 # getPageTitle, getGameTime, getGameResult, use this url
 url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
 
 # getGameOddList and getCompanyList use this url
-url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156&style=1&start=1&last=1'
+# url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156&style=1&start=1&last=1'
 
-print(8989000)
+
 gameObj   = RunGetHistData(url)
+
+gameObj.getValueByHtmlTagByHtmlId('td', 'avwinc2')
+gameObj.getValueByHtmlTagByHtmlId('td', 'avdrawc2')
+gameObj.getValueByHtmlTagByHtmlId('td', 'avlostc2')
+
+gameObj.getValueByHtmlTagByHtmlId('td', 'avwinj2')
+gameObj.getValueByHtmlTagByHtmlId('td', 'avdrawj2')
+gameObj.getValueByHtmlTagByHtmlId('td', 'avlostj2')
+exit()
+
+
 
 gameObj.getCompanyList()
 gameObj.getGameOddList()
-exit()
 
 gameObj.getWebSourceText()
 
