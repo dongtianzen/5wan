@@ -65,12 +65,17 @@ class RunGetHistData:
 
     return gameResult
 
-  # @return string
+  # @return string like "图卢兹,雷恩,图卢兹VS雷恩赔率,2015/2016法甲"
   def soupMetaKeywords(self):
-    metaResultHtml = self.soupGb2312.find(name = "meta", attrs = {"name": "Keywords"})
-    metaResult = metaResultHtml
-    print(metaResult)
-    return metaResult
+    metaKeywords = None
+
+    metaResult = self.soupGb2312.find_all(name = "meta", attrs = {"name": "Keywords"})
+
+    for tag in metaResult:
+      if 'name' in tag.attrs.keys() and tag.attrs['name'].strip().lower() in ['description', 'keywords']:
+        metaKeywords = (tag.attrs['content'])
+
+    return metaKeywords
 
   # @return string like "2016-02-28"
   def obtainGameDate(self):
@@ -162,7 +167,7 @@ gameObj   = RunGetHistData(url)
 # gameObj.convertPageResultDict()
 
 cc = gameObj.soupMetaKeywords()
-print(cc)
+# print(cc)
 
 exit()
 
