@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 
 
 # define a class
-class RunGetHistData:
+class FetchPageBasic:
 
   #
   def __init__(self, url):
@@ -180,12 +180,13 @@ class RunGetHistData:
 
 # soupPageTitle, soupGameTime, soupGameResult, use this url
 url = 'http://odds.500.com/fenxi/ouzhi-520156.shtml'
+url = 'http://odds.500.com/fenxi/ouzhi-741189.shtml'
 
 # findGameOddList and findCompanyList use this url
 # url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156&style=1&start=1&last=1'
 
 
-gameObj   = RunGetHistData(url)
+gameObj = FetchPageBasic(url)
 
 # gameObj.convertPageResultDict()
 
