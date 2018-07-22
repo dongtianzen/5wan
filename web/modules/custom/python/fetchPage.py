@@ -60,10 +60,17 @@ class RunGetHistData:
 
   # @return string like "3:2"
   def soupGameResult(self):
-    gameResultHtml = self.soup.find(name = "p", attrs = {"class": "odds_hd_bf"})
+    gameResultHtml = self.soupGb2312.find(name = "p", attrs = {"class": "odds_hd_bf"})
     gameResult = gameResultHtml.string
 
     return gameResult
+
+  # @return string
+  def soupMetaKeywords(self):
+    metaResultHtml = self.soupGb2312.find(name = "meta", attrs = {"name": "Keywords"})
+    metaResult = metaResultHtml
+    print(metaResult)
+    return metaResult
 
   # @return string like "2016-02-28"
   def obtainGameDate(self):
@@ -152,10 +159,10 @@ url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
 
 gameObj   = RunGetHistData(url)
 
-gameObj.convertPageResultDict()
+# gameObj.convertPageResultDict()
 
-pageTitle = gameObj.soupPageTitle()
-print(pageTitle)
+cc = gameObj.soupMetaKeywords()
+print(cc)
 
 exit()
 
