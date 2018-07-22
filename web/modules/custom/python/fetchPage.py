@@ -84,12 +84,28 @@ class RunGetHistData:
 
     return matchObj.group(0)
 
-  #
+  # Game Score
   def obtainGameResultList(self):
     gameResult = self.soupGameResult()
     gameResultList = gameResult.split(':')
 
     return gameResultList
+
+  #
+  def obtainGameTitleList(self):
+    gameTitle = self.soupMetaKeywords()
+    gameTitleList = gameTitle.split(',')
+
+    return gameTitleList
+
+  #
+  def filterGameTag(self):
+    # '2015/2016英冠'
+    gameYearTag = self.obtainGameTitleList()[3]
+
+    gameTag = re.search(pattern, gameYearTag)
+
+    return gameTag
 
   #
   def findCompanyList(self):
@@ -144,6 +160,11 @@ class RunGetHistData:
     output['goal_home'] = self.obtainGameResultList()[0]
     output['goal_away'] = self.obtainGameResultList()[1]
 
+    output['name_home'] = self.obtainGameTitleList()[0]
+    output['name_away'] = self.obtainGameTitleList()[1]
+
+    output['tag']  = self.filterGameTag()
+
     output['date'] = self.obtainGameDate()
 
 
@@ -156,7 +177,7 @@ class RunGetHistData:
   # --->
 
 # soupPageTitle, soupGameTime, soupGameResult, use this url
-url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
+url = 'http://odds.500.com/fenxi/ouzhi-520156.shtml'
 
 # findGameOddList and findCompanyList use this url
 # url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156&style=1&start=1&last=1'
@@ -166,8 +187,7 @@ gameObj   = RunGetHistData(url)
 
 # gameObj.convertPageResultDict()
 
-cc = gameObj.soupMetaKeywords()
-# print(cc)
+cc = gameObj.convertPageResultDict()
 
 exit()
 
