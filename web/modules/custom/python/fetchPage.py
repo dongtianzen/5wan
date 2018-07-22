@@ -42,13 +42,13 @@ class RunGetHistData:
     return soup
 
   # @return string, "图卢兹VS雷恩(2015/2016法甲)-百家欧赔-500彩票网"
-  def getPageTitle(self):
+  def soupPageTitle(self):
     pageTitle = self.soupGb2312.title.text
 
     return pageTitle
 
   # @return string like "比赛时间2016-02-28 03:00"
-  def getGameTime(self):
+  def soupGameTime(self):
     gameTimeHtml = self.soupGb2312.find(name = "p", attrs = {"class": "game_time"})
     gameTime = gameTimeHtml.string
 
@@ -58,30 +58,29 @@ class RunGetHistData:
 
     return gameTime
 
-  # @return string like "2016-02-28"
-  def getGameDate(self):
-    gameTime = self.getGameTime()
-
-    matchObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})",gameTime)
-
-    return matchObj.group(0)
-
   # @return string like "3:2"
-  def getGameResult(self):
+  def soupGameResult(self):
     gameResultHtml = self.soup.find(name = "p", attrs = {"class": "odds_hd_bf"})
     gameResult = gameResultHtml.string
 
     return gameResult
 
+  # @return string like "2016-02-28"
+  def obtainGameDate(self):
+    gameTime = self.soupGameTime()
+    matchObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})",gameTime)
+
+    return matchObj.group(0)
+
   #
-  def getGameResultList(self):
-    gameResult = self.getGameResult()
+  def obtainGameResultList(self):
+    gameResult = self.soupGameResult()
     gameResultList = gameResult.split(':')
 
     return gameResultList
 
   #
-  def getCompanyList(self):
+  def findCompanyList(self):
     companyHtmlArray = self.soup.findAll(name = "span", attrs = {"class": "quancheng"})
 
     companyList = []
@@ -97,7 +96,7 @@ class RunGetHistData:
     return
 
   #
-  def getGameOddList(self):
+  def findGameOddList(self):
     gameOddHtmlArray = self.soup.findAll(name = "td", attrs = {"onclick": "OZ.r(this)"})
 
     gameOddList = []
@@ -113,30 +112,30 @@ class RunGetHistData:
     return
 
   #
-  def getValueByHtmlTagByHtmlId(self, htmlTag, htmlId):
+  def findValueByHtmlTagByHtmlId(self, htmlTag, htmlId):
     output = self.soup.find(name = "td", attrs = {"id": htmlId})
 
     return output.string
 
   # @return output is "dict"
-  def getPageResultDict(self):
+  def convertPageResultDict(self):
     output = {}
 
-    output['ini_win']  = self.getValueByHtmlTagByHtmlId('td', 'avwinc2')
-    output['ini_draw'] = self.getValueByHtmlTagByHtmlId('td', 'avdrawc2')
-    output['ini_loss'] = self.getValueByHtmlTagByHtmlId('td', 'avlostc2')
+    output['ini_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinc2')
+    output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
+    output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
 
-    output['ave_win']  = self.getValueByHtmlTagByHtmlId('td', 'avwinj2')
-    output['ave_draw'] = self.getValueByHtmlTagByHtmlId('td', 'avdrawj2')
-    output['ave_loss'] = self.getValueByHtmlTagByHtmlId('td', 'avlostj2')
+    output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
+    output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
+    output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
 
-    output['goal_home'] = self.getGameResultList()[0]
-    output['goal_away'] = self.getGameResultList()[1]
+    output['goal_home'] = self.obtainGameResultList()[0]
+    output['goal_away'] = self.obtainGameResultList()[1]
 
-    output['date'] = self.getGameDate()
+    output['date'] = self.obtainGameDate()
 
 
-    # output['pageTitle'] = self.getPageTitle()
+    # output['pageTitle'] = self.soupPageTitle()
 
     print(output)
 
@@ -144,26 +143,26 @@ class RunGetHistData:
 
   # --->
 
-# getPageTitle, getGameTime, getGameResult, use this url
+# soupPageTitle, soupGameTime, soupGameResult, use this url
 url = 'http://odds.500.com/fenxi/ouzhi-523156.shtml'
 
-# getGameOddList and getCompanyList use this url
+# findGameOddList and findCompanyList use this url
 # url = 'http://odds.500.com/fenxi1/ouzhi.php?id=523156&style=1&start=1&last=1'
 
 
 gameObj   = RunGetHistData(url)
 
-gameObj.getPageResultDict()
+gameObj.convertPageResultDict()
 
-pageTitle = gameObj.getPageTitle()
+pageTitle = gameObj.soupPageTitle()
 print(pageTitle)
 
 exit()
 
 
 
-gameObj.getCompanyList()
-gameObj.getGameOddList()
+gameObj.findCompanyList()
+gameObj.findGameOddList()
 
 gameObj.getWebSourceText()
 
