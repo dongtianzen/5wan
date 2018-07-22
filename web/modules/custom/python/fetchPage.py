@@ -59,7 +59,7 @@ class RunGetHistData:
     return gameTime
 
   # @return string like "2016-02-28"
-  def gameDate(self):
+  def getGameDate(self):
     gameTime = self.getGameTime()
 
     matchObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})",gameTime)
@@ -121,18 +121,19 @@ class RunGetHistData:
   # @return output is "dict"
   def getPageResultDict(self):
     output = {}
-    output['avwinc2']  = self.getValueByHtmlTagByHtmlId('td', 'avwinc2')
-    output['avdrawc2'] = self.getValueByHtmlTagByHtmlId('td', 'avdrawc2')
-    output['avlostc2'] = self.getValueByHtmlTagByHtmlId('td', 'avlostc2')
 
-    output['avwinj2']  = self.getValueByHtmlTagByHtmlId('td', 'avwinj2')
-    output['avdrawj2'] = self.getValueByHtmlTagByHtmlId('td', 'avdrawj2')
-    output['avlostj2'] = self.getValueByHtmlTagByHtmlId('td', 'avlostj2')
+    output['ini_win']  = self.getValueByHtmlTagByHtmlId('td', 'avwinc2')
+    output['ini_draw'] = self.getValueByHtmlTagByHtmlId('td', 'avdrawc2')
+    output['ini_loss'] = self.getValueByHtmlTagByHtmlId('td', 'avlostc2')
 
-    output['goalHome'] = self.getGameResultList()[0]
-    output['goalAway'] = self.getGameResultList()[1]
+    output['ave_win']  = self.getValueByHtmlTagByHtmlId('td', 'avwinj2')
+    output['ave_draw'] = self.getValueByHtmlTagByHtmlId('td', 'avdrawj2')
+    output['ave_loss'] = self.getValueByHtmlTagByHtmlId('td', 'avlostj2')
 
-    output['gameDate'] = self.gameDate()
+    output['goal_home'] = self.getGameResultList()[0]
+    output['goal_away'] = self.getGameResultList()[1]
+
+    output['date'] = self.getGameDate()
 
 
     # output['pageTitle'] = self.getPageTitle()
@@ -154,8 +155,8 @@ gameObj   = RunGetHistData(url)
 
 gameObj.getPageResultDict()
 
-# pageTitle = gameObj.getPageTitle()
-# print(pageTitle)
+pageTitle = gameObj.getPageTitle()
+print(pageTitle)
 
 exit()
 
