@@ -80,7 +80,7 @@ class RunGetHistData:
   # @return string like "2016-02-28"
   def obtainGameDate(self):
     gameTime = self.soupGameTime()
-    matchObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})",gameTime)
+    matchObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})", gameTime)
 
     return matchObj.group(0)
 
@@ -100,10 +100,12 @@ class RunGetHistData:
 
   #
   def filterGameTag(self):
-    # '2015/2016英冠'
+    # '2015/2016英冠', or '2018世界杯'
     gameYearTag = self.obtainGameTitleList()[3]
 
-    gameTag = re.search(pattern, gameYearTag)
+    # remove 数字和反斜线部分
+    gameTag = re.sub("\/\d{4}", '', gameYearTag)
+    gameTag = re.sub("\d{4}", '', gameTag)
 
     return gameTag
 
