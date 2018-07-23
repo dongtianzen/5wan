@@ -56,8 +56,6 @@ class SyncJsonToNode {
    * @param, @key is code and date
    */
   public function runBatchinfoCreateNodeEntity($game_id, $json_content_piece = NULL) {
-    dpm($game_id);
-    dpm($json_content_piece);
     if (TRUE) {
       $node_nids = $this->queryNodeToCheckExistByField(NULL, $json_content_piece);
 
@@ -102,8 +100,8 @@ class SyncJsonToNode {
     );
 
     // special fix value
-    $tag_tid = $this->getTidByTermNameIfNullCreatNew($json_content_piece['tag'], $vocabulary_name = 'tag', $create_new = TRUE);
-dpm($tag_tid);
+    $tag_tid = $this->getTidByTermNameIfNullCreatNew($json_content_piece['tag'], $vocabulary_name = 'tags', $create_new = TRUE);
+
     $fields_value['field_win_id_500'] = array(
       $game_id,
     );
@@ -129,7 +127,7 @@ dpm($tag_tid);
         $fields_value[$row['field_name']] = $json_content_piece[$row['json_key']];
       }
     }
-
+dpm($fields_value);
     return $fields_value;
   }
 
@@ -143,14 +141,9 @@ dpm($tag_tid);
       ->getTidByTermName($term_name, $vocabulary_name);
 
     if (!$tid) {
-      dpm(148);
-      dpm($tid);
       if ($term_name && $vocabulary_name) {
         if ($create_new) {
-          dpm(150);
           $tid = \Drupal::getContainer()->get('flexinfo.term.service')->entityCreateTerm($term_name, $vocabulary_name);
-          dpm($term_name);
-          dpm($tid);
         }
       }
     }
