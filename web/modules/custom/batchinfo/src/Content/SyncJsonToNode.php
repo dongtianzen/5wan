@@ -97,7 +97,7 @@ class SyncJsonToNode {
    *
    */
   public function generateNodefieldsValue($code, $date, $json_content_piece = NULL) {
-    $entity_bundle = 'day';
+    $entity_bundle = 'win';
     $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     $fields_value = array(
@@ -212,19 +212,18 @@ class SyncJsonToNode {
     // );
 
     $json_content_piece = array(
-      "open" => 12.0,
-      "high" => 12.8,
-      "close" => 12.7,
-      "low" => 11.07,
-      "volume" => 1472901.6200000001,
-      "price_change" => 0.4,
-      "p_change" => 3.25,
-      "ma5" => 12.7,
-      "ma10" => 12.7,
-      "ma20" => 12.7,
-      "v_ma5" => 1472901.6200000001,
-      "v_ma10" => 1472901.6200000001,
-      "v_ma20" => 1472901.6200000001
+      "ave_draw" => "3.13",
+      "ave_loss" => "2.62",
+      "ave_win" => "2.68",
+      "date" => "2016-02-20",
+      "goal_away" => "1",
+      "goal_home" => "1",
+      "ini_draw" => "3.20",
+      "ini_loss" => "2.47",
+      "ini_win" => "2.74",
+      "name_away" => "女王公园巡游者",
+      "name_home" => "博尔顿",
+      "tag" => "英冠"
     );
 
     foreach ($json_content_piece as $key => $value) {
