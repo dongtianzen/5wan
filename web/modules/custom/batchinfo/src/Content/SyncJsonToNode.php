@@ -102,7 +102,11 @@ class SyncJsonToNode {
     );
 
     // special fix value
-    $tag_tid = $this->getTidByTermNameIfNullCreatNew($json_content_piece['tag'], $vocabulary_name = 'tag');
+    $tag_tid = $this->getTidByTermNameIfNullCreatNew($json_content_piece['tag'], $vocabulary_name = 'tag', $create_new = TRUE);
+dpm($tag_tid);
+    $fields_value['field_win_id_500'] = array(
+      $game_id,
+    );
 
     $fields_value['field_win_tag'] = array(
       'target_id' => $tag_tid,  // term tid
@@ -122,7 +126,6 @@ class SyncJsonToNode {
 
       }
       else {
-
         $fields_value[$row['field_name']] = $json_content_piece[$row['json_key']];
       }
     }
@@ -140,9 +143,14 @@ class SyncJsonToNode {
       ->getTidByTermName($term_name, $vocabulary_name);
 
     if (!$tid) {
+      dpm(148);
+      dpm($tid);
       if ($term_name && $vocabulary_name) {
         if ($create_new) {
+          dpm(150);
           $tid = \Drupal::getContainer()->get('flexinfo.term.service')->entityCreateTerm($term_name, $vocabulary_name);
+          dpm($term_name);
+          dpm($tid);
         }
       }
     }
