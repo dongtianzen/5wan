@@ -18,10 +18,11 @@ class FlexJsonBasic:
 
     return output
 
-  # 生成Json格式的文件
-  # @param jsonData is <class 'pandas.core.frame.DataFrame'>
+  # use pandas.DataFrame.to_json 生成Json格式的文件
+  # @param jsonData is require as <class 'pandas.core.frame.DataFrame'>
+  # orient = 'columns' or orient = 'index' is 不同转换数组List排序方法
   def generateJsonFromData(self, filePath, jsonData):
-    jsonData.to_json(filePath, orient='index')
+    jsonData.to_json(filePath, orient = 'columns')
 
     print ('JSON generate success')
     return
