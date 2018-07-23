@@ -55,8 +55,8 @@ class SyncJsonToNode {
    *
    * @param, @key is code and date
    */
-  public function runBatchinfoCreateNodeEntity($key, $json_content_piece = NULL) {
-    dpm($key);
+  public function runBatchinfoCreateNodeEntity($game_id, $json_content_piece = NULL) {
+    dpm($game_id);
     dpm($json_content_piece);
     if (TRUE) {
       $node_nids = $this->queryNodeToCheckExistByField(NULL, $json_content_piece);
@@ -66,7 +66,7 @@ class SyncJsonToNode {
         return;
       }
       else {
-        // $this->runCreateNodeEntity($code, $date, $json_content_piece);
+        $this->runCreateNodeEntity($game_id, $json_content_piece);
       }
     }
 
@@ -78,8 +78,8 @@ class SyncJsonToNode {
   /**
    *
    */
-  public function runCreateNodeEntity($code, $date, $json_content_piece = NULL) {
-    $fields_value = $this->generateNodefieldsValue($code, $date, $json_content_piece);
+  public function runCreateNodeEntity($game_id, $json_content_piece = NULL) {
+    $fields_value = $this->generateNodefieldsValue($game_id, $json_content_piece);
 
     \Drupal::getContainer()->get('flexinfo.node.service')->entityCreateNode($fields_value);
 
@@ -89,33 +89,34 @@ class SyncJsonToNode {
   /**
    *
    */
-  public function generateNodefieldsValue($code, $date, $json_content_piece = NULL) {
+  public function generateNodefieldsValue($game_id, $json_content_piece = NULL) {
     $entity_bundle = 'win';
     $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     $fields_value = array(
       'type' => $entity_bundle,
-      'title' =>  $entity_bundle . ' From JSON ' . $code . ' - ' . $date,
+      'title' =>  $entity_bundle . ' From JSON ' . $game_id . ' - ' . $json_content_piece['date'],
       'langcode' => $language,
       'uid' => 1,
       'status' => 1,
     );
 
     // special fix value
-    $code_tid = \Drupal::getContainer()
+    $tag_tid = \Drupal::getContainer()
       ->get('flexinfo.term.service')
-      ->getTidByTermName($code, $vocabulary_name = 'code');
+      ->getTidByTermName($json_content_piece['tag'], $vocabulary_name = 'tag');
 
-    $fields_value['field_day_code'] = array(
-      'target_id' => $code_tid,  // term tid
-    );
-
-    $fields_value['field_day_date'] = array(
-      $date,
+    $fields_value['field_win_tag'] = array(
+      'target_id' => $tag_tid,  // term tid
     );
 
     $node_bundle_fields = $this->allNodeBundleFields($json_content_piece);
     foreach ($node_bundle_fields as $row) {
+      // skip speical field
+      if ($row['field_name'] == 'field_win_tag') {
+        continue;
+      }
+
       if (isset($row['vocabulary'])) {
 
       }
@@ -123,6 +124,7 @@ class SyncJsonToNode {
 
       }
       else {
+
         $fields_value[$row['field_name']] = $json_content_piece[$row['json_key']];
       }
     }
