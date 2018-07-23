@@ -102,9 +102,7 @@ class SyncJsonToNode {
     );
 
     // special fix value
-    $tag_tid = \Drupal::getContainer()
-      ->get('flexinfo.term.service')
-      ->getTidByTermName($json_content_piece['tag'], $vocabulary_name = 'tag');
+    $tag_tid = $this->getTidByTermNameIfNullCreatNew($json_content_piece['tag'], $vocabulary_name = 'tag');
 
     $fields_value['field_win_tag'] = array(
       'target_id' => $tag_tid,  // term tid
@@ -135,6 +133,24 @@ class SyncJsonToNode {
   /**
    *
    */
+  public function getTidByTermNameIfNullCreatNew($term_name = NULL, $vocabulary_name = NULL, $create_new = FALSE) {
+    // special fix value
+    $tid = \Drupal::getContainer()
+      ->get('flexinfo.term.service')
+      ->getTidByTermName($term_name, $vocabulary_name);
+
+    if (!$tid) {
+      if ($term_name && $vocabulary_name) {
+        if ($create_new) {
+          $tid = \Drupal::getContainer()->get('flexinfo.term.service')->entityCreateTerm($term_name, $vocabulary_name);
+        }
+      }
+    }
+
+    return $tid;
+  }
+
+
   public function queryNodeToCheckExistByField($id, $json_content_piece = NULL) {
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
     $query = $query_container->queryNidsByBundle('day');
