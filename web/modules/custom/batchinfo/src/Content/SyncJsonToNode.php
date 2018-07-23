@@ -56,24 +56,16 @@ class SyncJsonToNode {
    * @param, @key is code and date
    */
   public function runBatchinfoCreateNodeEntity($key, $json_content_piece = NULL) {
-    $explodeKeyArray = $this->explodeKeyByCodeAndDate($key);
-
-    $code = $explodeKeyArray['code'];
-    $date = $explodeKeyArray['date'];
-
+    dpm($json_content_piece);
     if (TRUE) {
-      $node_nids = $this->queryNodeToCheckExist($code, $date, $json_content_piece);
+      $node_nids = $this->queryNodeToCheckExistByField(NULL, $json_content_piece);
 
-      if (count($node_nids) > 1) {
-        drupal_set_message('Node have - ' . count($node_nids) . ' - few same item', 'error');
-        return;
-      }
-      elseif (count($node_nids) > 0) {
-        drupal_set_message('Node have - ' . count($node_nids) . ' - same item');
+      if (count($node_nids) > 0) {
+        drupal_set_message('Node have - ' . count($node_nids) . ' - same item', 'error');
         return;
       }
       else {
-        $this->runCreateNodeEntity($code, $date, $json_content_piece);
+        // $this->runCreateNodeEntity($code, $date, $json_content_piece);
       }
     }
 
@@ -140,53 +132,28 @@ class SyncJsonToNode {
   /**
    *
    */
-  public function queryNodeToCheckExist($code, $date, $json_content_piece = NULL) {
+  public function queryNodeToCheckExistByField($id, $json_content_piece = NULL) {
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
     $query = $query_container->queryNidsByBundle('day');
 
-    if (isset($date)) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_day_date', $date);
+    if (isset($id)) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_id_500', $id);
       $query->condition($group);
     }
 
-    /* term */
-    if (isset($code)) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_day_code.entity.name', $code);
+    if (isset($json_content_piece['field_win_date'])) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_date', $date);
       $query->condition($group);
     }
 
-    /* value */
-    if (isset($json_content_piece['open'])) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_day_open', NULL, 'IS NOT NULL');
+    if (isset($json_content_piece['field_win_ave_win'])) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $json_content_piece['field_win_ave_win']);
       $query->condition($group);
     }
-
-    /* user */
-    // $group = $query_container->groupStandardByFieldValue($query, 'field_meeting_speaker.entity.name', $speaker_name);
-    // $query->condition($group);
 
     $nids = $query_container->runQueryWithGroup($query);
 
     return $nids;
-  }
-
-  /**
-   *
-   */
-  public function explodeKeyByCodeAndDate($key) {
-    $output['code'] = NULL;
-    $output['date'] = NULL;
-
-    $pieces = explode("_", $key);
-
-    if (isset($pieces[0])) {
-      $output['code'] = $pieces[0];
-    }
-    if (isset($pieces[1])) {
-      $output['date'] = $pieces[1];
-    }
-
-    return $output;
   }
 
   /**
