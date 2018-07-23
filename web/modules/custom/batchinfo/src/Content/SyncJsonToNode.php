@@ -56,6 +56,7 @@ class SyncJsonToNode {
    * @param, @key is code and date
    */
   public function runBatchinfoCreateNodeEntity($key, $json_content_piece = NULL) {
+    dpm($key);
     dpm($json_content_piece);
     if (TRUE) {
       $node_nids = $this->queryNodeToCheckExistByField(NULL, $json_content_piece);
@@ -141,13 +142,13 @@ class SyncJsonToNode {
       $query->condition($group);
     }
 
-    if (isset($json_content_piece['field_win_date'])) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_date', $date);
+    if (isset($json_content_piece['date'])) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_date', $json_content_piece['date']);
       $query->condition($group);
     }
 
-    if (isset($json_content_piece['field_win_ave_win'])) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $json_content_piece['field_win_ave_win']);
+    if (isset($json_content_piece['ave_win'])) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $json_content_piece['ave_win']);
       $query->condition($group);
     }
 
@@ -195,7 +196,7 @@ class SyncJsonToNode {
 
     foreach ($json_content_piece as $key => $value) {
       $node_bundle_fields[] = array(
-        'field_name' => 'field_day_' . $key,
+        'field_name' => 'field_win_' . $key,
         'json_key' => $key,
       );
     }
