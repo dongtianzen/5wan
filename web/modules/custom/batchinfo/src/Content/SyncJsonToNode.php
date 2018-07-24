@@ -57,10 +57,10 @@ class SyncJsonToNode {
    */
   public function runBatchinfoCreateNodeEntity($game_id, $json_content_piece = NULL) {
     if (TRUE) {
-      $node_nids = $this->queryNodeToCheckExistByField(NULL, $json_content_piece);
+      $node_nids = $this->queryNodeToCheckExistByField($game_id, $json_content_piece);
 
       if (count($node_nids) > 0) {
-        drupal_set_message('Node have - ' . count($node_nids) . ' - same item', 'error');
+        drupal_set_message('Game ' . $game_id . 'have - ' . count($node_nids) . ' - same item', 'error');
         return;
       }
       else {
@@ -93,27 +93,27 @@ class SyncJsonToNode {
 
     $fields_value = array(
       'type' => $entity_bundle,
-      'title' =>  $entity_bundle . ' From JSON ' . $game_id . ' - ' . $json_content_piece['date'],
+      'title' =>  $entity_bundle . ' From JSON ' . $game_id . ' - ' . $json_content_piece['date_time'],
       'langcode' => $language,
       'uid' => 1,
       'status' => 1,
     );
 
     // special fix value
-    $tag_tid = $this->getTidByTermNameIfNullCreatNew($json_content_piece['tag'], $vocabulary_name = 'tags', $create_new = TRUE);
+    $tags_tid = $this->getTidByTermNameIfNullCreatNew($json_content_piece['tags'], $vocabulary_name = 'tags', $create_new = TRUE);
 
     $fields_value['field_win_id_500'] = array(
       $game_id,
     );
 
-    $fields_value['field_win_tag'] = array(
-      'target_id' => $tag_tid,  // term tid
+    $fields_value['field_win_tags'] = array(
+      'target_id' => $tags_tid,  // term tid
     );
 
     $node_bundle_fields = $this->allNodeBundleFields($json_content_piece);
     foreach ($node_bundle_fields as $row) {
       // skip speical field
-      if ($row['field_name'] == 'field_win_tag') {
+      if ($row['field_name'] == 'field_win_tags') {
         continue;
       }
 
@@ -127,7 +127,7 @@ class SyncJsonToNode {
         $fields_value[$row['field_name']] = $json_content_piece[$row['json_key']];
       }
     }
-dpm($fields_value);
+
     return $fields_value;
   }
 
@@ -152,22 +152,17 @@ dpm($fields_value);
   }
 
 
-  public function queryNodeToCheckExistByField($id, $json_content_piece = NULL) {
+  public function queryNodeToCheckExistByField($game_id, $json_content_piece = NULL) {
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
-    $query = $query_container->queryNidsByBundle('day');
+    $query = $query_container->queryNidsByBundle('win');
 
-    if (isset($id)) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_id_500', $id);
+    if (isset($game_id)) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_id_500', $game_id);
       $query->condition($group);
     }
 
-    if (isset($json_content_piece['date'])) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_date', $json_content_piece['date']);
-      $query->condition($group);
-    }
-
-    if (isset($json_content_piece['ave_win'])) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $json_content_piece['ave_win']);
+    if (isset($json_content_piece['date_time'])) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_date_time', $json_content_piece['date_time']);
       $query->condition($group);
     }
 
@@ -202,7 +197,7 @@ dpm($fields_value);
       "ave_draw" => "3.13",
       "ave_loss" => "2.62",
       "ave_win" => "2.68",
-      "date" => "2016-02-20",
+      "date_time" => "2016-02-20T17:00",
       "goal_away" => "1",
       "goal_home" => "1",
       "ini_draw" => "3.20",
@@ -210,7 +205,7 @@ dpm($fields_value);
       "ini_win" => "2.74",
       "name_away" => "女王公园巡游者",
       "name_home" => "博尔顿",
-      "tag" => "英冠"
+      "tags" => "英冠"
     );
 
     foreach ($json_content_piece as $key => $value) {

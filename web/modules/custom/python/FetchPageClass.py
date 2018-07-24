@@ -48,7 +48,7 @@ class FetchPageBasic:
     return pageTitle
 
   # @return string like "比赛时间2016-02-28 03:00"
-  def soupGameTime(self):
+  def soupGameTimeInfo(self):
     gameTimeHtml = self.soupGb2312.find(name = "p", attrs = {"class": "game_time"})
     gameTime = gameTimeHtml.string
 
@@ -79,10 +79,20 @@ class FetchPageBasic:
 
   # @return string like "2016-02-28"
   def obtainGameDate(self):
-    gameTime = self.soupGameTime()
-    matchObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})", gameTime)
+    gameTimeInfo = self.soupGameTimeInfo()
+    matchDateObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})", gameTimeInfo)
 
-    return matchObj.group(0)
+    return matchDateObj.group(0)
+
+  # @return string like "2016-02-28T03:00"
+  def obtainGameDateAndTime(self):
+    gameTimeInfo = self.soupGameTimeInfo()
+    matchDateObj = re.search(r"(\d{4}-\d{1,2}-\d{1,2})", gameTimeInfo)
+    matchTimeObj = re.search(r"(\d{2}:\d{2})", gameTimeInfo)
+
+    output = matchDateObj.group(0) + 'T' + matchTimeObj.group(0) + ':00'
+
+    return output
 
   # Game Score
   def obtainGameResultList(self):
@@ -165,9 +175,9 @@ class FetchPageBasic:
     output['name_home'] = self.obtainGameTitleList()[0]
     output['name_away'] = self.obtainGameTitleList()[1]
 
-    output['tag']  = self.filterGameTag()
+    output['tags']  = self.filterGameTag()
 
-    output['date'] = self.obtainGameDate()
+    output['date_time'] = self.obtainGameDateAndTime()
 
     return output
 
