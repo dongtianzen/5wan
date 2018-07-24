@@ -172,7 +172,6 @@ class DashpageContentGenerator extends ControllerBase {
     // $query->range(0, 2);
     $nids = $query_container->runQueryWithGroup($query);
 
-
     return $nids;
   }
 
@@ -181,12 +180,11 @@ class DashpageContentGenerator extends ControllerBase {
    */
   public function queryWinByCompareTime($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $date = NULL) {
     $query = \Drupal::service('entity.query');
-
     $query = $query->get('node')
-    ->condition('type', 'win')
+    ->condition('type', 'page')
     ->condition('status', 1)
-    ->condition('field_win_ave_win', 2.03, '>');
-
+    ->condition('field_page_float_number', 2.01, '>'),
+    ->condition('field_page_float_number', 2.03, '<');
     $nids = $query->execute();
 
     return $nids;
