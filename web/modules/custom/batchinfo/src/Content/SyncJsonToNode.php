@@ -60,7 +60,7 @@ class SyncJsonToNode {
       $node_nids = $this->queryNodeToCheckExistByField($game_id, $json_content_piece);
 
       if (count($node_nids) > 0) {
-        drupal_set_message('Game ' . $game_id . 'have - ' . count($node_nids) . ' - same item', 'error');
+        drupal_set_message('Game ' . $game_id . ' have - ' . count($node_nids) . ' - same item', 'error');
         return;
       }
       else {
