@@ -129,11 +129,20 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function queryWinByCondition($ave_win = 2.03, $ave_draw = NULL, $ave_loss = NULL, $date = NULL) {
+  public function queryWinByCondition($ave_win = 2.03, $ave_draw = NULL, $ave_loss = NULL, $ave_win_diff = NULL, $ave_draw_diff = NULL, $ave_loss_diff = NULL) {
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
     $query = $query_container->queryNidsByBundle('win');
 
-    $ave_win_diff = 0.001;
+    if (!$ave_win_diff) {
+      $ave_win_diff = 0.001;
+    }
+    if (!$ave_draw_diff) {
+      $ave_draw_diff = 2;
+    }
+    if (!$ave_loss_diff) {
+      $ave_loss_diff = 20;
+    }
+
     if ($ave_win) {
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win - $ave_win_diff, '>');
       $query->condition($group);
@@ -141,12 +150,21 @@ class DashpageContentGenerator extends ControllerBase {
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win + $ave_win_diff, '<');
       $query->condition($group);
     }
+
+
     if ($ave_draw) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_draw);
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_draw', $ave_draw - $ave_draw_diff, '>');
+      $query->condition($group);
+
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_draw', $ave_draw + $ave_draw_diff, '<');
       $query->condition($group);
     }
+
     if ($ave_loss) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_loss);
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss - $ave_loss_diff, '>');
+      $query->condition($group);
+
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss + $ave_loss_diff, '<');
       $query->condition($group);
     }
 
