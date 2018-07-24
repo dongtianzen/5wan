@@ -57,14 +57,18 @@ class SyncJsonToNode {
    */
   public function runBatchinfoCreateNodeEntity($game_id, $json_content_piece = NULL) {
     if (TRUE) {
-      $node_nids = $this->queryNodeToCheckExistByField($game_id, $json_content_piece);
 
-      if (count($node_nids) > 0) {
-        drupal_set_message('Game ' . $game_id . ' have - ' . count($node_nids) . ' - same item', 'error');
-        return;
-      }
-      else {
-        $this->runCreateNodeEntity($game_id, $json_content_piece);
+      // skip some game 有基本比赛信息，但是没有赔率信息
+      if ($json_content_piece['ave_win']) {
+        $node_nids = $this->queryNodeToCheckExistByField($game_id, $json_content_piece);
+
+        if (count($node_nids) > 0) {
+          drupal_set_message('Game ' . $game_id . ' have - ' . count($node_nids) . ' - same item', 'error');
+          return;
+        }
+        else {
+          $this->runCreateNodeEntity($game_id, $json_content_piece);
+        }
       }
     }
 
