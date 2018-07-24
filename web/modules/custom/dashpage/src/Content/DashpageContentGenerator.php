@@ -49,16 +49,14 @@ class DashpageContentGenerator extends ControllerBase {
             $output .= 'Date';
           $output .= '</th>';
           $output .= '<th>';
-            $output .= '上证指数';
+            $output .= 'Tags';
           $output .= '</th>';
           $output .= '<th>';
-            $output .= 'Total';
+            $output .= 'Ave';
           $output .= '</th>';
-          foreach ($fenbu as $key => $value) {
-            $output .= '<th>';
-              $output .= $key;
-            $output .= '</th>';
-          }
+          $output .= '<th>';
+            $output .= 'Goal';
+          $output .= '</th>';
         $output .= '</tr>';
       $output .= '</thead>';
       $output .= '<tbody>';
@@ -75,50 +73,20 @@ class DashpageContentGenerator extends ControllerBase {
   public function getTrendContentTbodyRow($section) {
     $output = '';
 
-    $max_day = 2;
-    if ($section) {
-      $section_int = (int)$section;
-      if (is_int($section_int) && $section_int  > 0 ) {
-        $max_day = $section_int;
-      }
-    }
+    $win_nids = $this->queryWinByCondition($code_tid = NULL, $query_date);
+    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
 
-
-    $current_timestamp = \Drupal::time()->getCurrentTime();
-    for ($i = 0; $i < $max_day; $i++) {
-      $query_timestamp = $current_timestamp - ($i * 60 * 60 * 24);
-      $query_date = \Drupal::service('date.formatter')->format($query_timestamp, 'html_date');
-
-      $sz_value = NULL;
-      $sz_nids = $this->queryDayByCodeByDate($code_tid = 3610, $query_date);
-      if ($sz_nids) {
-        $sz_node = \Drupal::entityManager()->getStorage('node')->load($sz_nids[0]);
-
-        $sz_value = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($sz_node, 'field_day_p_change');
-      }
-
-      $day_nids = $this->queryDayByCodeByDate($code_tid = NULL, $query_date);
-      $day_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($day_nids);
-
-      $fenbu = $this->calcPercentageByNode($day_nodes);
-
+    foreach ($win_nodes as $key => $win_node) {
       $output .= '<tr>';
         $output .= '<td>';
-          $output .= $query_date;
+          $output .= 88;
         $output .= '</td>';
         $output .= '<td>';
-          $output .= $sz_value . '%';
+          $output .= 77 . '%';
         $output .= '</td>';
         $output .= '<td>';
-          $output .= array_sum($fenbu);
+          $output .= 66;
         $output .= '</td>';
-        foreach ($fenbu as $key => $value) {
-          $output .= '<td>';
-            $output .= $value;
-          $output .= '</td>';
-        }
       $output .= '</tr>';
     }
 
@@ -145,124 +113,22 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function calcPercentageByNode($day_nodes) {
-    $output = '';
-
-    $fenbu = $this->getFenbuArray();
-
-    if ($day_nodes) {
-      foreach ($day_nodes as $key => $row) {
-        $day_volume = \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($row, 'field_day_volume');
-
-        if ($day_volume > 0) {
-          $day_p_change = \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($row, 'field_day_p_change');
-
-          if ($day_p_change > 9) {
-            $fenbu['p9>']++;
-          }
-          elseif ($day_p_change > 5) {
-            $fenbu['p5>']++;
-          }
-          elseif ($day_p_change > 0) {
-            $fenbu['p0>']++;
-          }
-          elseif ($day_p_change > -5) {
-            $fenbu['p0<']++;
-          }
-          elseif ($day_p_change > -9) {
-            $fenbu['p5<']++;
-          }
-          elseif ($day_p_change > -11) {
-            $fenbu['p9<']++;
-          }
-          else {
-            $fenbu['else']++;
-          }
-        }
-      }
-    }
-
-    return $fenbu;
-  }
-
-  /**
-   *
-   */
-  public function getDayNids() {
-    $today_date = '2018-07-13';
-
-    $code_tids = \Drupal::getContainer()
-      ->get('flexinfo.term.service')
-      ->getTidsFromVidName($vid = 'code');
-
-    $tids_array = [];
-    foreach ($code_tids as $key => $code_tid) {
-      $nids = $this->queryDayByCodeByDate($code_tid, $today_date);
-
-      if ($nids) {
-        $checkPreviousDayResult = $this->checkPreviousDay($nids[0], $code_tid);
-
-        if ($checkPreviousDayResult) {
-          $tids_array[] = $code_tid;
-        }
-      }
-    }
-
-    $num = 1;
-    $output = ' ';
-    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadMultiple($tids_array);
-    foreach ($terms as $key => $term) {
-      $output .= $num . ' ';
-      $output .= $term->getName();
-      $output .= ' ';
-      $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($term, 'field_code_name');
-      $output .= '<br />';
-
-      $num++;
-    }
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function queryDayByCodeByDate($code_tid = NULL, $date = NULL) {
+  public function queryWinByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $date = NULL) {
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
-    $query = $query_container->queryNidsByBundle('day');
+    $query = $query_container->queryNidsByBundle('win');
 
-    if ($code_tid) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_day_code', $code_tid);
+    if ($ave_win) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win);
       $query->condition($group);
     }
 
     if ($date) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_day_date', $date);
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_date', $date);
       $query->condition($group);
     }
 
-    $nids = $query_container->runQueryWithGroup($query);
-
-    return $nids;
-  }
-
-  /**
-   * @param $code_tid is tid, not code name like 600117
-   */
-  public function queryDayNidsByCodeByDateGreater($code_tid = NULL, $date = NULL) {
-    $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
-    $query = $query_container->queryNidsByBundle('day');
-
-    $group = $query_container->groupStandardByFieldValue($query, 'field_day_code', $code_tid);
-    $query->condition($group);
-
-    $group = $query_container->groupStandardByFieldValue($query, 'field_day_date', '2018-07-08', '>');
-    $query->condition($group);
-    $group = $query_container->groupStandardByFieldValue($query, 'field_day_date', '2018-07-13', '<');
-    $query->condition($group);
-
-    $query->sort('field_day_date', 'DESC');
-    $query->range(0, 2);
+    // $query->sort('field_win_date', 'DESC');
+    // $query->range(0, 2);
     $nids = $query_container->runQueryWithGroup($query);
 
     return $nids;
