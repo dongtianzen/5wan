@@ -7,7 +7,7 @@ import urllib.request
 
 from pathlib import Path
 
-
+#%%
 # define a class
 class FlexJsonBasic:
 
@@ -48,3 +48,5 @@ class FlexJsonBasic:
       return filePath
 
     return
+
+  #%%

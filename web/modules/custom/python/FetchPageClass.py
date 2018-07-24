@@ -181,11 +181,4 @@ class FetchPageBasic:
 
     return output
 
-  # --->
-
-
-
-
-
-
-
+  #%%
