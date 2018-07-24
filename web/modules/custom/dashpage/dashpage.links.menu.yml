@@ -1,0 +1,5 @@
+dashpage.trend.page.menu:
+  title: 'Trend Page'
+  route_name: dashpage.trend.page
+  route_parameters: { section: 'page' }
+  menu_name: main
