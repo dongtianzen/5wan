@@ -39,24 +39,11 @@ class DashpageContentGenerator extends ControllerBase {
    *
    */
   public function getTrendContent($section) {
-    $fenbu = $this->getFenbuArray();
-
     $output = '';
     $output .= '<table class="table table-striped">';
       $output .= '<thead>';
         $output .= '<tr>';
-          $output .= '<th>';
-            $output .= 'Date';
-          $output .= '</th>';
-          $output .= '<th>';
-            $output .= 'Tags';
-          $output .= '</th>';
-          $output .= '<th>';
-            $output .= 'Ave';
-          $output .= '</th>';
-          $output .= '<th>';
-            $output .= 'Goal';
-          $output .= '</th>';
+          $output .= $this->getTrendContentTheadRow($section);
         $output .= '</tr>';
       $output .= '</thead>';
       $output .= '<tbody>';
@@ -70,24 +57,25 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTbodyRow($section) {
+  public function getTrendContentTheadRow($section) {
     $output = '';
 
-    $win_nids = $this->queryWinByCondition($code_tid = NULL, $query_date);
-    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
+    $variable = array(
+      'Date',
+      'Tags',
+      'Home',
+      'Away',
+      'Win',
+      'Draw',
+      'Loss',
+      'Goal',
+      'Goal',
+    );
 
-    foreach ($win_nodes as $key => $win_node) {
-      $output .= '<tr>';
-        $output .= '<td>';
-          $output .= 88;
-        $output .= '</td>';
-        $output .= '<td>';
-          $output .= 77 . '%';
-        $output .= '</td>';
-        $output .= '<td>';
-          $output .= 66;
-        $output .= '</td>';
-      $output .= '</tr>';
+    foreach ($variable as $key => $value) {
+      $output .= '<th>';
+        $output .= $value;
+      $output .= '</th>';
     }
 
     return $output;
@@ -96,16 +84,40 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getFenbuArray() {
-    $output = [
-      'p9>' => 0,
-      'p5>' => 0,
-      'p0>' => 0,
-      'p0<' => 0,
-      'p5<' => 0,
-      'p9<' => 0,
-      'else' => 0,
-    ];
+  public function getTrendContentTbodyRow($section) {
+    $output = '';
+
+    $win_nids = $this->queryWinByCondition($code_tid = NULL);
+    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
+
+    foreach ($win_nodes as $key => $win_node) {
+      $output .= '<tr>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_date_time');
+        $output .= '</td>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_name_home');
+        $output .= '</td>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_name_away');
+        $output .= '</td>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_ave_win');
+        $output .= '</td>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_ave_draw');
+        $output .= '</td>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_ave_loss');
+        $output .= '</td>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_goal_home');
+        $output .= '</td>';
+        $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_goal_away');
+        $output .= '</td>';
+      $output .= '</tr>';
+    }
 
     return $output;
   }
