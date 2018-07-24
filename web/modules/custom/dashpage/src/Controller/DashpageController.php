@@ -46,5 +46,20 @@ class DashpageController extends ControllerBase {
     return $build;
   }
 
+  /**
+   *
+   */
+  public function standardTrendForm() {
+    $form = \Drupal::formBuilder()->getForm('Drupal\dashpage\Form\DashpageTrendForm');
+
+    // or render
+    $build = array(
+      '#type' => 'markup',
+      '#markup' => render($form),
+    );
+
+    return $build;
+  }
+
 
 }

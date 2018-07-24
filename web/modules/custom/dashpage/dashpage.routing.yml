@@ -1,8 +1,17 @@
 # modal
 dashpage.trend.page:
-  path: '/dashpage/trend/{section}'
+  path: '/dashpage/trend/page/{section}'
   defaults:
     _controller: '\Drupal\dashpage\Controller\DashpageController::standardTrendPage'
     _title: 'Trend Page'
   requirements:
     _permission: 'access content'
+
+#
+dashpage.trend.form:
+  path: '/dashpage/trend/form'
+  defaults:
+    _controller: '\Drupal\dashpage\Controller\DashpageController::standardTrendForm'
+  requirements:
+    _permission: 'access content'
+    _role: 'authenticated'

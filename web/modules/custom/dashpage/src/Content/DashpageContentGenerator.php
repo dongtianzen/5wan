@@ -96,6 +96,9 @@ class DashpageContentGenerator extends ControllerBase {
           $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_date_time');
         $output .= '</td>';
         $output .= '<td>';
+          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstTargetIdTermName($win_node, 'field_win_tags');
+        $output .= '</td>';
+        $output .= '<td>';
           $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_name_home');
         $output .= '</td>';
         $output .= '<td>';
