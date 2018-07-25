@@ -26,12 +26,12 @@ class DashpageController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function standardTrendPage($section) {
+  public function standardTrendPage() {
     $name = 'time_one';
     Timer::start($name);
 
     $DashpageContentGenerator = new DashpageContentGenerator();
-    $markup = $DashpageContentGenerator->standardTrendPage($section);
+    $markup = $DashpageContentGenerator->standardTrendPage();
 
     $build = array(
       '#type' => 'markup',

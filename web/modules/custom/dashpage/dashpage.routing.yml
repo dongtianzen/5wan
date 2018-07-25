@@ -1,6 +1,6 @@
 # modal
 dashpage.trend.page:
-  path: '/dashpage/trend/page/{section}'
+  path: '/dashpage/trend/page'
   defaults:
     _controller: '\Drupal\dashpage\Controller\DashpageController::standardTrendPage'
     _title: 'Trend Page'

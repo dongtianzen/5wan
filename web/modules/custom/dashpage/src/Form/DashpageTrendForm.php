@@ -8,6 +8,7 @@ namespace Drupal\dashpage\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  *
@@ -48,6 +49,11 @@ class DashpageTrendForm extends FormBase {
       '#title' => 'ave_loss',
     ];
 
+    $form['ave_loss'] = [
+      '#type' => 'number',
+      '#title' => 'ave_loss',
+    ];
+
     $form['show'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
@@ -62,19 +68,12 @@ class DashpageTrendForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('email')) {
-      if (strpos($form_state->getValue('email'), '.com') === FALSE) {
-        $form_state->setErrorByName('email', $this->t('This is not a .com email address.'));
-      }
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    drupal_set_message($this->t('Your email address is @email', ['@email' => $form_state->getValue('email')]));
+    drupal_set_message($this->t('Your win value is @win', ['@win' => $form_state->getValue('ave_win')]));
+
+    $ave_win = $form_state->getValue('ave_win');
+    $url = Url::fromRoute('dashpage.trend.page', [], ['query' => ['$ave_win' => $ave_win]]);
+    $form_state->setRedirectUrl($url);
   }
 
 }

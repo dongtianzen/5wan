@@ -20,14 +20,14 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function standardTrendPage($section) {
+  public function standardTrendPage() {
     $output = '';
     $output .= '<div class="row margin-0">';
       $output .= '<div id="standard-google-map-wrapper">';
         $output .= '<div id="map-canvas">';
           $output .= 'Trend Table';
           $output .= '<br />';
-          $output .= $this->getTrendContent($section);
+          $output .= $this->getTrendContent();
         $output .= '</div>';
       $output .= '</div>';
     $output .= '</div>';
@@ -38,16 +38,16 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContent($section) {
+  public function getTrendContent() {
     $output = '';
     $output .= '<table class="table table-striped">';
       $output .= '<thead>';
         $output .= '<tr>';
-          $output .= $this->getTrendContentTheadRow($section);
+          $output .= $this->getTrendContentTheadRow();
         $output .= '</tr>';
       $output .= '</thead>';
       $output .= '<tbody>';
-        $output .= $this->getTrendContentTbodyRow($section);
+        $output .= $this->getTrendContentTbodyRow();
       $output .= '</tbody>';
     $output .= '</table>';
 
@@ -57,7 +57,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTheadRow($section) {
+  public function getTrendContentTheadRow() {
     $output = '';
 
     $variable = array(
@@ -84,10 +84,10 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTbodyRow($section) {
+  public function getTrendContentTbodyRow() {
     $output = '';
 
-    $win_nids = $this->queryWinByCondition($ave_win = 2.03);
+    $win_nids = $this->queryWinByCondition();
     dpm(count($win_nids));
     $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
 
@@ -129,9 +129,17 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function queryWinByCondition($ave_win = 2.03, $ave_draw = NULL, $ave_loss = NULL, $ave_win_diff = NULL, $ave_draw_diff = NULL, $ave_loss_diff = NULL) {
-    $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
-    $query = $query_container->queryNidsByBundle('win');
+  public function queryWinByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $ave_win_diff = NULL, $ave_draw_diff = NULL, $ave_loss_diff = NULL) {
+    $request_array = \Drupal::request()->query->all();
+    if (isset($request_array['ave_win'])) {
+      $ave_win = $request_array['ave_win'];
+    }
+    if (isset($request_array['ave_draw'])) {
+      $ave_draw = $request_array['ave_draw'];
+    }
+    if (isset($request_array['ave_loss'])) {
+      $ave_loss = $request_array['ave_loss'];
+    }
 
     if (!$ave_win_diff) {
       $ave_win_diff = 0.001;
@@ -143,6 +151,9 @@ class DashpageContentGenerator extends ControllerBase {
       $ave_loss_diff = 20;
     }
 
+    $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
+    $query = $query_container->queryNidsByBundle('win');
+
     if ($ave_win) {
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win - $ave_win_diff, '>');
       $query->condition($group);
@@ -150,7 +161,6 @@ class DashpageContentGenerator extends ControllerBase {
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win + $ave_win_diff, '<');
       $query->condition($group);
     }
-
 
     if ($ave_draw) {
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_draw', $ave_draw - $ave_draw_diff, '>');
@@ -183,7 +193,7 @@ class DashpageContentGenerator extends ControllerBase {
     $query = $query->get('node')
     ->condition('type', 'page')
     ->condition('status', 1)
-    ->condition('field_page_float_number', 2.01, '>'),
+    ->condition('field_page_float_number', 2.01, '>')
     ->condition('field_page_float_number', 2.03, '<');
     $nids = $query->execute();
 
