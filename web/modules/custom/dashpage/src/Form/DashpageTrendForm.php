@@ -72,7 +72,7 @@ class DashpageTrendForm extends FormBase {
     drupal_set_message($this->t('Your win value is @win', ['@win' => $form_state->getValue('ave_win')]));
 
     $ave_win = $form_state->getValue('ave_win');
-    $url = Url::fromRoute('dashpage.trend.page', [], ['query' => ['$ave_win' => $ave_win]]);
+    $url = Url::fromRoute('dashpage.trend.page', [], ['query' => ['ave_win' => $ave_win]]);
     $form_state->setRedirectUrl($url);
   }
 
