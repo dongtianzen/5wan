@@ -35,23 +35,27 @@ class DashpageTrendForm extends FormBase {
     ];
 
     $form['ave_win'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => 'ave_win',
     ];
 
     $form['ave_draw'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => 'ave_draw',
     ];
 
     $form['ave_loss'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => 'ave_loss',
     ];
 
-    $form['ave_loss'] = [
-      '#type' => 'number',
-      '#title' => 'ave_loss',
+    $form['tags'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => 'Tags',
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => array('tags'),
+      ],
     ];
 
     $form['show'] = [
@@ -72,7 +76,8 @@ class DashpageTrendForm extends FormBase {
     drupal_set_message($this->t('Your win value is @win', ['@win' => $form_state->getValue('ave_win')]));
 
     $ave_win = $form_state->getValue('ave_win');
-    $url = Url::fromRoute('dashpage.trend.page', [], ['query' => ['ave_win' => $ave_win]]);
+    $tags = $form_state->getValue('tags');
+    $url = Url::fromRoute('dashpage.trend.page', [], ['query' => ['ave_win' => $ave_win, 'tags' => $tags]]);
     $form_state->setRedirectUrl($url);
   }
 
