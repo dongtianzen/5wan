@@ -37,25 +37,41 @@ class DashpageTrendForm extends FormBase {
     $form['ave_win'] = [
       '#type' => 'textfield',
       '#title' => 'ave_win',
+      '#size' => 20,
     ];
 
     $form['ave_draw'] = [
       '#type' => 'textfield',
       '#title' => 'ave_draw',
+      '#size' => 20,
     ];
 
     $form['ave_loss'] = [
       '#type' => 'textfield',
       '#title' => 'ave_loss',
+      '#size' => 20,
     ];
 
     $form['tags'] = [
-      '#type' => 'entity_autocomplete',
+      '#type' => 'entity_autocomplete',    // autocomplete_deluxe
       '#title' => 'Tags',
       '#target_type' => 'taxonomy_term',
       '#selection_settings' => [
         'target_bundles' => array('tags'),
       ],
+    ];
+
+    $form['tags2'] = [
+      '#type' => 'autocomplete_deluxe',
+      '#title' => 't2',
+      '#target_type' => 'taxonomy_term',
+      '#selection_handler' => 'default',
+      '#selection_settings' => [
+        'target_bundles' => array('tags'),
+      ],
+      '#size' => 60,
+      '#autocomplete_route_name' => 'autocomplete_deluxe.autocomplete',
+      '#autocomplete_route_parameters' => array('taxonomy_term', 'default', 'tags'),
     ];
 
     $form['show'] = [

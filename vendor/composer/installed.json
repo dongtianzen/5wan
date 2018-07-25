@@ -1770,6 +1770,68 @@
         }
     },
     {
+        "name": "drupal/autocomplete_deluxe",
+        "version": "1.0.0-beta1",
+        "version_normalized": "1.0.0.0-beta1",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/autocomplete_deluxe",
+            "reference": "8.x-1.0-beta1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/autocomplete_deluxe-8.x-1.0-beta1.zip",
+            "reference": "8.x-1.0-beta1",
+            "shasum": "f59d928761a01a055c2240155a84b1d7286fe666"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0-beta1",
+                "datestamp": "1502921644",
+                "security-coverage": {
+                    "status": "not-covered",
+                    "message": "Beta releases are not covered by Drupal security advisories."
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Edward Chan",
+                "homepage": "https://www.drupal.org/user/1781334"
+            },
+            {
+                "name": "edwardchiapet",
+                "homepage": "https://www.drupal.org/user/2354784"
+            },
+            {
+                "name": "mpriscella",
+                "homepage": "https://www.drupal.org/user/2354820"
+            },
+            {
+                "name": "sepgil",
+                "homepage": "https://www.drupal.org/user/512828"
+            }
+        ],
+        "description": "Enhanced autocomplete using Jquery UI autocomplete.",
+        "homepage": "https://www.drupal.org/sandbox/edwardchan/2888186",
+        "support": {
+            "source": "http://cgit.drupalcode.org/autocomplete_deluxe",
+            "issues": "https://www.drupal.org/project/issues/2888186"
+        }
+    },
+    {
         "name": "drupal/backup_migrate",
         "version": "4.0.0",
         "version_normalized": "4.0.0.0",

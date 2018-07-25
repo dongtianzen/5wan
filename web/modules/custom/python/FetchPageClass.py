@@ -3,6 +3,7 @@ python3 web/modules/custom/python/fetchPage.py
 
 """
 
+import random
 import requests
 import re
 
@@ -18,9 +19,25 @@ class FetchPageBasic:
     self.soup = self.getSoupFromWebSource()
     self.soupGb2312 = self.getSoupFromWebSource('gb2312')
 
+  # 伪造 X-Forwarded-For
+  def getForwardedHeader(self):
+    ip_address = ['125.92.32.81', '125.92.32.82', '125.92.32.83']
+
+    headers = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+               "Accept-Encoding": "gzip, deflate",
+               "Accept-Language": "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3",
+               "Connection": "keep-alive",
+               "X-Forwarded-For": ip_address[random.randint(0, len(ip_address) - 1)],
+               "Content-Length": "31",
+               "Content-Type": "application/x-www-form-urlencoded",
+               "User-Agent": "Mozilla/5.0 (Windows NT 5.1; rv:11.0) Gecko/20100101 Firefox/11.0"}
+
+    return headers
+
   # @param encode = "utf-8", "gb2312"
   def getWebSourceObject(self, encode = "utf-8"):
     requestObj = requests.get(self.url)
+    requestObj = requests.get(self.url, self.getForwardedHeader())
     requestObj.encoding = encode
 
     return requestObj

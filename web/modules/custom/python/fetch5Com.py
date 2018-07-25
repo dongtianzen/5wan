@@ -10,7 +10,7 @@ from FlexJsonClass import FlexJsonBasic
 
 #%%
 jsonContentDict = {}
-for num in range(520300, 520500):
+for num in range(520390, 520400):
   url = Baseinfo().generateUrl(num)
   print(url)
   gameObj = FetchPageBasic(url)
