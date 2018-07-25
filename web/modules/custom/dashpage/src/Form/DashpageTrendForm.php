@@ -77,7 +77,12 @@ class DashpageTrendForm extends FormBase {
 
     $ave_win = $form_state->getValue('ave_win');
     $tags = $form_state->getValue('tags');
-    $url = Url::fromRoute('dashpage.trend.page', [], ['query' => ['ave_win' => $ave_win, 'tags' => $tags]]);
+
+    $url = Url::fromRoute(
+      'dashpage.trend.page',
+      [],
+      ['query' => ['ave_win' => $ave_win, 'tags' => $tags]]
+    );
     $form_state->setRedirectUrl($url);
   }
 
