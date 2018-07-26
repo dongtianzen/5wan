@@ -9,8 +9,14 @@ from BaseSiteClass import Baseinfo
 from FlexJsonClass import FlexJsonBasic
 
 #%%
+
+# start from 520000
+# http://odds.500.com/fenxi/ouzhi-521930.shtml
+startNum = 522000
+endNum   = startNum + 300
+
 jsonContentDict = {}
-for num in range(520390, 520400):
+for num in range(startNum, endNum):
   url = Baseinfo().generateUrl(num)
   print(url)
   gameObj = FetchPageBasic(url)

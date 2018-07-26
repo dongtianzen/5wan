@@ -21,7 +21,7 @@ class FetchPageBasic:
 
   # 伪造 X-Forwarded-For
   def getForwardedHeader(self):
-    ip_address = ['125.92.32.81', '125.92.32.82', '125.92.32.83']
+    ip_address = ['183.129.151.130', '125.92.32.82', '125.92.32.83']
 
     headers = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                "Accept-Encoding": "gzip, deflate",
@@ -172,13 +172,18 @@ class FetchPageBasic:
   def findValueByHtmlTagByHtmlId(self, htmlTag, htmlId):
     output = self.soup.find(name = "td", attrs = {"id": htmlId})
 
-    return output.string
+    # check html is not empty
+    if output:
+      return output.string
+    else:
+      return None
 
   # @return output is "dict"
   def convertPageResultDict(self):
     output = {}
 
-    output['ini_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinc2')
+    iniWinValue = self.findValueByHtmlTagByHtmlId('td', 'avwinc2')
+    output['ini_win']  = iniWinValue
     output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
     output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
 
@@ -186,15 +191,17 @@ class FetchPageBasic:
     output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
     output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
 
-    output['goal_home'] = self.obtainGameResultList()[0]
-    output['goal_away'] = self.obtainGameResultList()[1]
+    # check html value is not empty
+    if iniWinValue:
+      output['goal_home'] = self.obtainGameResultList()[0]
+      output['goal_away'] = self.obtainGameResultList()[1]
 
-    output['name_home'] = self.obtainGameTitleList()[0]
-    output['name_away'] = self.obtainGameTitleList()[1]
+      output['name_home'] = self.obtainGameTitleList()[0]
+      output['name_away'] = self.obtainGameTitleList()[1]
 
-    output['tags']  = self.filterGameTag()
+      output['tags']  = self.filterGameTag()
 
-    output['date_time'] = self.obtainGameDateAndTime()
+      output['date_time'] = self.obtainGameDateAndTime()
 
     return output
 
