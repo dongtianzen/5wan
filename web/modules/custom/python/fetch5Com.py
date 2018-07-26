@@ -12,7 +12,7 @@ from FlexJsonClass import FlexJsonBasic
 
 # start from 520000
 # http://odds.500.com/fenxi/ouzhi-521930.shtml
-startNum = 522438
+startNum = 522489
 endNum   = startNum + 300
 
 fileName = 'downloadGameInfo.json'

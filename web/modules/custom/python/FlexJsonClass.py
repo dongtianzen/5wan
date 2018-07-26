@@ -14,8 +14,10 @@ class FlexJsonBasic:
   #
   def readJsonContent(self, urlPath):
     jsonFile = open(urlPath, "r") # Open the JSON file for reading
-    output = json.load(jsonFile) # Read the JSON into the buffer
-    jsonFile.close() # Close the JSON file
+    output = json.load(jsonFile)  # Read the JSON into the buffer
+    jsonFile.close()              # Close the JSON file
+
+    time.sleep(0.01)
 
     return output
 

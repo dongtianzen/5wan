@@ -48,10 +48,18 @@ class VuepageController extends ControllerBase {
     ';
 
     $build = array(
-      '#type' => 'item',
-      '#header' => 'header',
-      '#markup' => $markup,
-      // '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
+      '#type' => 'html',
+      'page' => [
+        '#type' => 'page',
+        '#title' => 'Some page',
+        'content' => $markup,
+        '#attached' => [
+          // At least one of these have to have value,
+          // otherwise the head placeholder won't get replaced.
+          'html_head_link' => [],
+          'html_head' => []
+        ]
+      ],
       '#attached' => array(
         'library' => array(
           'vuepage/vue',
@@ -63,6 +71,15 @@ class VuepageController extends ControllerBase {
         ),
       ),
     );
+
+    $build['page']['#attached']['html_head'][] = [[
+         '#type' => 'html_tag',
+         '#tag' => 'meta',
+         '#attributes' => array(
+           'name' => 'Sometag',
+           'content' => 'somevalue',
+         ),
+       ], 'someid'];
 
     return $build;
   }
