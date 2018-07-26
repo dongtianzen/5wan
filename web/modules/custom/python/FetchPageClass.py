@@ -114,9 +114,12 @@ class FetchPageBasic:
   # Game Score
   def obtainGameResultList(self):
     gameResult = self.soupGameResult()
-    gameResultList = gameResult.split(':')
 
-    return gameResultList
+    # 有时候有赔率，但是没有比赛结果, 会返回“VS”， length 为 1
+    if gameResult:
+      return gameResult.split(':')
+    else:
+      return None
 
   #
   def obtainGameTitleList(self):
@@ -169,7 +172,7 @@ class FetchPageBasic:
     return
 
   #
-  def findValueByHtmlTagByHtmlId(self, htmlTag = 'td', htmlId):
+  def findValueByHtmlTagByHtmlId(self, htmlTag, htmlId):
     output = self.soup.find(name = htmlTag , attrs = {"id": htmlId})
 
     # check html is not empty
@@ -183,28 +186,31 @@ class FetchPageBasic:
     output = {}
 
     iniWinValue = self.findValueByHtmlTagByHtmlId('td', 'avwinc2')
-    output['ini_win']  = iniWinValue
-
+    print(output)
     # check html value is not empty
     if iniWinValue:
-      output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
-      output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
+      if len(self.obtainGameResultList()) > 1:
+        output['ini_win']  = iniWinValue
+        output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
+        output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
 
-      output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
-      output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
-      output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
+        output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
+        output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
+        output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
 
-      output['num_company'] = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
+        output['num_company'] = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
 
-      output['goal_home'] = self.obtainGameResultList()[0]
-      output['goal_away'] = self.obtainGameResultList()[1]
+        output['goal_home'] = self.obtainGameResultList()[0]
+        output['goal_away'] = self.obtainGameResultList()[1]
 
-      output['name_home'] = self.obtainGameTitleList()[0]
-      output['name_away'] = self.obtainGameTitleList()[1]
+        output['name_home'] = self.obtainGameTitleList()[0]
+        output['name_away'] = self.obtainGameTitleList()[1]
 
-      output['tags']  = self.filterGameTag()
+        output['tags']  = self.filterGameTag()
 
-      output['date_time'] = self.obtainGameDateAndTime()
+        output['date_time'] = self.obtainGameDateAndTime()
+
+    print(output)
 
     return output
 

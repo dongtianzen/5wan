@@ -12,8 +12,8 @@ from FlexJsonClass import FlexJsonBasic
 
 # start from 520000
 # http://odds.500.com/fenxi/ouzhi-521930.shtml
-startNum = 524779
-endNum   = startNum + 523
+startNum = 524780
+endNum   = startNum + 2
 
 fileName = 'downloadGameInfo.json'
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(fileName)
