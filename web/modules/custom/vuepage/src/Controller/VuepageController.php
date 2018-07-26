@@ -57,6 +57,19 @@ class VuepageController extends ControllerBase {
       ],
     );
 
+    $build = array(
+      '#markup' => $content,
+      '#attached' => array(
+        'library' => array(
+          'vuepage/vue',
+          'vuepage/babel-polyfill',
+          'vuepage/bootstrap',
+          'vuepage/bootstrap-vue',
+          'vuepage/vue_report',
+        )
+      )
+    );
+
     return $build;
   }
 
