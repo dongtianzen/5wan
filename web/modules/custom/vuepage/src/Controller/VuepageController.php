@@ -34,9 +34,17 @@ class VuepageController extends ControllerBase {
         </div>
       </div>
 
-      <br />
       <hr />
       <br />
+
+      <div id="components-demo">
+        <h5>components-demo</h5>
+        <button-counter></button-counter>
+      </div>
+
+      <hr />
+      <br />
+
 
       <div class="container bootstrap-vue-example-wrapper">
         <div id="app">

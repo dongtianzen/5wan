@@ -1,10 +1,5 @@
 
-var app = new Vue({
-  el: '#vueapp',
-  data: {
-    message: 'Hello Vue!'
-  }
-})
+
 
 
 window.onload = function() {
@@ -13,5 +8,15 @@ window.onload = function() {
     data: {
       name: 'Sitepoint'
     },
+    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
   })
 }
+
+new Vue({ el: '#components-demo' })
+
+var app = new Vue({
+  el: '#vueapp',
+  data: {
+    message: 'Hello Vue!'
+  }
+})

@@ -184,15 +184,16 @@ class FetchPageBasic:
 
     iniWinValue = self.findValueByHtmlTagByHtmlId('td', 'avwinc2')
     output['ini_win']  = iniWinValue
-    output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
-    output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
-
-    output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
-    output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
-    output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
 
     # check html value is not empty
     if iniWinValue:
+      output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
+      output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
+
+      output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
+      output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
+      output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
+
       output['goal_home'] = self.obtainGameResultList()[0]
       output['goal_away'] = self.obtainGameResultList()[1]
 
