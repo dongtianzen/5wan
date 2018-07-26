@@ -25,12 +25,27 @@ class VuepageController extends ControllerBase {
   public function vuePage() {
     $markup = '';
     $markup .= '
-      <div id="vueapp" class="container">
-        <h5>vue page Title</h5>
-        <div id="people">
-          <h5>{{message}}</h5>
+      <div class="container vue-example-wrapper">
+        <div id="vueapp" class="container">
+          <h5>Vue Example</h5>
+          <div id="people">
+            <h5>{{message}}</h5>
+          </div>
         </div>
-      </div>';
+      </div>
+
+      <br />
+      <hr />
+      <br />
+
+      <div class="container bootstrap-vue-example-wrapper">
+        <div id="app">
+          <h5>Bootstrap Vue Example</h5>
+          <b-alert show> Hello {{ name }}! </b-alert>
+        </div>
+      </div>
+
+    ';
 
     $build = array(
       '#type' => 'markup',
@@ -39,7 +54,11 @@ class VuepageController extends ControllerBase {
       '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
       '#attached' => array(
         'library' => array(
-          'fxt/vue',
+          'vuepage/vue',
+          // Add these after vue.js
+          'vuepage/babel-polyfill',
+          'vuepage/bootstrap',
+          'vuepage/bootstrap-vue',
           'vuepage/vue_report',
         ),
       ),

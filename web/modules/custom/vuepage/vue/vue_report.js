@@ -1,4 +1,3 @@
-console.log(89996);
 
 var app = new Vue({
   el: '#vueapp',
@@ -6,3 +5,13 @@ var app = new Vue({
     message: 'Hello Vue!'
   }
 })
+
+
+window.onload = function() {
+  new Vue({
+    el: '#app',
+    data: {
+      name: 'Sitepoint'
+    },
+  })
+}
