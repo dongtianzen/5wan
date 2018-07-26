@@ -21,7 +21,7 @@ class FetchPageBasic:
 
   # 伪造 X-Forwarded-For
   def getForwardedHeader(self):
-    ip_address = ['183.129.151.130', '125.92.32.82', '125.92.32.83']
+    ip_address = ['125.92.32.81', '125.92.32.82', '125.92.32.83']
 
     headers = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                "Accept-Encoding": "gzip, deflate",
@@ -37,7 +37,7 @@ class FetchPageBasic:
   # @param encode = "utf-8", "gb2312"
   def getWebSourceObject(self, encode = "utf-8"):
     requestObj = requests.get(self.url)
-    requestObj = requests.get(self.url, self.getForwardedHeader())
+    # requestObj = requests.get(self.url, self.getForwardedHeader())
     requestObj.encoding = encode
 
     return requestObj

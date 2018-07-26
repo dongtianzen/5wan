@@ -11,6 +11,14 @@ from pathlib import Path
 # define a class
 class FlexJsonBasic:
 
+  #
+  def readJsonContent(self, urlPath):
+    jsonFile = open(urlPath, "r") # Open the JSON file for reading
+    output = json.load(jsonFile) # Read the JSON into the buffer
+    jsonFile.close() # Close the JSON file
+
+    return output
+
   # @return output type is list
   def readJsonDecode(self, urlPath):
     with urllib.request.urlopen(urlPath) as url:
