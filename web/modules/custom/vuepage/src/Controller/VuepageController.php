@@ -48,10 +48,10 @@ class VuepageController extends ControllerBase {
     ';
 
     $build = array(
-      '#type' => 'markup',
+      '#type' => 'item',
       '#header' => 'header',
       '#markup' => $markup,
-      '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
+      // '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
       '#attached' => array(
         'library' => array(
           'vuepage/vue',
