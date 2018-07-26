@@ -1,0 +1,17 @@
+{
+  "name": "5wan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap-vue": "^2.0.0-rc.11"
+  }
+}
