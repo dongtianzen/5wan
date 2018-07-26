@@ -13,7 +13,7 @@ from FlexJsonClass import FlexJsonBasic
 # start from 520000
 # http://odds.500.com/fenxi/ouzhi-521930.shtml
 startNum = 521930
-endNum   = startNum + 70
+endNum   = startNum + 20
 
 jsonContentDict = {}
 for num in range(startNum, endNum):

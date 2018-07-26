@@ -1,0 +1,6 @@
+vue_report:
+  css:
+    theme:
+      css/vue_report.css: {}
+  js:
+    vue/vue_report.js: {}

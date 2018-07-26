@@ -1,0 +1,8 @@
+# vue
+vuepage.vue.page:
+  path: '/vuepage/vue/page'
+  defaults:
+    _controller: '\Drupal\vuepage\Controller\VuepageController::vuePage'
+    _title: 'Vue Page'
+  requirements:
+    _permission: 'access content'
