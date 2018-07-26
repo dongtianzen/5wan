@@ -37,10 +37,10 @@ class VuepageController extends ControllerBase {
       <hr />
       <br />
 
-      <div id="components-demo">
+      <template id="components-demo">
         <h5>components-demo</h5>
         <button-counter></button-counter>
-      </div>
+      </template>
 
       <hr />
       <br />
@@ -57,6 +57,7 @@ class VuepageController extends ControllerBase {
 
     $build = array(
       '#type' => 'html',
+      '#type' => 'inline_template',
       'page' => [
         '#type' => 'page',
         '#title' => 'ccccc',
@@ -66,7 +67,10 @@ class VuepageController extends ControllerBase {
     );
 
     $build = array(
-      '#markup' => $content,
+      '#type' => 'html_tag',
+  '#tag' => 'b-alert',
+  '#value' => "<button-counter></button-counter>Hello {{ name }}! ",
+      // '#markup' => $content,
       '#attached' => array(
         'library' => array(
           'vuepage/vue',

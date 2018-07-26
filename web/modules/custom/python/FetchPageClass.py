@@ -186,7 +186,7 @@ class FetchPageBasic:
     output = {}
 
     iniWinValue = self.findValueByHtmlTagByHtmlId('td', 'avwinc2')
-    print(output)
+
     # check html value is not empty
     if iniWinValue:
       if len(self.obtainGameResultList()) > 1:
@@ -209,8 +209,6 @@ class FetchPageBasic:
         output['tags']  = self.filterGameTag()
 
         output['date_time'] = self.obtainGameDateAndTime()
-
-    print(output)
 
     return output
 
