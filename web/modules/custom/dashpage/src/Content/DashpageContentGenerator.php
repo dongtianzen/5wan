@@ -99,6 +99,7 @@ class DashpageContentGenerator extends ControllerBase {
       'field_win_ave_loss',
       'field_win_goal_home',
       'field_win_goal_away',
+      'field_win_num_company',
     ];
 
     foreach ($win_nodes as $key => $win_node) {

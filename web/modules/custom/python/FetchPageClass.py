@@ -169,8 +169,8 @@ class FetchPageBasic:
     return
 
   #
-  def findValueByHtmlTagByHtmlId(self, htmlTag, htmlId):
-    output = self.soup.find(name = "td", attrs = {"id": htmlId})
+  def findValueByHtmlTagByHtmlId(self, htmlTag = 'td', htmlId):
+    output = self.soup.find(name = htmlTag , attrs = {"id": htmlId})
 
     # check html is not empty
     if output:
@@ -193,6 +193,8 @@ class FetchPageBasic:
       output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
       output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
       output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
+
+      output['num_company'] = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
 
       output['goal_home'] = self.obtainGameResultList()[0]
       output['goal_away'] = self.obtainGameResultList()[1]

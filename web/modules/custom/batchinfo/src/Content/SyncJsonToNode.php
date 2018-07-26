@@ -210,7 +210,8 @@ class SyncJsonToNode {
       "ini_win" => "2.74",
       "name_away" => "女王公园巡游者",
       "name_home" => "博尔顿",
-      "tags" => "英冠"
+      "tags" => "英冠",
+      "num_company" => "50"
     );
 
     foreach ($json_content_piece as $key => $value) {
