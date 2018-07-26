@@ -23,8 +23,8 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function vuePage() {
-    $markup = '';
-    $markup .= '
+    $content = '';
+    $content .= '
       <div class="container vue-example-wrapper">
         <div id="vueapp" class="container">
           <h5>Vue Example</h5>
@@ -51,35 +51,11 @@ class VuepageController extends ControllerBase {
       '#type' => 'html',
       'page' => [
         '#type' => 'page',
-        '#title' => 'Some page',
-        'content' => $markup,
-        '#attached' => [
-          // At least one of these have to have value,
-          // otherwise the head placeholder won't get replaced.
-          'html_head_link' => [],
-          'html_head' => []
-        ]
+        '#title' => 'ccccc',
+        '#show_messages' => TRUE,
+        'content' => $content,
       ],
-      '#attached' => array(
-        'library' => array(
-          'vuepage/vue',
-          // Add these after vue.js
-          'vuepage/babel-polyfill',
-          'vuepage/bootstrap',
-          'vuepage/bootstrap-vue',
-          'vuepage/vue_report',
-        ),
-      ),
     );
-
-    $build['page']['#attached']['html_head'][] = [[
-         '#type' => 'html_tag',
-         '#tag' => 'meta',
-         '#attributes' => array(
-           'name' => 'Sometag',
-           'content' => 'somevalue',
-         ),
-       ], 'someid'];
 
     return $build;
   }
