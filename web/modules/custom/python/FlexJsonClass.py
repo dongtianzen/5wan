@@ -38,14 +38,12 @@ class FlexJsonBasic:
     print ('JSON generate success')
     return
 
-
   def getGenerateJsonFilePath(self, fileName):
     # 运行文件从command line
     pathDir  = 'web/sites/default/files/json/5wan/'
     pathDirObject = Path(pathDir)
 
     if pathDirObject.is_dir():
-      print('is exist from command line')
       filePath = pathDir + fileName
       return filePath
 

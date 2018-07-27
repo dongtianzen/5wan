@@ -15,17 +15,14 @@ from FlexJsonClass import FlexJsonBasic
 startNum = 526000
 startNum = 540352
 
+pageIdFileName = 'startPageId.json'
+pageIdJsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(pageIdFileName)
+pageIdJsonContent = FlexJsonBasic().readJsonContent(pageIdJsonFilePath)
 
+startNum = pageIdJsonContent["id"]
 endNum   = startNum + 10000
 
-
-pageIdfileName = 'startPageId.json'
-jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(pageIdfileName)
-jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
-print(jsonContentFromFile)
-exit()
-
-
+#
 fileName = 'downloadGameInfo.json'
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(fileName)
 
