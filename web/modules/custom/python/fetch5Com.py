@@ -13,13 +13,12 @@ from FlexJsonClass import FlexJsonBasic
 # start from 520000
 # http://odds.500.com/fenxi/ouzhi-521930.shtml
 startNum = 526000
-startNum = 540352
 
 pageIdFileName = 'startPageId.json'
 pageIdJsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(pageIdFileName)
 pageIdJsonContent = FlexJsonBasic().readJsonContent(pageIdJsonFilePath)
 
-startNum = pageIdJsonContent["id"]
+startNum = pageIdJsonContent["0"]["id"]
 endNum   = startNum + 10000
 
 #
@@ -36,7 +35,12 @@ for num in range(startNum, endNum):
   jsonContentFromFile[num] = gameObj.convertPageResultDict()
 
   jsonContent = pd.DataFrame.from_dict(jsonContentFromFile)
-
   FlexJsonBasic().generateJsonFromData(jsonFilePath, jsonContent)
+
+  #
+  pageIdJsonContent = { "id" : num}
+
+  pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
+  FlexJsonBasic().generateJsonFromData(pageIdJsonFilePath, pageIdJsonContentDataFrame)
 
 exit()
