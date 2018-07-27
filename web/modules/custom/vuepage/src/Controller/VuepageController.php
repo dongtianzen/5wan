@@ -28,8 +28,8 @@ class VuepageController extends ControllerBase {
       <div class="container vue-example-wrapper">
         <div id="vueapp" class="container">
           <h5>Vue Example</h5>
-          <div id="people">
-            <h5>show vue message - {{message}}</h5>
+          <div class="text-primary">
+            <span class="text-primary">show vue message - {{message}}</span>
           </div>
         </div>
       </div>
@@ -40,6 +40,8 @@ class VuepageController extends ControllerBase {
       <div class="container bootstrap-vue-example-wrapper">
         <div id="app">
           <h5>Bootstrap Vue Example</h5>
+          <span> Hello {{ name }}! </span>
+          <br />
           <b-alert show> Hello {{ name }}! </b-alert>
         </div>
       </div>
