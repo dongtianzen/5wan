@@ -29,22 +29,13 @@ class VuepageController extends ControllerBase {
         <div id="vueapp" class="container">
           <h5>Vue Example</h5>
           <div id="people">
-            <h5>{{message}}</h5>
+            <h5>show vue message - {{message}}</h5>
           </div>
         </div>
       </div>
 
       <hr />
       <br />
-
-      <template id="components-demo">
-        <h5>components-demo</h5>
-        <button-counter></button-counter>
-      </template>
-
-      <hr />
-      <br />
-
 
       <div class="container bootstrap-vue-example-wrapper">
         <div id="app">
@@ -56,21 +47,8 @@ class VuepageController extends ControllerBase {
     ';
 
     $build = array(
-      '#type' => 'html',
       '#type' => 'inline_template',
-      'page' => [
-        '#type' => 'page',
-        '#title' => 'ccccc',
-        '#show_messages' => TRUE,
-        'content' => $content,
-      ],
-    );
-
-    $build = array(
-      '#type' => 'html_tag',
-  '#tag' => 'b-alert',
-  '#value' => "<button-counter></button-counter>Hello {{ name }}! ",
-      // '#markup' => $content,
+      '#template' => $content,
       '#attached' => array(
         'library' => array(
           'vuepage/vue',
@@ -79,8 +57,25 @@ class VuepageController extends ControllerBase {
           'vuepage/bootstrap-vue',
           'vuepage/vue_report',
         )
-      )
+      ),
     );
+
+    // $build = array(
+    //   // '#type' => 'html_tag',
+    //   // '#tag' => 'b-alert',
+    //   // '#value' => "<button-counter></button-counter>Hello {{ name }}! ",
+    //   '#markup' => $content,
+    //   '#allowed_tags' => ['div', 'hr', 'br', 'h5', 'button-counter', 'b-alert', 'iframe', 'X-Frame-Options'],
+    //   '#attached' => array(
+    //     'library' => array(
+    //       'vuepage/vue',
+    //       'vuepage/babel-polyfill',
+    //       'vuepage/bootstrap',
+    //       'vuepage/bootstrap-vue',
+    //       'vuepage/vue_report',
+    //     )
+    //   )
+    // );
 
     return $build;
   }

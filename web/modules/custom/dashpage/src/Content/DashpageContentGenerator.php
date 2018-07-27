@@ -89,8 +89,9 @@ class DashpageContentGenerator extends ControllerBase {
     $output = '';
 
     $win_nids = $this->queryWinByCondition();
-    dpm(count($win_nids));
     $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
+
+    dpm(count($win_nids));
 
     $node_fields = [
       'field_win_name_home',

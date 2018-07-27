@@ -1,5 +1,5 @@
 
-
+console.log(666);
 
 
 window.onload = function() {
@@ -8,11 +8,10 @@ window.onload = function() {
     data: {
       name: 'Sitepoint'
     },
-    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    template: '<button >You clicked me times.</button>'
   })
 }
 
-new Vue({ el: '#components-demo' })
 
 var app = new Vue({
   el: '#vueapp',
