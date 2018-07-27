@@ -23,20 +23,7 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function vuePage() {
-    $content = '';
-    $content .= '
-      <div class="container vue-example-wrapper">
-        <div id="vueapp" class="container">
-          <h5>Vue Example</h5>
-          <div class="text-primary">
-            <span class="text-primary">show vue message - {{message}}</span>
-          </div>
-        </div>
-      </div>
-
-      <hr />
-      <br />
-
+    $content = '
       <div class="container bootstrap-vue-example-wrapper">
         <div id="app">
           <h5>Bootstrap Vue Example</h5>
@@ -46,6 +33,15 @@ class VuepageController extends ControllerBase {
         </div>
       </div>
 
+      <>
+      <div class="container vue-example-wrapper">
+        <div id="vueapp" class="container">
+          <h5>Vue Example</h5>
+          <div class="text-primary">
+            <span class="text-primary">show vue message - {{message}}</span>
+          </div>
+        </div>
+      </div>
     ';
 
     $build = array(
@@ -62,12 +58,22 @@ class VuepageController extends ControllerBase {
       ),
     );
 
+
+    $build = array(
+      '#children' => $content,
+      '#attached' => array(
+        'library' => array(
+          'vuepage/vue',
+          'vuepage/babel-polyfill',
+          'vuepage/bootstrap',
+          'vuepage/bootstrap-vue',
+          'vuepage/vue_report',
+        )
+      ),
+    );
+
     // $build = array(
-    //   // '#type' => 'html_tag',
-    //   // '#tag' => 'b-alert',
-    //   // '#value' => "<button-counter></button-counter>Hello {{ name }}! ",
-    //   '#markup' => $content,
-    //   '#allowed_tags' => ['div', 'hr', 'br', 'h5', 'button-counter', 'b-alert', 'iframe', 'X-Frame-Options'],
+    //   '#markup' => \Drupal\Core\Render\Markup::create($content),
     //   '#attached' => array(
     //     'library' => array(
     //       'vuepage/vue',
@@ -76,8 +82,9 @@ class VuepageController extends ControllerBase {
     //       'vuepage/bootstrap-vue',
     //       'vuepage/vue_report',
     //     )
-    //   )
+    //   ),
     // );
+
 
     return $build;
   }

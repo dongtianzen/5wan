@@ -1,5 +1,5 @@
 
-console.log(666);
+console.log(777);
 
 
 window.onload = function() {
@@ -13,11 +13,11 @@ window.onload = function() {
   })
 }
 
-window.onload = function() {
-  var app = new Vue({
-    el: '#vueapp',
-    data: {
-      message: 'Hello Vue!'
-    }
-  })
-}
+
+
+var app = new Vue({
+  el: '#vueapp',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
