@@ -70,6 +70,7 @@ class DashpageContentGenerator extends ControllerBase {
       'Loss',
       'Goal',
       'Goal',
+      'Num',
     );
 
     foreach ($variable as $key => $value) {
@@ -125,7 +126,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function queryWinByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $ave_win_diff = NULL, $ave_draw_diff = NULL, $ave_loss_diff = NULL) {
+  public function queryWinByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $ave_win_diff = NULL, $ave_draw_diff = NULL, $ave_loss_diff = NULL, $tags = NULL) {
     $request_array = \Drupal::request()->query->all();
     if (isset($request_array['ave_win'])) {
       $ave_win = $request_array['ave_win'];
@@ -145,6 +146,10 @@ class DashpageContentGenerator extends ControllerBase {
     }
     if (!$ave_loss_diff) {
       $ave_loss_diff = 20;
+    }
+
+    if (isset($request_array['tags'])) {
+      $tags = $request_array['tags'];
     }
 
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
@@ -171,6 +176,11 @@ class DashpageContentGenerator extends ControllerBase {
       $query->condition($group);
 
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss + $ave_loss_diff, '<');
+      $query->condition($group);
+    }
+
+    if ($tags) {
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags', $tags);
       $query->condition($group);
     }
 
