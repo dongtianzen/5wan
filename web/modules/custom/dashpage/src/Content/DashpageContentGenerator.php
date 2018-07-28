@@ -94,30 +94,80 @@ class DashpageContentGenerator extends ControllerBase {
     dpm(count($win_nids));
 
     $node_fields = [
-      'field_win_name_home',
-      'field_win_name_away',
-      'field_win_ave_win',
-      'field_win_ave_draw',
-      'field_win_ave_loss',
-      'field_win_goal_home',
-      'field_win_goal_away',
-      'field_win_num_company',
+      array(
+        'type' => 'value',
+        'field' => 'field_win_date_time'
+      ),
+      array(
+        'type' => 'term',
+        'field' => 'field_win_tags'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_name_home'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_name_away'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_ave_win'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_ave_draw'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_ave_loss'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_goal_home'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_goal_away'
+      ),
+      array(
+        'type' => 'value',
+        'field' => 'field_win_num_company'
+      ),
     ];
 
     foreach ($win_nodes as $key => $win_node) {
-      $output .= '<tr>';
-        $output .= '<td>';
-          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, 'field_win_date_time');
-        $output .= '</td>';
-        $output .= '<td>';
-          $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstTargetIdTermName($win_node, 'field_win_tags');
-        $output .= '</td>';
 
-        foreach ($node_fields as $key => $row) {
+      foreach ($node_fields as $row) {
+        if ($row['type'] == 'term') {
+          $temp[$row['field']] = \Drupal::getContainer()
+            ->get('flexinfo.field.service')
+            ->getFieldFirstTargetIdTermName($win_node, $row['field']);
+        }
+        else {
+          $temp[$row['field']] = \Drupal::getContainer()
+            ->get('flexinfo.field.service')
+            ->getFieldFirstValue($win_node, $row['field']);
+        }
+      }
+
+      if ($temp['field_win_goal_home'] > $temp['field_win_goal_away']) {
+        $temp['field_win_ave_win'] = '<span style="color:blue;">' . $temp['field_win_ave_win'] . '</span>';
+      }
+      elseif ($temp['field_win_goal_home'] == $temp['field_win_goal_away']) {
+        $temp['field_win_ave_draw'] = '<span style="color:blue;">' . $temp['field_win_ave_draw'] . '</span>';
+      }
+      else {
+        $temp['field_win_ave_loss'] = '<span style="color:blue;">' . $temp['field_win_ave_loss'] . '</span>';
+      }
+
+      $output .= '<tr>';
+        foreach ($temp as $value) {
           $output .= '<td>';
-            $output .= \Drupal::getContainer()->get('flexinfo.field.service')->getFieldFirstValue($win_node, $row);
+            $output .= $value;
           $output .= '</td>';
         }
+
       $output .= '</tr>';
     }
 
