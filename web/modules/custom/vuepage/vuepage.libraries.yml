@@ -50,3 +50,31 @@ vue_report:
   js:
     vue/vue_report.js: {}
 
+#
+vue_table_js:
+  js:
+    vue/vue_table_controller.js: {}
+
+#
+axios:
+  remote: https://github.com/axios/axios
+  version: 0.15.3
+  license:
+    name: MIT
+    gpl-compatible: true
+  js:
+    /libraries/node_modules/axios/dist/axios.min.js: {}
+
+#
+vuetable-2:
+  remote: https://github.com/ratiw/vuetable-2
+  version: 1.7.5
+  license:
+    name: MIT
+    gpl-compatible: true
+  css:
+    theme:
+      /libraries/node_modules/vuetable-2/dist/vuetable-2.css: {}
+  js:
+    /libraries/node_modules/vuetable-2/dist/vuetable-2.js: {}
+

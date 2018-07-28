@@ -1,7 +1,6 @@
-
-console.log(777);
-
-
+/**
+ *
+ */
 window.onload = function() {
   new Vue({
     el: '#app',

@@ -22,7 +22,7 @@ class VuepageController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function vuePage() {
+  public function basicContent() {
     $content = '
       <div class="container bootstrap-vue-example-wrapper">
         <div id="app">
@@ -33,7 +33,7 @@ class VuepageController extends ControllerBase {
         </div>
       </div>
 
-      <>
+      <hr />
       <div class="container vue-example-wrapper">
         <div id="vueapp" class="container">
           <h5>Vue Example</h5>
@@ -44,20 +44,14 @@ class VuepageController extends ControllerBase {
       </div>
     ';
 
-    $build = array(
-      '#type' => 'inline_template',
-      '#template' => $content,
-      '#attached' => array(
-        'library' => array(
-          'vuepage/vue',
-          'vuepage/babel-polyfill',
-          'vuepage/bootstrap',
-          'vuepage/bootstrap-vue',
-          'vuepage/vue_report',
-        )
-      ),
-    );
+    return $content;
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function vuePage() {
+    $content = $this->basicContent();
 
     $build = array(
       '#children' => $content,
@@ -67,23 +61,13 @@ class VuepageController extends ControllerBase {
           'vuepage/babel-polyfill',
           'vuepage/bootstrap',
           'vuepage/bootstrap-vue',
+          'vuepage/axios',
+          'vuepage/vuetable-2',
           'vuepage/vue_report',
+          'vuepage/vue_table_js',
         )
       ),
     );
-
-    // $build = array(
-    //   '#markup' => \Drupal\Core\Render\Markup::create($content),
-    //   '#attached' => array(
-    //     'library' => array(
-    //       'vuepage/vue',
-    //       'vuepage/babel-polyfill',
-    //       'vuepage/bootstrap',
-    //       'vuepage/bootstrap-vue',
-    //       'vuepage/vue_report',
-    //     )
-    //   ),
-    // );
 
 
     return $build;
