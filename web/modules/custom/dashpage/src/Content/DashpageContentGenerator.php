@@ -85,7 +85,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTable() {
+  public function getNodeWinField() {
     $output = [
       array(
         'type' => 'value',
@@ -141,7 +141,7 @@ class DashpageContentGenerator extends ControllerBase {
     $win_nids = $this->queryWinByCondition();
     $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
 
-    $node_fields = $this->getTrendContentTable();
+    $node_fields = $this->getNodeWinField();
 
     $result = [
       'win' => 0,
