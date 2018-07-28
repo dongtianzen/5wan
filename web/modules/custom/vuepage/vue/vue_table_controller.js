@@ -10,6 +10,7 @@ new Vue({
    'vuetable-pagination': Vuetable.VuetablePagination
   },
   data: {
+    // Fields defined as array of object
     fields: [
       {
         name: 'name',
