@@ -10,8 +10,7 @@ from FlexJsonClass import FlexJsonBasic
 
 #%%
 #
-fileName = 'downloadGameInfo.json'
-jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(fileName)
+jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo.json')
 
 def runFetch(num):
   jsonContentDict = {}
@@ -37,10 +36,15 @@ def runFetch(num):
 
 # start from 520000
 startNum = 526000
-startNum = FlexJsonBasic().getStartNumFromJson()
+startNum = FlexJsonBasic().getStartPageIdFromJson()
 
-for num in range(startNum, (startNum + 10000)):
-  runFetch(num)
-
+#
+# except Exception: not catch KeyboardInterrupt, SystemExit
+for num in range(startNum, (startNum + 10)):
+  try:
+    runFetch(num)
+  except Exception:
+    print("Oops!  That was no valid number.  Try again...")
+    pass
 
 exit()
