@@ -47,7 +47,7 @@ class DashpageContentGenerator extends ControllerBase {
         $output .= '</tr>';
       $output .= '</thead>';
       $output .= '<tbody>';
-        $output .= $this->getTrendContentTbodyRow();
+        $output .= $this->getTrendContentTable()['tbody'];
       $output .= '</tbody>';
     $output .= '</table>';
 
@@ -85,15 +85,8 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTbodyRow() {
-    $output = '';
-
-    $win_nids = $this->queryWinByCondition();
-    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
-
-    dpm(count($win_nids));
-
     $node_fields = [
+    $output = [
       array(
         'type' => 'value',
         'field' => 'field_win_date_time'
@@ -136,12 +129,25 @@ class DashpageContentGenerator extends ControllerBase {
       ),
     ];
 
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function getTrendContentTable() {
+    $tbody = '';
+
+    $win_nids = $this->queryWinByCondition();
+    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
+
+    $node_fields = $this->getTrendContentTable();
+
     $result = [
       'win' => 0,
       'draw' => 0,
       'loss' => 0,
     ];
-
     foreach ($win_nodes as $key => $win_node) {
 
       foreach ($node_fields as $row) {
@@ -170,15 +176,20 @@ class DashpageContentGenerator extends ControllerBase {
         $result['loss']++;
       }
 
-      $output .= '<tr>';
+      $tbody .= '<tr>';
         foreach ($temp as $value) {
-          $output .= '<td>';
-            $output .= $value;
-          $output .= '</td>';
+          $tbody .= '<td>';
+            $tbody .= $value;
+          $tbody .= '</td>';
         }
 
-      $output .= '</tr>';
+      $tbody .= '</tr>';
     }
+
+    dpm(count($win_nids));
+    dpm($result);
+
+    $output['tbody'] = $tbody;
 
     return $output;
   }
