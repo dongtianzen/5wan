@@ -9,19 +9,16 @@ from BaseSiteClass import Baseinfo
 from FlexJsonClass import FlexJsonBasic
 
 #%%
-
-# start from 520000
-startNum = 526000
-startNum = FlexJsonBasic().getStartNumFromJson()
-
 #
 fileName = 'downloadGameInfo.json'
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(fileName)
 
-for num in range(startNum, (startNum + 10000)):
+def runFetch(num):
   jsonContentDict = {}
+
   url = Baseinfo().generateUrl(num)
   print(url)
+
   gameObj = FetchPageBasic(url)
 
   jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
@@ -35,5 +32,15 @@ for num in range(startNum, (startNum + 10000)):
 
   pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
   FlexJsonBasic().generateJsonForPageId(pageIdJsonContentDataFrame)
+
+  return
+
+# start from 520000
+startNum = 526000
+startNum = FlexJsonBasic().getStartNumFromJson()
+
+for num in range(startNum, (startNum + 10000)):
+  runFetch(num)
+
 
 exit()
