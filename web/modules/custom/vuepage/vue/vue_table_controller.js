@@ -1,3 +1,7 @@
+/**
+ * @see https://codepen.io/ratiw/pen/GmJayw
+ */
+
 Vue.use(Vuetable);
 
 new Vue({
