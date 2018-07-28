@@ -11,21 +11,14 @@ from FlexJsonClass import FlexJsonBasic
 #%%
 
 # start from 520000
-# http://odds.500.com/fenxi/ouzhi-521930.shtml
 startNum = 526000
-
-pageIdFileName = 'startPageId.json'
-pageIdJsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(pageIdFileName)
-pageIdJsonContent = FlexJsonBasic().readJsonContent(pageIdJsonFilePath)
-
-startNum = pageIdJsonContent["0"]["id"]
-endNum   = startNum + 10000
+startNum = FlexJsonBasic().getStartNumFromJson()
 
 #
 fileName = 'downloadGameInfo.json'
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(fileName)
 
-for num in range(startNum, endNum):
+for num in range(startNum, (startNum + 10000)):
   jsonContentDict = {}
   url = Baseinfo().generateUrl(num)
   print(url)
@@ -41,6 +34,6 @@ for num in range(startNum, endNum):
   pageIdJsonContent = { "id" : num}
 
   pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
-  FlexJsonBasic().generateJsonFromData(pageIdJsonFilePath, pageIdJsonContentDataFrame)
+  FlexJsonBasic().generateJsonForPageId(pageIdJsonContentDataFrame)
 
 exit()

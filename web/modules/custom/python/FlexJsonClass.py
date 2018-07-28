@@ -22,12 +22,23 @@ class FlexJsonBasic:
 
     return output
 
+
   # @return output type is list
   def readJsonDecode(self, urlPath):
     with urllib.request.urlopen(urlPath) as url:
       output = json.loads(url.read().decode())
 
     return output
+
+
+  #
+  def generateJsonForPageId(self, jsonData):
+    pageIdFileName = 'startPageId.json'
+    filePath = self.getGenerateJsonFilePath(pageIdFileName)
+
+    self.generateJsonFromData(filePath, jsonData)
+
+    return
 
   # use pandas.DataFrame.to_json 生成Json格式的文件
   # @param jsonData is require as <class 'pandas.core.frame.DataFrame'>
@@ -38,6 +49,7 @@ class FlexJsonBasic:
     print ('JSON generate success')
     return
 
+  #
   def getGenerateJsonFilePath(self, fileName):
     # 运行文件从command line
     pathDir  = 'web/sites/default/files/json/5wan/'
@@ -57,5 +69,16 @@ class FlexJsonBasic:
       return filePath
 
     return
+
+
+  #
+  def getStartNumFromJson(self):
+    pageIdFileName = 'startPageId.json'
+    pageIdJsonFilePath = self.getGenerateJsonFilePath(pageIdFileName)
+    pageIdJsonContent = self.readJsonContent(pageIdJsonFilePath)
+
+    startNum = pageIdJsonContent["0"]["id"]
+
+    return startNum
 
   #%%

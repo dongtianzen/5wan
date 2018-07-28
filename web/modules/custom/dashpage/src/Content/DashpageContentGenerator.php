@@ -197,8 +197,9 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function queryWinByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $ave_win_diff = NULL, $ave_draw_diff = NULL, $ave_loss_diff = NULL, $tags = NULL) {
+  public function queryWinByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = NULL) {
     $request_array = \Drupal::request()->query->all();
+
     if (isset($request_array['ave_win'])) {
       $ave_win = $request_array['ave_win'];
     }
@@ -209,16 +210,28 @@ class DashpageContentGenerator extends ControllerBase {
       $ave_loss = $request_array['ave_loss'];
     }
 
-    if (!$ave_win_diff) {
-      $ave_win_diff = 0.001;
+    //
+    if (isset($request_array['diff_win'])) {
+      $diff_win = $request_array['diff_win'];
     }
-    if (!$ave_draw_diff) {
-      $ave_draw_diff = 2;
+    if (isset($request_array['diff_draw'])) {
+      $diff_draw = $request_array['diff_draw'];
     }
-    if (!$ave_loss_diff) {
-      $ave_loss_diff = 20;
+    if (isset($request_array['diff_loss'])) {
+      $diff_loss = $request_array['diff_loss'];
     }
 
+    if (!$diff_win) {
+      $diff_win = 0.001;
+    }
+    if (!$diff_draw) {
+      $diff_draw = 2;
+    }
+    if (!$diff_loss) {
+      $diff_loss = 20;
+    }
+
+    //
     if (isset($request_array['tags'])) {
       $tags = $request_array['tags'];
     }
@@ -227,26 +240,26 @@ class DashpageContentGenerator extends ControllerBase {
     $query = $query_container->queryNidsByBundle('win');
 
     if ($ave_win) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win - $ave_win_diff, '>');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win - $diff_win, '>');
       $query->condition($group);
 
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win + $ave_win_diff, '<');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win + $diff_win, '<');
       $query->condition($group);
     }
 
     if ($ave_draw) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_draw', $ave_draw - $ave_draw_diff, '>');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_draw', $ave_draw - $diff_draw, '>');
       $query->condition($group);
 
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_draw', $ave_draw + $ave_draw_diff, '<');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_draw', $ave_draw + $diff_draw, '<');
       $query->condition($group);
     }
 
     if ($ave_loss) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss - $ave_loss_diff, '>');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss - $diff_loss, '>');
       $query->condition($group);
 
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss + $ave_loss_diff, '<');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss + $diff_loss, '<');
       $query->condition($group);
     }
 
