@@ -3,7 +3,7 @@
  */
 window.onload = function() {
   new Vue({
-    el: '#app',
+    el: '#appPage',
     data: {
       name: 'Sitepoint',
       message: 'Hello Vue!'
@@ -15,7 +15,7 @@ window.onload = function() {
 
 
 var app = new Vue({
-  el: '#vueapp',
+  el: '#vueAppPage',
   data: {
     message: 'Hello Vue!'
   }

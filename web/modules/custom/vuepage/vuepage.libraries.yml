@@ -52,6 +52,9 @@ vue_report:
 
 #
 vue_table_js:
+  css:
+    theme:
+      css/vue_table_controller.css: {}
   js:
     vue/vue_table_controller.js: {}
 

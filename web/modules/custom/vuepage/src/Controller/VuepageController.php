@@ -25,7 +25,7 @@ class VuepageController extends ControllerBase {
   public function basicContent() {
     $content = '
       <div class="container bootstrap-vue-example-wrapper">
-        <div id="app">
+        <div id="appPage">
           <h5>Bootstrap Vue Example</h5>
           <span> Hello {{ name }}! </span>
           <br />
@@ -35,7 +35,7 @@ class VuepageController extends ControllerBase {
 
       <hr />
       <div class="container vue-example-wrapper">
-        <div id="vueapp" class="container">
+        <div id="vueAppPage" class="container">
           <h5>Vue Example</h5>
           <div class="text-primary">
             <span class="text-primary">show vue message - {{message}}</span>
@@ -50,8 +50,49 @@ class VuepageController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
+  public function vuetable() {
+    $content = '
+      <h3 class="vue-title">Vue Tables 2 Demo - Client Component</h3>
+      <div id="app">
+       <div id="table-wrapper" class="ui container">
+         <h2><strong>&lt;Vuetable-2&gt;</strong> with Bootstrap 3</h2>
+        <vuetable ref="vuetable"
+          api-url="https://vuetable.ratiw.net/api/users"
+          :fields="fields"
+          :sort-order="sortOrder"
+          :css="css.table"
+          pagination-path=""
+          :per-page="3"
+          @vuetable:pagination-data="onPaginationData"
+          @vuetable:loading="onLoading"
+          @vuetable:loaded="onLoaded"
+        >
+          <template slot="actions" scope="props">
+            <div class="table-button-container">
+                <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
+                  <span class="glyphicon glyphicon-pencil"></span> Edit</button>&nbsp;&nbsp;
+                <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
+                  <span class="glyphicon glyphicon-trash"></span> Delete</button>&nbsp;&nbsp;
+            </div>
+            </template>
+          </vuetable>
+          <vuetable-pagination ref="pagination"
+            :css="css.pagination"
+            @vuetable-pagination:change-page="onChangePage"
+          ></vuetable-pagination>
+        </div>
+      </div>
+    ';
+
+    return $content;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function vuePage() {
     $content = $this->basicContent();
+    $content = $this->vuetable();
 
     $build = array(
       '#children' => $content,
