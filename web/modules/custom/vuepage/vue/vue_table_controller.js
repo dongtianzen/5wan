@@ -21,13 +21,14 @@ new Vue({
         title: 'Email',
         sortField: 'email'
       },
-      'birthdate','nickname',
+      'birthdate',
+      'created_at',
+      'nickname',
       {
         name: 'gender',
         title: 'Gender',
         sortField: 'gender'
-      },
-      '__slot:actions'
+      }
     ],
     sortOrder: [
       { field: 'name', direction: 'asc' }
@@ -67,12 +68,6 @@ new Vue({
     },
     onChangePage (page) {
       this.$refs.vuetable.changePage(page)
-    },
-    editRow(rowData){
-      alert("You clicked edit on"+ JSON.stringify(rowData))
-    },
-    deleteRow(rowData){
-      alert("You clicked delete on"+ JSON.stringify(rowData))
     },
     onLoading() {
       console.log('loading... show your spinner here')
