@@ -38,6 +38,11 @@ class DashpageController extends ControllerBase {
       '#header' => 'header',
       '#markup' => $markup,
       '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
+      '#attached' => array(
+        'library' => array(
+          'dashpage/dashpage.trend.page.library',
+        ),
+      ),
     );
 
     Timer::stop($name);

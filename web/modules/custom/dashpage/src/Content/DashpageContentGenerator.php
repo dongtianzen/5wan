@@ -136,6 +136,12 @@ class DashpageContentGenerator extends ControllerBase {
       ),
     ];
 
+    $result = [
+      'win' => 0,
+      'draw' => 0,
+      'loss' => 0,
+    ];
+
     foreach ($win_nodes as $key => $win_node) {
 
       foreach ($node_fields as $row) {
@@ -152,13 +158,16 @@ class DashpageContentGenerator extends ControllerBase {
       }
 
       if ($temp['field_win_goal_home'] > $temp['field_win_goal_away']) {
-        $temp['field_win_ave_win'] = '<span style="color:blue;">' . $temp['field_win_ave_win'] . '</span>';
+        $temp['field_win_ave_win'] = '<span class="color-blue">' . $temp['field_win_ave_win'] . '</span>';
+        $result['win']++;
       }
       elseif ($temp['field_win_goal_home'] == $temp['field_win_goal_away']) {
-        $temp['field_win_ave_draw'] = '<span style="color:blue;">' . $temp['field_win_ave_draw'] . '</span>';
+        $temp['field_win_ave_draw'] = '<span class="color-blue">' . $temp['field_win_ave_draw'] . '</span>';
+        $result['draw']++;
       }
       else {
-        $temp['field_win_ave_loss'] = '<span style="color:blue;">' . $temp['field_win_ave_loss'] . '</span>';
+        $temp['field_win_ave_loss'] = '<span class="color-blue">' . $temp['field_win_ave_loss'] . '</span>';
+        $result['loss']++;
       }
 
       $output .= '<tr>';

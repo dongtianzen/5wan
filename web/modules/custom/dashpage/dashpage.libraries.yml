@@ -1,0 +1,4 @@
+dashpage.trend.page.library:
+  css:
+    theme:
+      css/dashpage_trend_page.css: {}
