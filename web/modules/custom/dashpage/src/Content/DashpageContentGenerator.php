@@ -85,7 +85,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-    $node_fields = [
+  public function getTrendContentTable() {
     $output = [
       array(
         'type' => 'value',
