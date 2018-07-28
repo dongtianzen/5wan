@@ -22,7 +22,7 @@ new Vue({
         sortField: 'email'
       },
       'birthdate',
-      'created_at',
+      'salary',
       'nickname',
       {
         name: 'gender',
