@@ -90,7 +90,7 @@ class DashpageContentGenerator extends ControllerBase {
   public function getTrendContentTheadRow() {
     $output = '';
 
-    $$variable = $this->getTrendTableThead();
+    $variable = $this->getTrendTableThead();
 
     foreach ($variable as $key => $value) {
       $output .= '<th>';
@@ -164,20 +164,19 @@ class DashpageContentGenerator extends ControllerBase {
 
     $node_fields = $this->getNodeWinField();
 
-
     foreach ($win_nodes as $key => $win_node) {
 
       $tbody = [];
-      foreach ($node_fields as $row) {
-        if ($row['type'] == 'term') {
-          $tbody[$table_heads[$key]] = \Drupal::getContainer()
+      foreach ($node_fields as $subkey => $subrow) {
+        if ($subrow['type'] == 'term') {
+          $tbody[$table_heads[$subkey]] = \Drupal::getContainer()
             ->get('flexinfo.field.service')
-            ->getFieldFirstTargetIdTermName($win_node, $row['field']);
+            ->getFieldFirstTargetIdTermName($win_node, $subrow['field']);
         }
         else {
-          $tbody[$table_heads[$key]] = \Drupal::getContainer()
+          $tbody[$table_heads[$subkey]] = \Drupal::getContainer()
             ->get('flexinfo.field.service')
-            ->getFieldFirstValue($win_node, $row['field']);
+            ->getFieldFirstValue($win_node, $subrow['field']);
         }
       }
 

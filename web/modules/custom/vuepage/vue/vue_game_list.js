@@ -77,23 +77,21 @@ var demo = new Vue({
     return {
       searchQuery: '',
       cc: '',
-      gridColumns: ['sample head'],
+      gridColumns: ['sample thead'],
       gridData: [
-        { name: 'Chuck Norris', power: Infinity },
-        { name: 'Bruce Lee', power: 9000 },
-        { name: 'Jackie Chan', power: 7000 },
+        { name: 'Samle tbody', power: 7000 },
         { name: 'Jet Li', power: 8000 }
       ]
     }
   },
   mounted () {
     axios
-      .get('http://localhost:8888/5wan/web/dashpage/trend/vue/json')
+      .get('http://localhost:8888/5wan/web/dashpage/trend/vue/json?ave_win=2.01&ave_draw=2.68&diff_draw=0.3')
       .then(
         response => {
           // JSON responses are automatically parsed.
-          this.gridColumns = response.data.gridColumns
-          this.cc = response.data.gridColumns
+          this.gridColumns = response.data.gridColumns,
+          this.gridData = response.data.gridData
         }
       )
   }
