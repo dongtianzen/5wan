@@ -76,8 +76,18 @@ var demo = new Vue({
   data () {
     return {
       searchQuery: '',
-      cc: '',
-      gridColumns: ['sample thead'],
+      gridColumns: [
+        'Date',
+        'Tags',
+        'Home',
+        'Away',
+        'Win',
+        'Draw',
+        'Loss',
+        'Goal',
+        'Goal',
+        'Num'
+      ],
       gridData: [
         { name: 'Samle tbody', power: 7000 },
         { name: 'Jet Li', power: 8000 }
