@@ -70,21 +70,30 @@ Vue.component('demo-grid', {
   })
  */
 
-// bootstrap the demo
+// the demo
 var demo = new Vue({
   el: '#demo',
   data () {
     return {
       searchQuery: '',
-      gridColumns: null,
-      gridData: null
+      cc: '',
+      gridColumns: ['sample head'],
+      gridData: [
+        { name: 'Chuck Norris', power: Infinity },
+        { name: 'Bruce Lee', power: 9000 },
+        { name: 'Jackie Chan', power: 7000 },
+        { name: 'Jet Li', power: 8000 }
+      ]
     }
   },
   mounted () {
     axios
       .get('http://localhost:8888/5wan/web/dashpage/trend/vue/json')
       .then(
-        response => (this.gridColumns = response)
+        // response => (this.gridColumns = response.data.gridColumns)
+        response => (
+          this.gridColumns = response.data.gridColumns
+        )
       )
   }
 })

@@ -141,6 +141,8 @@ class VuepageController extends ControllerBase {
 
       <h3 class="vue-title">Grid Component Example - </h3>
       <div id="demo">
+        <span>{{cc}}
+        </span>
         <form id="search">
           Search <input name="query" v-model="searchQuery">
         </form>
