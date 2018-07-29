@@ -15,3 +15,12 @@ dashpage.trend.form:
   requirements:
     _permission: 'access content'
     _role: 'authenticated'
+
+#
+dashpage.trend.vue.json:
+  path: '/dashpage/trend/vue/json'
+  defaults:
+    _controller: '\Drupal\dashpage\Controller\DashpageController::trendVueJson'
+  requirements:
+    _permission: 'access content'
+    _role: 'authenticated'

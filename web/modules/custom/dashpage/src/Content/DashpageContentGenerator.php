@@ -57,10 +57,17 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTheadRow() {
-    $output = '';
+  public function getTrendVueJson() {
+    $output['gridColumns'] = $this->getTrendTableThead();
 
-    $variable = array(
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function getTrendTableThead() {
+    $output = array(
       'Date',
       'Tags',
       'Home',
@@ -72,6 +79,17 @@ class DashpageContentGenerator extends ControllerBase {
       'Goal',
       'Num',
     );
+
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function getTrendContentTheadRow() {
+    $output = '';
+
+    $$variable = $this->getTrendTableThead();
 
     foreach ($variable as $key => $value) {
       $output .= '<th>';
