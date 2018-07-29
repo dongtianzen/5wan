@@ -56,7 +56,7 @@ class VuepageController extends ControllerBase {
       <div id="app">
         <div id="table-wrapper" class="ui container">
           <h2>
-            <strong>&lt;Vuetable-2&gt;</strong>
+            <strong>Vuetable-2</strong>
             <span>with Bootstrap 3</span>
           </h2>
 
@@ -66,7 +66,7 @@ class VuepageController extends ControllerBase {
             :sort-order="sortOrder"
             :css="css.table"
             pagination-path=""
-            :per-page="3"
+            :per-page="10"
             @vuetable:pagination-data="onPaginationData"
             @vuetable:loading="onLoading"
             @vuetable:loaded="onLoaded"
@@ -103,6 +103,73 @@ class VuepageController extends ControllerBase {
           'vuepage/vuetable-2',
           'vuepage/vue_report',
           'vuepage/vue_table_js',
+        )
+      ),
+    );
+
+    return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function gameListContent() {
+    $content = '
+      <h3 class="vue-title">Grid Component Example - </h3>
+      <script type="text/x-template" id="grid-template">
+        <table>
+          <thead>
+            <tr>
+              <th v-for="key in columns"
+                @click="sortBy(key)"
+                :class="{ active: sortKey == key }">
+                {{ key | capitalize }}
+                <span class="arrow" :class="sortOrders[key] > 0 ? \'asc\' : \'dsc\'">
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="entry in filteredData">
+              <td v-for="key in columns">
+                {{entry[key]}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </script>
+      <span>https://vuejs.org/v2/examples/grid-component.html</span>
+      <div id="demo">
+        <form id="search">
+          Search <input name="query" v-model="searchQuery">
+        </form>
+        <demo-grid
+          :data="gridData"
+          :columns="gridColumns"
+          :filter-key="searchQuery">
+        </demo-grid>
+      </div>
+    ';
+
+    return $content;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function gameList() {
+    $content = $this->gameListContent();
+
+    $build = array(
+      '#children' => $content,
+      '#attached' => array(
+        'library' => array(
+          'vuepage/vue',
+          'vuepage/babel-polyfill',
+          'vuepage/bootstrap',
+          'vuepage/bootstrap-vue',
+          'vuepage/axios',
+          'vuepage/vue_game_list',
         )
       ),
     );

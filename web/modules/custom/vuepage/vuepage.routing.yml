@@ -6,3 +6,12 @@ vuepage.vue.page:
     _title: 'Vue Page'
   requirements:
     _permission: 'access content'
+
+# vue
+vuepage.game.list:
+  path: '/vuepage/game/list'
+  defaults:
+    _controller: '\Drupal\vuepage\Controller\VuepageController::gameList'
+    _title: 'Vue Game List'
+  requirements:
+    _permission: 'access content'

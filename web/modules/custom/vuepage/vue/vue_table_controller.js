@@ -7,7 +7,7 @@ Vue.use(Vuetable);
 new Vue({
   el: '#app',
   components: {
-   'vuetable-pagination': Vuetable.VuetablePagination
+    'vuetable-pagination': Vuetable.VuetablePagination
   },
   data: {
     // Fields defined as array of object
@@ -32,7 +32,10 @@ new Vue({
       }
     ],
     sortOrder: [
-      { field: 'name', direction: 'asc' }
+      {
+        field: 'name',
+        direction: 'asc'
+      }
     ],
     css: {
       table: {
