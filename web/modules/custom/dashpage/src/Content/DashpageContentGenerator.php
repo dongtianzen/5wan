@@ -59,6 +59,7 @@ class DashpageContentGenerator extends ControllerBase {
    */
   public function getTrendVueJson() {
     $output['gridColumns'] = $this->getTrendTableThead();
+    $output['gridData'] = $this->getTrendTableTbody();
 
     return $output;
   }
@@ -146,6 +147,43 @@ class DashpageContentGenerator extends ControllerBase {
         'field' => 'field_win_num_company'
       ),
     ];
+
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function getTrendTableTbody() {
+    $output = '';
+
+    $win_nids = $this->queryWinByCondition();
+    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
+
+    $table_heads = $this->getTrendTableThead();
+
+    $node_fields = $this->getNodeWinField();
+
+
+    foreach ($win_nodes as $key => $win_node) {
+
+      $tbody = [];
+      foreach ($node_fields as $row) {
+        if ($row['type'] == 'term') {
+          $tbody[$table_heads[$key]] = \Drupal::getContainer()
+            ->get('flexinfo.field.service')
+            ->getFieldFirstTargetIdTermName($win_node, $row['field']);
+        }
+        else {
+          $tbody[$table_heads[$key]] = \Drupal::getContainer()
+            ->get('flexinfo.field.service')
+            ->getFieldFirstValue($win_node, $row['field']);
+        }
+      }
+
+      $output[] = $tbody;
+    }
+
 
     return $output;
   }
