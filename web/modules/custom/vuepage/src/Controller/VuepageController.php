@@ -112,10 +112,10 @@ class VuepageController extends ControllerBase {
 
   /**
    * {@inheritdoc}
+   * @see https://vuejs.org/v2/examples/grid-component.html
    */
   public function gameListContent() {
     $content = '
-      <h3 class="vue-title">Grid Component Example - </h3>
       <script type="text/x-template" id="grid-template">
         <table>
           <thead>
@@ -138,7 +138,8 @@ class VuepageController extends ControllerBase {
           </tbody>
         </table>
       </script>
-      <span>https://vuejs.org/v2/examples/grid-component.html</span>
+
+      <h3 class="vue-title">Grid Component Example - </h3>
       <div id="demo">
         <form id="search">
           Search <input name="query" v-model="searchQuery">
