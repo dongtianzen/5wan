@@ -90,10 +90,11 @@ var demo = new Vue({
     axios
       .get('http://localhost:8888/5wan/web/dashpage/trend/vue/json')
       .then(
-        // response => (this.gridColumns = response.data.gridColumns)
-        response => (
+        response => {
+          // JSON responses are automatically parsed.
           this.gridColumns = response.data.gridColumns
-        )
+          this.cc = response.data.gridColumns
+        }
       )
   }
 })
