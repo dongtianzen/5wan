@@ -61,18 +61,22 @@ class DashpageTrendForm extends FormBase {
       ],
     ];
 
-    $form['tags2'] = [
-      '#type' => 'autocomplete_deluxe',
-      '#title' => 't2',
-      '#target_type' => 'taxonomy_term',
-      '#selection_handler' => 'default',
-      '#selection_settings' => [
-        'target_bundles' => array('tags'),
-      ],
-      '#size' => 60,
-      '#autocomplete_route_name' => 'autocomplete_deluxe.autocomplete',
-      '#autocomplete_route_parameters' => array('taxonomy_term', 'default', 'tags'),
-    ];
+    /**
+     * @see autocomplete deluxe module
+     */
+    // autocomplete-deluxe-input
+    // $form['tags2'] = [
+    //   '#type' => 'autocomplete_deluxe',
+    //   '#title' => 't2',
+    //   '#target_type' => 'taxonomy_term',
+    //   '#selection_handler' => 'default',
+    //   '#selection_settings' => [
+    //     'target_bundles' => array('tags'),
+    //   ],
+    //   '#size' => 60,
+    //   '#autocomplete_route_name' => 'autocomplete_deluxe.autocomplete',
+    //   '#autocomplete_route_parameters' => array('taxonomy_term', 'default', 'tags'),
+    // ];
 
     $form['show'] = [
       '#type' => 'submit',

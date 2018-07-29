@@ -1,4 +1,6 @@
-console.log('vue_game_list.js');
+/**
+ *
+ */
 Vue.component('demo-grid', {
   template: '#grid-template',
   props: {
