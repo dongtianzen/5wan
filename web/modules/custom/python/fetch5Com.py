@@ -43,6 +43,7 @@ startNum = FlexJsonBasic().getStartPageIdFromJson()
 for num in range(startNum, (startNum + 10000)):
   try:
     runFetch(num)
+  # except Exception:
   except Exception:
     print("Oops!  That was no valid number.  Try again...")
     pass
