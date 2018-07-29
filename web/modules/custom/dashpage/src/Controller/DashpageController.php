@@ -71,7 +71,7 @@ class DashpageController extends ControllerBase {
    */
   public function trendVueJson() {
     $DashpageContentGenerator = new DashpageContentGenerator();
-    $object_content_data = $DashpageContentGenerator->trendVueJson();
+    $object_content_data = $DashpageContentGenerator->getTrendVueJson();
 
     return new JsonResponse($object_content_data);
 

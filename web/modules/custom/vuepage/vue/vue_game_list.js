@@ -52,17 +52,39 @@ Vue.component('demo-grid', {
   }
 })
 
+/**
+ * bootstrap the demo data
+ *
+  var demo = new Vue({
+    el: '#demo',
+    data: {
+      searchQuery: '',
+      gridColumns: ['name', 'power'],
+      gridData: [
+        { name: 'Chuck Norris', power: Infinity },
+        { name: 'Bruce Lee', power: 9000 },
+        { name: 'Jackie Chan', power: 7000 },
+        { name: 'Jet Li', power: 8000 }
+      ]
+    }
+  })
+ */
+
 // bootstrap the demo
 var demo = new Vue({
   el: '#demo',
-  data: {
-    searchQuery: '',
-    gridColumns: ['name', 'power'],
-    gridData: [
-      { name: 'Chuck Norris', power: Infinity },
-      { name: 'Bruce Lee', power: 9000 },
-      { name: 'Jackie Chan', power: 7000 },
-      { name: 'Jet Li', power: 8000 }
-    ]
+  data () {
+    return {
+      searchQuery: '',
+      gridColumns: null,
+      gridData: null
+    }
+  },
+  mounted () {
+    axios
+      .get('http://localhost:8888/5wan/web/dashpage/trend/vue/json')
+      .then(
+        response => (this.gridColumns = response)
+      )
   }
 })

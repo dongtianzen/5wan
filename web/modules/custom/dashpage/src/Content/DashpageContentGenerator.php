@@ -59,6 +59,7 @@ class DashpageContentGenerator extends ControllerBase {
    */
   public function getTrendVueJson() {
     $output['gridColumns'] = $this->getTrendTableThead();
+    $output = $this->getTrendTableThead();
 
     return $output;
   }
