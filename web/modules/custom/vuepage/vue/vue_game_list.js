@@ -98,7 +98,16 @@ var demo = new Vue({
   },
   mounted () {
     axios
-      .get('http://localhost:8888/5wan/web/dashpage/trend/vue/json?ave_win=2.01&ave_draw=2.68&diff_draw=0.3')
+      .get(
+        'http://localhost:8888/5wan/web/dashpage/trend/vue/json',
+        {
+          params: {
+            ave_win:   2.01,
+            ave_draw:  2.68,
+            diff_draw: 0.3
+          }
+        }
+      )
       .then(
         response => {
           // JSON responses are automatically parsed.

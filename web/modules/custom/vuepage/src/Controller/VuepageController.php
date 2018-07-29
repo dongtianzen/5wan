@@ -7,6 +7,8 @@
 
 namespace Drupal\vuepage\Controller;
 
+use Drupal\Component\Utility\Timer;
+
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 
@@ -159,6 +161,9 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function gameList() {
+    $name = 'time_one';
+    Timer::start($name);
+
     $content = $this->gameListContent();
 
     $build = array(
@@ -174,6 +179,9 @@ class VuepageController extends ControllerBase {
         )
       ),
     );
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms');
 
     return $build;
   }
