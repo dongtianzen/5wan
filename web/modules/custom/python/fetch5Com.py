@@ -21,7 +21,10 @@ def runFetch(num):
   gameObj = FetchPageBasic(url)
 
   jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
-  jsonContentFromFile[num] = gameObj.convertPageResultDict()
+  try:
+    jsonContentFromFile[num] = gameObj.convertPageResultDict()
+  except:
+    pass
 
   jsonContent = pd.DataFrame.from_dict(jsonContentFromFile)
   FlexJsonBasic().generateJsonFromData(jsonFilePath, jsonContent)
