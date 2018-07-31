@@ -13,7 +13,7 @@ from FlexJsonClass import FlexJsonBasic
 #
 class RunFetchPageBasic:
 
-  def runFetch(num):
+  def runFetch(self, num):
     jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo.json')
 
     url = Baseinfo().generateUrl(num)

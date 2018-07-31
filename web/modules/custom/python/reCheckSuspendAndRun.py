@@ -5,23 +5,38 @@ python3 web/modules/custom/python/reCheckSuspendAndRun.py
 
 """
 
-from FetchPageClass import FetchPageBasic
-from FlexJsonClass import FlexJsonBasic
-
 import os
 import os.path
 import time
 
+from FlexJsonClass import FlexJsonBasic
+from RunFetchPageClass import RunFetchPageBasic
+
+#%%
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo.json')
 
 fileLastModifiedTimeStamp = os.path.getmtime(jsonFilePath)
 currentTimestamp = time.time()
-
-print(fileLastModifiedTimeStamp)
-print(currentTimestamp)
-
 diffTimestamp = currentTimestamp - fileLastModifiedTimeStamp
-print(diffTimestamp)
+
 
 if(diffTimestamp > 300):
-  print(9999)
+  startNum = FlexJsonBasic().getStartPageIdFromJson()
+
+  #
+  # except Exception: not catch KeyboardInterrupt, SystemExit
+  for num in range(startNum, (startNum + 1000)):
+    try:
+      RunFetchPageBasic().runFetch(num)
+    # except Exception:
+    except Exception:
+      print("Oops!  That was no valid number.  Try again...")
+      pass
+
+else:
+  print('time is not enough')
+
+#
+
+
+exit()
