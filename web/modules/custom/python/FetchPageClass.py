@@ -123,15 +123,10 @@ class FetchPageBasic:
 
   #
   def obtainGameTitleList(self):
-    try
-      gameTitle = self.soupMetaKeywords()
-      gameTitleList = gameTitle.split(',')
+    gameTitle = self.soupMetaKeywords()
+    gameTitleList = gameTitle.split(',')
 
-      return gameTitleList
-    except:
-      pass
-
-    return
+    return gameTitleList
 
   #
   def filterGameTag(self):
