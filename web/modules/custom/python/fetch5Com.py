@@ -4,8 +4,8 @@ python3 web/modules/custom/python/fetch5Com.py
 """
 import pandas as pd
 
-from FetchPageClass import FetchPageBasic
 from BaseSiteClass import Baseinfo
+from FetchPageClass import FetchPageBasic
 from FlexJsonClass import FlexJsonBasic
 
 #%%
