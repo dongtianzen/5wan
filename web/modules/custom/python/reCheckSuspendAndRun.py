@@ -11,10 +11,17 @@ from FlexJsonClass import FlexJsonBasic
 import os
 import os.path
 import time
-import platform
 
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo.json')
 
+fileLastModifiedTimeStamp = os.path.getmtime(jsonFilePath)
+currentTimestamp = time.time()
 
-print("last modified: %s" % time.ctime(os.path.getmtime(jsonFilePath)))
-print("created: %s" % time.ctime(os.path.getctime(jsonFilePath)))
+print(fileLastModifiedTimeStamp)
+print(currentTimestamp)
+
+diffTimestamp = currentTimestamp - fileLastModifiedTimeStamp
+print(diffTimestamp)
+
+if(diffTimestamp > 300):
+  print(9999)
