@@ -23,15 +23,16 @@ diffTimestamp = currentTimestamp - fileLastModifiedTimeStamp
 if(diffTimestamp > 300):
   startNum = FlexJsonBasic().getStartPageIdFromJson()
 
-  #
-  # except Exception: not catch KeyboardInterrupt, SystemExit
-  for num in range(startNum, (startNum + 1000)):
-    try:
-      RunFetchPageBasic().runFetch(num)
-    # except Exception:
-    except Exception:
-      print("Oops!  That was no valid number.  Try again...")
-      pass
+  if(startNum < 600000):
+
+    # except Exception: not catch KeyboardInterrupt, SystemExit
+    for num in range(startNum, (startNum + 1000)):
+      try:
+        RunFetchPageBasic().runFetch(num)
+      # except Exception:
+      except Exception:
+        print("Oops!  That was no valid number.  Try again...")
+        pass
 
 else:
   print('time is not enough')
