@@ -115,11 +115,16 @@ class FetchPageBasic:
   def obtainGameResultList(self):
     gameResult = self.soupGameResult()
 
-    # 有时候有赔率，但是没有比赛结果, 会返回“VS”， length 为 1
-    if gameResult:
-      return gameResult.split(':')
-    else:
-      return None
+    try
+      # 有时候有赔率，但是没有比赛结果, 会返回“VS”， length 为 1
+      if gameResult:
+        return gameResult.split(':')
+      else:
+        return None
+    except
+      pass
+
+    return
 
   #
   def obtainGameTitleList(self):
