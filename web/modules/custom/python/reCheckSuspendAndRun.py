@@ -1,11 +1,4 @@
-#!/usr/bin/env python3
-
-"""
-python3 web/modules/custom/python/reCheckSuspendAndRun.py
-
-# get file creation & modification date/times in Python
-
-"""
+#!/usr/bin/python3
 
 import os
 import os.path
@@ -39,7 +32,12 @@ if(diffTimestamp > 300):
 else:
   print('time is not enough')
 
-#
-
 
 exit()
+
+"""
+python3 web/modules/custom/python/reCheckSuspendAndRun.py
+
+# get file creation & modification date/times in Python
+
+"""
