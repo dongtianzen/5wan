@@ -26,8 +26,7 @@ for num in range(startNum, endNum):
 
 jsonContent = pd.DataFrame.from_dict(jsonContentDict)
 
-fileName = 'downloadGameInfo_debug.json'
-jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(fileName)
+jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo_debug.json')
 FlexJsonBasic().generateJsonFromData(jsonFilePath, jsonContent)
 
 exit()
