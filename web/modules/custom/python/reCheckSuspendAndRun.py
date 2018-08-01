@@ -9,7 +9,7 @@ from RunFetchPageClass import RunFetchPageBasic
 
 #%%
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo.json')
-
+print(jsonFilePath)
 fileLastModifiedTimeStamp = os.path.getmtime(jsonFilePath)
 currentTimestamp = time.time()
 diffTimestamp = currentTimestamp - fileLastModifiedTimeStamp
