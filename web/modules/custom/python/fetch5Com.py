@@ -10,7 +10,8 @@ from RunFetchPageClass import RunFetchPageBasic
 #
 
 # start from 520000
-startNum = 526000
+# start from 600594
+startNum = 500000
 startNum = FlexJsonBasic().getStartPageIdFromJson()
 
 #

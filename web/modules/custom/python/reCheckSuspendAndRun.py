@@ -9,16 +9,16 @@ from RunFetchPageClass import RunFetchPageBasic
 
 #%%
 jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo.json')
-print(jsonFilePath)
+
 fileLastModifiedTimeStamp = os.path.getmtime(jsonFilePath)
 currentTimestamp = time.time()
 diffTimestamp = currentTimestamp - fileLastModifiedTimeStamp
 
-
+# startNum < 600594
 if(diffTimestamp > 300):
   startNum = FlexJsonBasic().getStartPageIdFromJson()
 
-  if(startNum < 600000):
+  if(startNum < 520000):
 
     # except Exception: not catch KeyboardInterrupt, SystemExit
     for num in range(startNum, (startNum + 1000)):
@@ -28,6 +28,8 @@ if(diffTimestamp > 300):
       except Exception:
         print("Oops!  That was no valid number.  Try again...")
         pass
+  else:
+    print('over the startNum')
 
 else:
   print('time is not enough')
