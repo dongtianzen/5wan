@@ -42,7 +42,7 @@ class DashpageJsonGenerator extends ControllerBase {
 
     $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
 
-    $win_nodes = $this->queryWinNodesByCondition();
+    $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
 
       $tbody = [];
