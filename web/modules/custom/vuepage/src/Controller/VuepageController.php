@@ -162,6 +162,11 @@ class VuepageController extends ControllerBase {
         >
         </demo-grid>
       </div>
+
+      <div class="appchartjs">
+          {{ message }}
+        <line-chart></line-chart>
+      </div>
     ';
 
     return $content;
@@ -186,8 +191,8 @@ class VuepageController extends ControllerBase {
           'vuepage/bootstrap-vue',
           'vuepage/chart.js',
           'vuepage/axios',
-          'vuepage/vue_game_list',
           'vuepage/vue-chartjs',
+          'vuepage/vue_game_list',
         )
       ),
     );
