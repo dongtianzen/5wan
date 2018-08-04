@@ -53,6 +53,24 @@ bootstrap-vue:
     /libraries/node_modules/bootstrap-vue/dist/bootstrap-vue.js: {}
 
 #
+chart.js:
+  version: 2.7.2
+  license:
+    name: MIT
+    gpl-compatible: true
+  js:
+    /libraries/node_modules/chart.js/dist/chart.min.js: {}
+
+#
+vue-chartjs:
+  version: 3.4.0
+  license:
+    name: MIT
+    gpl-compatible: true
+  js:
+    /libraries/node_modules/vue-chartjs/dist/vue-chartjs.min.js: {}
+
+#
 vue_report:
   css:
     theme:
@@ -68,7 +86,7 @@ vue_game_list:
   js:
     vue/vue_game_list.js: {}
 
-#
+# @todo vuetable-2 custom controller
 vue_table_js:
   css:
     theme:

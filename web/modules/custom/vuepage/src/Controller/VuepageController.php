@@ -184,8 +184,10 @@ class VuepageController extends ControllerBase {
           'vuepage/babel-polyfill',
           'vuepage/bootstrap',
           'vuepage/bootstrap-vue',
+          'vuepage/chart.js',
           'vuepage/axios',
           'vuepage/vue_game_list',
+          'vuepage/vue-chartjs',
         )
       ),
     );
