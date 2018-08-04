@@ -157,13 +157,11 @@ class DashpageContentGenerator extends ControllerBase {
   public function getGameListTbody() {
     $output = '';
 
-    $win_nids = $this->queryWinByCondition();
-    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
-
     $table_heads = $this->getTrendTableThead();
 
     $node_fields = $this->getNodeWinField();
 
+    $win_nodes = $this->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
 
       $tbody = [];
@@ -193,9 +191,6 @@ class DashpageContentGenerator extends ControllerBase {
   public function getTrendPageContentTbody() {
     $tbody = '';
 
-    $win_nids = $this->queryWinByCondition();
-    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($win_nids);
-
     $node_fields = $this->getNodeWinField();
 
     $result = [
@@ -203,6 +198,8 @@ class DashpageContentGenerator extends ControllerBase {
       'draw' => 0,
       'loss' => 0,
     ];
+
+    $win_nodes = $this->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
 
       foreach ($node_fields as $row) {
@@ -252,7 +249,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function queryWinByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = NULL) {
+  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = NULL) {
     $request_array = \Drupal::request()->query->all();
 
     if (isset($request_array['ave_win'])) {
@@ -333,16 +330,11 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function queryWinByCompareTime($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $date = NULL) {
-    $query = \Drupal::service('entity.query');
-    $query = $query->get('node')
-    ->condition('type', 'page')
-    ->condition('status', 1)
-    ->condition('field_page_float_number', 2.01, '>')
-    ->condition('field_page_float_number', 2.03, '<');
-    $nids = $query->execute();
+  public function queryWinNodesByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = NULL) {
+    $nids = $this->queryWinNidsByCondition($ave_win, $ave_draw, $ave_loss, $diff_win, $diff_draw, $diff_loss, $tags);
+    $nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($nids);
 
-    return $nids;
+    return $nodes;
   }
 
 }
