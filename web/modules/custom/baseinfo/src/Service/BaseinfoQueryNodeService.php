@@ -21,41 +21,4 @@ use Drupal\flexinfo\Service\FlexinfoQueryNodeService;
  */
 class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
 
-  /**
-   *
-   */
-  public function wrapperEvaluationNodeFromMeetingNodes($meeting_nodes = array()) {
-    $meeting_nids = \Drupal::getContainer()
-      ->get('flexinfo.node.service')
-      ->getNidsFromNodes($meeting_nodes);
-
-    $output = \Drupal::getContainer()
-      ->get('flexinfo.querynode.service')
-      ->nodesByStandardByFieldValue('evaluation', 'field_evaluation_meetingnid', $meeting_nids, 'IN');
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function getQuestionAnswerAllDataWithReferUid($meeting_nodes = array(), $question_tid = NULL) {
-    $evaluation_nodes = $this->wrapperEvaluationNodeFromMeetingNodes($meeting_nodes);
-
-    $output = array();
-    if ($evaluation_nodes && is_array($evaluation_nodes)) {
-      foreach ($evaluation_nodes as $evaluation_node) {
-        $result = $evaluation_node->get('field_evaluation_reactset')->getValue();
-
-        foreach ($result as $row) {
-          if ($row['question_tid'] == $question_tid && $row['question_answer']) {
-            $output[$row['refer_uid']][] = $row['question_answer'];
-          }
-        }
-      }
-    }
-
-    return $output;
-  }
-
 }

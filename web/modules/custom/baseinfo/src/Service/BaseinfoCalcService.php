@@ -13,8 +13,4 @@ use Drupal\flexinfo\Service\FlexinfoCalcService;
  */
 class BaseinfoCalcService extends FlexinfoCalcService {
 
-  public function demoCompare() {
-
-  }
-
 }
