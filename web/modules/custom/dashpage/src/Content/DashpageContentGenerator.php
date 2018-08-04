@@ -201,7 +201,6 @@ class DashpageContentGenerator extends ControllerBase {
       $output[] = $tbody;
     }
 
-
     return $output;
   }
 
