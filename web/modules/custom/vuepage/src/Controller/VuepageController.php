@@ -141,7 +141,7 @@ class VuepageController extends ControllerBase {
         </table>
       </script>
 
-      <h3 class="vue-title">Grid Component Example - </h3>
+      <!-- <h3 class="vue-title">Grid Component Example - </h3> -->
       <div id="demo">
         <form id="search">
           Search <input name="query" v-model="searchQuery">
@@ -181,7 +181,7 @@ class VuepageController extends ControllerBase {
     );
 
     Timer::stop($name);
-    dpm(Timer::read($name) . 'ms');
+    // dpm(Timer::read($name) . 'ms');
 
     return $build;
   }

@@ -99,12 +99,15 @@ var demo = new Vue({
   mounted () {
     axios
       .get(
-        'http://localhost:8888/5wan/web/dashpage/trend/vue/json',
+        'http://localhost:8888/5wan/web/dashpage/game/list/json',
         {
           params: {
-            ave_win:   2.01,
-            ave_draw:  2.68,
-            diff_draw: 0.3
+            ave_win:   2.76,
+            diff_win: 0.05,
+            // ave_draw:  3.28,
+            // diff_draw: 0.1,
+            // ave_loss:  2.25,
+            // diff_loss: 0.05,
           }
         }
       )

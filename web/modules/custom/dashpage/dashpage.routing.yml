@@ -17,10 +17,10 @@ dashpage.trend.form:
     _role: 'authenticated'
 
 #
-dashpage.trend.vue.json:
-  path: '/dashpage/trend/vue/json'
+dashpage.game.list.json:
+  path: '/dashpage/game/list/json'
   defaults:
-    _controller: '\Drupal\dashpage\Controller\DashpageController::trendVueJson'
+    _controller: '\Drupal\dashpage\Controller\DashpageController::gameListJson'
   requirements:
     _permission: 'access content'
     _role: 'authenticated'

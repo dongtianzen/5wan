@@ -27,7 +27,7 @@ class DashpageContentGenerator extends ControllerBase {
         $output .= '<div id="map-canvas">';
           $output .= 'Trend Table';
           $output .= '<br />';
-          $output .= $this->getTrendContent();
+          $output .= $this->getTrendPageContent();
         $output .= '</div>';
       $output .= '</div>';
     $output .= '</div>';
@@ -38,18 +38,9 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContent() {
-    $output = '';
-    $output .= '<table class="table table-striped">';
-      $output .= '<thead>';
-        $output .= '<tr>';
-          $output .= $this->getTrendContentTheadRow();
-        $output .= '</tr>';
-      $output .= '</thead>';
-      $output .= '<tbody>';
-        $output .= $this->getTrendContentTable()['tbody'];
-      $output .= '</tbody>';
-    $output .= '</table>';
+  public function getGameListJson() {
+    $output['gridColumns'] = $this->getTrendTableThead();
+    $output['gridData'] = $this->getGameListTbody();
 
     return $output;
   }
@@ -57,9 +48,18 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendVueJson() {
-    $output['gridColumns'] = $this->getTrendTableThead();
-    $output['gridData'] = $this->getTrendTableTbody();
+  public function getTrendPageContent() {
+    $output = '';
+    $output .= '<table class="table table-striped">';
+      $output .= '<thead>';
+        $output .= '<tr>';
+          $output .= $this->getTrendPageContentThead();
+        $output .= '</tr>';
+      $output .= '</thead>';
+      $output .= '<tbody>';
+        $output .= $this->getTrendPageContentTbody();
+      $output .= '</tbody>';
+    $output .= '</table>';
 
     return $output;
   }
@@ -76,8 +76,8 @@ class DashpageContentGenerator extends ControllerBase {
       'Win',
       'Draw',
       'Loss',
-      'Goal',
-      'Goal',
+      'GoalH',
+      'GoalA',
       'Num',
     );
 
@@ -87,7 +87,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTheadRow() {
+  public function getTrendPageContentThead() {
     $output = '';
 
     $variable = $this->getTrendTableThead();
@@ -154,7 +154,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendTableTbody() {
+  public function getGameListTbody() {
     $output = '';
 
     $win_nids = $this->queryWinByCondition();
@@ -190,7 +190,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendContentTable() {
+  public function getTrendPageContentTbody() {
     $tbody = '';
 
     $win_nids = $this->queryWinByCondition();
@@ -244,7 +244,7 @@ class DashpageContentGenerator extends ControllerBase {
     dpm(count($win_nids));
     dpm($result);
 
-    $output['tbody'] = $tbody;
+    $tbody;
 
     return $output;
   }

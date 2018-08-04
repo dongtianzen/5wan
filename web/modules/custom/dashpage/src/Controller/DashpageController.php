@@ -69,9 +69,9 @@ class DashpageController extends ControllerBase {
   /**
    *
    */
-  public function trendVueJson() {
+  public function gameListJson() {
     $DashpageContentGenerator = new DashpageContentGenerator();
-    $object_content_data = $DashpageContentGenerator->getTrendVueJson();
+    $object_content_data = $DashpageContentGenerator->getGameListJson();
 
     return new JsonResponse($object_content_data);
 
