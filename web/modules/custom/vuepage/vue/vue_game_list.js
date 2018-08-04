@@ -104,6 +104,7 @@ var demo = new Vue({
           params: {
             ave_win:   2.76,
             diff_win: 0.05,
+            tags: ['英冠', '英甲'],
             // ave_draw:  3.28,
             // diff_draw: 0.1,
             // ave_loss:  2.25,
