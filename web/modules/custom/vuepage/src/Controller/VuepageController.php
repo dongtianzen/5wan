@@ -122,6 +122,9 @@ class VuepageController extends ControllerBase {
         <table>
           <thead>
             <tr>
+              {{maxCount}}
+            </tr>
+            <tr>
               <th v-for="key in columns"
                 @click="sortBy(key)"
                 :class="{ active: sortKey == key }">
@@ -143,9 +146,11 @@ class VuepageController extends ControllerBase {
 
       <!-- <h3 class="vue-title">Grid Component Example - </h3> -->
       <div id="demo">
+        {{totalRow}}
         <form id="search">
           Search <input name="query" v-model="searchQuery">
         </form>
+
         <demo-grid
           :data="gridData"
           :columns="gridColumns"

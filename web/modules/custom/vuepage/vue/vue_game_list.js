@@ -15,6 +15,7 @@ Vue.component('demo-grid', {
     })
     return {
       sortKey: '',
+      maxCount: '60',
       sortOrders: sortOrders
     }
   },
@@ -26,6 +27,7 @@ Vue.component('demo-grid', {
       var data = this.data
       if (filterKey) {
         data = data.filter(function (row) {
+
           return Object.keys(row).some(function (key) {
             return String(row[key]).toLowerCase().indexOf(filterKey) > -1
           })
@@ -86,14 +88,16 @@ var demo = new Vue({
         'Win',
         'Draw',
         'Loss',
-        'Goal',
-        'Goal',
-        'Num'
+        'GoalH',
+        'GoalA',
+        'Num',
+        'Result'
       ],
       gridData: [
         { name: 'Samle tbody', power: 7000 },
         { name: 'Jet Li', power: 8000 }
-      ]
+      ],
+      totalRow: 00
     }
   },
   mounted () {
@@ -117,6 +121,7 @@ var demo = new Vue({
           // JSON responses are automatically parsed.
           this.gridColumns = response.data.gridColumns,
           this.gridData = response.data.gridData
+          this.totalRow = this.gridData.length
         }
       )
   }
