@@ -7,6 +7,8 @@ namespace Drupal\dashpage\Content;
 
 use Drupal\Core\Controller\ControllerBase;
 
+use Drupal\dashpage\Content\DashpageManageFields;
+
 /**
  * An example controller.
  $DashpageJsonGenerator = new DashpageJsonGenerator();
@@ -24,7 +26,6 @@ class DashpageJsonGenerator extends ControllerBase {
     return $output;
   }
 
-
   /**
    *
    */
@@ -39,7 +40,7 @@ class DashpageJsonGenerator extends ControllerBase {
 
     $table_heads = $this->getTrendTableThead();
 
-    $node_fields = $this->getNodeWinField();
+    $node_fields = \Drupal::getContainer()->get('flexinfo.term.service')->getNodeWinField();
 
     $win_nodes = $this->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {

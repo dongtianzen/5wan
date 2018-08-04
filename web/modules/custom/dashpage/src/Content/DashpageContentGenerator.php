@@ -7,6 +7,8 @@ namespace Drupal\dashpage\Content;
 
 use Drupal\Core\Controller\ControllerBase;
 
+use Drupal\dashpage\Content\DashpageManageFields;
+
 /**
  * An example controller.
  $DashpageContentGenerator = new DashpageContentGenerator();
@@ -27,7 +29,7 @@ class DashpageContentGenerator extends ControllerBase {
         $output .= '<div id="map-canvas">';
           $output .= 'Trend Table';
           $output .= '<br />';
-          $output .= $this->getTrendPageContent();
+          $output .= $this->getTrendPageTableContent();
         $output .= '</div>';
       $output .= '</div>';
     $output .= '</div>';
@@ -38,26 +40,16 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getGameListJson() {
-    $output['gridColumns'] = $this->getTrendTableThead();
-    $output['gridData'] = $this->getGameListTbody();
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function getTrendPageContent() {
+  public function getTrendPageTableContent() {
     $output = '';
     $output .= '<table class="table table-striped">';
       $output .= '<thead>';
         $output .= '<tr>';
-          $output .= $this->getTrendPageContentThead();
+          $output .= $this->getTrendPageTableThead();
         $output .= '</tr>';
       $output .= '</thead>';
       $output .= '<tbody>';
-        $output .= $this->getTrendPageContentTbody();
+        $output .= $this->getTrendPageTableTbody();
       $output .= '</tbody>';
     $output .= '</table>';
 
@@ -67,28 +59,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getTrendTableThead() {
-    $output = array(
-      'Date',
-      'Tags',
-      'Home',
-      'Away',
-      'Win',
-      'Draw',
-      'Loss',
-      'GoalH',
-      'GoalA',
-      'Num',
-      'Result',
-    );
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function getTrendPageContentThead() {
+  public function getTrendPageTableThead() {
     $output = '';
 
     $variable = $this->getTrendTableThead();
@@ -105,109 +76,7 @@ class DashpageContentGenerator extends ControllerBase {
   /**
    *
    */
-  public function getNodeWinField() {
-    $output = [
-      array(
-        'type' => 'value',
-        'field' => 'field_win_date_time'
-      ),
-      array(
-        'type' => 'term',
-        'field' => 'field_win_tags'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_name_home'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_name_away'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_ave_win'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_ave_draw'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_ave_loss'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_goal_home'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_goal_away'
-      ),
-      array(
-        'type' => 'value',
-        'field' => 'field_win_num_company'
-      ),
-    ];
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function getGameListTbody() {
-    $output = '';
-
-    $result = [
-      'win' => 0,
-      'draw' => 0,
-      'loss' => 0,
-    ];
-
-    $table_heads = $this->getTrendTableThead();
-
-    $node_fields = $this->getNodeWinField();
-
-    $win_nodes = $this->queryWinNodesByCondition();
-    foreach ($win_nodes as $key => $win_node) {
-
-      $tbody = [];
-      foreach ($node_fields as $subkey => $subrow) {
-        if ($subrow['type'] == 'term') {
-          $tbody[$table_heads[$subkey]] = \Drupal::getContainer()
-            ->get('flexinfo.field.service')
-            ->getFieldFirstTargetIdTermName($win_node, $subrow['field']);
-        }
-        else {
-          $tbody[$table_heads[$subkey]] = \Drupal::getContainer()
-            ->get('flexinfo.field.service')
-            ->getFieldFirstValue($win_node, $subrow['field']);
-        }
-      }
-
-      if ($tbody['GoalH'] > $tbody['GoalA']) {
-        $result['win']++;
-        $tbody['Result'] = 3;
-      }
-      elseif ($tbody['GoalH'] == $tbody['GoalA']) {
-        $result['draw']++;
-        $tbody['Result'] = 1;
-      }
-      else {
-        $result['loss']++;
-        $tbody['Result'] = 0;
-      }
-
-      $output[] = $tbody;
-    }
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function getTrendPageContentTbody() {
+  public function getTrendPageTableTbody() {
     $tbody = '';
 
     $node_fields = $this->getNodeWinField();
