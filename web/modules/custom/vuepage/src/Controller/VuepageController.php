@@ -122,7 +122,7 @@ class VuepageController extends ControllerBase {
         <table>
           <thead>
             <tr>
-              {{maxCount}}
+              {{filteredTotal}}
             </tr>
             <tr>
               <th v-for="key in columns"
@@ -146,15 +146,20 @@ class VuepageController extends ControllerBase {
 
       <!-- <h3 class="vue-title">Grid Component Example - </h3> -->
       <div id="demo">
-        {{totalRow}}
-        <form id="search">
-          Search <input name="query" v-model="searchQuery">
-        </form>
+        <div>
+          <span class="float-right" style="float:right;">
+            Total is {{totalRow}}
+          </span>
+          <form id="search">
+            Search <input name="query" v-model="searchQuery">
+          </form>
+        </div>
 
         <demo-grid
           :data="gridData"
           :columns="gridColumns"
-          :filter-key="searchQuery">
+          :filter-key="searchQuery"
+        >
         </demo-grid>
       </div>
     ';

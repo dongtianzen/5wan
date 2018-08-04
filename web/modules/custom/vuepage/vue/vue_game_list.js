@@ -15,8 +15,8 @@ Vue.component('demo-grid', {
     })
     return {
       sortKey: '',
-      maxCount: '60',
-      sortOrders: sortOrders
+      sortOrders: sortOrders,
+      filteredTotal: 0,
     }
   },
   computed: {
@@ -27,11 +27,12 @@ Vue.component('demo-grid', {
       var data = this.data
       if (filterKey) {
         data = data.filter(function (row) {
-
           return Object.keys(row).some(function (key) {
             return String(row[key]).toLowerCase().indexOf(filterKey) > -1
           })
         })
+
+        this.filteredTotal = data.length
       }
       if (sortKey) {
         data = data.slice().sort(function (a, b) {
@@ -97,7 +98,7 @@ var demo = new Vue({
         { name: 'Samle tbody', power: 7000 },
         { name: 'Jet Li', power: 8000 }
       ],
-      totalRow: 00
+      totalRow: 0
     }
   },
   mounted () {
