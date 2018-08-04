@@ -79,6 +79,7 @@ class DashpageContentGenerator extends ControllerBase {
       'GoalH',
       'GoalA',
       'Num',
+      'Result',
     );
 
     return $output;
@@ -157,6 +158,12 @@ class DashpageContentGenerator extends ControllerBase {
   public function getGameListTbody() {
     $output = '';
 
+    $result = [
+      'win' => 0,
+      'draw' => 0,
+      'loss' => 0,
+    ];
+
     $table_heads = $this->getTrendTableThead();
 
     $node_fields = $this->getNodeWinField();
@@ -176,6 +183,19 @@ class DashpageContentGenerator extends ControllerBase {
             ->get('flexinfo.field.service')
             ->getFieldFirstValue($win_node, $subrow['field']);
         }
+      }
+
+      if ($tbody['GoalH'] > $tbody['GoalA']) {
+        $result['win']++;
+        $tbody['Result'] = 3;
+      }
+      elseif ($tbody['GoalH'] == $tbody['GoalA']) {
+        $result['draw']++;
+        $tbody['Result'] = 1;
+      }
+      else {
+        $result['loss']++;
+        $tbody['Result'] = 0;
       }
 
       $output[] = $tbody;
