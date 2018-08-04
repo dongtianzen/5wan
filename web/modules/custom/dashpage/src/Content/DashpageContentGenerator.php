@@ -62,7 +62,7 @@ class DashpageContentGenerator extends ControllerBase {
   public function getTrendPageTableThead() {
     $output = '';
 
-    $variable = $this->getTrendTableThead();
+    $variable = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
 
     foreach ($variable as $key => $value) {
       $output .= '<th>';
@@ -79,7 +79,7 @@ class DashpageContentGenerator extends ControllerBase {
   public function getTrendPageTableTbody() {
     $tbody = '';
 
-    $node_fields = $this->getNodeWinField();
+    $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
 
     $result = [
       'win' => 0,

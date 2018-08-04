@@ -2,3 +2,6 @@ services:
   # Defines a simple service of which requires no parameter for its constructor.
   dashpage.managefields.service:
     class: Drupal\dashpage\Service\DashpageManageFields
+  #
+  dashpage.tablebasic.service:
+    class: Drupal\dashpage\Service\DashpageTableBasic

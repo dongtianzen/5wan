@@ -38,9 +38,9 @@ class DashpageJsonGenerator extends ControllerBase {
       'loss' => 0,
     ];
 
-    $table_heads = $this->getTrendTableThead();
+    $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
 
-    $node_fields = \Drupal::getContainer()->get('flexinfo.term.service')->getNodeWinField();
+    $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
 
     $win_nodes = $this->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
