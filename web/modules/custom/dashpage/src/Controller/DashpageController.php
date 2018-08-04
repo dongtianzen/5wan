@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Drupal\dashpage\Content\DashpageContentGenerator;
+use Drupal\dashpage\Content\DashpageJsonGenerator;
 
 /**
  * An example controller.
@@ -70,8 +71,8 @@ class DashpageController extends ControllerBase {
    *
    */
   public function gameListJson() {
-    $DashpageContentGenerator = new DashpageContentGenerator();
-    $object_content_data = $DashpageContentGenerator->getGameListJson();
+    $DashpageJsonGenerator = new DashpageJsonGenerator();
+    $object_content_data = $DashpageJsonGenerator->getGameListJson();
 
     return new JsonResponse($object_content_data);
 

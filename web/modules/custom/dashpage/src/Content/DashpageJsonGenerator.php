@@ -20,7 +20,7 @@ class DashpageJsonGenerator extends ControllerBase {
    *
    */
   public function getGameListJson() {
-    $output['gridColumns'] = $this->getTrendTableThead();
+    $output['gridColumns'] = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
     $output['gridData'] = $this->getGameListTbody();
 
     return $output;
