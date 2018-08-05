@@ -10,12 +10,29 @@ Vue.component('line-chart', {
         {
           label: 'Data One',
           backgroundColor: '#f87979',
-          data: [15, 32, 30]
+          data: [
+            {
+              x: 30,
+              y: 17,
+              r: 10
+            },
+            {
+              x: 20,
+              y: 12,
+              r: 10
+            }
+          ]
         },
         {
           label: 'Data two',
-          backgroundColor: '#f87979',
-          data: [40, 39, 10]
+          backgroundColor: '#7c89fb',
+          data: [
+            {
+              x: 16,
+              y: 20,
+              r: 8
+            }
+          ]
         }
       ]
     }, {responsive: true, maintainAspectRatio: false})
@@ -136,28 +153,27 @@ var demo = new Vue({
     }
   },
   mounted () {
-    axios
-      .get(
-        'http://localhost:8888/5wan/web/dashpage/game/list/json',
-        {
-          params: {
-            ave_win:   2.76,
-            diff_win: 0.05,
-            tags: ['英冠', '英甲'],
-            // ave_draw:  3.28,
-            // diff_draw: 0.1,
-            // ave_loss:  2.25,
-            // diff_loss: 0.05,
-          }
+    axios.get(
+      'http://localhost:8888/5wan/web/dashpage/game/list/json',
+      {
+        params: {
+          ave_win:   2.76,
+          diff_win: 0.05,
+          tags: ['英冠', '英甲'],
+          // ave_draw:  3.28,
+          // diff_draw: 0.1,
+          // ave_loss:  2.25,
+          // diff_loss: 0.05,
         }
-      )
-      .then(
-        response => {
-          // JSON responses are automatically parsed.
-          this.gridColumns = response.data.gridColumns,
-          this.gridData = response.data.gridData
-          this.totalRow = this.gridData.length
-        }
-      )
+      }
+    )
+    .then(
+      response => {
+        // JSON responses are automatically parsed.
+        this.gridColumns = response.data.gridColumns,
+        this.gridData = response.data.gridData
+        this.totalRow = this.gridData.length
+      }
+    )
   }
 })
