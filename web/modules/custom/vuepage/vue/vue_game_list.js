@@ -5,7 +5,7 @@ Vue.component('line-chart', {
   extends: VueChartJs.Bubble,
   data () {
     return {
-      chartDataSetSource: [
+      chartDataSetSource: [    // dataset sample format
         {
           label: 'Data One',
           backgroundColor: '#f87979',
@@ -37,9 +37,6 @@ Vue.component('line-chart', {
     }
   },
   mounted () {
-    this.renderChart({
-      datasets: this.chartDataSetSource
-    }, {responsive: true, maintainAspectRatio: false}),
     axios.get(
       'http://localhost:8888/5wan/web/dashpage/game/list/json',
       {
@@ -74,7 +71,10 @@ Vue.component('line-chart', {
               }
             ]
           }
-        ]
+        ],
+        this.renderChart({
+          datasets: this.chartDataSetSource
+        }, {responsive: true, maintainAspectRatio: false})
       }
     )
   }
