@@ -198,13 +198,13 @@ var demo = new Vue({
       'http://localhost:8888/5wan/web/dashpage/game/list/json',
       {
         params: {
-          ave_win:   2.76,
+          ave_win:   1.71,
           diff_win: 0.05,
-          tags: ['英冠', '英甲'],
-          // ave_draw:  3.28,
-          // diff_draw: 0.1,
-          // ave_loss:  2.25,
-          // diff_loss: 0.05,
+          tags: ['苏超'],
+          ave_draw:  3.64,
+          diff_draw: 0.05,
+          // ave_loss:  4.64,
+          // diff_loss: 0.1,
         }
       }
     )
