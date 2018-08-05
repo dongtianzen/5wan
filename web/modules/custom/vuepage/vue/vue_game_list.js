@@ -39,7 +39,44 @@ Vue.component('line-chart', {
   mounted () {
     this.renderChart({
       datasets: this.chartDataSetSource
-    }, {responsive: true, maintainAspectRatio: false})
+    }, {responsive: true, maintainAspectRatio: false}),
+    axios.get(
+      'http://localhost:8888/5wan/web/dashpage/game/list/json',
+      {
+        params: {
+          ave_win:   2.76,
+          diff_win: 0.05,
+          tags: ['英冠', '英甲'],
+          // ave_draw:  3.28,
+          // diff_draw: 0.1,
+          // ave_loss:  2.25,
+          // diff_loss: 0.05,
+        }
+      }
+    )
+    .then(
+      response => {
+        // JSON responses are automatically parsed.
+        this.chartDataSetSource = [
+          {
+            label: 'Data One',
+            backgroundColor: '#7c89fb',
+            data: [
+              {
+                x: 5.20,
+                y: 3.72,
+                r: 10
+              },
+              {
+                x: 5.20,
+                y: 5.12,
+                r: 10
+              }
+            ]
+          }
+        ]
+      }
+    )
   }
 })
 
@@ -175,7 +212,7 @@ var demo = new Vue({
       response => {
         // JSON responses are automatically parsed.
         this.gridColumns = response.data.gridColumns,
-        this.gridData = response.data.gridData
+        this.gridData = response.data.gridData,
         this.totalRow = this.gridData.length
       }
     )
