@@ -3,22 +3,21 @@
  */
 Vue.component('line-chart', {
   extends: VueChartJs.Bubble,
-  mounted () {
-    this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
+  data () {
+    return {
+      chartDataSetSource: [
         {
           label: 'Data One',
           backgroundColor: '#f87979',
           data: [
             {
-              x: 30,
-              y: 17,
+              x: 3.20,
+              y: 1.72,
               r: 10
             },
             {
-              x: 20,
-              y: 12,
+              x: 2.20,
+              y: 2.12,
               r: 10
             }
           ]
@@ -28,13 +27,18 @@ Vue.component('line-chart', {
           backgroundColor: '#7c89fb',
           data: [
             {
-              x: 16,
-              y: 20,
+              x: 1.62,
+              y: 2.50,
               r: 8
             }
           ]
         }
       ]
+    }
+  },
+  mounted () {
+    this.renderChart({
+      datasets: this.chartDataSetSource
     }, {responsive: true, maintainAspectRatio: false})
   }
 })
