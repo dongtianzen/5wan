@@ -2,7 +2,7 @@
  * @to vue-chartjs v3 to draw line chart
  */
 Vue.component('line-chart', {
-  extends: VueChartJs.Line,
+  extends: VueChartJs.Bubble,
   mounted () {
     this.renderChart({
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -10,7 +10,12 @@ Vue.component('line-chart', {
         {
           label: 'Data One',
           backgroundColor: '#f87979',
-          data: [40, 39, 10, 40, 39, 80, 40]
+          data: [15, 32, 30]
+        },
+        {
+          label: 'Data two',
+          backgroundColor: '#f87979',
+          data: [40, 39, 10]
         }
       ]
     }, {responsive: true, maintainAspectRatio: false})
@@ -28,9 +33,9 @@ var vm = new Vue({
 })
 
 /**
- *
+ * for game list table
  */
-Vue.component('demo-grid', {
+Vue.component('game-list-grid-tag', {
   template: '#grid-template',
   props: {
     data: Array,
@@ -106,7 +111,7 @@ Vue.component('demo-grid', {
 
 // the demo
 var demo = new Vue({
-  el: '#demo',
+  el: '#game-list-grid-wrapper',
   data () {
     return {
       searchQuery: '',

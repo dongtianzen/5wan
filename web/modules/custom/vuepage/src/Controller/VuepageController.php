@@ -145,7 +145,7 @@ class VuepageController extends ControllerBase {
       </script>
 
       <!-- <h3 class="vue-title">Grid Component Example - </h3> -->
-      <div id="demo">
+      <div id="game-list-grid-wrapper">
         <div>
           <span class="float-right" style="float:right;">
             Total is {{totalRow}}
@@ -155,12 +155,12 @@ class VuepageController extends ControllerBase {
           </form>
         </div>
 
-        <demo-grid
+        <game-list-grid-tag
           :data="gridData"
           :columns="gridColumns"
           :filter-key="searchQuery"
         >
-        </demo-grid>
+        </game-list-grid-tag>
       </div>
 
       <div class="appchartjs">
