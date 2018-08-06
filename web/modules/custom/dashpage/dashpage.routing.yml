@@ -24,3 +24,12 @@ dashpage.game.list.json:
   requirements:
     _permission: 'access content'
     _role: 'authenticated'
+
+#
+dashpage.game.chart.json:
+  path: '/dashpage/game/chart/json'
+  defaults:
+    _controller: '\Drupal\dashpage\Controller\DashpageController::gameChartJson'
+  requirements:
+    _permission: 'access content'
+    _role: 'authenticated'

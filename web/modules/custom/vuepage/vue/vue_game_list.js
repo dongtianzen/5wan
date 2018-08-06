@@ -51,7 +51,7 @@ Vue.component('line-chart', {
   },
   mounted () {
     axios.get(
-      'http://localhost:8888/5wan/web/dashpage/game/list/json',
+      'http://localhost:8888/5wan/web/dashpage/game/chart/json',
       {
         params: {
           ave_win:  default_ave_win,
@@ -67,25 +67,9 @@ Vue.component('line-chart', {
     .then(
       response => {
         console.log(response.request.responseURL)
+
         // JSON responses are automatically parsed.
-        this.chartDataSetSource = [
-          {
-            label: 'Data One',
-            backgroundColor: '#7c89fb',
-            data: [
-              {
-                x: 5.20,
-                y: 3.72,
-                r: 10
-              },
-              {
-                x: 5.20,
-                y: 5.12,
-                r: 10
-              }
-            ]
-          }
-        ],
+        this.chartDataSetSource = response.data.chartDataSetSource,
         this.renderChart({
           datasets: this.chartDataSetSource
         }, {responsive: true, maintainAspectRatio: false})

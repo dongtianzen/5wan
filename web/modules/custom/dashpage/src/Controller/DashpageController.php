@@ -85,4 +85,22 @@ class DashpageController extends ControllerBase {
     return $build;
   }
 
+  /**
+   *
+   */
+  public function gameChartJson() {
+    $DashpageJsonGenerator = new DashpageJsonGenerator();
+    $object_content_data = $DashpageJsonGenerator->getGameChartJson();
+
+    return new JsonResponse($object_content_data);
+
+    // debug output as JSON format
+    $build = array(
+      '#type' => 'markup',
+      '#markup' => json_encode($object_content_data),
+    );
+
+    return $build;
+  }
+
 }
