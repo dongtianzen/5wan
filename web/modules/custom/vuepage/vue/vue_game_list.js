@@ -1,4 +1,17 @@
 /**
+ *
+ */
+var default_ave_win  = 1.80
+var default_ave_loss = null
+var default_ave_draw = null
+
+var default_diff_win  = 0.05
+var default_diff_loss = null
+var default_diff_draw = null
+
+var default_tags = ['苏超']
+
+/**
  * @to vue-chartjs v3 to draw line chart
  */
 Vue.component('line-chart', {
@@ -41,13 +54,13 @@ Vue.component('line-chart', {
       'http://localhost:8888/5wan/web/dashpage/game/list/json',
       {
         params: {
-          ave_win:   2.76,
-          diff_win: 0.05,
-          tags: ['英冠', '英甲'],
-          // ave_draw:  3.28,
-          // diff_draw: 0.1,
-          // ave_loss:  2.25,
-          // diff_loss: 0.05,
+          ave_win:  default_ave_win,
+          ave_draw: default_ave_draw,
+          ave_loss: default_ave_loss,
+          diff_win:  default_diff_win,
+          diff_draw: default_diff_draw,
+          diff_loss: default_diff_loss,
+          tags: default_tags,
         }
       }
     )
@@ -198,13 +211,13 @@ var demo = new Vue({
       'http://localhost:8888/5wan/web/dashpage/game/list/json',
       {
         params: {
-          ave_win:   1.71,
-          diff_win: 0.05,
-          tags: ['苏超'],
-          ave_draw:  3.64,
-          diff_draw: 0.05,
-          // ave_loss:  4.64,
-          // diff_loss: 0.1,
+          ave_win:  default_ave_win,
+          ave_draw: default_ave_draw,
+          ave_loss: default_ave_loss,
+          diff_win:  default_diff_win,
+          diff_draw: default_diff_draw,
+          diff_loss: default_diff_loss,
+          tags: default_tags,
         }
       }
     )
