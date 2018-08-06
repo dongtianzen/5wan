@@ -66,6 +66,7 @@ Vue.component('line-chart', {
     )
     .then(
       response => {
+        console.log(response.request.responseURL)
         // JSON responses are automatically parsed.
         this.chartDataSetSource = [
           {
