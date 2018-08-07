@@ -18,7 +18,7 @@ diffTimestamp = currentTimestamp - fileLastModifiedTimeStamp
 if(diffTimestamp > 180):
   startNum = FlexJsonBasic().getStartPageIdFromJson()
 
-  if(startNum < 680000):
+  if(startNum < 690000):
 
     # except Exception: not catch KeyboardInterrupt, SystemExit
     for num in range(startNum, (startNum + 1000)):
