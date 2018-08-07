@@ -82,20 +82,20 @@ Vue.component('line-chart', {
     .then(
       response => {
         console.log(response.request.responseURL)
-        console.log(this.options)
 
         this.options = {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero:true
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItems, data) {
+                return tooltipItems.yLabel + ' rmb';
               }
-            }]
+            }
           }
         }
 
         // JSON responses are automatically parsed.
-        this.chartDataSetSource = response.data.chartDataSetSource,
+        this.chartDataSetSource = response.data.chartDataSetSource
+
         this.renderChart({
           datasets: this.chartDataSetSource,
           options: this.options
