@@ -87,6 +87,7 @@ class DashpageJsonGenerator extends ControllerBase {
         'x' => $tbody['Draw'],
         'y' => $tbody['Loss'],
         'r' => $r_value,
+        'c' => '66666',
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
