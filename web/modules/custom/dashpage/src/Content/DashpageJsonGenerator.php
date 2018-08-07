@@ -81,8 +81,9 @@ class DashpageJsonGenerator extends ControllerBase {
       }
 
       $r_value = 10;
-      $r_value = 1 / $tbody['Win'] + 1 / $tbody['Draw'] + 1 / $tbody['Loss'];
+      $r_value = 1 / (1 / $tbody['Win'] + 1 / $tbody['Draw'] + 1 / $tbody['Loss']);
       $r_value = $r_value * 10;
+
       $chart_data = [
         'x' => $tbody['Draw'],
         'y' => $tbody['Loss'],

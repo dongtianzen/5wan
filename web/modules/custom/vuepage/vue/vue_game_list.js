@@ -1,7 +1,11 @@
 /**
  *
+ label: function(t, d) {
+   return d.datasets[t.datasetIndex].label +
+     ': (Day:' + t.xLabel + ', Total:' + t.yLabel + ')';
+ }
  */
-var default_ave_win  = 1.95
+var default_ave_win  = 1.65
 var default_ave_loss = null
 var default_ave_draw = null
 
@@ -46,7 +50,18 @@ Vue.component('line-chart', {
             }
           ]
         }
-      ]
+      ],
+      options: {
+        tooltips: {
+          enabled: true,
+          callbacks: {
+            label:function (tooltipItems, data) {
+              console.log(data)
+              return tooltipItems.yLabel + '£'
+            }
+          }
+        }
+      }
     }
   },
   mounted () {
@@ -67,11 +82,23 @@ Vue.component('line-chart', {
     .then(
       response => {
         console.log(response.request.responseURL)
+        console.log(this.options)
+
+        this.options = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero:true
+              }
+            }]
+          }
+        }
 
         // JSON responses are automatically parsed.
         this.chartDataSetSource = response.data.chartDataSetSource,
         this.renderChart({
-          datasets: this.chartDataSetSource
+          datasets: this.chartDataSetSource,
+          options: this.options
         }, {responsive: true, maintainAspectRatio: false})
       }
     )
@@ -88,6 +115,7 @@ var vm = new Vue({
   }
 })
 
+/** - - - grid table - - - - - - - - - - - - - */
 /**
  * for game list table
  */
