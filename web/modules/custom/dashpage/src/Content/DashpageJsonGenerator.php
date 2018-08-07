@@ -44,17 +44,17 @@ class DashpageJsonGenerator extends ControllerBase {
     $output = [
       [
         'label' => 'win',
-        'backgroundColor' => '#f87979',
+        'backgroundColor' => '#79f879',
         'data' => [],
       ],
       [
         'label' => 'Draw',
-        'backgroundColor' => '#7c89fb',
+        'backgroundColor' => '#7979f8',
         'data' => [],
       ],
       [
         'label' => 'Loss',
-        'backgroundColor' => '#ef6a6a',
+        'backgroundColor' => '#f87979',
         'data' => [],
       ],
     ];
@@ -80,16 +80,23 @@ class DashpageJsonGenerator extends ControllerBase {
         }
       }
 
+      $r_value = 10;
+      $r_value = 1 / $tbody['Win'] + 1 / $tbody['Draw'] + 1 / $tbody['Loss'];
+      $r_value = $r_value * 10;
+      $chart_data = [
+        'x' => $tbody['Draw'],
+        'y' => $tbody['Loss'],
+        'r' => $r_value,
+      ];
+
       if ($tbody['GoalH'] > $tbody['GoalA']) {
-        $output[0]['data'][] = [
-          'x' => $tbody['Win'],
-          'y' => $tbody['Draw'],
-          'r' => $tbody['Loss'],
-        ];
+        $output[0]['data'][] = $chart_data;
       }
       elseif ($tbody['GoalH'] == $tbody['GoalA']) {
+        $output[1]['data'][] = $chart_data;
       }
       else {
+        $output[2]['data'][] = $chart_data;
       }
 
     }
