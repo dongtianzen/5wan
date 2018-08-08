@@ -3,7 +3,7 @@ vuepage.vue.page:
   path: '/vuepage/vue/page'
   defaults:
     _controller: '\Drupal\vuepage\Controller\VuepageController::vuePage'
-    _title: 'Vue Page'
+    _title: 'Vue Page Demo'
   requirements:
     _permission: 'access content'
 

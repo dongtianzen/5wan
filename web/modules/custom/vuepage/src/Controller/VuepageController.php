@@ -28,7 +28,7 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function basicContent() {
-    $content = '
+    $output = '
       <div class="container bootstrap-vue-example-wrapper">
         <div id="appPage">
           <h5>Bootstrap Vue Example</h5>
@@ -49,44 +49,54 @@ class VuepageController extends ControllerBase {
       </div>
     ';
 
-    return $content;
+    return $output;
   }
 
   /**
-   * {@inheritdoc}
+   * @see sample https://github.com/ratiw/vuetable-2
    */
-  public function vuetable() {
-    $content = '
-      <h3 class="vue-title">Vuetable-2-bootstrap - https://codepen.io/ratiw/pen/GmJayw</h3>
-      <div id="app">
-        <div id="table-wrapper" class="ui container">
-          <h2>
-            <strong>Vuetable-2</strong>
-            <span>with Bootstrap 3</span>
-          </h2>
+  public function vuetableContent() {
+    $output = '';
+    $output .= '<div id="app">';
+      $output .= '<div id="table-wrapper" class="ui container">';
+        $output .= '<h3>';
+          $output .= '<strong>Vuetable-2</strong>';
+          $output .= '<span> with Bootstrap 3</span>';
+          $output .= '<span>  - https://codepen.io/ratiw/pen/GmJayw</span>';
+        $output .= '</h3>';
+        $output .= $this->vuetableContentComponent();
+      $output .= '</div>';
+    $output .= '</div>';
 
-          <vuetable ref="vuetable"
-            api-url="https://vuetable.ratiw.net/api/users"
-            :fields="fields"
-            :sort-order="sortOrder"
-            :css="css.table"
-            pagination-path=""
-            :per-page="10"
-            @vuetable:pagination-data="onPaginationData"
-            @vuetable:loading="onLoading"
-            @vuetable:loaded="onLoaded"
-          >
-          </vuetable>
-          <vuetable-pagination ref="pagination"
-            :css="css.pagination"
-            @vuetable-pagination:change-page="onChangePage"
-          >
-          </vuetable-pagination>
-        </div>
-      </div>
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function vuetableContentComponent() {
+    $output = '
+      <vuetable ref="vuetable"
+        api-url="https://vuetable.ratiw.net/api/users"
+        :fields="fields"
+        :sort-order="sortOrder"
+        :css="css.table"
+        pagination-path=""
+        :per-page="10"
+        @vuetable:pagination-data="onPaginationData"
+        @vuetable:loading="onLoading"
+        @vuetable:loaded="onLoaded"
+      >
+      </vuetable>
+
+      <vuetable-pagination ref="pagination"
+        :css="css.pagination"
+        @vuetable-pagination:change-page="onChangePage"
+      >
+      </vuetable-pagination>
     ';
 
-    return $content;
+    return $output;
   }
 
   /**
@@ -94,7 +104,7 @@ class VuepageController extends ControllerBase {
    */
   public function vuePage() {
     $content = $this->basicContent();
-    $content = $this->vuetable();
+    $content = $this->vuetableContent();
 
     $build = array(
       '#children' => $content,
