@@ -80,14 +80,20 @@ class DashpageJsonGenerator extends ControllerBase {
         }
       }
 
-      $r_value = 10;
-      $r_value = 1 / (1 / $tbody['Win'] + 1 / $tbody['Draw'] + 1 / $tbody['Loss']);
-      $r_value = $r_value * 10;
+      $ini_win_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_win');
+
+      // 10 is standard size
+      // $r_size = 1 / (1 / $tbody['Win'] + 1 / $tbody['Draw'] + 1 / $tbody['Loss']);
+      $r_size = $tbody['Win'] - $ini_win_value;
+      $r_size = $r_size * 10;
+      $r_size = 10 + $r_size;
 
       $chart_data = [
         'x' => $tbody['Draw'],
         'y' => $tbody['Loss'],
-        'r' => $r_value,
+        'r' => $r_size,
         'c' => '66666',
       ];
 

@@ -5,15 +5,15 @@
      ': (Day:' + t.xLabel + ', Total:' + t.yLabel + ')';
  }
  */
-var default_ave_win  = 1.65
+var default_ave_win  = 2.26
 var default_ave_loss = null
 var default_ave_draw = null
 
-var default_diff_win  = 0.03
+var default_diff_win  = 0.05
 var default_diff_loss = null
 var default_diff_draw = null
 
-var default_tags = ['苏超']
+var default_tags = ['欧冠']
 
 /**
  * @to vue-chartjs v3 to draw line chart
