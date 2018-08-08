@@ -14,11 +14,11 @@ fileLastModifiedTimeStamp = os.path.getmtime(jsonFilePath)
 currentTimestamp = time.time()
 diffTimestamp = currentTimestamp - fileLastModifiedTimeStamp
 
-# startNum < 600594
+# startNum < 600594  // end 700000
 if(diffTimestamp > 180):
   startNum = FlexJsonBasic().getStartPageIdFromJson()
 
-  if(startNum < 700000):
+  if(startNum < 410000):
 
     # except Exception: not catch KeyboardInterrupt, SystemExit
     for num in range(startNum, (startNum + 1000)):
