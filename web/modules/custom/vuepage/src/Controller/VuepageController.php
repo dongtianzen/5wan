@@ -25,7 +25,7 @@ use Drupal\vuepage\Content\VuepageContentGenerator;
 class VuepageController extends ControllerBase {
 
   /**
-   * {@inheritdoc}
+   *
    */
   public function basicContent() {
     $output = '
@@ -158,6 +158,43 @@ class VuepageController extends ControllerBase {
 
     Timer::stop($name);
     dpm(Timer::read($name) . 'ms');
+
+    return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function d3ChartPageContent() {
+    $output = '
+      <div class="container d3-js-example-wrapper">
+        <d3-chart-wrapper>
+        </d3-chart-wrapper>
+        <div id="appPage">
+          <h5>D3 JS Example</h5>
+          <br />
+        </div>
+      </div>
+    ';
+
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function d3ChartPage() {
+    $content = $this->d3ChartPageContent();
+
+    $build = array(
+      '#children' => $content,
+      '#attached' => array(
+        'library' => array(
+          'vuepage/d3.js',
+          'vuepage/d3_js_chart_controller',
+        )
+      ),
+    );
 
     return $build;
   }

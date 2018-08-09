@@ -15,3 +15,12 @@ vuepage.game.list:
     _title: 'Vue Game List'
   requirements:
     _permission: 'access content'
+
+# d3
+vuepage.d3.chart.page:
+  path: '/vuepage/d3/chart/page'
+  defaults:
+    _controller: '\Drupal\vuepage\Controller\VuepageController::d3ChartPage'
+    _title: 'D3 JS Chart'
+  requirements:
+    _permission: 'access content'

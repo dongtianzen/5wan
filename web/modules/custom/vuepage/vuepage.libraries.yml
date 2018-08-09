@@ -62,6 +62,15 @@ chart.js:
     /libraries/node_modules/chart.js/dist/chart.min.js: {}
 
 #
+d3.js:
+  version: 5.5.0
+  license:
+    name: MIT
+    gpl-compatible: true
+  js:
+    /libraries/node_modules/d3/dist/d3.min.js: {}
+
+#
 vue-chartjs:
   version: 3.4.0
   license:
@@ -70,6 +79,20 @@ vue-chartjs:
   js:
     /libraries/node_modules/vue-chartjs/dist/vue-chartjs.min.js: {}
 
+#
+vuetable-2:
+  remote: https://github.com/ratiw/vuetable-2
+  version: 1.7.5
+  license:
+    name: MIT
+    gpl-compatible: true
+  css:
+    theme:
+      /libraries/node_modules/vuetable-2/dist/vuetable-2.css: {}
+  js:
+    /libraries/node_modules/vuetable-2/dist/vuetable-2.js: {}
+
+# ################## custom
 #
 vue_report:
   css:
@@ -94,16 +117,9 @@ vue_table_js:
   js:
     vue/vue_table_controller.js: {}
 
-#
-vuetable-2:
-  remote: https://github.com/ratiw/vuetable-2
-  version: 1.7.5
-  license:
-    name: MIT
-    gpl-compatible: true
-  css:
-    theme:
-      /libraries/node_modules/vuetable-2/dist/vuetable-2.css: {}
+# @todo d3.js custom controller
+d3_js_chart_controller:
   js:
-    /libraries/node_modules/vuetable-2/dist/vuetable-2.js: {}
+    js/d3_js_chart_controller.js: {}
+
 
