@@ -72,10 +72,16 @@ class VuepageController extends ControllerBase {
   }
 
   /**
-   *
+   * vue template
    */
   public function vuetableContentComponent() {
+    // json url is here
     $output = '
+      <vuetable-pagination-info ref="paginationInfoTop"
+       ></vuetable-pagination-info>
+
+      <filter-bar></filter-bar>
+
       <vuetable ref="vuetable"
         api-url="https://vuetable.ratiw.net/api/users"
         :fields="fields"

@@ -2,12 +2,21 @@
  * @see https://codepen.io/ratiw/pen/GmJayw
  */
 
+/**
+ * @param json source url is on php components
+ */
+// import FilterBar from './FilterBar'
+// import FilterBar from 'src/components/FilterBar'
+
+const FilterBar = require("src/components/FilterBar");
+
 Vue.use(Vuetable);
 
 new Vue({
   el: '#app',
   components: {
-    'vuetable-pagination': Vuetable.VuetablePagination
+    'vuetable-pagination': Vuetable.VuetablePagination,
+    'filter-bar': FilterBar
   },
   data: {
     // Fields defined as array of object
