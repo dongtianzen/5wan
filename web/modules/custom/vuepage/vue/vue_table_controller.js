@@ -8,7 +8,7 @@
 // import FilterBar from './FilterBar'
 // import FilterBar from 'src/components/FilterBar'
 
-const FilterBar = require("src/components/FilterBar");
+const FilterBar = require("./src/components/FilterBar.vue");
 
 Vue.use(Vuetable);
 
