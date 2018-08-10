@@ -83,10 +83,16 @@ class DashpageJsonGenerator extends ControllerBase {
       $ini_win_value = \Drupal::getContainer()
         ->get('flexinfo.field.service')
         ->getFieldFirstValue($win_node, 'field_win_ini_win');
+      $ini_draw_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_draw');
+      $ini_loss_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_loss');
 
       // 10 is standard size
       // $r_size = 1 / (1 / $tbody['Win'] + 1 / $tbody['Draw'] + 1 / $tbody['Loss']);
-      $r_size = $tbody['Win'] - $ini_win_value;
+      $r_size = ($tbody['Win'] - $ini_win_value) + ($tbody['Draw'] - $ini_draw_value) + ($tbody['Loss'] - $ini_loss_value);
       $r_size = $r_size * 10;
       $r_size = 10 + $r_size;
 
@@ -94,7 +100,6 @@ class DashpageJsonGenerator extends ControllerBase {
         'x' => $tbody['Draw'],
         'y' => $tbody['Loss'],
         'r' => $r_size,
-        'c' => '66666',
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
