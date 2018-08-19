@@ -143,6 +143,7 @@ Vue.component('game-list-grid-tag', {
       var filterKey = this.filterKey && this.filterKey.toLowerCase()
       var order = this.sortOrders[sortKey] || 1
       var data = this.data
+
       if (filterKey) {
         data = data.filter(function (row) {
           return Object.keys(row).some(function (key) {
@@ -150,8 +151,24 @@ Vue.component('game-list-grid-tag', {
           })
         })
 
-        this.filteredTotal = data.length
+        var filterWinNum = 0
+        var filterDrawNum = 0
+        var filterLossNum = 0
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].Result == '3') {
+            filterWinNum++
+          }
+          if (data[i].Result == '1') {
+            filterDrawNum++
+          }
+          if (data[i].Result == '0') {
+            filterLossNum++
+          }
+        }
+
+        this.filteredTotal = 'Filter ' + data.length + ',  Win ' + filterWinNum + ',  Draw ' + filterDrawNum + ',  Loss ' + filterLossNum
       }
+
       if (sortKey) {
         data = data.slice().sort(function (a, b) {
           a = a[sortKey]
@@ -159,6 +176,7 @@ Vue.component('game-list-grid-tag', {
           return (a === b ? 0 : a > b ? 1 : -1) * order
         })
       }
+
       return data
     }
   },
@@ -240,6 +258,28 @@ var demo = new Vue({
         this.gridColumns = response.data.gridColumns,
         this.gridData = response.data.gridData,
         this.totalRow = this.gridData.length
+
+        var winNum = 0
+        var drawNum = 0
+        var lossNum = 0
+
+        for (var i = 0; i < this.gridData.length; i++) {
+          if (this.gridData[i].Result == '3') {
+            winNum++
+          }
+          if (this.gridData[i].Result == '1') {
+            drawNum++
+          }
+          if (this.gridData[i].Result == '0') {
+            lossNum++
+          }
+        }
+
+        this.totalRow = this.gridData.length
+          + ',  Win ' + winNum + ' - ' + (winNum / this.gridData.length).toFixed(2) * 100 + '%'
+          + ',  Draw ' + drawNum
+          + ',  Loss ' + lossNum
+
       }
     )
   }
