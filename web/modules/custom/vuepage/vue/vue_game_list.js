@@ -166,7 +166,10 @@ Vue.component('game-list-grid-tag', {
           }
         }
 
-        this.filteredTotal = 'Filter ' + data.length + ',  Win ' + filterWinNum + ',  Draw ' + filterDrawNum + ',  Loss ' + filterLossNum
+        this.filteredTotal = '-Filter is  ' + data.length
+          + ',  Win ' + filterWinNum + ' - ' + (filterWinNum / data.length).toFixed(2) * 100 + '%'
+          + ',  Draw ' + filterDrawNum
+          + ',  Loss ' + filterLossNum
       }
 
       if (sortKey) {

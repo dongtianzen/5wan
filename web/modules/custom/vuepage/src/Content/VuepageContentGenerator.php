@@ -78,7 +78,11 @@ class VuepageContentGenerator extends ControllerBase {
         <table>
           <thead>
             <tr class="game-list-grid-thead-filter-total-number">
-              {{filteredTotal}}
+              <td colspan="8">
+              </td>
+              <td colspan="3" style="font-size:14px; font-family:Verdana">
+                {{filteredTotal}}
+              </td>
             </tr>
             <tr>
               <th v-for="key in columns"
