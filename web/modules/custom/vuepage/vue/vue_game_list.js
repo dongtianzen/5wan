@@ -5,15 +5,15 @@
      ': (Day:' + t.xLabel + ', Total:' + t.yLabel + ')';
  }
  */
-var default_ave_win  = 1.62
-var default_ave_draw = 3.81
-var default_ave_loss = 5.09
+var default_ave_win  = 2.38
+var default_ave_draw = null
+var default_ave_loss = null
 
 var default_diff_win  = 0.05
-var default_diff_draw = 0.05
-var default_diff_loss = 0.05
+var default_diff_draw = null
+var default_diff_loss = null
 
-var default_tags = ['德乙']
+var default_tags = ['英超']
 
 /**
  * @to vue-chartjs v3 to draw line chart

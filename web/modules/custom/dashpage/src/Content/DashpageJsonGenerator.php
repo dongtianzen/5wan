@@ -152,15 +152,15 @@ class DashpageJsonGenerator extends ControllerBase {
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
         $result['win']++;
-        $tbody['Result'] = 3;
+        $tbody['Result'] = '3Win';
       }
       elseif ($tbody['GoalH'] == $tbody['GoalA']) {
         $result['draw']++;
-        $tbody['Result'] = 1;
+        $tbody['Result'] = '1';
       }
       else {
         $result['loss']++;
-        $tbody['Result'] = 0;
+        $tbody['Result'] = '0';
       }
 
       $output[] = $tbody;
