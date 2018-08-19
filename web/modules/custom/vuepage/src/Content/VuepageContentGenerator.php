@@ -53,7 +53,7 @@ class VuepageContentGenerator extends ControllerBase {
           <span class="float-right" style="float:right;">
             Total is {{totalRow}}
           </span>
-          <form id="search">
+          <form id="search" class="game-list-grid-top-search">
             Search <input name="query" v-model="searchQuery">
           </form>
         </div>
@@ -77,7 +77,7 @@ class VuepageContentGenerator extends ControllerBase {
       <script type="text/x-template" id="grid-template">
         <table>
           <thead>
-            <tr>
+            <tr class="game-list-grid-thead-filter-total-number">
               {{filteredTotal}}
             </tr>
             <tr>
