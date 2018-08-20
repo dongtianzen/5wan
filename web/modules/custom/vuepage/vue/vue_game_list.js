@@ -9,7 +9,7 @@ var default_ave_win  = 1.72
 var default_ave_draw = null
 var default_ave_loss = null
 
-var default_diff_win  = 0.05
+var default_diff_win  = 0.03
 var default_diff_draw = null
 var default_diff_loss = null
 
