@@ -58,6 +58,7 @@ web/sites/default/files/*
 !web/sites/default/files/gitsync/
 
 web/modules/custom/python/BaseSiteClass.py
+web/modules/custom/vuepage/vue/new_game_value.js
 
 # Pantheon commits a settings.php for environment-specific settings.
 # Place local settings in settings.local.php
