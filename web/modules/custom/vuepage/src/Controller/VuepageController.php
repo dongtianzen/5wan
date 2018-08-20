@@ -135,8 +135,8 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function gameList() {
-    $name = 'time_one';
-    Timer::start($name);
+    // $name = 'time_one';
+    // Timer::start($name);
 
     $VuepageContentGenerator = new VuepageContentGenerator();
 
@@ -156,8 +156,8 @@ class VuepageController extends ControllerBase {
       ),
     );
 
-    Timer::stop($name);
-    dpm(Timer::read($name) . 'ms');
+    // Timer::stop($name);
+    // dpm(Timer::read($name) . 'ms');
 
     return $build;
   }

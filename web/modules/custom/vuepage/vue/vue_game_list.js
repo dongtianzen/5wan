@@ -5,15 +5,15 @@
      ': (Day:' + t.xLabel + ', Total:' + t.yLabel + ')';
  }
  */
-var default_ave_win  = 2.01
+var default_ave_win  = 1.72
 var default_ave_draw = null
 var default_ave_loss = null
 
-var default_diff_win  = 0.01
+var default_diff_win  = 0.05
 var default_diff_draw = null
 var default_diff_loss = null
 
-var default_tags = ['葡超']
+var default_tags = ['巴甲']
 
 /**
  * @to vue-chartjs v3 to draw line chart
