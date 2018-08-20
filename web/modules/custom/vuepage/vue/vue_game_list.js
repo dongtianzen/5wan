@@ -5,7 +5,10 @@
      ': (Day:' + t.xLabel + ', Total:' + t.yLabel + ')';
  }
  */
-var default_ave_win  = 1.72
+
+// var NewGame = require('./vue/new_game_valuew.js');
+
+var default_ave_win  = 2.03
 var default_ave_draw = null
 var default_ave_loss = null
 
@@ -13,7 +16,21 @@ var default_diff_win  = 0.03
 var default_diff_draw = null
 var default_diff_loss = null
 
-var default_tags = ['巴甲']
+var default_tags = ['挪超']
+var default_home = '博德闪耀'
+var default_away = '奥德'
+
+var query_params = {
+  ave_win:  default_ave_win,
+  ave_draw: default_ave_draw,
+  ave_loss: default_ave_loss,
+  diff_win:  default_diff_win,
+  diff_draw: default_diff_draw,
+  diff_loss: default_diff_loss,
+  tags: default_tags,
+  home: default_home,
+  away: default_away,
+}
 
 /**
  * @to vue-chartjs v3 to draw line chart
@@ -68,15 +85,7 @@ Vue.component('line-chart', {
     axios.get(
       'http://localhost:8888/5wan/web/dashpage/game/chart/json',
       {
-        params: {
-          ave_win:  default_ave_win,
-          ave_draw: default_ave_draw,
-          ave_loss: default_ave_loss,
-          diff_win:  default_diff_win,
-          diff_draw: default_diff_draw,
-          diff_loss: default_diff_loss,
-          tags: default_tags,
-        }
+        params: query_params
       }
     )
     .then(
@@ -167,7 +176,7 @@ Vue.component('game-list-grid-tag', {
         }
 
         this.filteredTotal = '-Filter is  ' + data.length
-          + ',  Win ' + filterWinNum + ' - ' + (filterWinNum / data.length).toFixed(2) * 100 + '%'
+          + ',  Win ' + filterWinNum + ' - ' + (filterWinNum / data.length).toFixed(3) * 100 + '%'
           + ',  Draw ' + filterDrawNum
           + ',  Loss ' + filterLossNum
       }
@@ -244,15 +253,7 @@ var demo = new Vue({
     axios.get(
       'http://localhost:8888/5wan/web/dashpage/game/list/json',
       {
-        params: {
-          ave_win:  default_ave_win,
-          ave_draw: default_ave_draw,
-          ave_loss: default_ave_loss,
-          diff_win:  default_diff_win,
-          diff_draw: default_diff_draw,
-          diff_loss: default_diff_loss,
-          tags: default_tags,
-        }
+        params: query_params
       }
     )
     .then(
@@ -279,7 +280,7 @@ var demo = new Vue({
         }
 
         this.totalRow = this.gridData.length
-          + ',  Win ' + winNum + ' - ' + (winNum / this.gridData.length).toFixed(2) * 100 + '%'
+          + ',  Win ' + winNum + ' - ' + (winNum / this.gridData.length).toFixed(3) * 100 + '%'
           + ',  Draw ' + drawNum
           + ',  Loss ' + lossNum
 
