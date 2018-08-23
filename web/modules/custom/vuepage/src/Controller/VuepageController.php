@@ -29,9 +29,9 @@ class VuepageController extends ControllerBase {
    */
   public function basicContent() {
     $output = '
-      <div class="container bootstrap-vue-example-wrapper">
+      <div class="container vue-example-wrapper">
         <div id="appPage">
-          <h5>Bootstrap Vue Example</h5>
+          <h5>Vue Example</h5>
           <span> Hello {{ name }}! </span>
           <br />
           <b-alert show> Hello {{ name }}! </b-alert>
@@ -119,7 +119,6 @@ class VuepageController extends ControllerBase {
           'vuepage/vue',
           'vuepage/babel-polyfill',
           'vuepage/bootstrap',
-          'vuepage/bootstrap-vue',
           'vuepage/axios',
           'vuepage/vuetable-2',
           'vuepage/vue_report',
@@ -147,7 +146,6 @@ class VuepageController extends ControllerBase {
           'vuepage/vue',
           'vuepage/babel-polyfill',
           'vuepage/bootstrap',
-          'vuepage/bootstrap-vue',
           'vuepage/chart.js',
           'vuepage/axios',
           'vuepage/vue-chartjs',

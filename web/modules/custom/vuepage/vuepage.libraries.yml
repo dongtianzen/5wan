@@ -40,19 +40,6 @@ babel-polyfill:
     /libraries/node_modules/babel-polyfill/dist/polyfill.min.js: {}
 
 #
-bootstrap-vue:
-  remote: https://www.npmjs.com/package/bootstrap-vue
-  version: 2.0.0-rc.11
-  license:
-    name: MIT
-    gpl-compatible: true
-  css:
-    theme:
-      /libraries/node_modules/bootstrap-vue/dist/bootstrap-vue.css: {}
-  js:
-    /libraries/node_modules/bootstrap-vue/dist/bootstrap-vue.js: {}
-
-#
 chart.js:
   version: 2.7.2
   license:
