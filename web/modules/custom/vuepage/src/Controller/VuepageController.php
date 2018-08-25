@@ -117,7 +117,6 @@ class VuepageController extends ControllerBase {
       '#attached' => array(
         'library' => array(
           'vuepage/vue',
-          'vuepage/babel-polyfill',
           'vuepage/bootstrap',
           'vuepage/axios',
           'vuepage/vuetable-2',
@@ -144,7 +143,6 @@ class VuepageController extends ControllerBase {
       '#attached' => array(
         'library' => array(
           'vuepage/vue',
-          'vuepage/babel-polyfill',
           'vuepage/bootstrap',
           'vuepage/chart.js',
           'vuepage/axios',

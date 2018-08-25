@@ -30,16 +30,6 @@ bootstrap:
       /libraries/node_modules/bootstrap/dist/bootstrap.min.css: {}
 
 #
-babel-polyfill:
-  remote: https://babeljs.io/docs/en/babel-polyfill/
-  version: 6.0
-  license:
-    name: MIT
-    gpl-compatible: true
-  js:
-    /libraries/node_modules/babel-polyfill/dist/polyfill.min.js: {}
-
-#
 chart.js:
   version: 2.7.2
   license:
