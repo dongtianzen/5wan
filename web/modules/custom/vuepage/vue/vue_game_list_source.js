@@ -1,11 +1,6 @@
 /**
  *
- label: function(t, d) {
-   return d.datasets[t.datasetIndex].label +
-     ': (Day:' + t.xLabel + ', Total:' + t.yLabel + ')';
- }
  */
-
 var NewGame = require('./new_game_value.js');
 
 /**
