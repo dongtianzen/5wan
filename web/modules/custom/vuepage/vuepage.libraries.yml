@@ -94,7 +94,7 @@ vue_game_list:
     theme:
       css/vue_game_list.css: {}
   js:
-    vue/vue_game_list.js: {}
+    vue/vue_game_list_bundle.js: {}
 
 # @todo vuetable-2 custom controller
 vue_table_js:
