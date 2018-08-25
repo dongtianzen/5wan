@@ -7,30 +7,21 @@
  */
 
 var NewGame = require('./new_game_value.js');
-console.log(NewGame);
-var default_ave_win  = null
-var default_ave_draw = null
-var default_ave_loss = null
 
-var default_diff_win  = null
-var default_diff_draw = null
-var default_diff_loss = null
+/**
+ *
+ */
+var default_ave_win  = NewGame.value.default_ave_win
+var default_ave_draw = NewGame.value.default_ave_draw
+var default_ave_loss = NewGame.value.default_ave_loss
 
-var default_ave_win  = 2.6
-var default_diff_win  = 0.2
+var default_diff_win  = NewGame.value.default_diff_win
+var default_diff_draw = NewGame.value.default_ave_draw
+var default_diff_loss = NewGame.value.default_ave_loss
 
-var default_ave_draw = 3.2
-var default_diff_draw = 0.15
-
-var default_ave_loss = 2.7
-var default_diff_loss = 0.15
-
-
-var default_tags = ['西甲', '西乙']
-var default_home = null
-var default_away = null
-var default_home = '阿拉维斯'
-var default_away = '贝蒂斯'
+var default_tags = NewGame.value.default_tags
+var default_home = NewGame.value.default_home
+var default_away = NewGame.value.default_away
 
 var query_params = {
   ave_win:  default_ave_win,
