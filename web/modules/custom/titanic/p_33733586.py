@@ -18,11 +18,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.pipeline import Pipeline,make_pipeline
+from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.feature_selection import SelectKBest
 # from sklearn import cross_validation, metrics
-# from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
+from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -74,6 +74,19 @@ all_data['FamilyLabel']=all_data['FamilySize'].apply(Fam_label)
 
 sns.barplot(x="FamilyLabel", y="Survived", data=all_data, palette='Set3')
 
+# plt.show()
 
-plt.show()
+# 5. 建模和优化
+# 1) 参数优化
+#
+# 用网格搜索自动化选取最优参数，事实上我用网格搜索得到的最优参数是n_estimators = 28，max_depth = 6。
+# 但是参考另一篇Kernel把参数改为n_estimators = 26，max_depth = 6之后交叉验证分数和kaggle评分都有略微提升。
+pipe=Pipeline([('select',SelectKBest(k=20)),
+               ('classify', RandomForestClassifier(random_state = 10, max_features = 'sqrt'))])
+
+param_test = {'classify__n_estimators':list(range(20,50,2)),
+              'classify__max_depth':list(range(3,60,3))}
+gsearch = GridSearchCV(estimator = pipe, param_grid = param_test, scoring='roc_auc', cv=10)
+gsearch.fit(X, y)
+print(gsearch.best_params_, gsearch.best_score_)
 
