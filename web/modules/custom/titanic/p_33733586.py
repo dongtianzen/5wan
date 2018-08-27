@@ -76,12 +76,46 @@ sns.barplot(x="FamilyLabel", y="Survived", data=all_data, palette='Set3')
 
 # plt.show()
 
+# 因为普遍规律是女性和儿童幸存率高，成年男性幸存较低，所以我们把不符合普遍规律的反常组选出来单独处理。
+# 把女性和儿童组中幸存率为0的组设置为遇难组，把成年男性组中存活率为1的设置为幸存组，
+# 推测处于遇难组的女性和儿童幸存的可能性较低，处于幸存组的成年男性幸存的可能性较高。
+
+Female_Child_Group = Female_Child_Group.groupby('Surname')['Survived'].mean()
+Dead_List = set(Female_Child_Group[Female_Child_Group.apply(lambda x:x == 0)].index)
+print(Dead_List)
+
+Male_Adult_List = Male_Adult_Group.groupby('Surname')['Survived'].mean()
+Survived_List = set(Male_Adult_List[Male_Adult_List.apply(lambda x:x == 1)].index)
+print(Survived_List)
+
+# 为了使处于这两种反常组中的样本能够被正确分类，对测试集中处于反常组中的样本的Age，Title，Sex进行惩罚修改。
+
+train=all_data.loc[all_data['Survived'].notnull()]
+test=all_data.loc[all_data['Survived'].isnull()]
+test.loc[(test['Surname'].apply(lambda x:x in Dead_List)),'Sex'] = 'male'
+test.loc[(test['Surname'].apply(lambda x:x in Dead_List)),'Age'] = 60
+test.loc[(test['Surname'].apply(lambda x:x in Dead_List)),'Title'] = 'Mr'
+test.loc[(test['Surname'].apply(lambda x:x in Survived_List)),'Sex'] = 'female'
+test.loc[(test['Surname'].apply(lambda x:x in Survived_List)),'Age'] = 5
+test.loc[(test['Surname'].apply(lambda x:x in Survived_List)),'Title'] = 'Miss'
+
+# 3) 特征转换
+# 选取特征，转换为数值变量，划分训练集和测试集。
+
+all_data = pd.concat([train, test])
+all_data = all_data[['Survived','Pclass','Sex','Age','Fare','Embarked','Title','FamilyLabel','Deck','TicketGroup']]
+all_data = pd.get_dummies(all_data)
+train = all_data[all_data['Survived'].notnull()]
+test = all_data[all_data['Survived'].isnull()].drop('Survived',axis=1)
+X = train.as_matrix()[:,1:]
+y = train.as_matrix()[:,0]
+
 # 5. 建模和优化
 # 1) 参数优化
 #
 # 用网格搜索自动化选取最优参数，事实上我用网格搜索得到的最优参数是n_estimators = 28，max_depth = 6。
 # 但是参考另一篇Kernel把参数改为n_estimators = 26，max_depth = 6之后交叉验证分数和kaggle评分都有略微提升。
-pipe=Pipeline([('select',SelectKBest(k=20)),
+pipe = Pipeline([('select',SelectKBest(k=20)),
                ('classify', RandomForestClassifier(random_state = 10, max_features = 'sqrt'))])
 
 param_test = {'classify__n_estimators':list(range(20,50,2)),
