@@ -41,8 +41,18 @@ sns.barplot(x="Sex", y="Survived", data=train, palette='Set3')
 print("Percentage of females who survived:%.2f" % (train["Survived"][train["Sex"] == 'female'].value_counts(normalize = True)[1]*100))
 print("Percentage of males who survived:%.2f" % (train["Survived"][train["Sex"] == 'male'].value_counts(normalize = True)[1]*100))
 
-plt.show()
+# plt.show()
 
-ax = sns.barplot(x="Pclass", y="Survived", data=train, palette='Set3')
+# 2) Pclass Feature：乘客社会等级越高，幸存率越高
+sns.barplot(x="Pclass", y="Survived", data=train, palette='Set3')
+
+# plt.show()
+
+# 5) Age Feature：未成年人幸存率高于成年人
+# 面积图，
+facet = sns.FacetGrid(train, hue="Survived", aspect=2)
+facet.map(sns.kdeplot, 'Age', shade= True)
+facet.set(xlim=(0, train['Age'].max()))
+facet.add_legend()
 
 plt.show()
