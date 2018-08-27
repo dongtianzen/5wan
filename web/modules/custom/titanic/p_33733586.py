@@ -27,8 +27,8 @@ from sklearn.feature_selection import SelectKBest
 import warnings
 warnings.filterwarnings('ignore')
 
-train = pd.read_csv('web/modules/custom/titanic/src/train.csv',dtype={"Age": np.float64})
-test = pd.read_csv('web/modules/custom/titanic/src/test.csv',dtype={"Age": np.float64})
+train = pd.read_csv('web/modules/custom/titanic/src/train.csv', dtype={"Age": np.float64})
+test  = pd.read_csv('web/modules/custom/titanic/src/test.csv', dtype={"Age": np.float64})
 
 PassengerId = test['PassengerId']
 all_data = pd.concat([train, test], ignore_index = True)
