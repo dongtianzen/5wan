@@ -34,18 +34,16 @@ sns.set_style('whitegrid')
 train_data.head()
 
 # 数据信息总览：
-
 train_data.info()
 print("-" * 40)
 test_data.info()
 
-exit()
-
 
 # 从上面我们可以看出，Age、Cabin、Embarked、Fare几个特征存在缺失值。
-# 绘制存活的比例：
+# 绘制存活的比例图：
 train_data['Survived'].value_counts().plot.pie(autopct = '%1.2f%%')
-
+plt.show()
+exit()
 # 2. 缺失值处理的方法
 # 对数据进行分析的时候要注意其中是否有缺失值。
 
