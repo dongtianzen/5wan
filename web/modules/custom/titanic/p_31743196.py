@@ -27,8 +27,8 @@ ax = fig.add_subplot(111)
 
 
 # 观察前几行的源数据：
-train_data = pd.read_csv('data/train.csv')
-test_data = pd.read_csv('data/test.csv')
+train_data = pd.read_csv('web/modules/custom/titanic/src/train.csv')
+test_data = pd.read_csv('web/modules/custom/titanic/src/test.csv')
 
 sns.set_style('whitegrid')
 train_data.head()
@@ -126,7 +126,7 @@ ax[1].set_yticks(range(0, 110, 10))
 
 plt.show()
 
-分析总体的年龄分布：
+# 分析总体的年龄分布：
 
 plt.figure(figsize=(12,5))
 plt.subplot(121)
@@ -138,14 +138,14 @@ plt.subplot(122)
 train_data.boxplot(column='Age', showfliers=False)
 plt.show()
 
-不同年龄下的生存和非生存的分布情况：
+# 不同年龄下的生存和非生存的分布情况：
 
 facet = sns.FacetGrid(train_data, hue="Survived",aspect=4)
 facet.map(sns.kdeplot,'Age',shade= True)
 facet.set(xlim=(0, train_data['Age'].max()))
 facet.add_legend()
 
-不同年龄下的平均生存率：
+# 不同年龄下的平均生存率：
 
 # average survived passengers by age
 fig, axis1 = plt.subplots(1,1,figsize=(18,4))
@@ -156,31 +156,14 @@ sns.barplot(x='Age_int', y='Survived', data=average_age)
 train_data['Age'].describe()
 
 
-count    891.000000
- mean      29.668231
- std       13.739002
- min        0.420000
- 25%       21.000000
- 50%       28.000000
- 75%       37.000000
- max       80.000000
- Name: Age, dtype: float64
-样本有891，平均年龄约为30岁，标准差13.5岁，最小年龄为0.42，最大年龄80.
+# 样本有891，平均年龄约为30岁，标准差13.5岁，最小年龄为0.42，最大年龄80.
 
-按照年龄，将乘客划分为儿童、少年、成年和老年，分析四个群体的生还情况：
+# 按照年龄，将乘客划分为儿童、少年、成年和老年，分析四个群体的生还情况：
 
 bins = [0, 12, 18, 65, 100]
 train_data['Age_group'] = pd.cut(train_data['Age'], bins)
 by_age = train_data.groupby('Age_group')['Survived'].mean()
 by_age
-
-
-Age_group
- (0, 12]      0.506173
- (12, 18]     0.466667
- (18, 65]     0.364512
- (65, 100]    0.125000
- Name: Survived, dtype: float64
 
 
 by_age.plot(kind = 'bar')
@@ -484,7 +467,7 @@ title_Dict.update(dict.fromkeys(['Mr'], 'Mr'))
 title_Dict.update(dict.fromkeys(['Master','Jonkheer'], 'Master'))
 
 combined_train_test['Title'] = combined_train_test['Title'].map(title_Dict)
-使用dummy对不同的称呼进行分列：
+# 使用dummy对不同的称呼进行分列：
 
 # 为了后面的特征分析，这里我们也将 Title 特征进行facrorizing
 combined_train_test['Title'] = pd.factorize(combined_train_test['Title'])[0]
