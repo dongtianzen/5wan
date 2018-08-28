@@ -225,7 +225,7 @@ print("CV Score : Mean - %.7g | Std - %.7g " % (np.mean(cv_score), np.std(cv_sco
 # 6.预测
 predictions = pipeline.predict(test)
 submission = pd.DataFrame({"PassengerId": PassengerId, "Survived": predictions.astype(np.int32)})
-submission.to_csv("web/modules/custom/titanic/submission.csv", index=False)
+submission.to_csv("web/modules/custom/titanic/submit/p_33733586_submission.csv", index=False)
 
 exit()
 
