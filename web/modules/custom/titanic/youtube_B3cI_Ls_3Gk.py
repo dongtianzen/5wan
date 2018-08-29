@@ -47,6 +47,10 @@ for x in [1, 2, 3]:
 plt.title("Class vs Age")
 plt.legend(("1st", "2nd", "3rd"))
 
+plt.subplot2grid((2, 3), (1, 2))
+trainData.Embarked.value_counts().plot(kind = "bar", alpha = 0.5)
+plt.title("Embarked Number")
+
 plt.show()
 
 
