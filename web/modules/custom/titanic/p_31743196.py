@@ -12,10 +12,10 @@ https://zhuanlan.zhihu.com/p/31743196
 # 1. 数据总览
 # Titanic 生存模型预测，其中包含了两组数据：train.csv 和 test.csv，分别为训练集合和测试集合。
 
-import re
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+import re
 import seaborn as sns
 
 import warnings
@@ -42,7 +42,9 @@ test_data.info()
 # 从上面我们可以看出，Age、Cabin、Embarked、Fare几个特征存在缺失值。
 # 绘制存活的比例图：
 train_data['Survived'].value_counts().plot.pie(autopct = '%1.2f%%')
-plt.show()
+
+# plt.show()
+
 exit()
 # 2. 缺失值处理的方法
 # 对数据进行分析的时候要注意其中是否有缺失值。
@@ -207,9 +209,7 @@ plt.show()
 
 
 # (6) 有无父母子女和存活与否的关系 Parch
-
 # 和有无兄弟姐妹一样，同样分析可以得到：
-
 parch_df = train_data[train_data['Parch'] != 0]
 no_parch_df = train_data[train_data['Parch'] == 0]
 
