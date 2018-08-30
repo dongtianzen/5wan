@@ -51,6 +51,28 @@ plt.subplot2grid((2, 3), (1, 2))
 trainData.Embarked.value_counts().plot(kind = "bar", alpha = 0.5)
 plt.title("Embarked Number")
 
+# plt.show()
+
+## 绘图 for Gender
+# normalize = True, 显示百分比
+fig = plt.figure(figsize = (18, 6))
+
+plt.subplot2grid((3, 4), (0, 0))
+trainData.Survived.value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Survived Percentage")
+
+plt.subplot2grid((3, 4), (0, 1))
+trainData.Survived[trainData.Sex == 'male'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Survived Men")
+
+plt.subplot2grid((3, 4), (0, 2))
+trainData.Survived[trainData.Sex == 'female'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Survived Woemn")
+
+plt.subplot2grid((3, 4), (0, 3))
+trainData.Sex[trainData.Survived == 1].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Gender of Survived")
+
 plt.show()
 
 
