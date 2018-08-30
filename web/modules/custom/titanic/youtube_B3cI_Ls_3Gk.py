@@ -73,6 +73,13 @@ plt.subplot2grid((3, 4), (0, 3))
 trainData.Sex[trainData.Survived == 1].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
 plt.title("Gender of Survived")
 
+# 画核密度估计Kernel Density Estimation
+plt.subplot2grid((3, 4), (1, 0), colspan = 4)
+for x in [1, 2, 3]:
+  trainData.Survived[trainData.Pclass == x].plot(kind = "kde")
+plt.title("Class vs Survived")
+plt.legend(("1st", "2nd", "3rd"))
+
 plt.show()
 
 
