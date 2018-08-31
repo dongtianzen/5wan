@@ -11,10 +11,10 @@ https://www.youtube.com/watch?v=B3cI_Ls_3Gk
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 导入
+# 0） 导入
 trainData = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titanic/src/train.csv')
 
-# 观察源数据：
+## 观察源数据：
 print("# Data Shape ")
 print(trainData.shape)
 print("# Data Count ")
@@ -40,7 +40,7 @@ plt.subplot2grid((2, 3), (0, 2))
 trainData.Pclass.value_counts().plot(kind = "bar", alpha = 0.5)
 plt.title("Pclass Number")
 
-# 画核密度估计Kernel Density Estimation
+## 画核密度估计Kernel Density Estimation
 plt.subplot2grid((2, 3), (1, 0), colspan = 2)
 for x in [1, 2, 3]:
   trainData.Age[trainData.Pclass == x].plot(kind = "kde")
@@ -54,7 +54,7 @@ plt.title("Embarked Number")
 # plt.show()
 
 ## 绘图 for Gender
-# normalize = True, 显示百分比
+## normalize = True, 显示百分比
 fig = plt.figure(figsize = (18, 6))
 
 plt.subplot2grid((3, 4), (0, 0))
@@ -73,7 +73,7 @@ plt.subplot2grid((3, 4), (0, 3))
 trainData.Sex[trainData.Survived == 1].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
 plt.title("Gender of Survived")
 
-# 画核密度估计Kernel Density Estimation
+## 画核密度估计Kernel Density Estimation
 plt.subplot2grid((3, 4), (1, 0), colspan = 4)
 for x in [1, 2, 3]:
   trainData.Survived[trainData.Pclass == x].plot(kind = "kde")
@@ -96,7 +96,10 @@ plt.subplot2grid((3, 4), (2, 3))
 trainData.Survived[(trainData.Sex == 'female') & (trainData.Pclass == 3)].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
 plt.title("Poor Women Survived")
 
-plt.show()
+# plt.show()
+pd.set_option('display.max_columns', None)
+# 2）predict
+trainData['Hyp'] = 0
+trainData.loc[trainData.Sex == "female", "Hyp"] = 1
 
-
-
+print(trainData)
