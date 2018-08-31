@@ -8,8 +8,13 @@ Solving Kaggle's Titanic: Machine Learning from Disaster with Python
 https://www.youtube.com/watch?v=B3cI_Ls_3Gk
 """
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
+import utils
+from sklearn import linear_model
+
+
+
 
 # 0） 导入
 trainData = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titanic/src/train.csv')
@@ -112,6 +117,25 @@ trainData.loc[trainData.Sex == "female", "Hyp"] = 1
 trainData.loc[trainData.Survived == trainData.Hyp, "Result"] = 1
 
 print(trainData['Result'].value_counts())
+print(trainData['Result'].value_counts(normalize = True))
+## 第一步假设 准确率78.67%
+
+# 3）def function to 填充NA / NaN值, 和转换数据
+def clean_data(data):
+  data['Fare'] = data['Fare'].fillna(data['Fare'].dropna().median())
+  data['Age'] = data['Age'].fillna(data['Age'].dropna().median())
+
+  data.loc[data['Sex'] == "male", "Sex"] = 0
+  data.loc[data['Sex'] == "female", "Sex"] = 1
+
+  data['Embarked'] = data['Embarked'].fillna("S")
+  data.loc[data['Embarked'] == "S", "Embarked"] = 0
+  data.loc[data['Embarked'] == "C", "Embarked"] = 1
+  data.loc[data['Embarked'] == "Q", "Embarked"] = 2
+
+  ###
+
+# 4）Predict Logistic Regression
 
 
 
