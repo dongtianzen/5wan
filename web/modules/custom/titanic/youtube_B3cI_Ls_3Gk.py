@@ -97,9 +97,28 @@ trainData.Survived[(trainData.Sex == 'female') & (trainData.Pclass == 3)].value_
 plt.title("Poor Women Survived")
 
 # plt.show()
-pd.set_option('display.max_columns', None)
+
 # 2）predict
+
+## add new column - Hypothesis
 trainData['Hyp'] = 0
+trainData['Result'] = 0
+
 trainData.loc[trainData.Sex == "female", "Hyp"] = 1
 
-print(trainData)
+## 假设 如果Survived等于Hypothesis，预测结果为1，即假设female是Survived， 或mail没有Survived
+## 两种写法都可以
+# trainData.loc[trainData['Survived'] == trainData["Hyp"], "Result"] = 1
+trainData.loc[trainData.Survived == trainData.Hyp, "Result"] = 1
+
+print(trainData['Result'].value_counts())
+
+
+
+# sampleDataDF = trainData[['Sex', 'Hyp']]
+# pd.set_option('display.max_columns', None)
+# print(sampleDataDF)
+# print(trainData[['Sex', 'Hyp', 'Survived', 'Result']])
+
+
+
