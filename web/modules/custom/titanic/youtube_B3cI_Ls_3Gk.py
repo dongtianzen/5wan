@@ -80,6 +80,22 @@ for x in [1, 2, 3]:
 plt.title("Class vs Survived")
 plt.legend(("1st", "2nd", "3rd"))
 
+plt.subplot2grid((3, 4), (2, 0))
+trainData.Survived[(trainData.Sex == 'male') & (trainData.Pclass == 1)].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Rich Men Survived")
+
+plt.subplot2grid((3, 4), (2, 1))
+trainData.Survived[(trainData.Sex == 'male') & (trainData.Pclass == 3)].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Poor Men Survived")
+
+plt.subplot2grid((3, 4), (2, 2))
+trainData.Survived[(trainData.Sex == 'female') & (trainData.Pclass == 1)].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Rich Women Survived")
+
+plt.subplot2grid((3, 4), (2, 3))
+trainData.Survived[(trainData.Sex == 'female') & (trainData.Pclass == 3)].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Poor Women Survived")
+
 plt.show()
 
 
