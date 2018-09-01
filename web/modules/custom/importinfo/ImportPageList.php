@@ -78,7 +78,7 @@ class ImportPageList {
         $game_info .= $prefix_string . 'default_diff_loss = ' . 0.1 . ';';
         $game_info .= '<br />';
 
-        $game_info .= $prefix_string . 'default_tags = ["' . $row[1] . '",' . $row[1] . '"];';
+        $game_info .= $prefix_string . 'default_tags = ["' . $row[1] . '", "' . $row[1] . '"];';
         $game_info .= '<br />';
         $game_info .= $prefix_string . 'default_home = "' . preg_replace('/\s+/', '', $game_home[1]) . '";';
         $game_info .= '<br />';
