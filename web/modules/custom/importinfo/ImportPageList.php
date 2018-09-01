@@ -52,21 +52,47 @@ class ImportPageList {
     $csv_array = $this->convertCsvToArray();
     if ($csv_array) {
       foreach ($csv_array as $key => $row) {
+        if (!$row[]) {
+          continue;
+        }
+
+        // $row[3] like [18]伯恩利VS曼 联[13]
+        $game_teams = explode('VS', $row[3]);
+        $game_home = explode(']', $game_teams[0]);
+        $game_away = explode('[', $game_teams[1]);
+
         $game_info = NULL;
 
         $game_info .= $prefix_string . 'default_ave_win = ' . $row[5] . ';';
         $game_info .= '<br />';
         $game_info .= $prefix_string . 'default_diff_win = ' . 0.05 . ';';
+        $game_info .= '<br />';
+
+        $game_info .= $prefix_string . 'default_ave_draw = ' . $row[5] . ';';
+        $game_info .= '<br />';
+        $game_info .= $prefix_string . 'default_diff_draw = ' . 0.1 . ';';
+        $game_info .= '<br />';
+
+        $game_info .= $prefix_string . 'default_ave_loss = ' . $row[5] . ';';
+        $game_info .= '<br />';
+        $game_info .= $prefix_string . 'default_diff_loss = ' . 0.1 . ';';
+        $game_info .= '<br />';
+
+        $game_info .= $prefix_string . 'default_tags = ["' . $row[1] . '",' . $row[1] . '"];';
+        $game_info .= '<br />';
+        $game_info .= $prefix_string . 'default_home = "' . str_replace(' ', '', $game_home[1]) . '";';
+        $game_info .= '<br />';
+        $game_info .= $prefix_string . 'default_home = "' . str_replace(' ', '', $game_away[0]) . '";';
+
+        $game_info .= '<br />';
+        $game_info .= '<br />';
 
         dpm($game_info);
       }
     }
 
-
-
     return $output;
   }
-
 
 }
 
