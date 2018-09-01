@@ -21,8 +21,8 @@ print(trainDF.count())
 trainDF['CompareNum'] = 0
 trainDF['CompareBonus'] = 0
 
-trainDF.loc[trainDF.Num9 > trainDF.NumSilver, "CompareNum"] = 1
-trainDF.loc[trainDF.Bonus9 > trainDF.BonusSilver, "CompareBonus"] = 1
+trainDF.loc[trainDF.Num9 > (trainDF.NumSilver * 1), "CompareNum"] = 1
+trainDF.loc[trainDF.Bonus9 > (trainDF.BonusSilver / 1), "CompareBonus"] = 1
 
 print(trainDF['CompareNum'].value_counts())
 print(trainDF['CompareBonus'].value_counts())
@@ -38,10 +38,10 @@ plt.subplot2grid((2, 3), (0, 1))
 trainDF['CompareBonus'].value_counts().plot(kind = "bar", alpha = 0.5)
 plt.title("Compare Bonus")
 
-print(trainDF[['Num9', 'NumSilver', 'CompareNum']])
-print(trainDF[['Bonus9', 'BonusSilver', 'CompareBonus']])
+# print(trainDF[['Num9', 'NumSilver', 'CompareNum']])
+# print(trainDF[['Bonus9', 'BonusSilver', 'CompareBonus']])
 
 
 # df.plot(x="X", y=["A", "B", "C"], kind="bar")
 
-plt.show()
+# plt.show()
