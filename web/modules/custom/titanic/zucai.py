@@ -20,12 +20,15 @@ print(trainDF.count())
 
 trainDF['CompareNum'] = 0
 trainDF['CompareBonus'] = 0
+trainDF['CompareSales'] = 0
 
 trainDF.loc[trainDF.Num9 > (trainDF.NumSilver * 1), "CompareNum"] = 1
 trainDF.loc[trainDF.Bonus9 > (trainDF.BonusSilver / 1), "CompareBonus"] = 1
+trainDF.loc[trainDF.Sales9 > (trainDF.Sales14 / 1), "CompareSales"] = 1
 
 print(trainDF['CompareNum'].value_counts())
 print(trainDF['CompareBonus'].value_counts())
+print(trainDF['CompareSales'].value_counts())
 
 ## 绘图
 fig = plt.figure(figsize = (18, 6))
@@ -40,6 +43,7 @@ plt.title("Compare Bonus")
 
 # print(trainDF[['Num9', 'NumSilver', 'CompareNum']])
 # print(trainDF[['Bonus9', 'BonusSilver', 'CompareBonus']])
+# print(trainDF[['Sales9', 'Sales14', 'CompareSales']])
 
 
 # df.plot(x="X", y=["A", "B", "C"], kind="bar")
