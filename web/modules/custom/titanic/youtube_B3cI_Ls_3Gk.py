@@ -10,7 +10,7 @@ https://www.youtube.com/watch?v=B3cI_Ls_3Gk
 
 import matplotlib.pyplot as plt
 import pandas as pd
-import utils
+# import utils
 from sklearn import linear_model
 
 
@@ -22,6 +22,7 @@ trainData = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titan
 ## 观察源数据：
 print("# Data Shape ")
 print(trainData.shape)
+print("")
 print("# Data Count ")
 print(trainData.count())
 
@@ -116,7 +117,9 @@ trainData.loc[trainData.Sex == "female", "Hyp"] = 1
 # trainData.loc[trainData['Survived'] == trainData["Hyp"], "Result"] = 1
 trainData.loc[trainData.Survived == trainData.Hyp, "Result"] = 1
 
-print(trainData['Result'].value_counts())
+# print(trainData['Result'].value_counts())
+print("")
+print("# Survived Hypothesis Percentage:")
 print(trainData['Result'].value_counts(normalize = True))
 ## 第一步假设 准确率78.67%
 
@@ -137,7 +140,19 @@ def clean_data(data):
 
 # 4）Predict Logistic Regression
 
+clean_data(trainData)
 
+target = trainData['Survived'].values
+features = trainData[['Pclass', 'Age', 'Sex', 'SibSp', 'Parch']].values
+
+classifier = linear_model.LogisticRegression()
+classifier_fit = classifier.fit(features, target)
+
+# 逻辑回归, 分数0.7934904601571269
+classifier_score = classifier_fit.score(features, target)
+
+print("")
+print(classifier_score)
 
 # sampleDataDF = trainData[['Sex', 'Hyp']]
 # pd.set_option('display.max_columns', None)
