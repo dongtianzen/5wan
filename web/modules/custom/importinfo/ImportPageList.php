@@ -36,8 +36,6 @@ class ImportPageList {
       $output[] = str_getcsv($line);
     }
 
-    dpm($output);
-
     return $output;
   }
 
@@ -52,7 +50,7 @@ class ImportPageList {
     $csv_array = $this->convertCsvToArray();
     if ($csv_array) {
       foreach ($csv_array as $key => $row) {
-        if (!$row[]) {
+        if (!(strlen($row[1]) > 0)) {
           continue;
         }
 
@@ -80,13 +78,15 @@ class ImportPageList {
 
         $game_info .= $prefix_string . 'default_tags = ["' . $row[1] . '",' . $row[1] . '"];';
         $game_info .= '<br />';
-        $game_info .= $prefix_string . 'default_home = "' . str_replace(' ', '', $game_home[1]) . '";';
+        // $game_info .= $prefix_string . 'default_home = "' . preg_replace('/\s+/', '', $game_home[1]) . '";';
         $game_info .= '<br />';
-        $game_info .= $prefix_string . 'default_home = "' . str_replace(' ', '', $game_away[0]) . '";';
+        $game_info .= $prefix_string . 'default_away = "' . str_replace(' ', '', $game_away[0]) . '";';
 
         $game_info .= '<br />';
         $game_info .= '<br />';
 
+        dpm('$game_home');
+        dpm(str_split($game_home[1], 1));
         dpm($game_info);
       }
     }
