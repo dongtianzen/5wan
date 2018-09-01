@@ -59,10 +59,13 @@ class ImportPageList {
         $game_home = explode(']', $game_teams[0]);
         $game_away = explode('[', $game_teams[1]);
 
+        // remove 去除全角空格与空白字符
+        $game_home = preg_replace('/(\s|\&nbsp\;|　|\xc2\xa0)/', '', $game_home[1]);
+        $game_away = preg_replace('/(\s|\&nbsp\;|　|\xc2\xa0)/', '', $game_away[0]);
+
         preg_match_all("/\d{1,2}\.\d{2}/", $row[5], $odd_win);
 
         $game_info = NULL;
-
         $game_info .= $prefix_string . 'default_ave_win = ' . $odd_win[0][0] . ';';
         $game_info .= '<br />';
         $game_info .= $prefix_string . 'default_diff_win = ' . 0.05 . ';';
@@ -80,9 +83,9 @@ class ImportPageList {
 
         $game_info .= $prefix_string . 'default_tags = ["' . $row[1] . '", "' . $row[1] . '"];';
         $game_info .= '<br />';
-        $game_info .= $prefix_string . 'default_home = "' . preg_replace('/\s+/', '', $game_home[1]) . '";';
+        $game_info .= $prefix_string . 'default_home = "' . $game_home . '";';
         $game_info .= '<br />';
-        $game_info .= $prefix_string . 'default_away = "' . str_replace(' ', '', $game_away[0]) . '";';
+        $game_info .= $prefix_string . 'default_away = "' . $game_away . '";';
 
         $game_info .= '<br />';
         $game_info .= '<br />';
