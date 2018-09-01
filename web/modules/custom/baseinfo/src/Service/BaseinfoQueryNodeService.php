@@ -105,8 +105,10 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
 
     if ($home || $away) {
       $group = $query->orConditionGroup()
-        ->condition('field_win_name_home', array($home, $away), 'IN')
-        ->condition('field_win_name_away', array($home, $away), 'IN');
+        ->condition('field_win_name_home', $home, 'CONTAINS')
+        ->condition('field_win_name_away', $away, 'CONTAINS');
+        // ->condition('field_win_name_home', array($home, $away), 'IN')
+        // ->condition('field_win_name_away', array($home, $away), 'IN');
       $query->condition($group);
     }
 
