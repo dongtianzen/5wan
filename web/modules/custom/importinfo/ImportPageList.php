@@ -17,7 +17,7 @@ class ImportPageList {
    *
    */
   public function readCsvFromUrl($feed_url = NULL) {
-    $feed_url = 'http://localhost:8888/5wan/web/modules/custom/importinfo/500.csv';
+    $feed_url = 'http://localhost:8888/5wan/web/modules/custom/importinfo/18110.csv';
 
     $output = file_get_contents($feed_url);
 
@@ -59,34 +59,34 @@ class ImportPageList {
         $game_home = explode(']', $game_teams[0]);
         $game_away = explode('[', $game_teams[1]);
 
+        preg_match_all("/\d{1,2}\.\d{2}/", $row[5], $odd_win);
+
         $game_info = NULL;
 
-        $game_info .= $prefix_string . 'default_ave_win = ' . $row[5] . ';';
+        $game_info .= $prefix_string . 'default_ave_win = ' . $odd_win[0][0] . ';';
         $game_info .= '<br />';
         $game_info .= $prefix_string . 'default_diff_win = ' . 0.05 . ';';
         $game_info .= '<br />';
 
-        $game_info .= $prefix_string . 'default_ave_draw = ' . $row[5] . ';';
+        $game_info .= $prefix_string . 'default_ave_draw = ' . $odd_win[0][1] . ';';
         $game_info .= '<br />';
         $game_info .= $prefix_string . 'default_diff_draw = ' . 0.1 . ';';
         $game_info .= '<br />';
 
-        $game_info .= $prefix_string . 'default_ave_loss = ' . $row[5] . ';';
+        $game_info .= $prefix_string . 'default_ave_loss = ' . $odd_win[0][2] . ';';
         $game_info .= '<br />';
         $game_info .= $prefix_string . 'default_diff_loss = ' . 0.1 . ';';
         $game_info .= '<br />';
 
         $game_info .= $prefix_string . 'default_tags = ["' . $row[1] . '",' . $row[1] . '"];';
         $game_info .= '<br />';
-        // $game_info .= $prefix_string . 'default_home = "' . preg_replace('/\s+/', '', $game_home[1]) . '";';
+        $game_info .= $prefix_string . 'default_home = "' . preg_replace('/\s+/', '', $game_home[1]) . '";';
         $game_info .= '<br />';
         $game_info .= $prefix_string . 'default_away = "' . str_replace(' ', '', $game_away[0]) . '";';
 
         $game_info .= '<br />';
         $game_info .= '<br />';
 
-        dpm('$game_home');
-        dpm(str_split($game_home[1], 1));
         dpm($game_info);
       }
     }
