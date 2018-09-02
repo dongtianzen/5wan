@@ -11,9 +11,7 @@ https://www.youtube.com/watch?v=B3cI_Ls_3Gk
 import matplotlib.pyplot as plt
 import pandas as pd
 # import utils
-from sklearn import linear_model
-
-
+from sklearn import linear_model, preprocessing
 
 
 # 0） 导入
@@ -143,16 +141,36 @@ def clean_data(data):
 clean_data(trainData)
 
 target = trainData['Survived'].values
+classifier = linear_model.LogisticRegression()
+
+## 5 dimensions
 features = trainData[['Pclass', 'Age', 'Sex', 'SibSp', 'Parch']].values
 
-classifier = linear_model.LogisticRegression()
-classifier_fit = classifier.fit(features, target)
-
 # 逻辑回归, 分数0.7934904601571269
+classifier_fit = classifier.fit(features, target)
 classifier_score = classifier_fit.score(features, target)
+
+## add two dimensions
+features = trainData[['Pclass', 'Age', 'Fare', 'Embarked', 'Sex', 'SibSp', 'Parch']].values
+
+# 逻辑回归, 分数0.7991021324354658, 比上一个高了一点点
+classifier_fit = classifier.fit(features, target)
+classifier_score = classifier_fit.score(features, target)
+
+
+# 5）sklearn.preprocessing.PolynomialFeatures，可以理解为专门生成多项式特征
+## 多项式阶数，设为2
+poly = preprocessing.PolynomialFeatures(degree = 2)
+poly_feature = poly.fit_transform(features)
+
+# 分数0.8316498316498316
+classifier_fit = classifier.fit(poly_feature, target)
+classifier_score = classifier_fit.score(poly_feature, target)
 
 print("")
 print(classifier_score)
+
+
 
 # sampleDataDF = trainData[['Sex', 'Hyp']]
 # pd.set_option('display.max_columns', None)
