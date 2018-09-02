@@ -6,12 +6,14 @@ python3 web/modules/custom/titanic/youtube_B3cI_Ls_3Gk.py
 """
 Solving Kaggle's Titanic: Machine Learning from Disaster with Python
 https://www.youtube.com/watch?v=B3cI_Ls_3Gk
+
+https://github.com/Arkham/jack-dies
 """
 
 import matplotlib.pyplot as plt
 import pandas as pd
 # import utils
-from sklearn import linear_model, preprocessing, tree
+from sklearn import linear_model, preprocessing, tree, model_selection
 
 
 # 0） 导入
@@ -172,9 +174,11 @@ print("# PolynomialFeatures Score:")
 print(classifier_score)
 
 # 6）Decision Tree, sklearn.tree.DecisionTreeClassifier
-feature_dimension = ['Pclass', 'Age', 'Sex', 'SibSp', 'Parch']
+feature_dimensions = ['Pclass', 'Age', 'Fare', 'Embarked', 'Sex', 'SibSp', 'Parch']
 
-dimension_tree = tree.DecisionTreeClassifier(random_state = 1)
+dimension_tree = tree.DecisionTreeClassifier(
+  random_state = 1
+)
 
 # DecisionTreeClassifier 分数 0.9797979797979798
 dimension_tree_fit = dimension_tree.fit(features, target)
@@ -183,6 +187,29 @@ dimension_tree_score = dimension_tree_fit.score(features, target)
 print("")
 print("# DecisionTreeClassifier Score:")
 print(dimension_tree_score)
+
+# 7) 交叉验证 sklearn.model_selection.cross_val_score
+## add 参数
+## max_depth 应该和feature_dimensions数组长度一样，或不小于长度
+dimension_tree = tree.DecisionTreeClassifier(
+  max_depth = 7,
+  min_samples_split = 2,
+  random_state = 1
+)
+
+cross_score = model_selection.cross_val_score(dimension_tree, features, target, scoring = 'accuracy', cv = 50)
+print("")
+print("# cross_val_score Score and means:")
+print(cross_score)
+print(cross_score.mean())
+
+## export tree graph
+dimension_tree_fit = dimension_tree.fit(features, target)
+tree.export_graphviz(dimension_tree_fit, feature_names = feature_dimensions, out_file = "./graphs/decision_tree.dot")
+
+## convert Png file
+# dot -Tpng ./graphs/decision_tree.dot -o ./graphs/decision_tree.png
+
 
 # sampleDataDF = trainData[['Sex', 'Hyp']]
 # pd.set_option('display.max_columns', None)
