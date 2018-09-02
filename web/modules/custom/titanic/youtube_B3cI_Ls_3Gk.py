@@ -11,7 +11,7 @@ https://www.youtube.com/watch?v=B3cI_Ls_3Gk
 import matplotlib.pyplot as plt
 import pandas as pd
 # import utils
-from sklearn import linear_model, preprocessing
+from sklearn import linear_model, preprocessing, tree
 
 
 # 0） 导入
@@ -161,16 +161,28 @@ classifier_score = classifier_fit.score(features, target)
 # 5）sklearn.preprocessing.PolynomialFeatures，可以理解为专门生成多项式特征
 ## 多项式阶数，设为2
 poly = preprocessing.PolynomialFeatures(degree = 2)
-poly_feature = poly.fit_transform(features)
+poly_features = poly.fit_transform(features)
 
-# 分数0.8316498316498316
-classifier_fit = classifier.fit(poly_feature, target)
-classifier_score = classifier_fit.score(poly_feature, target)
+# PolynomialFeatures分数 0.8316498316498316
+classifier_fit = classifier.fit(poly_features, target)
+classifier_score = classifier_fit.score(poly_features, target)
 
 print("")
+print("# PolynomialFeatures Score:")
 print(classifier_score)
 
+# 6）Decision Tree, sklearn.tree.DecisionTreeClassifier
+feature_dimension = ['Pclass', 'Age', 'Sex', 'SibSp', 'Parch']
 
+dimension_tree = tree.DecisionTreeClassifier(random_state = 1)
+
+# DecisionTreeClassifier 分数 0.9797979797979798
+dimension_tree_fit = dimension_tree.fit(features, target)
+dimension_tree_score = dimension_tree_fit.score(features, target)
+
+print("")
+print("# DecisionTreeClassifier Score:")
+print(dimension_tree_score)
 
 # sampleDataDF = trainData[['Sex', 'Hyp']]
 # pd.set_option('display.max_columns', None)
