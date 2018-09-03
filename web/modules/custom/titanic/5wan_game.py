@@ -1,14 +1,25 @@
 """
-python3 web/modules/custom/titanic/5wan_bonus.py
-
+python3 web/modules/custom/titanic/5wan_game.py
+因为读入数据有中文，在sublime text内运行有问题，需要到命令行运行
 """
 
-from pandas.io.json import json_normalize
+# -*- coding: utf-8 -*-
 import pandas as pd
-import html5lib
 import json
-import time
+import urllib.request
+
+
+def readJsonDecode(urlPath):
+  with urllib.request.urlopen(urlPath) as url:
+    output = json.loads(url.read().decode())
+
+  return output
+
 
 # 读入数据
-data_str = pd.read_html('http://localhost:8888/5wan/web/dashpage/game/list/json?ave_win=2.76&ave_draw=2.50&ave_loss=2.80').read()
-print(data_str)
+pathUrl = 'http://localhost:8888/5wan/web/dashpage/game/list/json?ave_win=7.76'
+# data_str = pd.read_json(pathUrl, orient='columns')
+
+data = readJsonDecode(pathUrl)
+
+print(data)

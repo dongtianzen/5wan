@@ -22,8 +22,7 @@ dashpage.game.list.json:
   defaults:
     _controller: '\Drupal\dashpage\Controller\DashpageController::gameListJson'
   requirements:
-    _permission: 'access content'
-    _role: 'authenticated'
+    _access: 'TRUE'
 
 #
 dashpage.game.chart.json:
