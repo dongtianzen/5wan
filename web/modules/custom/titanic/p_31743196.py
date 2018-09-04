@@ -106,11 +106,11 @@ train_data.loc[train_data['Age'].isnull(), ['Age']]= predictAges
 train_data.groupby(['Sex','Survived'])['Survived'].count()
 train_data[['Sex','Survived']].groupby(['Sex']).mean().plot.bar()
 # plt.show()
-exit()
 
 
 
 # (2) 船舱等级和生存与否的关系 Pclass
+exit()
 
 train_data.groupby(['Pclass','Survived'])['Pclass'].count()
 

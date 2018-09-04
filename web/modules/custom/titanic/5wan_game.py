@@ -10,6 +10,8 @@ import pandas as pd
 import seaborn as sns
 import urllib.request
 
+from pandas.io.json import json_normalize
+
 
 # def function read json
 def readJsonDecode(urlPath):
@@ -19,11 +21,13 @@ def readJsonDecode(urlPath):
   return output
 
 
-# 读入数据
+# 读入数据, 将json串解析为DataFrame
 pathUrl = 'http://localhost:8888/5wan/web/dashpage/game/list/json?ave_win=7.76'
 trainData = readJsonDecode(pathUrl)
+trainDf = df = json_normalize(trainData['gridData'])
 
-print(trainData)
+print(trainDf)
+# print(trainData.shape)
 exit()
 
 # 观察前几行的源数据：
