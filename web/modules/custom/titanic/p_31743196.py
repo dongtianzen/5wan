@@ -11,7 +11,6 @@ https://zhuanlan.zhihu.com/p/31743196
 
 # 1. 数据总览
 # Titanic 生存模型预测，其中包含了两组数据：train.csv 和 test.csv，分别为训练集合和测试集合。
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -21,21 +20,23 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 
-# %matplotlib inline
+# %matplotlib inline7
 fig = plt.figure(facecolor='white')
 ax = fig.add_subplot(111)
 
 
 # 观察前几行的源数据：
-train_data = pd.read_csv('web/modules/custom/titanic/src/train.csv')
-test_data = pd.read_csv('web/modules/custom/titanic/src/test.csv')
+train_data = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titanic/src/train.csv')
+test_data = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titanic/src/test.csv')
 
 sns.set_style('whitegrid')
 train_data.head()
 
 # 数据信息总览：
+print("# Train Data Info")
 train_data.info()
-print("-" * 40)
+print("")
+print("# Test Data Info")
 test_data.info()
 
 
