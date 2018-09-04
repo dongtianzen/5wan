@@ -100,16 +100,13 @@ train_data.loc[train_data['Age'].isnull(), ['Age']]= predictAges
 # print("")
 
 
-exit()
-# 3. 分析数据关系
-# (1) 性别与是否生存的关系 Sex
-
+### 3. 分析数据关系
+## (1) 性别与是否生存的关系 Sex
+# 为不同性别的生存率，可见在泰坦尼克号事故中，还是体现了Lady First。
 train_data.groupby(['Sex','Survived'])['Survived'].count()
-
-
 train_data[['Sex','Survived']].groupby(['Sex']).mean().plot.bar()
-
-# 以上为不同性别的生存率，可见在泰坦尼克号事故中，还是体现了Lady First。
+# plt.show()
+exit()
 
 
 
