@@ -9,13 +9,15 @@ https://zhuanlan.zhihu.com/p/31743196
 
 """
 
-# 1. 数据总览
+### 1. 数据总览
 # Titanic 生存模型预测，其中包含了两组数据：train.csv 和 test.csv，分别为训练集合和测试集合。
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import re
 import seaborn as sns
+
+from sklearn.ensemble import RandomForestRegressor
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -25,46 +27,61 @@ fig = plt.figure(facecolor='white')
 ax = fig.add_subplot(111)
 
 
-# 观察前几行的源数据：
+# 源数据：
 train_data = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titanic/src/train.csv')
 test_data = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titanic/src/test.csv')
 
+
+# 观察前几行的源数据：
 sns.set_style('whitegrid')
-train_data.head()
+# print("# Data Head Teaser")
+# print(train_data.head())
+# print("")
+
 
 # 数据信息总览：
 print("# Train Data Info")
 train_data.info()
 print("")
-print("# Test Data Info")
-test_data.info()
-
-
 # 从上面我们可以看出，Age、Cabin、Embarked、Fare几个特征存在缺失值。
+
+# print("# Test Data Info")
+# test_data.info()
+# print("")
+
+
 # 绘制存活的比例图：
 train_data['Survived'].value_counts().plot.pie(autopct = '%1.2f%%')
-
 # plt.show()
 
-exit()
-# 2. 缺失值处理的方法
-# 对数据进行分析的时候要注意其中是否有缺失值。
 
+
+### 2. 缺失值处理的方法
+# 对数据进行分析的时候要注意其中是否有缺失值。
 # 一些机器学习算法能够处理缺失值，比如神经网络，一些则不能。对于缺失值，一般有以下几种处理方法：
 
-# （1）如果数据集很多，但有很少的缺失值，可以删掉带缺失值的行；
 
-# （2）如果该属性相对学习来说不是很重要，可以对缺失值赋均值或者众数。比如在哪儿上船Embarked这一属性（共有三个上船地点），缺失俩值，可以用众数赋值
+## （1）如果数据集很多，但有很少的缺失值，可以删掉带缺失值的行；
+## （2）如果该属性相对学习来说不是很重要，可以对缺失值赋均值或者众数。
+# 在哪儿上船Embarked这一属性（共有三个上船地点），缺失俩个值，可以用众数赋值
 train_data.Embarked[train_data.Embarked.isnull()] = train_data.Embarked.dropna().mode().values
 
-# （3）对于标称属性，可以赋一个代表缺失的值，比如‘U0’。因为缺失本身也可能代表着一些隐含信息。比如船舱号Cabin这一属性，缺失可能代表并没有船舱。
-# #replace missing value with U0
-train_data['Cabin'] = train_data.Cabin.fillna('U0') # train_data.Cabin[train_data.Cabin.isnull()]='U0'
 
-# （4）使用回归 随机森林等模型来预测缺失属性的值。因为Age在该数据集里是一个相当重要的特征（先对Age进行分析即可得知），所以保证一定的缺失值填充准确率是非常重要的，对结果也会产生较大影响。一般情况下，会使用数据完整的条目作为模型的训练集，以此来预测缺失值。对于当前的这个数据，可以使用随机森林来预测也可以使用线性回归预测。这里使用随机森林预测模型，选取数据集中的数值属性作为特征（因为sklearn的模型只能处理数值属性，所以这里先仅选取数值特征，但在实际的应用中需要将非数值特征转换为数值特征）
-# from sklearn.ensemble import RandomForestRegressor
+## （3）对于标称属性，可以赋一个代表缺失的值，比如‘U0’。因为缺失本身也可能代表着一些隐含信息。比如船舱号Cabin这一属性，缺失可能代表并没有船舱。
+# replace missing value with U0
+train_data['Cabin'] = train_data.Cabin.fillna('U0')
+# 或用下面的.isnull()方法
+# train_data.Cabin[train_data.Cabin.isnull()]='U0'
 
-#choose training data to predict age
+
+# （4）使用回归 随机森林等模型来预测缺失属性的值。
+# 因为Age在该数据集里是一个相当重要的特征（先对Age进行分析即可得知），所以保证一定的缺失值填充准确率是非常重要的，对结果也会产生较大影响。
+# 一般情况下，会使用数据完整的条目作为模型的训练集，以此来预测缺失值。
+# 对于当前的这个数据，可以使用随机森林来预测也可以使用线性回归预测。
+# 这里使用随机森林预测模型，选取数据集中的数值属性作为特征（因为sklearn的模型只能处理数值属性，所以这里先仅选取数值特征，
+# 但在实际的应用中需要将非数值特征转换为数值特征）
+
+# choose training data to predict age
 age_df = train_data[['Age','Survived','Fare', 'Parch', 'SibSp', 'Pclass']]
 age_df_notnull = age_df.loc[(train_data['Age'].notnull())]
 age_df_isnull = age_df.loc[(train_data['Age'].isnull())]
@@ -78,10 +95,12 @@ predictAges = RFR.predict(age_df_isnull.values[:,1:])
 train_data.loc[train_data['Age'].isnull(), ['Age']]= predictAges
 
 # 让我们再来看一下缺失数据处理后的DataFram：
+# print("# Train Data Info After Fill Missing Value")
+# train_data.info()
+# print("")
 
-train_data.info()
 
-
+exit()
 # 3. 分析数据关系
 # (1) 性别与是否生存的关系 Sex
 
