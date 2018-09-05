@@ -139,17 +139,17 @@ class DashpageJsonGenerator extends ControllerBase {
     $output = [
       [
         'label' => 'win',
-        'backgroundColor' => '#4e3e9c',
+        'backgroundColor' => '#79f879',
         'data' => [],
       ],
       [
         'label' => 'Draw',
-        'backgroundColor' => '#8c9c3e',
+        'backgroundColor' => '#7979f8',
         'data' => [],
       ],
       [
         'label' => 'Loss',
-        'backgroundColor' => '#9c463e',
+        'backgroundColor' => '#f87979',
         'data' => [],
       ],
     ];

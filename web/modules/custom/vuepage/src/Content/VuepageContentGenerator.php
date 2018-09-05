@@ -38,6 +38,7 @@ class VuepageContentGenerator extends ControllerBase {
         <div class="margin-top-12">
           <line-chart></line-chart>
         </div>
+          {{ scatterChartTitle }}
         <div class="margin-top-12">
           <chartjs-scatter-chart></chartjs-scatter-chart>
         </div>
