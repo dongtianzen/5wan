@@ -100,48 +100,40 @@ train_data.loc[train_data['Age'].isnull(), ['Age']]= predictAges
 # print("")
 
 
+
 ### 3. 分析数据关系
 ## (1) 性别与是否生存的关系 Sex
 # 为不同性别的生存率，可见在泰坦尼克号事故中，还是体现了Lady First。
 train_data.groupby(['Sex','Survived'])['Survived'].count()
 train_data[['Sex','Survived']].groupby(['Sex']).mean().plot.bar()
-# plt.show()
-
-
+plt.show()
 
 # (2) 船舱等级和生存与否的关系 Pclass
-exit()
-
 train_data.groupby(['Pclass','Survived'])['Pclass'].count()
 
-train_data[['Pclass','Survived']].groupby(['Pclass']).mean().plot.bar()
-
-train_data[['Sex','Pclass','Survived']].groupby(['Pclass','Sex']).mean().plot.bar()
-
 # 不同等级船舱的男女生存率：
-
-train_data.groupby(['Sex', 'Pclass', 'Survived'])['Survived'].count()
-
-
-
 # 从图和表中可以看出，总体上泰坦尼克号逃生是妇女优先，但是对于不同等级的船舱还是有一定的区别。
 
+# 不同颜色Barplot, by不同的分类
+ax = sns.barplot(x = "Sex", y = "Survived", hue = "Pclass", data = train_data[['Sex', 'Pclass', 'Survived']], ci = 0)
+plt.show()
+ax = sns.barplot(x = "Pclass", y = "Survived", hue = "Sex", data = train_data[['Sex', 'Pclass', 'Survived']], ci = 0)
+plt.show()
 
 
-# (3) 年龄与存活与否的关系 Age
-
+## (3) 年龄与存活与否的关系 Age
 # 分别分析不同等级船舱和不同性别下的年龄分布和生存的关系：
-
 fig, ax = plt.subplots(1, 2, figsize = (18, 8))
-sns.violinplot("Pclass", "Age", hue="Survived", data=train_data, split=True, ax=ax[0])
+sns.violinplot("Pclass", "Age", hue = "Survived", data = train_data, split = True, ax = ax[0])
 ax[0].set_title('Pclass and Age vs Survived')
 ax[0].set_yticks(range(0, 110, 10))
 
-sns.violinplot("Sex", "Age", hue="Survived", data=train_data, split=True, ax=ax[1])
+sns.violinplot("Sex", "Age", hue = "Survived", data = train_data, split = True, ax = ax[1])
 ax[1].set_title('Sex and Age vs Survived')
 ax[1].set_yticks(range(0, 110, 10))
 
 plt.show()
+exit()
 
 # 分析总体的年龄分布：
 
