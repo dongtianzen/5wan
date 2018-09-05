@@ -95,35 +95,10 @@ class DashpageJsonGenerator extends ControllerBase {
       $win_value_array = array($tbody['Win'], $tbody['Draw'], $tbody['Loss']);
       $min_num_index = array_search(min($win_value_array), $win_value_array);
 
-      // 10 is standard size
-      $r_size = 10;
-
-      if ($min_num_index == 0) {
-        $ini_win_value = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($win_node, 'field_win_ini_win');
-        $r_size = ($tbody['Win'] - $ini_win_value);
-      }
-      elseif ($min_num_index == 1) {
-        $ini_draw_value = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($win_node, 'field_win_ini_draw');
-        $r_size = ($tbody['Draw'] - $ini_draw_value);
-      }
-      elseif ($min_num_index == 2) {
-        $ini_loss_value = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($win_node, 'field_win_ini_loss');
-        $r_size = ($tbody['Loss'] - $ini_loss_value);
-      }
-
-      $r_size = $r_size * 20;
-      $r_size = 10 + $r_size;
-
       $chart_data = [
         'x' => $tbody['Draw'],
         'y' => $tbody['Loss'],
-        'r' => $r_size,
+        'r' => $this->getGameRSzie($win_node),
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
@@ -199,35 +174,10 @@ class DashpageJsonGenerator extends ControllerBase {
       $win_value_array = array($tbody['Win'], $tbody['Draw'], $tbody['Loss']);
       $min_num_index = array_search(min($win_value_array), $win_value_array);
 
-      // 10 is standard size
-      $r_size = 10;
-
-      if ($min_num_index == 0) {
-        $ini_win_value = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($win_node, 'field_win_ini_win');
-        $r_size = ($tbody['Win'] - $ini_win_value);
-      }
-      elseif ($min_num_index == 1) {
-        $ini_draw_value = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($win_node, 'field_win_ini_draw');
-        $r_size = ($tbody['Draw'] - $ini_draw_value);
-      }
-      elseif ($min_num_index == 2) {
-        $ini_loss_value = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($win_node, 'field_win_ini_loss');
-        $r_size = ($tbody['Loss'] - $ini_loss_value);
-      }
-
-      $r_size = $r_size * 20;
-      $r_size = 10 + $r_size;
-
       $chart_data = [
         'x' => $tbody['Draw'] / $tbody['Loss'],
         'y' => $tbody['Win'] ,
-        'r' => $r_size,
+        'r' => $this->getGameRSzie($win_node),
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
@@ -242,6 +192,53 @@ class DashpageJsonGenerator extends ControllerBase {
     }
 
     return $output;
+  }
+
+  /**
+   *
+   */
+  public function getGameRSzie($win_node) {
+    // 10 is standard size
+    $r_size = 10;
+
+    if ($min_num_index == 0) {
+      $ini_win_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_win');
+
+      $ave_win_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ave_win');
+
+      $r_size = $ave_win_value - $ini_win_value;
+    }
+    elseif ($min_num_index == 1) {
+      $ini_draw_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_draw');
+
+      $ave_draw_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ave_draw');
+
+      $r_size = $ave_draw_value - $ini_draw_value;
+    }
+    elseif ($min_num_index == 2) {
+      $ini_loss_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_loss');
+
+      $ave_loss_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ave_loss');
+
+      $r_size = $ave_loss_value - $ini_loss_value;
+    }
+
+    $r_size = $r_size * 20;
+    $r_size = 10 + $r_size;
+
+    return $r_size;
   }
 
   /**
