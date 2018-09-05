@@ -113,12 +113,94 @@ Vue.component('line-chart', {
 })
 
 /**
+ * @to vue-chartjs v3 to draw line chart
+ */
+Vue.component('chartjs-scatter-chart', {
+  extends: VueChartJs.Bubble,
+  data () {
+    return {
+      chartDataSetSource: [    // dataset sample format
+        {
+          label: 'Data One',
+          backgroundColor: '#f87979',
+          data: [
+            {
+              x: 3.20,
+              y: 1.72,
+              r: 10
+            },
+            {
+              x: 2.20,
+              y: 2.12,
+              r: 10
+            }
+          ]
+        },
+        {
+          label: 'Data two',
+          backgroundColor: '#7c89fb',
+          data: [
+            {
+              x: 1.62,
+              y: 2.50,
+              r: 8
+            }
+          ]
+        }
+      ],
+      options: {
+        tooltips: {
+          enabled: true,
+          callbacks: {
+            label:function (tooltipItems, data) {
+              console.log(data)
+              return tooltipItems.yLabel + '£'
+            }
+          }
+        }
+      }
+    }
+  },
+  mounted () {
+    axios.get(
+      'http://localhost:8888/5wan/web/dashpage/game/chart/json',
+      {
+        params: query_params
+      }
+    )
+    .then(
+      response => {
+        console.log(response.request.responseURL)
+
+        this.options = {
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItems, data) {
+                return tooltipItems.yLabel + ' rmb';
+              }
+            }
+          }
+        }
+
+        // JSON responses are automatically parsed.
+        this.chartDataSetSource = response.data.chartDataSetSourceTwo
+
+        this.renderChart({
+          datasets: this.chartDataSetSource,
+          options: this.options
+        }, {responsive: true, maintainAspectRatio: false})
+      }
+    )
+  }
+})
+
+/**
  *
  */
 var vm = new Vue({
   el: '.appchartjs',
   data: {
-    message: 'Chart title - Hello World'
+    message: 'Game List Chart title - Hello World'
   }
 })
 

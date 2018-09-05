@@ -24,6 +24,7 @@ class VuepageContentGenerator extends ControllerBase {
     $content .= $this->gameListContentScript();
     $content .= $this->gameListContentGrid();
     $content .= $this->gameListContentChartJs();
+    $content .= $this->gameListContentChartJsTwo();
 
     return $content;
   }
@@ -36,6 +37,20 @@ class VuepageContentGenerator extends ControllerBase {
       <div class="appchartjs">
           {{ message }}
         <line-chart></line-chart>
+      </div>
+    ';
+
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function gameListContentChartJsTwo() {
+    $output = '
+      <div class="appchartjstwo">
+          {{ messageTwo }}
+        <chartjs-scatter-chart></chartjs-scatter-chart>
       </div>
     ';
 
