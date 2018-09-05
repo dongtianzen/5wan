@@ -92,13 +92,10 @@ class DashpageJsonGenerator extends ControllerBase {
         }
       }
 
-      $win_value_array = array($tbody['Win'], $tbody['Draw'], $tbody['Loss']);
-      $min_num_index = array_search(min($win_value_array), $win_value_array);
-
       $chart_data = [
         'x' => $tbody['Draw'],
         'y' => $tbody['Loss'],
-        'r' => $this->getGameRSzie($win_node),
+        'r' => $this->getGameRSzie($win_node, $tbody['Win'], $tbody['Draw'], $tbody['Loss']),
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
@@ -171,13 +168,10 @@ class DashpageJsonGenerator extends ControllerBase {
         }
       }
 
-      $win_value_array = array($tbody['Win'], $tbody['Draw'], $tbody['Loss']);
-      $min_num_index = array_search(min($win_value_array), $win_value_array);
-
       $chart_data = [
         'x' => $tbody['Draw'] / $tbody['Loss'],
         'y' => $tbody['Win'] ,
-        'r' => $this->getGameRSzie($win_node),
+        'r' => $this->getGameRSzie($win_node, $tbody['Win'], $tbody['Draw'], $tbody['Loss']),
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
@@ -195,20 +189,16 @@ class DashpageJsonGenerator extends ControllerBase {
   }
 
   /**
-   *
+   * @return $r_size is 10 - standard size
    */
-  public function getGameRSzie($win_node) {
-    // 10 is standard size
-    $r_size = 10;
+  public function getGameRSzie($win_node, $ave_win_value = NULL, $ave_draw_value =NULL, $ave_loss_value = NULL) {
+    $win_value_array = array($ave_win_value, $ave_draw_value, $ave_loss_value);
+    $min_num_index = array_search(min($win_value_array), $win_value_array);
 
     if ($min_num_index == 0) {
       $ini_win_value = \Drupal::getContainer()
         ->get('flexinfo.field.service')
         ->getFieldFirstValue($win_node, 'field_win_ini_win');
-
-      $ave_win_value = \Drupal::getContainer()
-        ->get('flexinfo.field.service')
-        ->getFieldFirstValue($win_node, 'field_win_ave_win');
 
       $r_size = $ave_win_value - $ini_win_value;
     }
@@ -217,9 +207,7 @@ class DashpageJsonGenerator extends ControllerBase {
         ->get('flexinfo.field.service')
         ->getFieldFirstValue($win_node, 'field_win_ini_draw');
 
-      $ave_draw_value = \Drupal::getContainer()
-        ->get('flexinfo.field.service')
-        ->getFieldFirstValue($win_node, 'field_win_ave_draw');
+
 
       $r_size = $ave_draw_value - $ini_draw_value;
     }
@@ -228,17 +216,13 @@ class DashpageJsonGenerator extends ControllerBase {
         ->get('flexinfo.field.service')
         ->getFieldFirstValue($win_node, 'field_win_ini_loss');
 
-      $ave_loss_value = \Drupal::getContainer()
-        ->get('flexinfo.field.service')
-        ->getFieldFirstValue($win_node, 'field_win_ave_loss');
-
       $r_size = $ave_loss_value - $ini_loss_value;
     }
 
     $r_size = $r_size * 20;
-    $r_size = 10 + $r_size;
+    $output = 10 + $r_size;
 
-    return $r_size;
+    return $output;
   }
 
   /**
