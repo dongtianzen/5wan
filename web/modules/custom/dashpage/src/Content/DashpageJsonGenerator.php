@@ -40,8 +40,6 @@ class DashpageJsonGenerator extends ControllerBase {
    *
    */
   public function getChartDataSetSource() {
-    $output = '';
-
     $output = [
       [
         'label' => 'win',
@@ -58,7 +56,20 @@ class DashpageJsonGenerator extends ControllerBase {
         'backgroundColor' => '#f87979',
         'data' => [],
       ],
+      [
+        'label' => 'Test',
+        'backgroundColor' => '#9c463e',
+        'data' => [],
+      ],
     ];
+
+    $chart_data = [
+      'x' => $tbody['Draw'],
+      'y' => $tbody['Loss'],
+      'r' => 10,
+    ];
+    $output[3]['data'][] = $chart_data;
+
 
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
 
@@ -66,7 +77,6 @@ class DashpageJsonGenerator extends ControllerBase {
 
     $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
-
       $tbody = [];
       foreach ($node_fields as $subkey => $subrow) {
         if ($subrow['type'] == 'term') {
@@ -124,7 +134,6 @@ class DashpageJsonGenerator extends ControllerBase {
       else {
         $output[2]['data'][] = $chart_data;
       }
-
     }
 
     return $output;
@@ -134,8 +143,6 @@ class DashpageJsonGenerator extends ControllerBase {
    *
    */
   public function getChartDataSetSourceTwo() {
-    $output = '';
-
     $output = [
       [
         'label' => 'win',
@@ -160,7 +167,6 @@ class DashpageJsonGenerator extends ControllerBase {
 
     $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
-
       $tbody = [];
       foreach ($node_fields as $subkey => $subrow) {
         if ($subrow['type'] == 'term') {
@@ -218,7 +224,6 @@ class DashpageJsonGenerator extends ControllerBase {
       else {
         $output[2]['data'][] = $chart_data;
       }
-
     }
 
     return $output;
