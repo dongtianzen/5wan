@@ -58,19 +58,20 @@ class DashpageJsonGenerator extends ControllerBase {
       ],
       [
         'label' => 'Test',
-        'backgroundColor' => '#9c463e',
+        'backgroundColor' => '#66ccff',
         'data' => [],
       ],
     ];
 
+    $request_array = \Drupal::request()->query->all();
     $chart_data = [
-      'x' => $tbody['Draw'],
-      'y' => $tbody['Loss'],
+      'x' =>  $request_array['ave_draw'],
+      'y' =>  $request_array['ave_loss'],
       'r' => 10,
     ];
     $output[3]['data'][] = $chart_data;
 
-
+    //
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
 
     $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
@@ -159,8 +160,22 @@ class DashpageJsonGenerator extends ControllerBase {
         'backgroundColor' => '#f87979',
         'data' => [],
       ],
+      [
+        'label' => 'Test',
+        'backgroundColor' => '#66ccff',
+        'data' => [],
+      ],
     ];
 
+    $request_array = \Drupal::request()->query->all();
+    $chart_data = [
+      'x' =>  $request_array['ave_draw'] / $request_array['ave_loss'],
+      'y' =>  $request_array['ave_win'],
+      'r' => 10,
+    ];
+    $output[3]['data'][] = $chart_data;
+
+    //
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
 
     $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
