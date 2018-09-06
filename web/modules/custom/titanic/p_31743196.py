@@ -168,14 +168,15 @@ train_data.groupby(['Pclass','Survived'])['Pclass'].count()
 
 ## 不同年龄下的平均生存率， 柱状图：
 ## average survived passengers by age
+train_data["Age_int"] = train_data["Age"].astype(int)
+average_age = train_data[["Age_int", "Survived"]].groupby(['Age_int'], as_index = False).mean()
+
 # fig, axis1 = plt.subplots(1, 1, figsize = (18,4))
-# train_data["Age_int"] = train_data["Age"].astype(int)
-# average_age = train_data[["Age_int", "Survived"]].groupby(['Age_int'], as_index = False).mean()
 # sns.barplot(x = 'Age_int', y = 'Survived', data = average_age)
 # plt.show()
 
 # print("# age describe()")
-print(train_data['Age'].describe())
+# print(train_data['Age'].describe())
 ## 样本有891，平均年龄约为30岁，标准差13.5岁，最小年龄为0.42，最大年龄80.
 ## mean是29.663504， 年龄25%是21岁，50%是28岁，75%是37岁
 
@@ -186,7 +187,7 @@ print(train_data['Age'].describe())
 
 ## 按照年龄，将乘客划分为儿童、少年、成年和老年，分析四个群体的生还情况：
 ## 按照年龄，将数据进行离散化, 进行划分为4个数组：
-## @param bins 整数 - 将x划分为多少个等间距的区间：
+## @param bins 数组 - 将x划分为自定义数组的区间：
 bins = [0, 12, 18, 65, 100]
 train_data['Age_group'] = pd.cut(train_data['Age'], bins)
 by_age = train_data.groupby('Age_group')['Survived'].mean()
@@ -200,51 +201,50 @@ by_age = train_data.groupby('Age_group')['Survived'].mean()
 # print(train_data['Fare'].describe())
 # print("")
 
-# bins = [0, 12, 18, 35, 513]
-# train_data['Fare_group'] = pd.cut(train_data['Fare'], bins)
-# by_fare = train_data.groupby('Fare_group')['Survived'].mean()
+## @param bins 也可以是整数 - 将x划分为多少个等间距的区间
+train_data['Fare_group'] = pd.cut(train_data['Fare'], bins = 4)
+by_fare = train_data.groupby('Fare_group')['Survived'].mean()
 
 # by_fare.plot(kind = 'bar')
 # plt.show()
 
-exit()
 
-# (4) 称呼与存活与否的关系 Name
 
-# 通过观察名字数据，我们可以看出其中包括对乘客的称呼，如：Mr、Miss、Mrs等，称呼信息包含了乘客的年龄、性别，同时也包含了如社会地位等的称呼，如：Dr,、Lady、Major、Master等的称呼。
-
-train_data['Title'] = train_data['Name'].str.extract(' ([A-Za-z]+)\.', expand=False)
+## (4) 称呼与存活与否的关系 Name
+## 通过观察名字数据，我们可以看出其中包括对乘客的称呼，如：Mr、Miss、Mrs等，称呼信息包含了乘客的年龄、性别，同时也包含了如社会地位等的称呼，如：Dr,、Lady、Major、Master等的称呼。
+train_data['Title'] = train_data['Name'].str.extract('([A-Za-z]+)\.', expand = False)
 pd.crosstab(train_data['Title'], train_data['Sex'])
-# 观察不同称呼与生存率的关系：
 
-train_data[['Title','Survived']].groupby(['Title']).mean().plot.bar()
-# 同时，对于名字，我们还可以观察名字长度和生存率之间存在关系的可能：
+## 观察不同称呼与生存率的关系：
+# train_data[['Title','Survived']].groupby(['Title']).mean().plot.bar()
+# plt.show()
 
-fig, axis1 = plt.subplots(1,1,figsize=(18,4))
+
+## 同时，对于名字，我们还可以观察名字长度和生存率之间存在关系的可能：
 train_data['Name_length'] = train_data['Name'].apply(len)
-name_length = train_data[['Name_length','Survived']].groupby(['Name_length'],as_index=False).mean()
-sns.barplot(x='Name_length', y='Survived', data=name_length)
-# 从上面的图片可以看出，名字长度和生存与否确实也存在一定的相关性。
+name_length = train_data[['Name_length', 'Survived']].groupby(['Name_length'], as_index = False).mean()
+
+# fig, axis1 = plt.subplots(1, 1, figsize=(18,4))
+# sns.barplot(x = 'Name_length', y = 'Survived', data = name_length)
+# plt.show()
+
+## 从上面的图片可以看出，名字长度和生存与否确实也存在一定的相关性。
 
 
-
-# (5) 有无兄弟姐妹和存活与否的关系 SibSp
-
-# 将数据分为有兄弟姐妹的和没有兄弟姐妹的两组：
+## (5) 有无兄弟姐妹和存活与否的关系 SibSp
+## 将数据分为有兄弟姐妹的和没有兄弟姐妹的两组：
 sibsp_df = train_data[train_data['SibSp'] != 0]
 no_sibsp_df = train_data[train_data['SibSp'] == 0]
 
+# plt.figure(figsize = (10, 5))
+# plt.subplot(121)
+# sibsp_df['Survived'].value_counts().plot.pie(labels = ['No Survived', 'Survived'], autopct = '%1.1f%%')
+# plt.xlabel('sibsp')
 
-plt.figure(figsize=(10,5))
-plt.subplot(121)
-sibsp_df['Survived'].value_counts().plot.pie(labels=['No Survived', 'Survived'], autopct = '%1.1f%%')
-plt.xlabel('sibsp')
-
-plt.subplot(122)
-no_sibsp_df['Survived'].value_counts().plot.pie(labels=['No Survived', 'Survived'], autopct = '%1.1f%%')
-plt.xlabel('no_sibsp')
-
-plt.show()
+# plt.subplot(122)
+# no_sibsp_df['Survived'].value_counts().plot.pie(labels = ['No Survived', 'Survived'], autopct = '%1.1f%%')
+# plt.xlabel('no_sibsp')
+# plt.show()
 
 
 
@@ -253,74 +253,70 @@ plt.show()
 parch_df = train_data[train_data['Parch'] != 0]
 no_parch_df = train_data[train_data['Parch'] == 0]
 
-plt.figure(figsize=(10,5))
-plt.subplot(121)
-parch_df['Survived'].value_counts().plot.pie(labels=['No Survived', 'Survived'], autopct = '%1.1f%%')
-plt.xlabel('parch')
+# plt.figure(figsize = (10,5))
+# plt.subplot(121)
+# parch_df['Survived'].value_counts().plot.pie(labels = ['No Survived', 'Survived'], autopct = '%1.1f%%')
+# plt.xlabel('parch')
 
-plt.subplot(122)
-no_parch_df['Survived'].value_counts().plot.pie(labels=['No Survived', 'Survived'], autopct = '%1.1f%%')
-plt.xlabel('no_parch')
-
-plt.show()
-
+# plt.subplot(122)
+# no_parch_df['Survived'].value_counts().plot.pie(labels = ['No Survived', 'Survived'], autopct = '%1.1f%%')
+# plt.xlabel('no_parch')
+# plt.show()
 
 
-# (7) 亲友的人数和存活与否的关系 SibSp & Parch
+## (7) 亲友的人数和存活与否的关系 SibSp & Parch
+# fig, ax = plt.subplots(1, 2, figsize = (18, 8))
+# train_data[['Parch', 'Survived']].groupby(['Parch']).mean().plot.bar(ax = ax[0])
+# ax[0].set_title('Parch and Survived')
+# train_data[['SibSp', 'Survived']].groupby(['SibSp']).mean().plot.bar(ax = ax[1])
+# ax[1].set_title('SibSp and Survived')
+# plt.show()
 
-fig,ax=plt.subplots(1,2,figsize=(18,8))
-train_data[['Parch','Survived']].groupby(['Parch']).mean().plot.bar(ax=ax[0])
-ax[0].set_title('Parch and Survived')
-train_data[['SibSp','Survived']].groupby(['SibSp']).mean().plot.bar(ax=ax[1])
-ax[1].set_title('SibSp and Survived')
-
-
-
-train_data['Family_Size'] = train_data['Parch'] + train_data['SibSp'] + 1
-train_data[['Family_Size','Survived']].groupby(['Family_Size']).mean().plot.bar()
-
+##
 # 从图表中可以看出，若独自一人，那么其存活率比较低；但是如果亲友太多的话，存活率也会很低。
+train_data['Family_Size'] = train_data['Parch'] + train_data['SibSp'] + 1
+
+# train_data[['Family_Size', 'Survived']].groupby(['Family_Size']).mean().plot.bar()
+# plt.show()
 
 
+## (8) 票价分布和存活与否的关系 Fare
 
-# (8) 票价分布和存活与否的关系 Fare
+## 首先绘制票价的分布情况, 直方图和箱图：
+# plt.figure(figsize=(10,5))
+# train_data['Fare'].hist(bins = 70)
 
-# 首先绘制票价的分布情况：
+# train_data.boxplot(column='Fare', by='Pclass', showfliers=False)
+# plt.show()
 
-plt.figure(figsize=(10,5))
-train_data['Fare'].hist(bins = 70)
-
-train_data.boxplot(column='Fare', by='Pclass', showfliers=False)
-plt.show()
-
-
-train_data['Fare'].describe()
+# print("# Fare describe()")
+# print(train_data['Fare'].describe())
+# print("")
 
 
-# 绘制生存与否与票价均值和方差的关系：
-
+## 绘制生存与否与票价均值和方差的关系：
 fare_not_survived = train_data['Fare'][train_data['Survived'] == 0]
 fare_survived = train_data['Fare'][train_data['Survived'] == 1]
 
 average_fare = pd.DataFrame([fare_not_survived.mean(), fare_survived.mean()])
 std_fare = pd.DataFrame([fare_not_survived.std(), fare_survived.std()])
-average_fare.plot(yerr=std_fare, kind='bar', legend=False)
 
+average_fare.plot(yerr = std_fare, kind = 'bar', legend = False)
 plt.show()
 
-# 由上图标可知，票价与是否生还有一定的相关性，生还者的平均票价要大于未生还者的平均票价。
+## 由上图标可知，票价与是否生还有一定的相关性，生还者的平均票价要大于未生还者的平均票价。
+exit()
 
 
+## (9) 船舱类型和存活与否的关系 Cabin
 
-# (9) 船舱类型和存活与否的关系 Cabin
+## 由于船舱的缺失值确实太多，有效值仅仅有204个，很难分析出不同的船舱和存活的关系，所以在做特征工程的时候，可以直接将该组特征丢弃。
 
-# 由于船舱的缺失值确实太多，有效值仅仅有204个，很难分析出不同的船舱和存活的关系，所以在做特征工程的时候，可以直接将该组特征丢弃。
+## 当然，这里我们也可以对其进行一下分析，对于缺失的数据都分为一类。
 
-# 当然，这里我们也可以对其进行一下分析，对于缺失的数据都分为一类。
+## 简单地将数据分为是否有Cabin记录作为特征，与生存与否进行分析：
 
-# 简单地将数据分为是否有Cabin记录作为特征，与生存与否进行分析：
-
-# Replace missing values with "U0"
+## Replace missing values with "U0"
 train_data.loc[train_data.Cabin.isnull(), 'Cabin'] = 'U0'
 train_data['Has_Cabin'] = train_data['Cabin'].apply(lambda x: 0 if x == 'U0' else 1)
 train_data[['Has_Cabin','Survived']].groupby(['Has_Cabin']).mean().plot.bar()
