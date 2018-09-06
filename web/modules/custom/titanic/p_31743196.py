@@ -175,24 +175,39 @@ train_data.groupby(['Pclass','Survived'])['Pclass'].count()
 # plt.show()
 
 # print("# age describe()")
-# print(train_data['Age'].describe())
+print(train_data['Age'].describe())
+## 样本有891，平均年龄约为30岁，标准差13.5岁，最小年龄为0.42，最大年龄80.
+## mean是29.663504， 年龄25%是21岁，50%是28岁，75%是37岁
 
 # plt.subplot(122)
 # train_data.boxplot(column='Age', showfliers = False)
 # plt.show()
 
-exit()
 
-## 样本有891，平均年龄约为30岁，标准差13.5岁，最小年龄为0.42，最大年龄80.
 ## 按照年龄，将乘客划分为儿童、少年、成年和老年，分析四个群体的生还情况：
+## 按照年龄，将数据进行离散化, 进行划分为4个数组：
+## @param bins 整数 - 将x划分为多少个等间距的区间：
 bins = [0, 12, 18, 65, 100]
 train_data['Age_group'] = pd.cut(train_data['Age'], bins)
 by_age = train_data.groupby('Age_group')['Survived'].mean()
-by_age
 
+## 每个区间各自的生存比例
+# by_age.plot(kind = 'bar')
+# plt.show()
 
-by_age.plot(kind = 'bar')
+## 按照票价，将数据进行离散化, 进行划分为4个数组：
+# print("# Fare describe()")
+# print(train_data['Fare'].describe())
+# print("")
 
+# bins = [0, 12, 18, 35, 513]
+# train_data['Fare_group'] = pd.cut(train_data['Fare'], bins)
+# by_fare = train_data.groupby('Fare_group')['Survived'].mean()
+
+# by_fare.plot(kind = 'bar')
+# plt.show()
+
+exit()
 
 # (4) 称呼与存活与否的关系 Name
 
