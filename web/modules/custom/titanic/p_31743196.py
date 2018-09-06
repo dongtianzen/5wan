@@ -133,6 +133,18 @@ ax[1].set_title('Sex and Age vs Survived')
 ax[1].set_yticks(range(0, 110, 10))
 
 plt.show()
+
+# 自己加的 船票价格下的分布和生存的关系：
+fig, ax = plt.subplots(1, 2, figsize = (18, 8))
+sns.violinplot("Pclass", "Fare", hue = "Survived", data = train_data, split = True, ax = ax[0])
+ax[0].set_title('Pclass and Fare vs Survived')
+ax[0].set_yticks(range(0, 110, 10))
+
+sns.violinplot("Sex", "Fare", hue = "Survived", data = train_data, split = True, ax = ax[1])
+ax[1].set_title('Sex and Fare vs Survived')
+ax[1].set_yticks(range(0, 110, 10))
+
+plt.show()
 exit()
 
 # 分析总体的年龄分布：
