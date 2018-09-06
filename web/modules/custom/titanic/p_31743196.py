@@ -23,9 +23,6 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # %matplotlib inline7
-fig = plt.figure(facecolor='white')
-ax = fig.add_subplot(111)
-
 
 # 源数据：
 train_data = pd.read_csv('/Applications/MAMP/htdocs/5wan/web/modules/custom/titanic/src/train.csv')
@@ -51,7 +48,8 @@ print("")
 
 
 # 绘制存活的比例图：
-
+# fig = plt.figure(facecolor='white')
+# ax = fig.add_subplot(111)
 # train_data['Survived'].value_counts().plot.pie(autopct = '%1.2f%%')
 # plt.show()
 
@@ -147,41 +145,46 @@ train_data.groupby(['Pclass','Survived'])['Pclass'].count()
 # ax[1].set_yticks(range(0, 110, 10))
 # plt.show()
 
+
 ## 分析总体的年龄分布, 柱状图 和 箱图：
-plt.figure(figsize=(12, 5))
+# plt.figure(figsize=(12, 5))
 
-plt.subplot(121)
-train_data['Age'].hist(bins = 70)
-plt.xlabel('Age')
-plt.ylabel('Num')
+# plt.subplot(121)
+# train_data['Age'].hist(bins = 70)
+# plt.xlabel('Age')
+# plt.ylabel('Num')
 
-plt.subplot(122)
-train_data.boxplot(column='Age', showfliers=False)
-plt.show()
+# plt.subplot(122)
+# train_data.boxplot(column='Age', showfliers = False)
+# plt.show()
+
+
+## 不同年龄下的生存和非生存的分布情况, 面积图：
+# facet = sns.FacetGrid(train_data, hue = "Survived", aspect = 4)
+# facet.map(sns.kdeplot, 'Age', shade =  True)
+# facet.set(xlim = (0, train_data['Age'].max()))
+# facet.add_legend()
+# plt.show()
+
+## 不同年龄下的平均生存率， 柱状图：
+## average survived passengers by age
+# fig, axis1 = plt.subplots(1, 1, figsize = (18,4))
+# train_data["Age_int"] = train_data["Age"].astype(int)
+# average_age = train_data[["Age_int", "Survived"]].groupby(['Age_int'], as_index = False).mean()
+# sns.barplot(x = 'Age_int', y = 'Survived', data = average_age)
+# plt.show()
+
+# print("# age describe()")
+# print(train_data['Age'].describe())
+
+# plt.subplot(122)
+# train_data.boxplot(column='Age', showfliers = False)
+# plt.show()
 
 exit()
-## 不同年龄下的生存和非生存的分布情况：
 
-facet = sns.FacetGrid(train_data, hue="Survived",aspect=4)
-facet.map(sns.kdeplot,'Age',shade= True)
-facet.set(xlim=(0, train_data['Age'].max()))
-facet.add_legend()
-
-# 不同年龄下的平均生存率：
-
-# average survived passengers by age
-fig, axis1 = plt.subplots(1,1,figsize=(18,4))
-train_data["Age_int"] = train_data["Age"].astype(int)
-average_age = train_data[["Age_int", "Survived"]].groupby(['Age_int'],as_index=False).mean()
-sns.barplot(x='Age_int', y='Survived', data=average_age)
-
-train_data['Age'].describe()
-
-
-# 样本有891，平均年龄约为30岁，标准差13.5岁，最小年龄为0.42，最大年龄80.
-
-# 按照年龄，将乘客划分为儿童、少年、成年和老年，分析四个群体的生还情况：
-
+## 样本有891，平均年龄约为30岁，标准差13.5岁，最小年龄为0.42，最大年龄80.
+## 按照年龄，将乘客划分为儿童、少年、成年和老年，分析四个群体的生还情况：
 bins = [0, 12, 18, 65, 100]
 train_data['Age_group'] = pd.cut(train_data['Age'], bins)
 by_age = train_data.groupby('Age_group')['Survived'].mean()
