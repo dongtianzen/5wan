@@ -147,6 +147,7 @@ class DashpageJsonGenerator extends ControllerBase {
     ];
     $output[3]['data'][] = $chart_data;
 
+
     //
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
 

@@ -301,150 +301,138 @@ fare_survived = train_data['Fare'][train_data['Survived'] == 1]
 average_fare = pd.DataFrame([fare_not_survived.mean(), fare_survived.mean()])
 std_fare = pd.DataFrame([fare_not_survived.std(), fare_survived.std()])
 
-average_fare.plot(yerr = std_fare, kind = 'bar', legend = False)
-plt.show()
+# average_fare.plot(yerr = std_fare, kind = 'bar', legend = False)
+# plt.show()
 
 ## 由上图标可知，票价与是否生还有一定的相关性，生还者的平均票价要大于未生还者的平均票价。
-exit()
 
 
 ## (9) 船舱类型和存活与否的关系 Cabin
-
 ## 由于船舱的缺失值确实太多，有效值仅仅有204个，很难分析出不同的船舱和存活的关系，所以在做特征工程的时候，可以直接将该组特征丢弃。
-
 ## 当然，这里我们也可以对其进行一下分析，对于缺失的数据都分为一类。
-
 ## 简单地将数据分为是否有Cabin记录作为特征，与生存与否进行分析：
 
 ## Replace missing values with "U0"
 train_data.loc[train_data.Cabin.isnull(), 'Cabin'] = 'U0'
 train_data['Has_Cabin'] = train_data['Cabin'].apply(lambda x: 0 if x == 'U0' else 1)
-train_data[['Has_Cabin','Survived']].groupby(['Has_Cabin']).mean().plot.bar()
 
-# 对不同类型的船舱进行分析：
+# train_data[['Has_Cabin', 'Survived']].groupby(['Has_Cabin']).mean().plot.bar()
+# plt.show()
 
-# create feature for the alphabetical part of the cabin number
+
+## 对不同类型的船舱进行分析：
+## create feature for the alphabetical part of the cabin number
 train_data['CabinLetter'] = train_data['Cabin'].map(lambda x: re.compile("([a-zA-Z]+)").search(x).group())
-# convert the distinct cabin letters with incremental integer values
+
+## convert the distinct cabin letters with incremental integer values
 train_data['CabinLetter'] = pd.factorize(train_data['CabinLetter'])[0]
-train_data[['CabinLetter','Survived']].groupby(['CabinLetter']).mean().plot.bar()
 
-# 可见，不同的船舱生存率也有不同，但是差别不大。所以在处理中，我们可以直接将特征删除。
-
-
-
-# (10) 港口和存活与否的关系 Embarked
-
-# 泰坦尼克号从英国的南安普顿港出发，途径法国瑟堡和爱尔兰昆士敦，那么在昆士敦之前上船的人，有可能在瑟堡或昆士敦下船，这些人将不会遇到海难。
-
-sns.countplot('Embarked', hue='Survived', data=train_data)
-plt.title('Embarked and Survived')
-
-sns.factorplot('Embarked', 'Survived', data=train_data, size=3, aspect=2)
-plt.title('Embarked and Survived rate')
-plt.show()
-# 由上可以看出，在不同的港口上船，生还率不同，C最高，Q次之，S最低。
+# train_data[['CabinLetter','Survived']].groupby(['CabinLetter']).mean().plot.bar()
+# plt.show()
 
 
-
-# 以上为所给出的数据特征与生还与否的分析。
-
-# 据了解，泰坦尼克号上共有2224名乘客。本训练数据只给出了891名乘客的信息，如果该数据集是从总共的2224人中随机选出的，根据中心极限定理，该样本的数据也足够大，那么我们的分析结果就具有代表性；但如果不是随机选取，那么我们的分析结果就可能不太靠谱了。
+## 可见，不同的船舱生存率也有不同，但是差别不大。所以在处理中，我们可以直接将特征删除。
 
 
+### (10) 港口和存活与否的关系 Embarked
+## 泰坦尼克号从英国的南安普顿港出发，途径法国瑟堡和爱尔兰昆士敦，那么在昆士敦之前上船的人，有可能在瑟堡或昆士敦下船，这些人将不会遇到海难。
 
-# (11) 其他可能和存活与否有关系的特征
+## 多个颜色的柱状图
+# sns.countplot('Embarked', hue = 'Survived', data = train_data)
+# plt.title('Embarked and Survived')
+# plt.show()
 
-# 对于数据集中没有给出的特征信息，我们还可以联想其他可能会对模型产生影响的特征因素。如：乘客的国籍、乘客的身高、乘客的体重、乘客是否会游泳、乘客职业等等。
+## factorplot
+# sns.factorplot('Embarked', 'Survived', data = train_data, size = 3, aspect = 2)
+# plt.title('Embarked and Survived rate')
+# plt.show()
 
-# 另外还有数据集中没有分析的几个特征：Ticket（船票号）、Cabin（船舱号）,这些因素的不同可能会影响乘客在船中的位置从而影响逃生的顺序。但是船舱号数据缺失，船票号类别大，难以分析规律，所以在后期模型融合的时候，将这些因素交由模型来决定其重要性。
+## 由上可以看出，在不同的港口上船，生还率不同，C最高，Q次之，S最低。
+
+## 以上为所给出的数据特征与生还与否的分析。
+## 据了解，泰坦尼克号上共有2224名乘客。本训练数据只给出了891名乘客的信息，如果该数据集是从总共的2224人中随机选出的，根据中心极限定理，该样本的数据也足够大，那么我们的分析结果就具有代表性；
+## 但如果不是随机选取，那么我们的分析结果就可能不太靠谱了。
 
 
 
-# 4. 变量转换
-# 变量转换的目的是将数据转换为适用于模型使用的数据，不同模型接受不同类型的数据，Scikit-learn要求数据都是数字型numeric，所以我们要将一些非数字型的原始数据转换为数字型numeric。
+### (11) 其他可能和存活与否有关系的特征
+## 对于数据集中没有给出的特征信息，我们还可以联想其他可能会对模型产生影响的特征因素。如：乘客的国籍、乘客的身高、乘客的体重、乘客是否会游泳、乘客职业等等。
+## 另外还有数据集中没有分析的几个特征：Ticket（船票号）、Cabin（船舱号）,这些因素的不同可能会影响乘客在船中的位置从而影响逃生的顺序。但是船舱号数据缺失，船票号类别大，难以分析规律，所以在后期模型融合的时候，将这些因素交由模型来决定其重要性。
 
-# 所以下面对数据的转换进行介绍，以在进行特征工程的时候使用。
 
-# 所有的数据可以分为两类：
+### 4. 变量转换
+## 变量转换的目的是将数据转换为适用于模型使用的数据，不同模型接受不同类型的数据，Scikit-learn要求数据都是数字型numeric，所以我们要将一些非数字型的原始数据转换为数字型numeric。
+## 所以下面对数据的转换进行介绍，以在进行特征工程的时候使用。
+## 所有的数据可以分为两类：
 
-# 1.定性(Quantitative)变量可以以某种方式排序，Age就是一个很好的列子。
-# 2.定量(Qualitative)变量描述了物体的某一（不能被数学表示的）方面，Embarked就是一个例子。
-# 定性(Qualitative)转换：
+## 1.定性(Quantitative)变量可以以某种方式排序，Age就是一个很好的列子。
+## 2.定量(Qualitative)变量描述了物体的某一（不能被数学表示的）方面，Embarked就是一个例子。
 
-# 1. Dummy Variables
-
-# 就是类别变量或者二元变量，当qualitative variable是一些频繁出现的几个独立变量时，Dummy Variables比较适合使用。我们以Embarked为例，Embarked只包含三个值'S','C','Q'，我们可以使用下面的代码将其转换为dummies:
-
-embark_dummies  = pd.get_dummies(train_data['Embarked'])
+### 定性(Qualitative)转换：
+## 1. Dummy Variables
+## 就是类别变量或者二元变量，当qualitative variable是一些频繁出现的几个独立变量时，Dummy Variables比较适合使用。我们以Embarked为例，Embarked只包含三个值'S','C','Q'，我们可以使用下面的代码将其转换为dummies:
+## 使用get_dummies进行one-hot编码
+embark_dummies = pd.get_dummies(train_data['Embarked'])
 train_data = train_data.join(embark_dummies)
-train_data.drop(['Embarked'], axis=1,inplace=True)
+train_data.drop(['Embarked'], axis = 1, inplace = True)
+
+# embark_dummies = train_data[['S', 'C', 'Q']]
+# print(embark_dummies.head())
 
 
-embark_dummies = train_data[['S', 'C', 'Q']]
-embark_dummies.head()
+## 2. Factorizing
+## dummy不好处理Cabin（船舱号）这种标称属性，因为他出现的变量比较多。
+## Pandas有一个方法叫做factorize()，它可以创建一些数字，来表示类别变量，对每一个类别映射一个ID，这种映射最后只生成一个特征，不像dummy那样生成多个特征。
 
-# 2. Factorizing
-
-# dummy不好处理Cabin（船舱号）这种标称属性，因为他出现的变量比较多。所以Pandas有一个方法叫做factorize()，它可以创建一些数字，来表示类别变量，对每一个类别映射一个ID，这种映射最后只生成一个特征，不像dummy那样生成多个特征。
-
-# Replace missing values with "U0"
+## Replace missing values with "U0"
 train_data['Cabin'][train_data.Cabin.isnull()] = 'U0'
-# create feature for the alphabetical part of the cabin number
-train_data['CabinLetter'] = train_data['Cabin'].map( lambda x : re.compile("([a-zA-Z]+)").search(x).group())
-# convert the distinct cabin letters with incremental integer values
+
+## create feature for the alphabetical part of the cabin number
+train_data['CabinLetter'] = train_data['Cabin'].map(lambda x: re.compile("([a-zA-Z]+)").search(x).group())
+
+## convert the distinct cabin letters with incremental integer values
 train_data['CabinLetter'] = pd.factorize(train_data['CabinLetter'])[0]
 
+# print(train_data['CabinLetter'].values)
 
-train_data['CabinLetter'].head()
 
+### 定量(Quantitative)转换：
+## 1. Scaling
+## Scaling可以将一个很大范围的数值映射到一个很小的范围(通常是从1到-1，或则是0 - 1)，很多情况下我们需要将数值做Scaling使其范围大小一样，否则大范围数值特征将会由更高的权重。
+## 比如：Age的范围可能只是0-100，而income的范围可能是0-10000000，在某些对数组大小敏感的模型中会影响其结果。
 
-# 定量(Quantitative)转换：
-
-# 1. Scaling
-
-# Scaling可以将一个很大范围的数值映射到一个很小的范围(通常是-1 - 1，或则是0 - 1)，很多情况下我们需要将数值做Scaling使其范围大小一样，否则大范围数值特征将会由更高的权重。比如：Age的范围可能只是0-100，而income的范围可能是0-10000000，在某些对数组大小敏感的模型中会影响其结果。
-
-# 下面对Age进行Scaling：
+## 下面对Age进行Scaling：
+## StandardScaler will subtract the mean from each value then scale to the unit variance
 
 from sklearn import preprocessing
-
 assert np.size(train_data['Age']) == 891
-# StandardScaler will subtract the mean from each value then scale to the unit variance
 scaler = preprocessing.StandardScaler()
 train_data['Age_scaled'] = scaler.fit_transform(train_data['Age'].values.reshape(-1, 1))
 
-
-train_data['Age_scaled'].head()
-
+# print(train_data['Age_scaled'].values)
 
 
-# 2. Binning
-
-# Binning通过观察“邻居”(即周围的值)将连续数据离散化。存储的值被分布到一些“桶”或“箱“”中，就像直方图的bin将数据划分成几块一样。下面的代码对Fare进行Binning。
-
-# Divide all fares into quartiles
+## 2. Binning
+## Binning通过观察“邻居”(即周围的值)将连续数据离散化。存储的值被分布到一些“桶”或“箱“”中，就像直方图的bin将数据划分成几块一样。下面的代码对Fare进行Binning。
+## Divide all fares into quartiles
 train_data['Fare_bin'] = pd.qcut(train_data['Fare'], 5)
-train_data['Fare_bin'].head()
 
+# print(train_data['Fare_bin'].head(20))
 
+## 在将数据Bining化后，要么将数据factorize化，要么dummies化。
+## qcut() creates a new variable that identifies the quartile range, but we can't use the string
+## so either factorize or create dummies from the result
 
-
-# 在将数据Bining化后，要么将数据factorize化，要么dummies化。
-
-# qcut() creates a new variable that identifies the quartile range, but we can't use the string
-# so either factorize or create dummies from the result
-
-# factorize
+## factorize
 train_data['Fare_bin_id'] = pd.factorize(train_data['Fare_bin'])[0]
 
-# dummies
-fare_bin_dummies_df = pd.get_dummies(train_data['Fare_bin']).rename(columns=lambda x: 'Fare_' + str(x))
-train_data = pd.concat([train_data, fare_bin_dummies_df], axis=1)
+## dummies
+fare_bin_dummies_df = pd.get_dummies(train_data['Fare_bin']).rename(columns = lambda x: 'Fare_' + str(x))
+train_data = pd.concat([train_data, fare_bin_dummies_df], axis = 1)
 
-
-# 5. 特征工程
-# 在进行特征工程的时候，我们不仅需要对训练数据进行处理，还需要同时将测试数据同训练数据一起处理，使得二者具有相同的数据类型和数据分布。
+exit()
+## 5. 特征工程
+## 在进行特征工程的时候，我们不仅需要对训练数据进行处理，还需要同时将测试数据同训练数据一起处理，使得二者具有相同的数据类型和数据分布。
 
 train_df_org = pd.read_csv('data/train.csv')
 test_df_org = pd.read_csv('data/test.csv')
@@ -452,28 +440,24 @@ test_df_org['Survived'] = 0
 combined_train_test = train_df_org.append(test_df_org)
 PassengerId = test_df_org['PassengerId']
 
-# 对数据进行特征工程，也就是从各项参数中提取出对输出结果有或大或小的影响的特征，将这些特征作为训练模型的依据。
+## 对数据进行特征工程，也就是从各项参数中提取出对输出结果有或大或小的影响的特征，将这些特征作为训练模型的依据。
+## 一般来说，我们会先从含有缺失值的特征开始。
 
-# 一般来说，我们会先从含有缺失值的特征开始。
-
-
-
-# (1) Embarked
-
-# 因为“Embarked”项的缺失值不多，所以这里我们以众数来填充：
+## (1) Embarked
+## 因为“Embarked”项的缺失值不多，所以这里我们以众数来填充：
 
 combined_train_test['Embarked'].fillna(combined_train_test['Embarked'].mode().iloc[0], inplace=True)
-# 对于三种不同的港口，由上面介绍的数值转换，我们知道可以有两种特征处理方式：dummy和facrorizing。因为只有三个港口，所以我们可以直接用dummy来处理：
+## 对于三种不同的港口，由上面介绍的数值转换，我们知道可以有两种特征处理方式：dummy和facrorizing。因为只有三个港口，所以我们可以直接用dummy来处理：
 
-# 为了后面的特征分析，这里我们将 Embarked 特征进行facrorizing
+## 为了后面的特征分析，这里我们将 Embarked 特征进行facrorizing
 combined_train_test['Embarked'] = pd.factorize(combined_train_test['Embarked'])[0]
 
-# 使用 pd.get_dummies 获取one-hot 编码
+## 使用 pd.get_dummies 获取one-hot 编码
 emb_dummies_df = pd.get_dummies(combined_train_test['Embarked'], prefix=combined_train_test[['Embarked']].columns[0])
 combined_train_test = pd.concat([combined_train_test, emb_dummies_df], axis=1)
 
 
-# (2) Sex
+## (2) Sex
 
 # 对Sex也进行one-hot编码，也就是dummy处理：
 
