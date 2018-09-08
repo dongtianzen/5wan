@@ -46,8 +46,7 @@ print("")
 # test_data.info()
 # print("")
 
-
-# 绘制存活的比例图：
+## 绘制存活的比例图：
 # fig = plt.figure(facecolor='white')
 # ax = fig.add_subplot(111)
 # train_data['Survived'].value_counts().plot.pie(autopct = '%1.2f%%')
@@ -320,6 +319,7 @@ train_data['Has_Cabin'] = train_data['Cabin'].apply(lambda x: 0 if x == 'U0' els
 # plt.show()
 
 
+
 ## 对不同类型的船舱进行分析：
 ## create feature for the alphabetical part of the cabin number
 train_data['CabinLetter'] = train_data['Cabin'].map(lambda x: re.compile("([a-zA-Z]+)").search(x).group())
@@ -446,15 +446,15 @@ PassengerId = test_df_org['PassengerId']
 ## (1) Embarked
 ## 因为“Embarked”项的缺失值不多，所以这里我们以众数来填充：
 
-combined_train_test['Embarked'].fillna(combined_train_test['Embarked'].mode().iloc[0], inplace=True)
+combined_train_test['Embarked'].fillna(combined_train_test['Embarked'].mode().iloc[0], inplace = True)
 ## 对于三种不同的港口，由上面介绍的数值转换，我们知道可以有两种特征处理方式：dummy和facrorizing。因为只有三个港口，所以我们可以直接用dummy来处理：
 
 ## 为了后面的特征分析，这里我们将 Embarked 特征进行facrorizing
 combined_train_test['Embarked'] = pd.factorize(combined_train_test['Embarked'])[0]
 
 ## 使用 pd.get_dummies 获取one-hot 编码
-emb_dummies_df = pd.get_dummies(combined_train_test['Embarked'], prefix=combined_train_test[['Embarked']].columns[0])
-combined_train_test = pd.concat([combined_train_test, emb_dummies_df], axis=1)
+emb_dummies_df = pd.get_dummies(combined_train_test['Embarked'], prefix = combined_train_test[['Embarked']].columns[0])
+combined_train_test = pd.concat([combined_train_test, emb_dummies_df], axis = 1)
 
 
 ## (2) Sex
@@ -464,8 +464,8 @@ combined_train_test = pd.concat([combined_train_test, emb_dummies_df], axis=1)
 # 为了后面的特征分析，这里我们也将 Sex 特征进行facrorizing
 combined_train_test['Sex'] = pd.factorize(combined_train_test['Sex'])[0]
 
-sex_dummies_df = pd.get_dummies(combined_train_test['Sex'], prefix=combined_train_test[['Sex']].columns[0])
-combined_train_test = pd.concat([combined_train_test, sex_dummies_df], axis=1)
+sex_dummies_df = pd.get_dummies(combined_train_test['Sex'], prefix = combined_train_test[['Sex']].columns[0])
+combined_train_test = pd.concat([combined_train_test, sex_dummies_df], axis = 1)
 
 
 # (3) Name
