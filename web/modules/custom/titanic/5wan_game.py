@@ -41,8 +41,9 @@ print("")
 # print("# Train Data Head Teaser")
 # print(trainDf.head(30))
 
-### 3)
+### 3) Plot
 # trainDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')
+# plt.show()
 
 # trainDf[['Result', 'Tags']].groupby(['Result']).mean().plot.bar()
 # plt.show()
@@ -54,16 +55,23 @@ correlationDF = pd.DataFrame(trainDf[
 ])
 
 correlationResult = correlationDF.astype(float).corr()
-print(correlationResult)
-print(correlationResult['Result'].sort_values(ascending = False))
+# print(correlationResult)
+# print(correlationResult['Result'].sort_values(ascending = False))
 
 ## 特征间相关性分析 生成特征之间的关联图
-colormap = plt.cm.viridis
-plt.figure(figsize = (10, 8))
-plt.title('Pearson Correlation of Features', y = 1.05, size = 12)
-sns.heatmap(correlationResult, linewidths = 0.1, vmax = 1.0, square = True, cmap = colormap, linecolor = 'white', annot = True)
-plt.show()
+# colormap = plt.cm.viridis
+# plt.figure(figsize = (10, 8))
+# plt.title('Pearson Correlation of Features', y = 1.05, size = 12)
+# sns.heatmap(correlationResult, linewidths = 0.1, vmax = 1.0, square = True, cmap = colormap, linecolor = 'white', annot = True)
+# plt.show()
 
+### 5. 构建模型和评估模型,
+
+## 使用sklearn做回归
+## 5.1线性回归
+
+from sklearn.cross_validation import train_test_split
+from sklearn.linear_model import LogisticRegression
 
 exit()
 
