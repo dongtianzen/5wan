@@ -15,4 +15,9 @@ https://www.youtube.com/watch?v=EvV99YhSsJU
 
 import numpy as np
 from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
+iris = datasets.load_iris()
+print(type(iris))
+print((iris))
