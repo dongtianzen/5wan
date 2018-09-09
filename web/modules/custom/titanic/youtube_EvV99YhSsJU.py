@@ -13,11 +13,41 @@ https://www.youtube.com/watch?v=EvV99YhSsJU
 
 """
 
+import matplotlib.pyplot as plt
 import numpy as np
+
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 
 iris = datasets.load_iris()
-print(type(iris))
-print((iris))
+
+# 花有三个类别，分别用0，1，2来代表
+iris_target = iris.target
+
+# data
+iris_ndArray = iris.data
+
+# @param test_size 占 30%
+irisTrain, irisTest, targetTrain, targetTest = train_test_split(iris.data, iris.target, test_size = 0.3)
+print(irisTrain.shape)
+print(irisTest.shape)
+print(targetTrain.size)
+print(targetTest.size)
+
+knn = KNeighborsClassifier()
+knn.fit(irisTrain, targetTrain)
+
+testPredict = knn.predict(irisTest)
+print(testPredict)
+print(targetTest)
+
+# width = 0.35
+# fig, ax = plt.subplots()
+# ax.bar(testPredict, targetTest, width, color='r')
+# plt.show()
+
+
+
+
+
