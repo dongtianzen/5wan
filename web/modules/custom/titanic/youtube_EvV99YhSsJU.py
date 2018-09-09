@@ -30,11 +30,16 @@ iris_ndArray = iris.data
 
 # @param test_size 占 30%
 irisTrain, irisTest, targetTrain, targetTest = train_test_split(iris.data, iris.target, test_size = 0.3)
+
+# ndarray.shape：数组每一维的大小
 print(irisTrain.shape)
 print(irisTest.shape)
+
+# ndarray.size：数组中全部元素的数量
 print(targetTrain.size)
 print(targetTest.size)
 
+#
 knn = KNeighborsClassifier()
 knn.fit(irisTrain, targetTrain)
 
