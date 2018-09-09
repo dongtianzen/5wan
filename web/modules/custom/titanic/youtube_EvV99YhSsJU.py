@@ -15,6 +15,7 @@ https://www.youtube.com/watch?v=EvV99YhSsJU
 
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 from sklearn import datasets
 from sklearn import svm
@@ -47,15 +48,28 @@ knn = KNeighborsClassifier()
 knn.fit(irisTrain, targetTrain)
 
 testPredict = knn.predict(irisTest)
-# print(testPredict)
-# print(targetTest)
+print(testPredict)
+print(targetTest)
 
-## .5 分类报告
+## 分类报告
 # classification_report函数构建了一个文本报告，用于展示主要的分类
 # 按类别输出 准确率，召回率， F1值--平衡F-score
+
 print(classification_report(targetTest, testPredict))
 
-## SVM分类器
+resultDF = pd.DataFrame(index=range(1, 45),columns=['Result'])
+resultDF['Result'] = 0
+print(type(testPredict))
+# resultDF['testPredict'] = testPredict
+print(resultDF)
+# resultDF.loc[testPredict == targetTest, "Result"] = 1
+
+# print(resultDF['Result'].value_counts(normalize = True))
+
+
+exit()
+
+### SVM分类器
 clf = svm.SVC(C=0.1, kernel='linear', decision_function_shape='ovr')
 
 # 不同的参数调试
