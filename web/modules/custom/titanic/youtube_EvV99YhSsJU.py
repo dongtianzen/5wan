@@ -41,26 +41,26 @@ print(y_train.size)
 print(y_test.size)
 
 ### 1） KNN算法， KNeighborsClassifier()
-knnModal = KNeighborsClassifier()
-knnModal.fit(X_train, y_train)
+knnModel = KNeighborsClassifier()
+knnModel.fit(X_train, y_train)
 
-testPredict = knnModal.predict(X_test)
+y_predict = knnModel.predict(X_test)
 
 # print model
-print(knnModal)
-print(testPredict)
+print(knnModel)
+print(y_predict)
 print(y_test)
 
 ## 分类报告
 ## classification_report函数构建了一个文本报告，用于展示主要的分类
 ## 按类别输出 准确率，召回率， F1值--平衡F-score
 
-print(classification_report(y_test, testPredict))
+print(classification_report(y_test, y_predict))
 
 ## new DataFrame
 resultDF = pd.DataFrame()
 resultDF['y_test'] = y_test
-resultDF['Predict'] = testPredict
+resultDF['Predict'] = y_predict
 ## 对比结果
 resultDF['Result'] = 0
 resultDF.loc[resultDF['y_test'] == resultDF['Predict'], "Result"] = 1
@@ -80,27 +80,28 @@ model = GaussianNB()
 # model.fit(X, y)
 model.fit(X_train, y_train)
 
-print("#")
+print(" ")
+print("# 2) GaussianNB")
 print(model)
 
 # make predictions
-expected = y_train
-
 predicted = model.predict(X_train)
-# summarize the fit of the model
-print(metrics.classification_report(expected, predicted))
-print(metrics.confusion_matrix(expected, predicted))
 
-print(classification_report(y_test, testPredict))
+# summarize the fit of the model
+# print(metrics.classification_report(y_train, predicted))
+# print(metrics.confusion_matrix(y_train, predicted))
+
+print(classification_report(y_test, y_predict))
 
 ## new DataFrame
 resultDF = pd.DataFrame()
 resultDF['y_test'] = y_test
-resultDF['Predict'] = testPredict
+resultDF['Predict'] = y_predict
+
 ## 对比结果
 resultDF['Result'] = 0
 resultDF.loc[resultDF['y_test'] == resultDF['Predict'], "Result"] = 1
-print(resultDF)
+# print(resultDF)
 
 exit()
 
