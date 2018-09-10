@@ -12,18 +12,9 @@ namespace Drupal\dashjson\Content;
 class DashjsonContentGenerator {
 
   /**
-   *
+   * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=英冠
    */
   public function getGameDataset() {
-    $output = $this->getGameListTbody();
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function getGameListTbody() {
     $output = '';
 
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
