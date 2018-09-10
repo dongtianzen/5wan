@@ -26,11 +26,8 @@ from sklearn.neighbors import KNeighborsClassifier
 
 iris = datasets.load_iris()
 
-# 花有三个类别，分别用0，1，2来代表
-iris_target = iris.target
-
-# data
-iris_ndArray = iris.data
+# iris.target 花有三个类别，分别用0，1，2来代表
+# iris.data 存放数据
 
 # @param test_size 占 30%
 irisTrain, irisTest, targetTrain, targetTest = train_test_split(iris.data, iris.target, test_size = 0.3)
@@ -57,17 +54,15 @@ print(targetTest)
 
 print(classification_report(targetTest, testPredict))
 
+# new DataFrame
 resultDF = pd.DataFrame()
-
-resultDF['Target'] = targetTest
+resultDF['TargetTest'] = targetTest
 resultDF['Predict'] = testPredict
+# 对比结果
 resultDF['Result'] = 0
-
-resultDF.loc[resultDF['Target'] == resultDF['Predict'], "Result"] = 1
+resultDF.loc[resultDF['TargetTest'] == resultDF['Predict'], "Result"] = 1
 
 print(resultDF['Result'].value_counts(normalize = True))
-print(resultDF['Result'].value_counts())
-
 resultDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
 plt.show()
 
