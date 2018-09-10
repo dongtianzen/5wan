@@ -57,14 +57,17 @@ print(targetTest)
 
 print(classification_report(targetTest, testPredict))
 
-resultDF = pd.DataFrame(index=range(1, 45),columns=['Result'])
-resultDF['Result'] = 0
-print(type(testPredict))
-# resultDF['testPredict'] = testPredict
-print(resultDF)
-# resultDF.loc[testPredict == targetTest, "Result"] = 1
+resultDF = pd.DataFrame()
 
-# print(resultDF['Result'].value_counts(normalize = True))
+resultDF['Target'] = targetTest
+resultDF['Predict'] = testPredict
+resultDF['Result'] = 0
+
+resultDF.loc[resultDF['Target'] == resultDF['Predict'], "Result"] = 1
+print(resultDF)
+
+print(resultDF['Result'].value_counts(normalize = True))
+print(resultDF['Result'].value_counts())
 
 
 exit()
