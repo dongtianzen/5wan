@@ -40,35 +40,63 @@ print(irisTest.shape)
 print(targetTrain.size)
 print(targetTest.size)
 
-## KNN算法， KNeighborsClassifier()
-knn = KNeighborsClassifier()
-knn.fit(irisTrain, targetTrain)
+### 1） KNN算法， KNeighborsClassifier()
+knnModal = KNeighborsClassifier()
+knnModal.fit(irisTrain, targetTrain)
 
-testPredict = knn.predict(irisTest)
+testPredict = knnModal.predict(irisTest)
+
+# print model
+print(knnModal)
 print(testPredict)
 print(targetTest)
 
 ## 分类报告
-# classification_report函数构建了一个文本报告，用于展示主要的分类
-# 按类别输出 准确率，召回率， F1值--平衡F-score
+## classification_report函数构建了一个文本报告，用于展示主要的分类
+## 按类别输出 准确率，召回率， F1值--平衡F-score
 
 print(classification_report(targetTest, testPredict))
 
-# new DataFrame
+## new DataFrame
 resultDF = pd.DataFrame()
 resultDF['TargetTest'] = targetTest
 resultDF['Predict'] = testPredict
-# 对比结果
+## 对比结果
 resultDF['Result'] = 0
 resultDF.loc[resultDF['TargetTest'] == resultDF['Predict'], "Result"] = 1
 
+print("# Compare Predict Result")
+print(resultDF['Result'].value_counts())
 print(resultDF['Result'].value_counts(normalize = True))
-resultDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
-plt.show()
+# resultDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
+# plt.show()
+
+
+### 2） 朴素贝叶斯
+from sklearn import metrics
+from sklearn.naive_bayes import GaussianNB
+
+model = GaussianNB()
+# model.fit(X, y)
+model.fit(irisTrain, targetTrain)
+
+print("#")
+print(model)
+
+
+# make predictions
+expected = targetTrain
+
+predicted = model.predict(irisTrain)
+# summarize the fit of the model
+print(metrics.classification_report(expected, predicted))
+print(metrics.confusion_matrix(expected, predicted))
+
+print(classification_report(targetTest, testPredict))
 
 exit()
 
-### SVM分类器
+### 3） SVM分类器
 clf = svm.SVC(C = 0.1, kernel = 'linear', decision_function_shape = 'ovr')
 
 # 不同的参数调试
