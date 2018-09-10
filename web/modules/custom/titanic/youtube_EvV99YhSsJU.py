@@ -30,40 +30,40 @@ iris = datasets.load_iris()
 # iris.data 存放数据
 
 # @param test_size 占 30%
-irisTrain, irisTest, targetTrain, targetTest = train_test_split(iris.data, iris.target, test_size = 0.3)
+X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size = 0.3)
 
 # ndarray.shape：数组每一维的大小
-print(irisTrain.shape)
-print(irisTest.shape)
+print(X_train.shape)
+print(X_test.shape)
 
 # ndarray.size：数组中全部元素的数量
-print(targetTrain.size)
-print(targetTest.size)
+print(y_train.size)
+print(y_test.size)
 
 ### 1） KNN算法， KNeighborsClassifier()
 knnModal = KNeighborsClassifier()
-knnModal.fit(irisTrain, targetTrain)
+knnModal.fit(X_train, y_train)
 
-testPredict = knnModal.predict(irisTest)
+testPredict = knnModal.predict(X_test)
 
 # print model
 print(knnModal)
 print(testPredict)
-print(targetTest)
+print(y_test)
 
 ## 分类报告
 ## classification_report函数构建了一个文本报告，用于展示主要的分类
 ## 按类别输出 准确率，召回率， F1值--平衡F-score
 
-print(classification_report(targetTest, testPredict))
+print(classification_report(y_test, testPredict))
 
 ## new DataFrame
 resultDF = pd.DataFrame()
-resultDF['TargetTest'] = targetTest
+resultDF['y_test'] = y_test
 resultDF['Predict'] = testPredict
 ## 对比结果
 resultDF['Result'] = 0
-resultDF.loc[resultDF['TargetTest'] == resultDF['Predict'], "Result"] = 1
+resultDF.loc[resultDF['y_test'] == resultDF['Predict'], "Result"] = 1
 
 print("# Compare Predict Result")
 print(resultDF['Result'].value_counts())
@@ -78,29 +78,28 @@ from sklearn.naive_bayes import GaussianNB
 
 model = GaussianNB()
 # model.fit(X, y)
-model.fit(irisTrain, targetTrain)
+model.fit(X_train, y_train)
 
 print("#")
 print(model)
 
-
 # make predictions
-expected = targetTrain
+expected = y_train
 
-predicted = model.predict(irisTrain)
+predicted = model.predict(X_train)
 # summarize the fit of the model
 print(metrics.classification_report(expected, predicted))
 print(metrics.confusion_matrix(expected, predicted))
 
-print(classification_report(targetTest, testPredict))
+print(classification_report(y_test, testPredict))
 
 ## new DataFrame
 resultDF = pd.DataFrame()
-resultDF['TargetTest'] = targetTest
+resultDF['y_test'] = y_test
 resultDF['Predict'] = testPredict
 ## 对比结果
 resultDF['Result'] = 0
-resultDF.loc[resultDF['TargetTest'] == resultDF['Predict'], "Result"] = 1
+resultDF.loc[resultDF['y_test'] == resultDF['Predict'], "Result"] = 1
 print(resultDF)
 
 exit()
@@ -110,19 +109,19 @@ clf = svm.SVC(C = 0.1, kernel = 'linear', decision_function_shape = 'ovr')
 
 # 不同的参数调试
 # clf = svm.SVC(C=0.8, kernel='rbf', gamma=20, decision_function_shape='ovr')
-clf.fit(irisTrain, targetTrain)
+clf.fit(X_train, y_train)
 
 # 准确率
 # 精度
-print (clf.score(irisTrain, targetTrain))
-print ('Train set accuracy_score is:', accuracy_score(targetTrain, clf.predict(irisTrain)))
-print (clf.score(irisTest, targetTest))
-print ('Test set accuracy_score is', accuracy_score(targetTest, clf.predict(irisTest)))
+print (clf.score(X_train, y_train))
+print ('Train set accuracy_score is:', accuracy_score(y_train, clf.predict(X_train)))
+print (clf.score(X_test, y_test))
+print ('Test set accuracy_score is', accuracy_score(y_test, clf.predict(X_test)))
 
 # decision_function
 # 计算样本点到分割超平面的函数距离
-# print ('decision_function:\n', clf.decision_function(irisTrain))
-# print ('\npredict:\n', clf.predict(irisTrain))
+# print ('decision_function:\n', clf.decision_function(X_train))
+# print ('\npredict:\n', clf.predict(X_train))
 
 
 
