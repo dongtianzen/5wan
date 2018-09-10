@@ -64,16 +64,17 @@ resultDF['Predict'] = testPredict
 resultDF['Result'] = 0
 
 resultDF.loc[resultDF['Target'] == resultDF['Predict'], "Result"] = 1
-print(resultDF)
 
 print(resultDF['Result'].value_counts(normalize = True))
 print(resultDF['Result'].value_counts())
 
+resultDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
+plt.show()
 
 exit()
 
 ### SVM分类器
-clf = svm.SVC(C=0.1, kernel='linear', decision_function_shape='ovr')
+clf = svm.SVC(C = 0.1, kernel = 'linear', decision_function_shape = 'ovr')
 
 # 不同的参数调试
 # clf = svm.SVC(C=0.8, kernel='rbf', gamma=20, decision_function_shape='ovr')
