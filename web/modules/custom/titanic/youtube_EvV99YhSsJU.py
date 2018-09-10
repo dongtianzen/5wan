@@ -94,6 +94,15 @@ print(metrics.confusion_matrix(expected, predicted))
 
 print(classification_report(targetTest, testPredict))
 
+## new DataFrame
+resultDF = pd.DataFrame()
+resultDF['TargetTest'] = targetTest
+resultDF['Predict'] = testPredict
+## 对比结果
+resultDF['Result'] = 0
+resultDF.loc[resultDF['TargetTest'] == resultDF['Predict'], "Result"] = 1
+print(resultDF)
+
 exit()
 
 ### 3） SVM分类器
