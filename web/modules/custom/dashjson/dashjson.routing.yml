@@ -1,0 +1,7 @@
+#
+dashjson.game.dataset:
+  path: '/dashjson/game/dataset'
+  defaults:
+    _controller: '\Drupal\dashjson\Controller\DashjsonController::gameDataset'
+  requirements:
+    _access: 'TRUE'
