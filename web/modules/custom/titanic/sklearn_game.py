@@ -62,7 +62,7 @@ print(y_train.head(10))
 
 ### 1） KNN算法， KNeighborsClassifier()
 knnModel = KNeighborsClassifier()
-knnModel.fit(X_train, np.ravel(y_train, order='C'))
+knnModel.fit(X_train, y_train.values.ravel())
 
 y_predict = knnModel.predict(X_test)
 
@@ -81,7 +81,7 @@ print(classification_report(y_test, y_predict))
 
 ## new DataFrame
 resultDF = pd.DataFrame()
-resultDF['y_test'] = y_test.values.reshape(-1,)
+resultDF['y_test'] = y_test.values.ravel()
 resultDF['Predict'] = y_predict
 ## 对比结果
 resultDF['Result'] = 0
