@@ -5,13 +5,16 @@ python3 web/modules/custom/titanic/sklearn_game.py
 
 # -*- coding: utf-8 -*-
 import json
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import urllib.request
 
-import matplotlib.pyplot as plt
-
+from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 from pandas.io.json import json_normalize
 
 
@@ -29,17 +32,53 @@ pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_gam
 jsonData = readJsonDecode(pathUrl)
 jsonDataDf = json_normalize(jsonData)
 
-X_train = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss']]
-y_train = jsonDataDf[['Result']]
+gameDF = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss']]
+resultDF = jsonDataDf[['Result']]
+
+X_train, X_test, y_train, y_test = train_test_split(gameDF, resultDF, test_size = 0.3)
+
 
 ### 2) 数据信息总览：
 print("# Train Data Info")
 jsonDataDf.info()
 print("")
 
-
 ## 观察前几行的源数据：
-## sns.set_style('whitegrid')
+# sns.set_style('whitegrid')
+# print("# X_train Data Head Teaser")
+print(y_train.head(10))
 
-# print("# Train Data Head Teaser")
-# print(jsonDataDf.head(30))
+
+### 1） KNN算法， KNeighborsClassifier()
+knnModel = KNeighborsClassifier()
+knnModel.fit(X_train, y_train)
+
+y_predict = knnModel.predict(X_test)
+
+# print model
+print(knnModel)
+# print(y_predict)
+# print(y_test)
+
+## 分类报告
+## classification_report函数构建了一个文本报告，用于展示主要的分类
+## 按类别输出 准确率，召回率， F1值--平衡F-score
+
+print(classification_report(y_test, y_predict))
+exit()
+
+
+## new DataFrame
+resultDF = pd.DataFrame()
+resultDF['y_test'] = y_test
+resultDF['Predict'] = y_predict
+## 对比结果
+resultDF['Result'] = 0
+resultDF.loc[resultDF['y_test'] == resultDF['Predict'], "Result"] = 1
+
+print("# Compare Predict Result")
+print(resultDF['Result'].value_counts())
+print(resultDF['Result'].value_counts(normalize = True))
+resultDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
+plt.show()
+
