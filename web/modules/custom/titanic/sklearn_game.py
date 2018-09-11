@@ -35,34 +35,36 @@ jsonDataDf = json_normalize(jsonData)
 gameDF = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss']]
 resultNdArray = jsonDataDf[['Result']]
 
-###
+### 2) split
 X_train, X_test, y_train, y_test = train_test_split(gameDF, resultNdArray, test_size = 0.3)
-
 
 ### 2) 数据信息总览：
 print("# Game Data Info")
 jsonDataDf.info()
 print("")
 
-## 观察前几行的源数据：
+### 1） KNN算法， KNeighborsClassifier()
+model = KNeighborsClassifier()
+model.fit(X_train, y_train.values.ravel())
+
+y_predict = model.predict(X_test)
+
+## 分类报告, 按类别输出 准确率，召回率， F1值
+print("#  ")
+print(model)
+print(classification_report(y_test, y_predict))
+
+
+### 观察前几行的源数据：
 # sns.set_style('whitegrid')
 # print("# X_train Data Head Teaser")
 # print(y_train.head(10))
 
-
-### 1） KNN算法， KNeighborsClassifier()
-knnModel = KNeighborsClassifier()
-knnModel.fit(X_train, y_train.values.ravel())
-
-y_predict = knnModel.predict(X_test)
-
-## print model
-# print(knnModel)
+### print model
 # print(y_predict)
 # print(y_test.describe())
 
-## 分类报告, 按类别输出 准确率，召回率， F1值
-print(classification_report(y_test, y_predict))
+
 
 ### new DataFrame to compare y_test with y_predict
 compareDF = pd.DataFrame()
