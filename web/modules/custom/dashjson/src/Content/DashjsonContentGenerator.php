@@ -17,29 +17,35 @@ class DashjsonContentGenerator {
   public function getGameDataset() {
     $output = '';
 
-    $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
+    $node_fields = \Drupal::getContainer()
+      ->get('dashpage.managefields.service')
+      ->getNodeWinAllFields();
 
-    $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
+    $win_nodes = \Drupal::getContainer()
+      ->get('baseinfo.querynode.service')
+      ->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
 
       $game_data = [];
-      foreach ($node_fields as $subkey => $subrow) {
+      foreach ($node_fields as $key => $subrow) {
+        $index = str_replace("field_win_", "", $subrow['field']);
+
         if ($subrow['type'] == 'term') {
-          $game_data[$subkey] = \Drupal::getContainer()
+          $game_data[$index] = \Drupal::getContainer()
             ->get('flexinfo.field.service')
             ->getFieldFirstTargetIdTermName($win_node, $subrow['field']);
         }
         else {
-          $game_data[$subkey] = \Drupal::getContainer()
+          $game_data[$index] = \Drupal::getContainer()
             ->get('flexinfo.field.service')
             ->getFieldFirstValue($win_node, $subrow['field']);
         }
       }
 
-      if ($game_data['GoalH'] > $game_data['GoalA']) {
+      if ($game_data['goal_home'] > $game_data['goal_away']) {
         $game_data['Result'] = '3';
       }
-      elseif ($game_data['GoalH'] == $game_data['GoalA']) {
+      elseif ($game_data['goal_home'] == $game_data['goal_away']) {
         $game_data['Result'] = '1';
       }
       else {
