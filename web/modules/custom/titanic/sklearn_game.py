@@ -62,7 +62,7 @@ print(y_train.head(10))
 
 ### 1） KNN算法， KNeighborsClassifier()
 knnModel = KNeighborsClassifier()
-knnModel.fit(X_train, y_train.values.reshape(-1,))
+knnModel.fit(X_train, np.ravel(y_train, order='C'))
 
 y_predict = knnModel.predict(X_test)
 
