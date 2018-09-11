@@ -43,16 +43,20 @@ print("# Game Data Info")
 jsonDataDf.info()
 print("")
 
+
+### 3) 分类报告, 按类别输出 准确率，召回率， F1值
+def printClassificationReport(model, X_test):
+  y_predict = model.predict(X_test)
+
+  print("#  ")
+  print(model)
+  print(classification_report(y_test, y_predict))
+
 ### 1） KNN算法， KNeighborsClassifier()
 model = KNeighborsClassifier()
 model.fit(X_train, y_train.values.ravel())
 
-y_predict = model.predict(X_test)
-
-## 分类报告, 按类别输出 准确率，召回率， F1值
-print("#  ")
-print(model)
-print(classification_report(y_test, y_predict))
+printClassificationReport(model, X_test)
 
 
 ### 朴素贝叶斯：
@@ -61,12 +65,8 @@ from sklearn.naive_bayes import GaussianNB
 model = GaussianNB()
 model.fit(X_train, y_train.values.ravel())
 
-y_predict = model.predict(X_test)
+printClassificationReport(model, X_test)
 
-## 分类报告, 按类别输出 准确率，召回率， F1值
-print("#  ")
-print(model)
-print(classification_report(y_test, y_predict))
 
 ### 决策树, 分类和回归树（CART）
 from sklearn.tree import DecisionTreeClassifier
@@ -75,13 +75,7 @@ from sklearn import metrics
 model = DecisionTreeClassifier()
 model.fit(X_train, y_train.values.ravel())
 
-y_predict = model.predict(X_test)
-
-## 分类报告, 按类别输出 准确率，召回率， F1值
-print("#  ")
-print(model)
-print(classification_report(y_test, y_predict))
-
+printClassificationReport(model, X_test)
 
 exit()
 
