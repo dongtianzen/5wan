@@ -42,6 +42,16 @@ class DashjsonContentGenerator {
         }
       }
 
+      if (isset($game_data['ave_win']) && isset($game_data['ini_win'])) {
+        $game_data['diff_win'] = $game_data['ave_win'] - $game_data['ini_win'];
+      }
+      if (isset($game_data['ave_draw']) && isset($game_data['ini_draw'])) {
+        $game_data['diff_draw'] = $game_data['ave_draw'] - $game_data['ini_draw'];
+      }
+      if (isset($game_data['ave_loss']) && isset($game_data['ini_loss'])) {
+        $game_data['diff_loss'] = $game_data['ave_loss'] - $game_data['ini_loss'];
+      }
+
       if ($game_data['goal_home'] > $game_data['goal_away']) {
         $game_data['Result'] = '3';
       }

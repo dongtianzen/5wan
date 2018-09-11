@@ -32,7 +32,7 @@ pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_gam
 jsonData = readJsonDecode(pathUrl)
 jsonDataDf = json_normalize(jsonData)
 
-gameDF = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss']]
+gameDF = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 resultNdArray = jsonDataDf[['Result']]
 
 ### 2) split
