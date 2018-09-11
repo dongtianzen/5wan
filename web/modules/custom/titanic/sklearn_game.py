@@ -17,12 +17,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from pandas.io.json import json_normalize
 
-rng = np.random.RandomState(0)
-X = rng.rand(100, 10)
-y = rng.binomial(1, 0.5, 100)
-print(type(X))
-print(type(y))
-
 
 ### def function read json
 def readJsonDecode(urlPath):
@@ -41,23 +35,19 @@ jsonDataDf = json_normalize(jsonData)
 gameDF = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss']]
 resultNdArray = jsonDataDf[['Result']]
 
-# print("")
-# print("# type(resultNdArray)")
-print(type(resultNdArray))
-#
+###
 X_train, X_test, y_train, y_test = train_test_split(gameDF, resultNdArray, test_size = 0.3)
 
 
-
 ### 2) 数据信息总览：
-# print("# Train Data Info")
-# jsonDataDf.info()
-# print("")
+print("# Game Data Info")
+jsonDataDf.info()
+print("")
 
 ## 观察前几行的源数据：
 # sns.set_style('whitegrid')
 # print("# X_train Data Head Teaser")
-print(y_train.head(10))
+# print(y_train.head(10))
 
 
 ### 1） KNN算法， KNeighborsClassifier()
@@ -69,27 +59,29 @@ y_predict = knnModel.predict(X_test)
 ## print model
 # print(knnModel)
 # print(y_predict)
-# print(y_test)
+# print(y_test.describe())
 
-## 分类报告
-## classification_report函数构建了一个文本报告，用于展示主要的分类
-## 按类别输出 准确率，召回率， F1值--平衡F-score
-
-
+## 分类报告, 按类别输出 准确率，召回率， F1值
 print(classification_report(y_test, y_predict))
 
-
-## new DataFrame
-resultDF = pd.DataFrame()
-resultDF['y_test'] = y_test.values.ravel()
-resultDF['Predict'] = y_predict
+### new DataFrame to compare y_test with y_predict
+compareDF = pd.DataFrame()
+compareDF['y_test'] = y_test.values.ravel()
+compareDF['y_predict'] = y_predict
 ## 对比结果
-resultDF['Result'] = 0
-resultDF.loc[resultDF['y_test'] == resultDF['Predict'], "Result"] = 1
+compareDF['Result'] = 0
+compareDF.loc[(compareDF['y_test'] == compareDF['y_predict']), "Result"] = 1
 
-print("# Compare Predict Result")
-print(resultDF['Result'].value_counts())
-print(resultDF['Result'].value_counts(normalize = True))
-resultDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
-plt.show()
+# print("# Compare Predict Result")
+# print(compareDF['Result'].value_counts())
+# print(compareDF['Result'].value_counts(normalize = True))
+fig = plt.figure(figsize = (16, 6))
+plt.subplot2grid((1, 2), (0, 0))
+compareDF['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.title("Percentage")
+
+plt.subplot2grid((1, 2), (0, 1))
+compareDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
+plt.title("Number")
+# plt.show()
 
