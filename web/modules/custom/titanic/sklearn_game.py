@@ -55,6 +55,36 @@ print(model)
 print(classification_report(y_test, y_predict))
 
 
+### 朴素贝叶斯：
+from sklearn.naive_bayes import GaussianNB
+
+model = GaussianNB()
+model.fit(X_train, y_train.values.ravel())
+
+y_predict = model.predict(X_test)
+
+## 分类报告, 按类别输出 准确率，召回率， F1值
+print("#  ")
+print(model)
+print(classification_report(y_test, y_predict))
+
+### 决策树, 分类和回归树（CART）
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import metrics
+
+model = DecisionTreeClassifier()
+model.fit(X_train, y_train.values.ravel())
+
+y_predict = model.predict(X_test)
+
+## 分类报告, 按类别输出 准确率，召回率， F1值
+print("#  ")
+print(model)
+print(classification_report(y_test, y_predict))
+
+
+exit()
+
 ### 观察前几行的源数据：
 # sns.set_style('whitegrid')
 # print("# X_train Data Head Teaser")
