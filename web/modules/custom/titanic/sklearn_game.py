@@ -70,9 +70,17 @@ printClassificationReport(model, X_test)
 
 ### 决策树, 分类和回归树（CART）
 from sklearn.tree import DecisionTreeClassifier
-from sklearn import metrics
 
 model = DecisionTreeClassifier()
+model.fit(X_train, y_train.values.ravel())
+
+printClassificationReport(model, X_test)
+
+
+### 支持向量机 SVM（支持向量机）
+from sklearn.svm import SVC
+
+model = SVC()
 model.fit(X_train, y_train.values.ravel())
 
 printClassificationReport(model, X_test)
