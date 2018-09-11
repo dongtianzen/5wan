@@ -67,7 +67,7 @@ class DashpageManageFields {
   /**
    *
    */
-  public function getNodeWinField() {
+  public function getNodeWinAllFields() {
     $output = [
       array(
         'type' => 'value',
@@ -99,15 +99,15 @@ class DashpageManageFields {
       ),
       array(
         'type' => 'value',
-        'field' => 'field_win_init_win'
+        'field' => 'field_win_ini_win'
       ),
       array(
         'type' => 'value',
-        'field' => 'field_win_init_draw'
+        'field' => 'field_win_ini_draw'
       ),
       array(
         'type' => 'value',
-        'field' => 'field_win_init_loss'
+        'field' => 'field_win_ini_loss'
       ),
       array(
         'type' => 'value',

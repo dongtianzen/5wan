@@ -18,20 +18,23 @@ from pandas.io.json import json_normalize
 ### def function read json
 def readJsonDecode(urlPath):
   with urllib.request.urlopen(urlPath) as url:
-    output = json.loads(url.read().decode('utf-8'))
+    output = json.loads(url.read().decode())
 
   return output
 
 
 ### 1) 读入数据, 将json串解析为DataFrame
-pathUrl = 'http://localhost:8888/5wan/web/dashpage/game/list/json?ave_win=5.76'
-pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/5wan_game_train.json'
-trainData = readJsonDecode(pathUrl)
-trainDf = json_normalize(trainData['gridData'])
+# pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠'
+pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_game_train.json'
+jsonData = readJsonDecode(pathUrl)
+jsonDataDf = json_normalize(jsonData)
+
+X_train = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss']]
+y_train = jsonDataDf[['Result']]
 
 ### 2) 数据信息总览：
 print("# Train Data Info")
-trainDf.info()
+jsonDataDf.info()
 print("")
 
 
@@ -39,4 +42,4 @@ print("")
 ## sns.set_style('whitegrid')
 
 # print("# Train Data Head Teaser")
-# print(trainDf.head(30))
+# print(jsonDataDf.head(30))
