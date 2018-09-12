@@ -11,9 +11,10 @@ import pandas as pd
 import seaborn as sns
 import urllib.request
 
+from sklearn import cross_validation
 from sklearn import preprocessing
-from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from pandas.io.json import json_normalize
@@ -59,6 +60,7 @@ def printClassificationReport(model, X_test):
 
   # print(model.score(X_test, y_test))
 
+
   #-->
 
 ### 1）朴素贝叶斯：
@@ -68,6 +70,10 @@ model = GaussianNB()
 model.fit(X_train, y_train)
 
 printClassificationReport(model, X_test)
+
+## 交叉验证 sklearn.model_selection.cross_val_score
+cross_score = cross_validation.cross_val_score(model, X_scaled, y, scoring = 'accuracy', cv = 5)
+print(cross_score)
 
 
 ### 2） KNN算法， KNeighborsClassifier()
