@@ -11,6 +11,7 @@ import pandas as pd
 import seaborn as sns
 import urllib.request
 
+from sklearn import preprocessing
 from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -36,16 +37,19 @@ X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_l
 X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 y = jsonDataDf[['Result']].values.ravel()
 
-### 2) split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3)
+### 2) Standardization of datasets
+X_scaled = preprocessing.scale(X)
 
-### 2) 数据信息总览：
+### 3) split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3)
+
+### 4) 数据信息总览：
 print("# Game Data Info")
 jsonDataDf.info()
 print("")
 
 
-### 3) 分类报告, 按类别输出 准确率，召回率， F1值
+### 5) 分类报告, 按类别输出 准确率，召回率， F1值
 def printClassificationReport(model, X_test):
   y_predict = model.predict(X_test)
 
@@ -82,6 +86,7 @@ model.fit(X_train, y_train)
 
 printClassificationReport(model, X_test)
 
+exit()
 
 ### 支持向量机 SVM（支持向量机）
 from sklearn.svm import SVC
