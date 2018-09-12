@@ -27,7 +27,7 @@ def readJsonDecode(urlPath):
 
 
 ### 1) 读入数据, 将json串解析为DataFrame
-# pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠'
+# pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠,英乙,英甲'
 pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_game_train.json'
 jsonData = readJsonDecode(pathUrl)
 jsonDataDf = json_normalize(jsonData)
