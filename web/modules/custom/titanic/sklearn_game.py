@@ -32,11 +32,12 @@ pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_gam
 jsonData = readJsonDecode(pathUrl)
 jsonDataDf = json_normalize(jsonData)
 
-gameDF = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
-resultNdArray = jsonDataDf[['Result']]
+X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
+X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'diff_win', 'diff_draw', 'diff_loss']]
+y = jsonDataDf[['Result']].values.ravel()
 
 ### 2) split
-X_train, X_test, y_train, y_test = train_test_split(gameDF, resultNdArray, test_size = 0.3)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3)
 
 ### 2) 数据信息总览：
 print("# Game Data Info")
@@ -52,18 +53,23 @@ def printClassificationReport(model, X_test):
   print(model)
   print(classification_report(y_test, y_predict))
 
-### 1） KNN算法， KNeighborsClassifier()
-model = KNeighborsClassifier()
-model.fit(X_train, y_train.values.ravel())
+
+  # print(model.score(X_test, y_test))
+
+  #-->
+
+### 1）朴素贝叶斯：
+from sklearn.naive_bayes import GaussianNB
+
+model = GaussianNB()
+model.fit(X_train, y_train)
 
 printClassificationReport(model, X_test)
 
 
-### 朴素贝叶斯：
-from sklearn.naive_bayes import GaussianNB
-
-model = GaussianNB()
-model.fit(X_train, y_train.values.ravel())
+### 2） KNN算法， KNeighborsClassifier()
+model = KNeighborsClassifier()
+model.fit(X_train, y_train)
 
 printClassificationReport(model, X_test)
 
@@ -72,7 +78,7 @@ printClassificationReport(model, X_test)
 from sklearn.tree import DecisionTreeClassifier
 
 model = DecisionTreeClassifier()
-model.fit(X_train, y_train.values.ravel())
+model.fit(X_train, y_train)
 
 printClassificationReport(model, X_test)
 
@@ -81,7 +87,7 @@ printClassificationReport(model, X_test)
 from sklearn.svm import SVC
 
 model = SVC()
-model.fit(X_train, y_train.values.ravel())
+model.fit(X_train, y_train)
 
 printClassificationReport(model, X_test)
 
@@ -99,8 +105,10 @@ exit()
 
 
 ### new DataFrame to compare y_test with y_predict
+y_predict = model.predict(X_test)
+
 compareDF = pd.DataFrame()
-compareDF['y_test'] = y_test.values.ravel()
+compareDF['y_test'] = y_test
 compareDF['y_predict'] = y_predict
 ## 对比结果
 compareDF['Result'] = 0
@@ -117,5 +125,8 @@ plt.title("Percentage")
 plt.subplot2grid((1, 2), (0, 1))
 compareDF['Result'].value_counts().plot(kind = "bar", alpha = 0.5)
 plt.title("Number")
-# plt.show()
+plt.show()
+
+exit()
+
 
