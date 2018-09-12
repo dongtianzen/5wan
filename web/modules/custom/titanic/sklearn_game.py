@@ -37,7 +37,7 @@ X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_l
 X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 y = jsonDataDf[['Result']].values.ravel()
 
-### 2) Standardization of datasets
+### 2) Standardization of datasets, normalization
 X_scaled = preprocessing.scale(X)
 
 ### 3) split
@@ -56,7 +56,6 @@ def printClassificationReport(model, X_test):
   print("#  ")
   print(model)
   print(classification_report(y_test, y_predict))
-
 
   # print(model.score(X_test, y_test))
 
