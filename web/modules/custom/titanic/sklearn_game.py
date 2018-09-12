@@ -34,20 +34,28 @@ pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_gam
 jsonData = readJsonDecode(pathUrl)
 jsonDataDf = json_normalize(jsonData)
 
+
+### ) 数据信息总览：
+print("# Game Data Info")
+jsonDataDf.info()
+print("")
+
+jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.show()
+exit()
+
+
+### ) 生产 X y
 X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 y = jsonDataDf[['Result']].values.ravel()
+
 
 ### 2) Standardization of datasets, normalization
 X_scaled = preprocessing.scale(X)
 
 ### 3) split
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3)
-
-### 4) 数据信息总览：
-print("# Game Data Info")
-jsonDataDf.info()
-print("")
 
 
 ### 5) 分类报告, 按类别输出 准确率，召回率， F1值
