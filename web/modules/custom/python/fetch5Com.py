@@ -16,7 +16,7 @@ startNum = FlexJsonBasic().getStartPageIdFromJson()
 
 #
 # except Exception: not catch KeyboardInterrupt, SystemExit
-for num in range(startNum, (startNum + 1000)):
+for num in range(startNum, (startNum + 3)):
   try:
     RunFetchPageBasic().runFetch(num)
   # except Exception:
