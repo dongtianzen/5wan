@@ -96,6 +96,8 @@ model.fit(X_train, y_train)
 
 printClassificationReport(model, X_test)
 
+
+exit()
 ## 交叉验证 sklearn.model_selection.cross_val_score
 # cross_score = cross_validation.cross_val_score(model, X_scaled, y, scoring = 'accuracy', cv = 5)
 # print(cross_score)
