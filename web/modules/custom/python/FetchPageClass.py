@@ -14,10 +14,15 @@ from bs4 import BeautifulSoup
 class FetchPageBasic:
 
   #
+  # 使用BeautifulSoup解析gb2312的网页，指定了编码为gb2312时仍然有部分页面获取到的是乱码，我测试发现返回的
+  # originalEncoding为windows-1252
+  # 请注意 gb2312 不是 “gb2312”，
+  # 凡 gb2312 的请换成 gb18030.
+  # 微软将 gb2312 和 gbk 映射为 gb18030，方便了一些人，也迷惑了一些人。
   def __init__(self, url):
     self.url = url
-    self.soup = self.getSoupFromWebSource()
-    self.soupGb2312 = self.getSoupFromWebSource('gb2312')
+    self.soup       = self.getSoupFromWebSource()
+    self.soupGb2312 = self.getSoupFromWebSource('gb18030')
 
   # 伪造 X-Forwarded-For
   def getForwardedHeader(self):
