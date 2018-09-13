@@ -40,9 +40,11 @@ print("# Game Data Info")
 jsonDataDf.info()
 print("")
 
-jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
-plt.show()
-exit()
+print("# 3 1 0 proportion")
+print(jsonDataDf['Result'].value_counts(normalize = True))
+print("")
+# jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+# plt.show()
 
 
 ### ) 生产 X y
@@ -71,6 +73,21 @@ def printClassificationReport(model, X_test):
 
   #-->
 
+### 6) joblib 存取model, 导出训练好的参数, 重新创建一个相同结构, 再把参数放进去比较好﻿
+def saveModel(model):
+  from sklearn.externals import joblib
+
+  # save
+  joblib.dump(model, 'save/model.pkl')
+
+  # restore
+  restoreModel = joblib.load(model, 'save/model.pkl')
+
+  # print(model.score(X_test, y_test))
+
+
+  #-->
+
 ### 1）朴素贝叶斯：
 from sklearn.naive_bayes import GaussianNB
 
@@ -80,9 +97,10 @@ model.fit(X_train, y_train)
 printClassificationReport(model, X_test)
 
 ## 交叉验证 sklearn.model_selection.cross_val_score
-cross_score = cross_validation.cross_val_score(model, X_scaled, y, scoring = 'accuracy', cv = 5)
-print(cross_score)
+# cross_score = cross_validation.cross_val_score(model, X_scaled, y, scoring = 'accuracy', cv = 5)
+# print(cross_score)
 
+exit()
 
 ### 2） KNN算法， KNeighborsClassifier()
 model = KNeighborsClassifier()
