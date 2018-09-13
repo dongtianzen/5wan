@@ -211,8 +211,8 @@ class FetchPageBasic:
         # output['goal_home'] = self.obtainGameResultList()[0]
         # output['goal_away'] = self.obtainGameResultList()[1]
 
-        # output['name_home'] = self.obtainGameTitleList()[0]
-        # output['name_away'] = self.obtainGameTitleList()[1]
+        output['name_home'] = self.obtainGameTitleList()[0]
+        output['name_away'] = self.obtainGameTitleList()[1]
 
         # output['tags']  = self.filterGameTag()
 
