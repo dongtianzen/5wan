@@ -49,7 +49,7 @@ print("")
 
 ### ) 生产 X y
 X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
-X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'diff_win', 'diff_draw', 'diff_loss']]
+X = jsonDataDf[['ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 y = jsonDataDf[['Result']].values.ravel()
 
 
@@ -100,7 +100,7 @@ printClassificationReport(model, X_test)
 # cross_score = cross_validation.cross_val_score(model, X_scaled, y, scoring = 'accuracy', cv = 5)
 # print(cross_score)
 
-exit()
+
 
 ### 2） KNN算法， KNeighborsClassifier()
 model = KNeighborsClassifier()
