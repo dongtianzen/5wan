@@ -85,18 +85,18 @@ class SyncJsonToNode {
   public function runBatchinfoUpdateNodeEntity($game_id, $json_content_piece = NULL) {
     if (TRUE) {
 
-      // skip some game 有基本比赛信息，但是没有赔率信息
-      if ($json_content_piece['ave_win']) {
-        $node_nids = $this->queryNodeToCheckExistByField($game_id, $json_content_piece);
+      $node_nids = $this->queryNodeToCheckExistByField($game_id);
 
-        if (count($node_nids) > 0) {
-          drupal_set_message('Game ' . $game_id . ' have - ' . count($node_nids) . ' - same item', 'error');
-          return;
-        }
-        else {
-          $this->runCreateNodeEntity($game_id, $json_content_piece);
-        }
+      if (count($node_nids) > 1) {
+        drupal_set_message('Game ' . $game_id . ' have - ' . count($node_nids) . ' - more than 1 same item', 'error');
+        return;
       }
+      elseif (count($node_nids) == 1) {
+        $node_nid = $node_nids[0];
+
+        $this->runUpdateNodeEntity($game_id, $json_content_piece);
+      }
+
     }
 
     //sleep for 0.2 seconds
@@ -112,6 +112,17 @@ class SyncJsonToNode {
     $fields_value = $this->generateNodefieldsValue($game_id, $json_content_piece);
 
     \Drupal::getContainer()->get('flexinfo.node.service')->entityCreateNode($fields_value);
+
+    return;
+  }
+
+  /**
+   *
+   */
+  public function runUpdateNodeEntity($game_id, $json_content_piece = NULL) {
+    $fields_value = $this->generateNodefieldsValue($game_id, $json_content_piece);
+
+    // \Drupal::getContainer()->get('flexinfo.node.service')->entityCreateNode($fields_value);
 
     return;
   }
