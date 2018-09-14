@@ -70,6 +70,8 @@ print("# Game Data Info")
 jsonDataDf.info()
 print("")
 
+
+### 单变量分析, 绘制直方图
 print("# 3 1 0 proportion")
 print(jsonDataDf['Result'].value_counts(normalize = True))
 print("")
