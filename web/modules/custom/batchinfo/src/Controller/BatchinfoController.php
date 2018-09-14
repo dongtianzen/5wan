@@ -140,7 +140,7 @@ class BatchinfoController extends ControllerBase {
 
     batch_set($batch);
 
-    $message = 'Run batch on RunImportJsonToNode()';
+    $message = 'Run batch on RunUpdateNodeWinJson()';
     \Drupal::logger('batchinfo')->notice($message);
 
     // You have to return batch_process('url') - set redirect page path,

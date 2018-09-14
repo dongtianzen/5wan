@@ -32,6 +32,22 @@ class RunImportJsonToNode {
   /**
    *
    */
+  public static function checkJsonAndUpdateEntityNode($piece, &$context) {
+    foreach ($piece as $key => $row) {
+      self::batchinfoUpdateNodeEntity($key, $row);
+    }
+    $result = count($piece);
+
+    $message = 'Running Batch batchinfoUpdateNodeEntity() function ...';
+    $context['message'] = $message;
+    $context['results'][] = $result;
+
+    // \Drupal::logger('batchinfo')->error($message);
+  }
+
+  /**
+   *
+   */
   public static function finishedCallback($success, $results, $operations) {
     // The 'success' parameter means no fatal PHP errors were detected. All
     // other error management should be handled using 'results'.
@@ -53,6 +69,14 @@ class RunImportJsonToNode {
   public static function batchinfoCreateNodeEntity($key, $data = array()) {
     $SyncJsonToNode = new SyncJsonToNode();
     $SyncJsonToNode->runBatchinfoCreateNodeEntity($key, $data);
+  }
+
+  /**
+   *
+   */
+  public static function batchinfoUpdateNodeEntity($key, $data = array()) {
+    $SyncJsonToNode = new SyncJsonToNode();
+    $SyncJsonToNode->runBatchinfoUpdateNodeEntity($key, $data);
   }
 
 }

@@ -80,6 +80,33 @@ class SyncJsonToNode {
 
   /**
    *
+   * @param, @key is code and date
+   */
+  public function runBatchinfoUpdateNodeEntity($game_id, $json_content_piece = NULL) {
+    if (TRUE) {
+
+      // skip some game 有基本比赛信息，但是没有赔率信息
+      if ($json_content_piece['ave_win']) {
+        $node_nids = $this->queryNodeToCheckExistByField($game_id, $json_content_piece);
+
+        if (count($node_nids) > 0) {
+          drupal_set_message('Game ' . $game_id . ' have - ' . count($node_nids) . ' - same item', 'error');
+          return;
+        }
+        else {
+          $this->runCreateNodeEntity($game_id, $json_content_piece);
+        }
+      }
+    }
+
+    //sleep for 0.2 seconds
+    usleep(150000);
+
+    return;
+  }
+
+  /**
+   *
    */
   public function runCreateNodeEntity($game_id, $json_content_piece = NULL) {
     $fields_value = $this->generateNodefieldsValue($game_id, $json_content_piece);
@@ -211,7 +238,13 @@ class SyncJsonToNode {
       "name_away" => "女王公园巡游者",
       "name_home" => "博尔顿",
       "tags" => "英冠",
-      "num_company" => "50"
+      "num_company" => "50",
+      "variation_end_draw" => "10.2",
+      "variation_end_loss" => "10.2",
+      "variation_end_win" => "10.2",
+      "variation_ini_draw" => "10.2",
+      "variation_ini_loss" => "10.2",
+      "variation_ini_win" => "10.2"
     );
 
     foreach ($json_content_piece as $key => $value) {
