@@ -15,6 +15,14 @@ batchinfo.importJson.run:
   requirements:
     _permission: 'access content'
 
+batchinfo.update.node.win.run:
+  path: '/batchinfo/update/node/win/run'
+  defaults:
+    _controller: '\Drupal\batchinfo\Controller\BatchinfoController::runUpdateNodeWinJson'
+    _title: 'Batchinfo Run Update Json'
+  requirements:
+    _permission: 'access content'
+
 batchinfo.createTerm.run:
   path: '/batchinfo/createterm/run'
   defaults:

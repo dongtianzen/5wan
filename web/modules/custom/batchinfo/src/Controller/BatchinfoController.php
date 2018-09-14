@@ -40,6 +40,16 @@ class BatchinfoController extends ControllerBase {
 
       $markup .= '<div class="panel-body">';
         $markup .= '<div class="btn btn-default">';
+          $markup .= \Drupal::l(t('Run Batch Update Node JSON'), Url::fromRoute('batchinfo.update.node.win.run'));
+        $markup .= '</div>';
+      $markup .= '</div>';
+
+      $markup .= '<div class="panel-body">';
+        $markup .= '<br />';
+      $markup .= '</div>';
+
+      $markup .= '<div class="panel-body">';
+        $markup .= '<div class="btn btn-default">';
           $markup .= \Drupal::l(t('Run Batch Create Term to System'), Url::fromRoute('batchinfo.createTerm.run'));
         $markup .= '</div>';
       $markup .= '</div>';
@@ -59,6 +69,47 @@ class BatchinfoController extends ControllerBase {
    *
    */
   public function runImportJson() {
+    $SyncJsonToNode = new SyncJsonToNode();
+    $json_content = $SyncJsonToNode->getImportJsonContent();
+
+    if ($json_content && is_array($json_content)) {
+    }
+    else {
+      drupal_set_message('All of JSON had sync, Please check JSON file', 'warning');
+    }
+
+    $every_time_excute_max_number = 2;
+    $chunk = array_chunk($json_content, $every_time_excute_max_number, TRUE);
+
+    dpm('every time only excute - ' . $every_time_excute_max_number . ' - save node');
+
+    $operations = [];
+    foreach ($chunk as $piece) {
+      $operations[] = array(
+        '\Drupal\batchinfo\Content\RunImportJsonToNode::checkJsonAndCreateEntityNode',   // function name
+        array($piece)
+      );
+    }
+
+    $batch = array(
+      'title' => t('Running batch...'),
+      'operations' => $operations,
+      'finished' => '\Drupal\batchinfo\Content\RunImportJsonToNode::finishedCallback',
+    );
+
+    batch_set($batch);
+
+    $message = 'Run batch on RunImportJsonToNode()';
+    \Drupal::logger('batchinfo')->notice($message);
+
+    // You have to return batch_process('url') - set redirect page path,
+    return batch_process('batchinfo/importjson/guide');
+  }
+
+  /**
+   *
+   */
+  public function runUpdateNodeWinJson() {
     $SyncJsonToNode = new SyncJsonToNode();
     $json_content = $SyncJsonToNode->getImportJsonContent();
 
