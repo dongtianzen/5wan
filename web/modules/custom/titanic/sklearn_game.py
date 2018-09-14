@@ -20,46 +20,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from pandas.io.json import json_normalize
 
 
-### def function read json
-def readJsonDecode(urlPath):
-  with urllib.request.urlopen(urlPath) as url:
-    output = json.loads(url.read().decode())
-
-  return output
-
-
-### 1) 读入数据, 将json串解析为DataFrame
-# pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠,英乙,英甲'
-pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_game_train.json'
-jsonData = readJsonDecode(pathUrl)
-jsonDataDf = json_normalize(jsonData)
-
-
-### ) 数据信息总览：
-print("# Game Data Info")
-jsonDataDf.info()
-print("")
-
-print("# 3 1 0 proportion")
-print(jsonDataDf['Result'].value_counts(normalize = True))
-print("")
-# jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
-# plt.show()
-
-
-### ) 生产 X y
-X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
-X = jsonDataDf[['ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
-y = jsonDataDf[['Result']].values.ravel()
-
-
-### 2) Standardization of datasets, normalization
-X_scaled = preprocessing.scale(X)
-
-### 3) split
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3)
-
-
 ### 5) 分类报告, 按类别输出 准确率，召回率， F1值
 def printClassificationReport(model, X_test):
   y_predict = model.predict(X_test)
@@ -85,8 +45,55 @@ def saveModel(model):
 
   # print(model.score(X_test, y_test))
 
-
   #-->
+
+
+### def function read json
+def readJsonDecode(urlPath):
+  with urllib.request.urlopen(urlPath) as url:
+    output = json.loads(url.read().decode())
+
+  return output
+
+
+### 1) 读入数据, 将json串解析为DataFrame
+# pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠,英乙,英甲'
+pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_game_train.json'
+jsonData = readJsonDecode(pathUrl)
+
+##
+jsonDataDf = json_normalize(jsonData)
+
+
+### ) 数据信息总览：
+print("# Game Data Info")
+jsonDataDf.info()
+print("")
+
+print("# 3 1 0 proportion")
+print(jsonDataDf['Result'].value_counts(normalize = True))
+print("")
+# jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+# plt.show()
+
+# sns.distplot(jsonDataDf['Result'].astype(int), kde = False)
+# plt.show()
+
+
+### ) 生产 X y
+X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
+X = jsonDataDf[['ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
+y = jsonDataDf[['Result']].values.ravel()
+
+
+### 2) Standardization of datasets, normalization
+X_scaled = preprocessing.scale(X)
+
+### 3) split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3)
+
+
+exit()
 
 ### 1）朴素贝叶斯：
 from sklearn.naive_bayes import GaussianNB
