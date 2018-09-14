@@ -84,7 +84,6 @@ class SyncJsonToNode {
    */
   public function runBatchinfoUpdateNodeEntity($game_id, $json_content_piece = NULL) {
     if (TRUE) {
-
       $node_nids = $this->queryNodeToCheckExistByField($game_id);
 
       if (count($node_nids) > 1) {
@@ -121,7 +120,7 @@ class SyncJsonToNode {
   /**
    *
    */
-  public function runUpdateNodeEntity($game_id, $json_content_piece = NULL) {
+  public function runUpdateNodeEntity($node_nid, $json_content_piece = NULL) {
     $fields_value = [];
 
     if ($json_content_piece && is_array($json_content_piece)) {
@@ -132,9 +131,11 @@ class SyncJsonToNode {
       }
     }
 
-    \Drupal::getContainer()
-      ->get('flexinfo.node.service')
-      ->entityUpdateNode($node_nid, $fields_value);
+    if ($fields_value) {
+      \Drupal::getContainer()
+        ->get('flexinfo.node.service')
+        ->entityUpdateNode($node_nid, $fields_value);
+    }
 
     return;
   }

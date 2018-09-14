@@ -127,7 +127,7 @@ class BatchinfoController extends ControllerBase {
     $operations = [];
     foreach ($chunk as $piece) {
       $operations[] = array(
-        '\Drupal\batchinfo\Content\RunImportJsonToNode::checkJsonAndCreateEntityNode',   // function name
+        '\Drupal\batchinfo\Content\RunImportJsonToNode::checkJsonAndUpdateEntityNode',   // function name
         array($piece)
       );
     }
