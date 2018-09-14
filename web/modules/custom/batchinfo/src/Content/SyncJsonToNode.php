@@ -94,7 +94,7 @@ class SyncJsonToNode {
       elseif (count($node_nids) == 1) {
         $node_nid = $node_nids[0];
 
-        $this->runUpdateNodeEntity($game_id, $json_content_piece);
+        $this->runUpdateNodeEntity($node_nid, $json_content_piece);
       }
 
     }
@@ -111,7 +111,9 @@ class SyncJsonToNode {
   public function runCreateNodeEntity($game_id, $json_content_piece = NULL) {
     $fields_value = $this->generateNodefieldsValue($game_id, $json_content_piece);
 
-    \Drupal::getContainer()->get('flexinfo.node.service')->entityCreateNode($fields_value);
+    \Drupal::getContainer()
+      ->get('flexinfo.node.service')
+      ->entityCreateNode($fields_value);
 
     return;
   }
@@ -120,9 +122,19 @@ class SyncJsonToNode {
    *
    */
   public function runUpdateNodeEntity($game_id, $json_content_piece = NULL) {
-    $fields_value = $this->generateNodefieldsValue($game_id, $json_content_piece);
+    $fields_value = [];
 
-    // \Drupal::getContainer()->get('flexinfo.node.service')->entityCreateNode($fields_value);
+    if ($json_content_piece && is_array($json_content_piece)) {
+      foreach ($json_content_piece as $key => $row) {
+        if ($row) {
+          $fields_value['field_win_' . $key] = $row;
+        }
+      }
+    }
+
+    \Drupal::getContainer()
+      ->get('flexinfo.node.service')
+      ->entityUpdateNode($node_nid, $fields_value);
 
     return;
   }
