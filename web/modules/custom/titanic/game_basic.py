@@ -50,6 +50,8 @@ jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
 ### 散点图
 sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
 plt.show()
+
+## 用“hex”来展示出现频率，当数据量比较多的时候，散点堆积重叠
 sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, kind = "hex", color = "k")
 plt.show()
 
