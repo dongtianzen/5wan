@@ -9,21 +9,30 @@ import urllib.request
 from pandas.io.json import json_normalize
 
 
-# def function read json
-def readJsonDecode(urlPath):
-  with urllib.request.urlopen(urlPath) as url:
-    output = json.loads(url.read().decode('utf-8'))
+# define a class
+class GameJsonClass:
 
-  return output
+  # def function read json
+  def readJsonDecode(self, urlPath):
+    with urllib.request.urlopen(urlPath) as url:
+      output = json.loads(url.read().decode('utf-8'))
+
+    return output
+
+  # 读入数据, 将json串解析为DataFrame
+  def getJsonContent(self):
+    # pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠,英乙,英甲'
+    pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_game_train.json'
+    jsonData = self.readJsonDecode(pathUrl)
+
+    jsonDataDf = json_normalize(jsonData)
+
+    return jsonDataDf
 
 
-### 1) 读入数据, 将json串解析为DataFrame
-# pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠,英乙,英甲'
-pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_game_train.json'
-jsonData = readJsonDecode(pathUrl)
 
+jsonDataDf = GameJsonClass().getJsonContent()
 ##
-jsonDataDf = json_normalize(jsonData)
 
 ### ) 数据信息总览：
 print("# Game Data Info")
