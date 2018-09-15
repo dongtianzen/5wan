@@ -11,9 +11,6 @@ import seaborn as sns
 
 from sklearn import cross_validation
 from sklearn import preprocessing
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
 
 
 ### 1) 读入数据, 将json串解析为DataFrame
@@ -36,6 +33,7 @@ y = jsonDataDf[['Result']].values.ravel()
 X_scaled = preprocessing.scale(X)
 
 ### 3) split
+from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3)
 
 
@@ -60,10 +58,11 @@ exit()
 
 
 ### 2） KNN算法， KNeighborsClassifier()
+from sklearn.neighbors import KNeighborsClassifier
 model = KNeighborsClassifier()
 model.fit(X_train, y_train)
 
-printClassificationReport(model, X_test)
+printClassificationReport(model, X_test, y_test)
 
 
 ### 决策树, 分类和回归树（CART）
@@ -72,7 +71,7 @@ from sklearn.tree import DecisionTreeClassifier
 model = DecisionTreeClassifier()
 model.fit(X_train, y_train)
 
-printClassificationReport(model, X_test)
+printClassificationReport(model, X_test, y_test)
 
 exit()
 
@@ -82,7 +81,7 @@ from sklearn.svm import SVC
 model = SVC()
 model.fit(X_train, y_train)
 
-printClassificationReport(model, X_test)
+printClassificationReport(model, X_test, y_test)
 
 exit()
 

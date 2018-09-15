@@ -67,3 +67,12 @@ correlationResult = correlationDF.astype(float).corr()
 
 exit()
 
+
+### 观察前几行的源数据：
+# sns.set_style('whitegrid')
+# print("# X_train Data Head Teaser")
+# print(y_train.head(10))
+
+### print model
+# print(y_predict)
+# print(y_test.describe())
