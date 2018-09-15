@@ -41,8 +41,6 @@ class RunImportJsonToNode {
     $message = 'Running Batch batchinfoUpdateNodeEntity() function ...';
     $context['message'] = $message;
     $context['results'][] = $result;
-
-    // \Drupal::logger('batchinfo')->error($message);
   }
 
   /**
