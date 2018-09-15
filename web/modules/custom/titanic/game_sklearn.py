@@ -4,12 +4,10 @@ python3 web/modules/custom/titanic/sklearn_game.py
 """
 
 # -*- coding: utf-8 -*-
-import json
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import urllib.request
 
 from sklearn import cross_validation
 from sklearn import preprocessing
@@ -17,7 +15,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from pandas.io.json import json_normalize
 
 
 ### 5) 分类报告, 按类别输出 准确率，召回率， F1值
