@@ -45,21 +45,10 @@ def saveModel(model):
   #-->
 
 
-### def function read json
-def readJsonDecode(urlPath):
-  with urllib.request.urlopen(urlPath) as url:
-    output = json.loads(url.read().decode())
-
-  return output
-
-
 ### 1) 读入数据, 将json串解析为DataFrame
-# pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.1&tags=英冠,英乙,英甲'
-pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/sklearn_game_train.json'
-jsonData = readJsonDecode(pathUrl)
-
-##
-jsonDataDf = json_normalize(jsonData)
+import game_json
+GameJsonClass = game_json.GameJsonClass()
+jsonDataDf = GameJsonClass.getJsonContent()
 
 
 ### ) 数据信息总览：
@@ -68,22 +57,10 @@ jsonDataDf.info()
 print("")
 
 
-### 单变量分析, 绘制直方图
-print("# 3 1 0 proportion")
-print(jsonDataDf['Result'].value_counts(normalize = True))
-print("")
-# jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
-# plt.show()
-
-# sns.distplot(jsonDataDf['Result'].astype(int), kde = False)
-# plt.show()
-
-
 ### ) 生产 X y
 X = jsonDataDf[['ave_win', 'ave_draw', 'ave_loss', 'ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 X = jsonDataDf[['ini_win', 'ini_draw', 'ini_loss', 'diff_win', 'diff_draw', 'diff_loss']]
 y = jsonDataDf[['Result']].values.ravel()
-
 
 ### 2) Standardization of datasets, normalization
 X_scaled = preprocessing.scale(X)

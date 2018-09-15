@@ -14,12 +14,10 @@ from pandas.io.json import json_normalize
 
 import game_json
 
-
-GameJson = game_json.GameJsonClass()
+GameJsonClass = game_json.GameJsonClass()
 
 ### 1) 读入数据, 将json串解析为DataFrame
-
-trainDf = GameJson.getJsonContent()
+trainDf = GameJsonClass.getJsonContent()
 
 ### 2) 数据信息总览：
 print("# Train Data Info")
@@ -33,6 +31,16 @@ print("")
 # print("# Train Data Head Teaser")
 # print(trainDf.head(30))
 
+### 单变量分析, 绘制直方图
+print("# 3 1 0 proportion")
+print(jsonDataDf['Result'].value_counts(normalize = True))
+print("")
+# jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+# plt.show()
+
+# sns.distplot(jsonDataDf['Result'].astype(int), kde = False)
+# plt.show()
+
 ### 3) Plot
 # trainDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')
 # plt.show()
@@ -43,7 +51,7 @@ print("")
 
 ### 4) 特征选择： 相关性矩阵
 correlationDF = pd.DataFrame(trainDf[
-  ['Draw', 'Loss', 'Win', 'Result']
+  ['ini_draw', 'ini_loss', 'ini_win', 'Result']
 ])
 
 correlationResult = correlationDF.astype(float).corr()
