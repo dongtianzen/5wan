@@ -13,11 +13,11 @@ from RunFetchPageClass import RunFetchPageBasic
 # end   to   700000
 startNum = 500000
 startNum = FlexJsonBasic().getStartPageIdFromJson()
-startNum = 198845
+startNum = 24910
 
 #
 # except Exception: not catch KeyboardInterrupt, SystemExit
-for num in range(startNum, (startNum + 2)):
+for num in range(startNum, (startNum + 80)):
   try:
     RunFetchPageBasic().runFetch(num)
   # except Exception:
