@@ -12,43 +12,13 @@ import seaborn as sns
 from sklearn import cross_validation
 from sklearn import preprocessing
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 
 
-### 5) 分类报告, 按类别输出 准确率，召回率， F1值
-def printClassificationReport(model, X_test):
-  y_predict = model.predict(X_test)
-
-  print("#  ")
-  print(model)
-  print(classification_report(y_test, y_predict))
-
-  # print(model.score(X_test, y_test))
-
-
-  #-->
-
-### 6) joblib 存取model, 导出训练好的参数, 重新创建一个相同结构, 再把参数放进去比较好﻿
-def saveModel(model):
-  from sklearn.externals import joblib
-
-  # save
-  joblib.dump(model, 'save/model.pkl')
-
-  # restore
-  restoreModel = joblib.load(model, 'save/model.pkl')
-
-  # print(model.score(X_test, y_test))
-
-  #-->
-
-
 ### 1) 读入数据, 将json串解析为DataFrame
-import game_json
-GameJsonClass = game_json.GameJsonClass()
-jsonDataDf = GameJsonClass.getJsonContent()
+from game_json import GameJsonClass
+jsonDataDf = GameJsonClass().getJsonContent()
 
 
 ### ) 数据信息总览：
@@ -69,7 +39,7 @@ X_scaled = preprocessing.scale(X)
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3)
 
 
-exit()
+from game_sklearn_fn import GameSklearnFnClass
 
 
 ### 5. 构建模型和评估模型,
@@ -79,7 +49,7 @@ from sklearn.naive_bayes import GaussianNB
 model = GaussianNB()
 model.fit(X_train, y_train)
 
-printClassificationReport(model, X_test)
+GameSklearnFnClass().printClassificationReport(model, X_test, y_test)
 
 
 exit()

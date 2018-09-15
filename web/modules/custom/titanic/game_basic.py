@@ -12,16 +12,14 @@ import matplotlib.pyplot as plt
 
 from pandas.io.json import json_normalize
 
-import game_json
-
-GameJsonClass = game_json.GameJsonClass()
+from game_json import GameJsonClass
 
 ### 1) 读入数据, 将json串解析为DataFrame
-trainDf = GameJsonClass.getJsonContent()
+jsonDataDf = GameJsonClass().getJsonContent()
 
 ### 2) 数据信息总览：
 print("# Train Data Info")
-trainDf.info()
+jsonDataDf.info()
 print("")
 
 
@@ -29,7 +27,7 @@ print("")
 ## sns.set_style('whitegrid')
 
 # print("# Train Data Head Teaser")
-# print(trainDf.head(30))
+# print(jsonDataDf.head(30))
 
 ### 单变量分析, 绘制直方图
 print("# 3 1 0 proportion")
@@ -42,15 +40,15 @@ print("")
 # plt.show()
 
 ### 3) Plot
-# trainDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')
+# jsonDataDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')
 # plt.show()
 
-# trainDf[['Result', 'Tags']].groupby(['Result']).mean().plot.bar()
+# jsonDataDf[['Result', 'Tags']].groupby(['Result']).mean().plot.bar()
 # plt.show()
 
 
 ### 4) 特征选择： 相关性矩阵
-correlationDF = pd.DataFrame(trainDf[
+correlationDF = pd.DataFrame(jsonDataDf[
   ['ini_draw', 'ini_loss', 'ini_win', 'Result']
 ])
 
