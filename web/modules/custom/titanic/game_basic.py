@@ -24,21 +24,25 @@ print("")
 
 
 ## 观察前几行的源数据：
-## sns.set_style('whitegrid')
-
+## 因为读入数据有中文，在sublime text内运行有问题，需要到命令行运行
+# sns.set_style('whitegrid')
 # print("# Train Data Head Teaser")
 # print(jsonDataDf.head(30))
 
-### 单变量分析, 绘制直方图
+### 3) 单变量分析, 绘制直方图
 print("# 3 1 0 proportion")
 print(jsonDataDf['Result'].value_counts(normalize = True))
 print("")
+
+## 百分比
 # jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
 # plt.show()
 
-# sns.distplot(jsonDataDf['Result'].astype(int), kde = False)
-# plt.show()
+## 个数分布
+sns.distplot(jsonDataDf['Result'].astype(int), bins = 6, kde = False)
+plt.show()
 
+exit()
 ### 3) Plot
 # jsonDataDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')
 # plt.show()
