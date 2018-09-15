@@ -4,30 +4,22 @@ python3 web/modules/custom/titanic/5wan_game.py
 """
 
 # -*- coding: utf-8 -*-
-import json
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import urllib.request
 
 import matplotlib.pyplot as plt
 
 from pandas.io.json import json_normalize
 
+import game_json
 
-# def function read json
-def readJsonDecode(urlPath):
-  with urllib.request.urlopen(urlPath) as url:
-    output = json.loads(url.read().decode('utf-8'))
 
-  return output
-
+GameJson = game_json.GameJsonClass()
 
 ### 1) 读入数据, 将json串解析为DataFrame
-pathUrl = 'http://localhost:8888/5wan/web/dashpage/game/list/json?ave_win=5.76'
-pathUrl = 'http://localhost:8888/5wan/web/modules/custom/titanic/src/5wan_game_train.json'
-trainData = readJsonDecode(pathUrl)
-trainDf = json_normalize(trainData['gridData'])
+
+trainDf = GameJson.getJsonContent()
 
 ### 2) 数据信息总览：
 print("# Train Data Info")
@@ -65,13 +57,7 @@ correlationResult = correlationDF.astype(float).corr()
 # sns.heatmap(correlationResult, linewidths = 0.1, vmax = 1.0, square = True, cmap = colormap, linecolor = 'white', annot = True)
 # plt.show()
 
-### 5. 构建模型和评估模型,
 
-## 使用sklearn做回归
-## 5.1线性回归
-
-from sklearn.cross_validation import train_test_split
-from sklearn.linear_model import LogisticRegression
 
 exit()
 

@@ -94,6 +94,8 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size = 0.3
 
 exit()
 
+
+### 5. 构建模型和评估模型,
 ### 1）朴素贝叶斯：
 from sklearn.naive_bayes import GaussianNB
 
