@@ -29,7 +29,8 @@ print("")
 # print("# Train Data Head Teaser")
 # print(jsonDataDf.head(30))
 
-### 3) 单变量分析, 绘制直方图
+### 3) 单变量分析,
+### 绘制直方图
 print("# 3 1 0 proportion")
 print(jsonDataDf['Result'].value_counts(normalize = True))
 print("")
@@ -39,10 +40,19 @@ print("")
 # plt.show()
 
 ## 个数分布
-sns.distplot(jsonDataDf['Result'].astype(int), bins = 6, kde = False)
+# sns.distplot(jsonDataDf['Result'].astype(int), bins = 6, kde = False)
+# plt.show()
+
+jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
+jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
+
+### 4) 两个特征的关系，两个变量之间的分布关系
+### 散点图
+sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
 plt.show()
 
 exit()
+
 ### 3) Plot
 # jsonDataDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')
 # plt.show()
