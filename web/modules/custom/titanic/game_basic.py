@@ -17,6 +17,10 @@ from game_json import GameJsonClass
 ### 1) 读入数据, 将json串解析为DataFrame
 jsonDataDf = GameJsonClass().getJsonContent()
 
+
+### 随机选取
+jsonDataDf = jsonDataDf.sample(n = 5000)
+
 ### 2) 数据信息总览：
 print("# Train Data Info")
 jsonDataDf.info()
@@ -92,11 +96,5 @@ jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 exit()
 
 
-### 观察前几行的源数据：
-# sns.set_style('whitegrid')
-# print("# X_train Data Head Teaser")
-# print(y_train.head(10))
+### 1) 回归分析
 
-### print model
-# print(y_predict)
-# print(y_test.describe())

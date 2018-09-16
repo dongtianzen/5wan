@@ -31,10 +31,10 @@ class GameJsonClass:
 
 
 
-jsonDataDf = GameJsonClass().getJsonContent()
 ##
 
 ### ) 数据信息总览：
-print("# Game Data Info")
-jsonDataDf.info()
-print("")
+# jsonDataDf = GameJsonClass().getJsonContent()
+# print("# Game Data Info")
+# jsonDataDf.info()
+# print("")
