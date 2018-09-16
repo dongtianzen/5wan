@@ -19,7 +19,7 @@ jsonDataDf = GameJsonClass().getJsonContent()
 
 
 ### 随机选取
-jsonDataDf = jsonDataDf.sample(n = 5000)
+jsonDataDf = jsonDataDf.sample(n = 500)
 
 ### 2) 数据信息总览：
 print("# Train Data Info")
@@ -93,8 +93,11 @@ jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 # plt.show()
 
 
-exit()
 
 
 ### 1) 回归分析
 
+sns.regplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
+plt.show()
+
+exit()
