@@ -19,8 +19,14 @@ class RunFetchPageBasic:
     url = Baseinfo().generateUrl(num)
     print(url)
 
-    gameObj = FetchPageBasic(url)
+    ## page Id
+    pageIdJsonContent = { "id" : num}
 
+    pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
+    FlexJsonBasic().generateJsonForPageId(pageIdJsonContentDataFrame)
+
+    ## Page Result
+    gameObj = FetchPageBasic(url)
 
     try:
       gameResult = gameObj.convertPageResultDict()
@@ -36,11 +42,7 @@ class RunFetchPageBasic:
 
     FlexJsonBasic().generateJsonFromData(jsonFilePath, jsonContent)
 
-    #
-    pageIdJsonContent = { "id" : num}
 
-    pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
-    FlexJsonBasic().generateJsonForPageId(pageIdJsonContentDataFrame)
 
     return
 

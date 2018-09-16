@@ -107,12 +107,21 @@ jsonDataDf.loc[jsonDataDf['diff_win'] > 0, 'ave_ini_win'] = 1
 # plt.show()
 
 ### 盒图
-sns.set(rc={'figure.figsize':(10, 6.2)})
-sns.boxplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
-plt.show()
+# sns.set(rc={'figure.figsize':(10, 6.2)})
+# sns.boxplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
+# plt.show()
 
 ### 小提琴图
-sns.violinplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
+# sns.violinplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
+# plt.show()
+# sns.violinplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf, split = True)
+# plt.show()
+
+### 分类属性绘图
+sns.barplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
 plt.show()
+
+
+
 
 exit()
