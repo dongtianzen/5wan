@@ -28,7 +28,7 @@ class RunFetchPageBasic:
       # only opea and save the game that have value
       if gameResult:
         jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
-        jsonContentFromFile[num] = gameObj.convertPageResultDict()
+        jsonContentFromFile[num] = gameResult
     except:
       pass
 
