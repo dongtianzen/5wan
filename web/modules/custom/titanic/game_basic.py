@@ -97,7 +97,13 @@ jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 ### 1) 回归分析, 线性关系的可视化
 
-sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result')
+### 散点图
+sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result', aspect = 10/6.18)
+plt.show()
+
+### 盒图
+sns.set(rc={'figure.figsize':(8, 6.2)})
+sns.boxplot(x = 'Result', y = 'ave_win', data = jsonDataDf)
 plt.show()
 
 exit()
