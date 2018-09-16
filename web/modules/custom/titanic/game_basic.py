@@ -95,9 +95,9 @@ jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 
 
-### 1) 回归分析
+### 1) 回归分析, 线性关系的可视化
 
-sns.regplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
+sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result')
 plt.show()
 
 exit()
