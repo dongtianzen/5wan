@@ -21,6 +21,7 @@ jsonDataDf = GameJsonClass().getJsonContent()
 ### 随机选取
 jsonDataDf = jsonDataDf.sample(n = 500)
 
+
 ### 2) 数据信息总览：
 print("# Train Data Info")
 jsonDataDf.info()
@@ -44,6 +45,10 @@ print("")
 jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
 jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
 jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
+
+## ave_win - ini_win 正数为1, 负数为0
+jsonDataDf['ave_ini_win'] = 0
+jsonDataDf.loc[jsonDataDf['diff_win'] > 0, 'ave_ini_win'] = 1
 
 ## 百分比
 # jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
@@ -98,12 +103,16 @@ jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 ### 1) 回归分析, 线性关系的可视化
 
 ### 散点图
-sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result', aspect = 10/6.18, legend_out = False)
-plt.show()
+# sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result', aspect = 10/6.18, legend_out = False)
+# plt.show()
 
 ### 盒图
 sns.set(rc={'figure.figsize':(10, 6.2)})
-sns.boxplot(x = 'Result', y = 'ave_win', data = jsonDataDf)
+sns.boxplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
+plt.show()
+
+### 小提琴图
+sns.violinplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
 plt.show()
 
 exit()
