@@ -23,8 +23,8 @@ class RunFetchPageBasic:
     gameObj = FetchPageBasic(url)
 
     try:
-        jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
-        jsonContentFromFile[num] = gameObj.convertPageResultDict()
+      jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
+      jsonContentFromFile[num] = gameObj.convertPageResultDict()
     except:
       pass
 
