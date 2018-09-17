@@ -19,22 +19,12 @@ class RunFetchPageBasic:
     url = Baseinfo().generateUrl(num)
     print(url)
 
-    ## page Id
-    pageIdJsonContent = { "id" : num}
-
-    pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
-    FlexJsonBasic().generateJsonForPageId(pageIdJsonContentDataFrame)
-
     ## Page Result
     gameObj = FetchPageBasic(url)
 
     try:
-      gameResult = gameObj.convertPageResultDict()
-
-      # only opea and save the game that have value
-      if gameResult:
         jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
-        jsonContentFromFile[num] = gameResult
+        jsonContentFromFile[num] = gameObj.convertPageResultDict()
     except:
       pass
 
@@ -43,6 +33,11 @@ class RunFetchPageBasic:
     FlexJsonBasic().generateJsonFromData(jsonFilePath, jsonContent)
 
 
+    ## page Id
+    pageIdJsonContent = { "id" : num}
+
+    pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
+    FlexJsonBasic().generateJsonForPageId(pageIdJsonContentDataFrame)
 
     return
 

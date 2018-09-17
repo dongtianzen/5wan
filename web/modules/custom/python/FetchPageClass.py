@@ -195,36 +195,33 @@ class FetchPageBasic:
     # check html value is not empty
     if iniWinValue:
       if len(self.obtainGameResultList()) > 1:
+        # output['ini_win']  = iniWinValue
+        # output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
+        # output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
 
-        nameHome = self.obtainGameTitleList()[0]
-        if len(nameHome) > 1:
-          # output['ini_win']  = iniWinValue
-          # output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
-          # output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
+        # output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
+        # output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
+        # output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
 
-          # output['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
-          # output['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
-          # output['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
+        output['variation_ini_win']  = self.findValueByHtmlTagByHtmlId('td', 'lswc2')
+        output['variation_ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdc2')
+        output['variation_ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'lslc2')
 
-          output['variation_ini_win']  = self.findValueByHtmlTagByHtmlId('td', 'lswc2')
-          output['variation_ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdc2')
-          output['variation_ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'lslc2')
+        output['variation_end_win']  = self.findValueByHtmlTagByHtmlId('td', 'lswj2')
+        output['variation_end_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdj2')
+        output['variation_end_loss'] = self.findValueByHtmlTagByHtmlId('td', 'lslj2')
 
-          output['variation_end_win']  = self.findValueByHtmlTagByHtmlId('td', 'lswj2')
-          output['variation_end_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdj2')
-          output['variation_end_loss'] = self.findValueByHtmlTagByHtmlId('td', 'lslj2')
+        # output['num_company'] = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
 
-          # output['num_company'] = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
+        # output['goal_home'] = self.obtainGameResultList()[0]
+        # output['goal_away'] = self.obtainGameResultList()[1]
 
-          # output['goal_home'] = self.obtainGameResultList()[0]
-          # output['goal_away'] = self.obtainGameResultList()[1]
+        output['name_home'] = self.obtainGameTitleList()[0]
+        output['name_away'] = self.obtainGameTitleList()[1]
 
-          output['name_home'] = nameHome
-          output['name_away'] = self.obtainGameTitleList()[1]
+        # output['tags']  = self.filterGameTag()
 
-          # output['tags']  = self.filterGameTag()
-
-          # output['date_time'] = self.obtainGameDateAndTime()
+        # output['date_time'] = self.obtainGameDateAndTime()
 
     return output
 
