@@ -87,7 +87,7 @@ jsonDataDf.loc[jsonDataDf['diff_win'] > 0, 'ave_ini_win'] = 1
 
 
 ### 5) 特征选择： 相关性矩阵
-# # 特征间相关性分析 生成特征之间的关联图
+## 特征间相关性分析 生成特征之间的关联图
 # correlationResult = pd.DataFrame(jsonDataDf[
 #   ['ave_win', 'ave_loss', 'Result']
 # ])
@@ -96,7 +96,6 @@ jsonDataDf.loc[jsonDataDf['diff_win'] > 0, 'ave_ini_win'] = 1
 # plt.title('Pearson Correlation of Features', y = 1.05, size = 12)
 # sns.heatmap(correlationResult, linewidths = 0.1, vmax = 1.0, square = True, cmap = colormap, linecolor = 'white', annot = True)
 # plt.show()
-
 
 
 

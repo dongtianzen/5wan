@@ -24,7 +24,7 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
   /**
    *
    */
-  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = NULL, $home = NULL, $away = NULL) {
+  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
     $request_array = \Drupal::request()->query->all();
 
     if (isset($request_array['ave_win'])) {
@@ -99,7 +99,7 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     if ($tags) {
-      $tags = explode(',', $tags);
+      // $tags = explode(',', $tags);
 
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags, 'IN');
       $query->condition($group);
@@ -125,7 +125,7 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
   /**
    *
    */
-  public function queryWinNodesByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = NULL, $home = NULL, $away = NULL) {
+  public function queryWinNodesByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
     $nids = $this->queryWinNidsByCondition($ave_win, $ave_draw, $ave_loss, $diff_win, $diff_draw, $diff_loss, $tags, $home, $away);
     $nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($nids);
 
