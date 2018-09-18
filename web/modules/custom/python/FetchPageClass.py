@@ -195,7 +195,9 @@ class FetchPageBasic:
     # check html value is not empty
     if iniWinValue:
       if len(self.obtainGameResultList()) > 1:
+
         numCompany = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
+        output['num_company'] = numCompany
 
         if numCompany > 30:
           # output['ini_win']  = iniWinValue
@@ -214,7 +216,6 @@ class FetchPageBasic:
           output['variation_end_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdj2')
           output['variation_end_loss'] = self.findValueByHtmlTagByHtmlId('td', 'lslj2')
 
-          # output['num_company'] = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
 
           # output['goal_home'] = self.obtainGameResultList()[0]
           # output['goal_away'] = self.obtainGameResultList()[1]
