@@ -17,7 +17,7 @@ class ImportPageList {
    *
    */
   public function readCsvFromUrl($feed_url = NULL) {
-    $feed_url = 'http://localhost:8888/5wan/web/modules/custom/importinfo/18110.csv';
+    $feed_url = 'http://localhost:8888/5wan/web/sites/default/files/importcsvfile/18118.csv';
 
     $output = file_get_contents($feed_url);
 
