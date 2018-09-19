@@ -199,7 +199,7 @@ class FetchPageBasic:
         numCompany = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
         output['num_company'] = numCompany
 
-        if numCompany > 30:
+        if int(float(numCompany)) > 20:
           # output['ini_win']  = iniWinValue
           # output['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
           # output['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
