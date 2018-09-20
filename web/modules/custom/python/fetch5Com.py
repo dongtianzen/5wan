@@ -13,7 +13,7 @@ from RunFetchPageClass import RunFetchPageBasic
 # end   to   700000
 startNum = 500000
 startNum = FlexJsonBasic().getStartPageIdFromJson()
-startNum = 74494
+startNum = 71358
 
 #
 # except Exception: not catch KeyboardInterrupt, SystemExit
