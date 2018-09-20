@@ -99,6 +99,14 @@ class FetchPageBasic:
 
     return metaKeywords
 
+  #
+  def soupCurrentGameList(self):
+    gameListHtml = self.soupGb2312.find_all(name = "td", attrs = {"class": "td-data"})
+
+    print(gameListHtml)
+
+    return gameListHtml
+
   # @return string like "2016-02-28"
   def obtainGameDate(self):
     gameTimeInfo = self.soupGameTimeInfo()
@@ -231,6 +239,11 @@ class FetchPageBasic:
     if len(iniWinValue) > 0:
       output = gameResult
 
+    return output
+
+  # @return output
+  def getCurrentGameIds(self):
+    output = self.soupCurrentGameList()
     return output
 
   #%%

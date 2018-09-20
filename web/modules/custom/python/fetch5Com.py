@@ -17,7 +17,7 @@ startNum = 171358
 
 #
 # except Exception: not catch KeyboardInterrupt, SystemExit
-for num in range(startNum, (startNum + 30)):
+for num in range(startNum, (startNum + 60)):
   try:
     RunFetchPageBasic().runFetch(num)
   # except Exception:
