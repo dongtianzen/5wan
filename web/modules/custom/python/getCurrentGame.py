@@ -11,8 +11,8 @@ from RunFetchPageClass import RunFetchPageBasic
 url = 'http://trade.500.com/sfc/'
 gameObj = FetchPageBasic(url)
 
-gameList = gameObj.getCurrentGameIds()
-print(gameList)
+gameListIds = gameObj.soupCurrentGameListIds()
+print(gameListIds)
 #
 startNum = 171358
 

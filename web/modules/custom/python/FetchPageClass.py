@@ -101,7 +101,7 @@ class FetchPageBasic:
 
   # find <a href="http://odds.500.com/fenxi/shuju-737585.shtml"></a>
   # 再提取game id
-  def soupCurrentGameList(self):
+  def soupCurrentGameListIds(self):
     gameListHtmlResultSet = self.soupGb2312.find_all(name = "td", attrs = {"class": "td-data"})
 
     gameList = []
@@ -245,11 +245,6 @@ class FetchPageBasic:
     if len(iniWinValue) > 0:
       output = gameResult
 
-    return output
-
-  # @return output
-  def getCurrentGameIds(self):
-    output = self.soupCurrentGameList()
     return output
 
   #%%
