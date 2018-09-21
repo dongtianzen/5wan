@@ -99,11 +99,19 @@ class FetchPageBasic:
 
     return metaKeywords
 
-  #
+  # find <a href="http://odds.500.com/fenxi/shuju-737585.shtml"></a>
+  # 再提取game id
   def soupCurrentGameList(self):
-    gameListHtml = self.soupGb2312.find_all(name = "td", attrs = {"class": "td-data"})
+    gameListHtmlResultSet = self.soupGb2312.find_all(name = "td", attrs = {"class": "td-data"})
 
-    return gameListHtml
+    gameList = []
+
+    for row in gameListHtmlResultSet:
+      rowHrefLink = row.find('a').attrs['href']
+      matchDateObj = re.search(r"(\d{6})", rowHrefLink)
+      gameList.append(matchDateObj.group(0))
+
+    return gameList
 
   # @return string like "2016-02-28"
   def obtainGameDate(self):
@@ -138,13 +146,6 @@ class FetchPageBasic:
     gameTitleList = gameTitle.split(',')
 
     return gameTitleList
-
-  # @return
-  def obtainGameListIds(self):
-    gameList = self.soupCurrentGameList()
-    matchDateObj = re.search(r"(ouzhi-\d{6})", gameList)
-
-    return matchDateObj
 
   #
   def filterGameTag(self):
@@ -248,7 +249,7 @@ class FetchPageBasic:
 
   # @return output
   def getCurrentGameIds(self):
-    output = self.obtainGameListIds()
+    output = self.soupCurrentGameList()
     return output
 
   #%%
