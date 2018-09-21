@@ -103,8 +103,6 @@ class FetchPageBasic:
   def soupCurrentGameList(self):
     gameListHtml = self.soupGb2312.find_all(name = "td", attrs = {"class": "td-data"})
 
-    print(gameListHtml)
-
     return gameListHtml
 
   # @return string like "2016-02-28"
@@ -140,6 +138,13 @@ class FetchPageBasic:
     gameTitleList = gameTitle.split(',')
 
     return gameTitleList
+
+  # @return
+  def obtainGameListIds(self):
+    gameList = self.soupCurrentGameList()
+    matchDateObj = re.search(r"(ouzhi-\d{6})", gameList)
+
+    return matchDateObj
 
   #
   def filterGameTag(self):
@@ -243,7 +248,7 @@ class FetchPageBasic:
 
   # @return output
   def getCurrentGameIds(self):
-    output = self.soupCurrentGameList()
+    output = self.obtainGameListIds()
     return output
 
   #%%
