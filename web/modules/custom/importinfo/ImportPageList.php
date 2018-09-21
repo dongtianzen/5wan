@@ -62,5 +62,5 @@ class ImportPageList {
 // NewGame.value.default_diff_loss = 0.2;
 
 // NewGame.value.default_tags = ['英超', '英冠'];
-// NewGame.value.default_home = '布赖顿';
-// NewGame.value.default_away = '富勒姆';
+// NewGame.value.default_name_home = '布赖顿';
+// NewGame.value.default_name_away = '富勒姆';

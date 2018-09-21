@@ -15,8 +15,8 @@ var default_diff_draw = NewGame.value.default_ave_draw
 var default_diff_loss = NewGame.value.default_ave_loss
 
 var default_tags = NewGame.value.default_tags
-var default_home = NewGame.value.default_home
-var default_away = NewGame.value.default_away
+var default_name_home = NewGame.value.default_name_home
+var default_name_away = NewGame.value.default_name_away
 
 var query_params = {
   ave_win:  default_ave_win,
@@ -26,8 +26,8 @@ var query_params = {
   diff_draw: default_diff_draw,
   diff_loss: default_diff_loss,
   tags: default_tags,
-  home: default_home,
-  away: default_away,
+  home: default_name_home,
+  away: default_name_away,
 }
 
 /**
