@@ -13,31 +13,32 @@ from FlexJsonClass import FlexJsonBasic
 #
 class RunFetchPageBasic:
 
-  def runFetch(self, num):
-    jsonFilePath = FlexJsonBasic().getGenerateJsonFilePath('downloadGameInfo.json')
+  #
+  def runFetch(self, gameId, jsonFileName = 'downloadGameInfo.json', updateStartPageId = True):
+    gameInfoJsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(jsonFileName)
 
-    url = Baseinfo().generateUrl(num)
+    url = Baseinfo().generateUrl(gameId)
     print(url)
 
     ## Page Result
     gameObj = FetchPageBasic(url)
 
     try:
-      jsonContentFromFile = FlexJsonBasic().readJsonContent(jsonFilePath)
-      jsonContentFromFile[num] = gameObj.convertPageResultDict()
+      jsonContentFromFile = FlexJsonBasic().readJsonContent(gameInfoJsonFilePath)
+      jsonContentFromFile[gameId] = gameObj.convertPageResultDict()
     except:
       pass
 
     jsonContent = pd.DataFrame.from_dict(jsonContentFromFile)
 
-    FlexJsonBasic().generateJsonFromData(jsonFilePath, jsonContent)
+    FlexJsonBasic().generateJsonFromData(gameInfoJsonFilePath, jsonContent)
 
 
-    ## page Id
-    pageIdJsonContent = { "id" : num}
-
-    pageIdJsonContentDataFrame = pd.DataFrame.from_dict(pageIdJsonContent, orient = 'index')
-    FlexJsonBasic().generateJsonForPageId(pageIdJsonContentDataFrame)
+    ## start page Id
+    if bool(updateStartPageId):
+      startPageIdJsonContent = { "id" : gameId}
+      startPageIdJsonContentDataFrame = pd.DataFrame.from_dict(startPageIdJsonContent, orient = 'index')
+      FlexJsonBasic().generateJsonForPageId(startPageIdJsonContentDataFrame)
 
     return
 

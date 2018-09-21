@@ -206,7 +206,6 @@ class FetchPageBasic:
     gameResult = {}
 
     iniWinValue = self.findValueByHtmlTagByHtmlId('td', 'avwinc2')
-    print(len(iniWinValue))
 
     # check html value is not empty
     if len(iniWinValue) > 0:

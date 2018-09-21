@@ -1,5 +1,5 @@
 """
-python3 web/modules/custom/python/getCurrentGame.py
+python3 web/modules/custom/python/getCurrentGameList.py
 http://trade.500.com/sfc/
 
 """
@@ -12,18 +12,16 @@ url = 'http://trade.500.com/sfc/'
 gameObj = FetchPageBasic(url)
 
 gameListIds = gameObj.soupCurrentGameListIds()
-print(gameListIds)
-#
-startNum = 171358
 
 #
 # except Exception: not catch KeyboardInterrupt, SystemExit
-# for num in range(startNum, (startNum + 60)):
-#   try:
-#     RunFetchPageBasic().runFetch(num)
-#   # except Exception:
-#   except Exception:
-#     print("Oops!  That was no valid number.  Try again...")
-#     pass
+for gameId in gameListIds:
+  print(gameId)
+  try:
+    RunFetchPageBasic().runFetch(gameId, 'currentGameList.json', False)
+  # except Exception:
+  except Exception:
+    print("Oops!  That was no valid number.  Try again...")
+    pass
 
 exit()

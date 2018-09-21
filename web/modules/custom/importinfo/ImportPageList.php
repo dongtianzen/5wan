@@ -16,9 +16,8 @@ class ImportPageList {
   /**
    *
    */
-  public function readCsvFromUrl($feed_url = NULL) {
-    $feed_url = 'http://localhost:8888/5wan/web/sites/default/files/importcsvfile/18119.csv';
-
+  public function readJsonFromUrl($feed_url = NULL) {
+    $feed_url = 'http://localhost:8888/5wan/web/sites/default/files/json/5wan/currentGameList.json';
     $output = file_get_contents($feed_url);
 
     return $output;
@@ -27,8 +26,8 @@ class ImportPageList {
   /**
    *
    */
-  public function convertCsvToArray($csv_string = NULL) {
-    $csv_string = $this->readCsvFromUrl();
+  public function convertCsvToArray() {
+    $json_content = $this->readJsonFromUrl();
 
     $lines = explode(PHP_EOL, $csv_string);
     $output = array();
@@ -47,9 +46,9 @@ class ImportPageList {
 
     $prefix_string = 'NewGame.value.';
 
-    $csv_array = $this->convertCsvToArray();
-    if ($csv_array) {
-      foreach ($csv_array as $key => $row) {
+    $json_content = $this->readJsonFromUrl();
+    if ($json_content) {
+      foreach ($json_content as $key => $row) {
         if (!(strlen($row[1]) > 0)) {
           continue;
         }
