@@ -213,13 +213,8 @@ class FetchPageBasic:
       numCompany = self.findValueByHtmlTagByHtmlId('span', 'nowcnum')
       gameResult['num_company'] = int(float(numCompany))
 
-      # gameResult['ini_win']  = iniWinValue
-      # gameResult['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
-      # gameResult['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
-
-      # gameResult['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
-      # gameResult['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
-      # gameResult['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
+      gameResult['name_home'] = self.obtainGameTitleList()[0]
+      gameResult['name_away'] = self.obtainGameTitleList()[1]
 
       gameResult['variation_ini_win']  = self.findValueByHtmlTagByHtmlId('td', 'lswc2')
       gameResult['variation_ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdc2')
@@ -229,16 +224,20 @@ class FetchPageBasic:
       gameResult['variation_end_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdj2')
       gameResult['variation_end_loss'] = self.findValueByHtmlTagByHtmlId('td', 'lslj2')
 
+      gameResult['ini_win']  = iniWinValue
+      gameResult['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
+      gameResult['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
+
+      gameResult['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
+      gameResult['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
+      gameResult['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
+
+      gameResult['tags']  = self.filterGameTag()
+
+      gameResult['date_time'] = self.obtainGameDateAndTime()
 
       # gameResult['goal_home'] = self.obtainGameResultList()[0]
       # gameResult['goal_away'] = self.obtainGameResultList()[1]
-
-      gameResult['name_home'] = self.obtainGameTitleList()[0]
-      gameResult['name_away'] = self.obtainGameTitleList()[1]
-
-      # gameResult['tags']  = self.filterGameTag()
-
-      # gameResult['date_time'] = self.obtainGameDateAndTime()
 
 
     if len(iniWinValue) > 0:

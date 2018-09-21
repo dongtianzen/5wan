@@ -200,7 +200,7 @@ Vue.component('chartjs-scatter-chart', {
 var vm = new Vue({
   el: '.appchartjs',
   data: {
-    message: 'Game List Chart title - Hello World',
+    message: 'Game List Chart X => Draw, y => Loss, R =>  - Hello World',
     scatterChartTitle: 'x => Draw / Loss, y => Win'
   }
 })
