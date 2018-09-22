@@ -37,13 +37,42 @@ class ImportPageList {
     foreach ($json_content as $key => $row) {
       $game_info = NULL;
       foreach ($row as $subkey => $subrow) {
+        switch ($subkey) {
+          case 'tags':
+            $game_info .= $prefix_string . 'default_tags = ["' . $subrow . '", "' . $subrow . '"];';
+            $game_info .= '<br />';
+            break;
 
-        $game_info .= $prefix_string . 'default_' . $subkey . ' = ' . $subrow . ';';
-        $game_info .= '<br />';
+          case 'name_away':
+          case 'name_home':
+            $game_info .= $prefix_string . 'default_' . $subkey . ' = "' . $subrow . '"' . ';';
+            $game_info .= '<br />';
+
+          case 'variation_end_draw':
+          case 'variation_end_loss':
+          case 'variation_end_win':
+          case 'variation_ini_draw':
+          case 'variation_ini_loss':
+          case 'variation_ini_win':
+          case 'date_time':
+          case 'num_company':
+            break;
+
+          default:
+            $game_info .= $prefix_string . 'default_' . $subkey . ' = ' . $subrow . ';';
+            $game_info .= '<br />';
+            break;
+        }
       }
 
-      dpm($game_info);
+      $game_info .= $prefix_string . 'default_diff_win = ' . 0.05 . ';';
+      $game_info .= '<br />';
+      $game_info .= $prefix_string . 'default_diff_draw = ' . 0.1 . ';';
+      $game_info .= '<br />';
+      $game_info .= $prefix_string . 'default_diff_loss = ' . 0.2 . ';';
+      $game_info .= '<br />';
 
+      dpm($game_info);
     }
 
     return $output;
