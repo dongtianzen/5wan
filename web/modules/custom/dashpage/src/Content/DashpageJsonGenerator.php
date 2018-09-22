@@ -71,7 +71,7 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getCurrentGameValue() {
+  public function getCurrentGameValueOne() {
     $request_array = \Drupal::request()->query->all();
     $output = [
       'x' =>  $request_array['ave_draw'],
@@ -85,7 +85,21 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getChartDataSetSource($node_fields, $win_nodes, $table_heads) {
+  public function getCurrentGameValueTwo() {
+    $request_array = \Drupal::request()->query->all();
+    $output = [
+      'x' =>  $request_array['ave_draw'] / $request_array['ave_loss'],
+      'y' =>  $request_array['ave_win'],
+      'r' => 10,
+    ];
+
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function getChartDataSetSource() {
     $node_fields = \Drupal::getContainer()
       ->get('dashpage.managefields.service')
       ->getNodeWinField();
@@ -142,8 +156,8 @@ class DashpageJsonGenerator extends ControllerBase {
       }
     }
 
-    $output['one'][3]['data'][] = $this->getCurrentGameValue();
-    $output['two'][3]['data'][] = $this->getCurrentGameValue();
+    $output['one'][3]['data'][] = $this->getCurrentGameValueOne();
+    $output['two'][3]['data'][] = $this->getCurrentGameValueTwo();
 
     return $output;
   }
