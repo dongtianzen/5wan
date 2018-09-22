@@ -208,8 +208,6 @@ class DashpageJsonGenerator extends ControllerBase {
         ->get('flexinfo.field.service')
         ->getFieldFirstValue($win_node, 'field_win_ini_draw');
 
-
-
       $r_size = $ave_draw_value - $ini_draw_value;
     }
     elseif ($min_num_index == 2) {

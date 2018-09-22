@@ -200,8 +200,8 @@ Vue.component('chartjs-chart-two', {
 var vm = new Vue({
   el: '.appchartjs',
   data: {
-    chartTitleOne: 'Game List Chart X => Draw, y => Loss, R =>  - Hello World',
-    chartTitleTwo: 'x => Draw / Loss, y => Win'
+    chartTitleOne: 'Game List Chart X => Draw, Y => Loss, R => max(win, draw, loss) - max(ini_win, ini_draw, int_loss)',
+    chartTitleTwo: 'X => Draw / Loss, Y => Win, R => max(win, draw, loss) - max(ini_win, ini_draw, int_loss)'
   }
 })
 
