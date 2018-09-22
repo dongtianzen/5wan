@@ -102,8 +102,8 @@ class DashpageJsonGenerator extends ControllerBase {
    */
   public function getCurrentGameValueSix() {
     $output = [
-      'x' =>  0,
-      'y' =>  0,
+      'x' =>  0.1,
+      'y' =>  0.1,
       'r' => 10,
     ];
 
@@ -126,6 +126,7 @@ class DashpageJsonGenerator extends ControllerBase {
 
     $output['one'] = $this->getChartDataBasicColorSet();
     $output['two'] = $this->getChartDataBasicColorSet();
+    $output['six'] = $this->getChartDataBasicColorSet();
 
     foreach ($win_nodes as $key => $win_node) {
       $tbody = [];
@@ -166,9 +167,9 @@ class DashpageJsonGenerator extends ControllerBase {
         ->get('flexinfo.field.service')
         ->getFieldFirstValue($win_node, 'field_win_ini_loss');
       $chart_six_data = [
-        'x' => $tbody['Win'] - $ini_win_value,
-        'y' => $tbody['Loss'] - $ini_loss_value,
-        'r' => $tbody['Draw'] - $ini_draw_value,
+        'x' => ($tbody['Win'] - $ini_win_value) * 10,
+        'y' => ($tbody['Loss'] - $ini_loss_value) * 10,
+        'r' => ($tbody['Draw'] - $ini_draw_value) + 10,
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
@@ -188,7 +189,7 @@ class DashpageJsonGenerator extends ControllerBase {
 
     $output['one'][3]['data'][] = $this->getCurrentGameValueOne();
     $output['two'][3]['data'][] = $this->getCurrentGameValueTwo();
-    $output['six'][3]['data'][] = $this->getCurrentGameValueTwo();
+    $output['six'][3]['data'][] = $this->getCurrentGameValueSix();
 
     return $output;
   }
