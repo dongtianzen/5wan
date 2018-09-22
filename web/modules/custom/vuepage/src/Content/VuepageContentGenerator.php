@@ -42,6 +42,10 @@ class VuepageContentGenerator extends ControllerBase {
         <div class="margin-top-12">
           <chartjs-chart-two></chartjs-chart-two>
         </div>
+          {{ chartTitleThree }}
+        <div class="margin-top-12">
+          <chartjs-chart-three></chartjs-chart-three>
+        </div>
       </div>
     ';
 
