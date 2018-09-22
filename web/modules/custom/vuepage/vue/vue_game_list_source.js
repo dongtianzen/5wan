@@ -10,9 +10,13 @@ var default_ave_win  = NewGame.value.default_ave_win
 var default_ave_draw = NewGame.value.default_ave_draw
 var default_ave_loss = NewGame.value.default_ave_loss
 
+var default_ini_win  = NewGame.value.default_ini_win
+var default_ini_draw = NewGame.value.default_ini_draw
+var default_ini_loss = NewGame.value.default_ini_loss
+
 var default_diff_win  = NewGame.value.default_diff_win
-var default_diff_draw = NewGame.value.default_ave_draw
-var default_diff_loss = NewGame.value.default_ave_loss
+var default_diff_draw = NewGame.value.default_ini_draw
+var default_diff_loss = NewGame.value.default_ini_loss
 
 var default_tags = NewGame.value.default_tags
 var default_name_home = NewGame.value.default_name_home
@@ -22,6 +26,9 @@ var query_params = {
   ave_win:  default_ave_win,
   ave_draw: default_ave_draw,
   ave_loss: default_ave_loss,
+  ini_win:  default_ini_win,
+  ini_draw: default_ini_draw,
+  ini_loss: default_ini_loss,
   diff_win:  default_diff_win,
   diff_draw: default_diff_draw,
   diff_loss: default_diff_loss,
@@ -283,7 +290,7 @@ Vue.component('chartjs-chart-six', {
 var vm = new Vue({
   el: '.appchartjs',
   data: {
-    chartTitleOne: 'Game List Chart X => Draw, Y => Loss, R => min(win, draw, loss) - min(ini_win, ini_draw, int_loss)',
+    chartTitleOne: 'X => Draw, Y => Loss, R => min(win, draw, loss) - min(ini_win, ini_draw, int_loss)',
     chartTitleTwo: 'X => Draw / Loss, Y => Win, R => min(win, draw, loss) - min(ini_win, ini_draw, int_loss)',
     chartTitleSix: 'X => Win - ini, Y => Loss - ini, R => Draw - ini'
   }

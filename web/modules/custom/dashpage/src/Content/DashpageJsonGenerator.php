@@ -101,10 +101,11 @@ class DashpageJsonGenerator extends ControllerBase {
    *
    */
   public function getCurrentGameValueSix() {
+    $request_array = \Drupal::request()->query->all();
     $output = [
-      'x' =>  0.1,
-      'y' =>  0.1,
-      'r' => 10,
+      'x' => ($request_array['ave_win'] - $request_array['ini_win']) * 10,
+      'y' => ($request_array['ave_loss'] - $request_array['ini_loss']) * 10,
+      'r' => ($request_array['ave_draw'] - $request_array['ini_draw']) + 10,
     ];
 
     return $output;
