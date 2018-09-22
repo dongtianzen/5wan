@@ -51,8 +51,8 @@ jsonDataDf['ave_ini_win'] = 0
 jsonDataDf.loc[jsonDataDf['diff_win'] > 0, 'ave_ini_win'] = 1
 
 ## 百分比
-# jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
-# plt.show()
+jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+plt.show()
 
 ## Pie chart
 # jsonDataDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')

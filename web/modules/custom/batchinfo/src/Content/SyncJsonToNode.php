@@ -72,7 +72,7 @@ class SyncJsonToNode {
       }
     }
 
-    //sleep for 0.2 seconds
+    //sleep for 0.15 seconds
     usleep(150000);
 
     return;
@@ -98,8 +98,8 @@ class SyncJsonToNode {
 
     }
 
-    //sleep for 0.2 seconds
-    usleep(150000);
+    //sleep for 0.01 seconds
+    usleep(10000);
 
     return;
   }

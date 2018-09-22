@@ -10,8 +10,11 @@ namespace Drupal\batchinfo\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 
+use Drupal\Component\Utility\Timer;
+
 use Drupal\batchinfo\Content\SyncJsonToNode;
 use Drupal\batchinfo\Content\SyncJsonToTerm;
+
 
 /**
  * Controller routines for theme example routes.
@@ -110,6 +113,9 @@ class BatchinfoController extends ControllerBase {
    *
    */
   public function runUpdateNodeWinJson() {
+    $name = 'time_one';
+    Timer::start($name);
+
     $SyncJsonToNode = new SyncJsonToNode();
     $json_content = $SyncJsonToNode->getImportJsonContent();
 
@@ -142,6 +148,9 @@ class BatchinfoController extends ControllerBase {
 
     $message = 'Run batch on RunUpdateNodeWinJson()';
     \Drupal::logger('batchinfo')->notice($message);
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms');
 
     // You have to return batch_process('url') - set redirect page path,
     return batch_process('batchinfo/importjson/guide');
