@@ -34,6 +34,7 @@ class DashpageJsonGenerator extends ControllerBase {
   public function getGameChartJson() {
     $output['chartDataSetSourceOne'] = $this->getChartDataSetSource()['one'];
     $output['chartDataSetSourceTwo'] = $this->getChartDataSetSource()['two'];
+    $output['chartDataSetSourceSix'] = $this->getChartDataSetSource()['six'];
 
     return $output;
   }
@@ -99,6 +100,19 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
+  public function getCurrentGameValueSix() {
+    $output = [
+      'x' =>  0,
+      'y' =>  0,
+      'r' => 10,
+    ];
+
+    return $output;
+  }
+
+  /**
+   *
+   */
   public function getChartDataSetSource() {
     $node_fields = \Drupal::getContainer()
       ->get('dashpage.managefields.service')
@@ -151,7 +165,7 @@ class DashpageJsonGenerator extends ControllerBase {
       $ini_loss_value = \Drupal::getContainer()
         ->get('flexinfo.field.service')
         ->getFieldFirstValue($win_node, 'field_win_ini_loss');
-      $chart_three_data = [
+      $chart_six_data = [
         'x' => $tbody['Win'] - $ini_win_value,
         'y' => $tbody['Loss'] - $ini_loss_value,
         'r' => $tbody['Draw'] - $ini_draw_value,
@@ -169,12 +183,12 @@ class DashpageJsonGenerator extends ControllerBase {
 
       $output['one'][$output_key]['data'][] = $chart_one_data;
       $output['two'][$output_key]['data'][] = $chart_two_data;
-      $output['three'][$output_key]['data'][] = $chart_three_data;
+      $output['six'][$output_key]['data'][] = $chart_six_data;
     }
 
     $output['one'][3]['data'][] = $this->getCurrentGameValueOne();
     $output['two'][3]['data'][] = $this->getCurrentGameValueTwo();
-    $output['three'][3]['data'][] = $this->getCurrentGameValueThree();
+    $output['six'][3]['data'][] = $this->getCurrentGameValueTwo();
 
     return $output;
   }

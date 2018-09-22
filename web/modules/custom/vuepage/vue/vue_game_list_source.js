@@ -197,11 +197,11 @@ Vue.component('chartjs-chart-two', {
 /**
  * @to vue-chartjs v3 to draw scatter chart
  */
-Vue.component('chartjs-chart-three', {
+Vue.component('chartjs-chart-six', {
   extends: VueChartJs.Bubble,
   data () {
     return {
-      chartDataSetSourceTwo: [    // dataset sample format
+      chartDataSetSourceSix: [    // dataset sample format
         {
           label: 'Data One',
           backgroundColor: '#f87979',
@@ -265,10 +265,10 @@ Vue.component('chartjs-chart-three', {
         }
 
         // JSON responses are automatically parsed.
-        this.chartDataSetSourceTwo = response.data.chartDataSetSourceTwo
+        this.chartDataSetSourceSix = response.data.chartDataSetSourceSix
 
         this.renderChart({
-          datasets: this.chartDataSetSourceTwo,
+          datasets: this.chartDataSetSourceSix,
           options: this.options
         }, {responsive: true, maintainAspectRatio: false})
       }
@@ -284,7 +284,7 @@ var vm = new Vue({
   data: {
     chartTitleOne: 'Game List Chart X => Draw, Y => Loss, R => min(win, draw, loss) - min(ini_win, ini_draw, int_loss)',
     chartTitleTwo: 'X => Draw / Loss, Y => Win, R => min(win, draw, loss) - min(ini_win, ini_draw, int_loss)',
-    chartTitleThree: 'X => Win - ini, Y => Loss - ini, R => Draw - ini'
+    chartTitleSix: 'X => Win - ini, Y => Loss - ini, R => Draw - ini'
   }
 })
 
