@@ -37,7 +37,7 @@ Vue.component('chartjs-chart-one', {
   extends: VueChartJs.Bubble,
   data () {
     return {
-      chartDataSetSource: [    // dataset sample format
+      chartDataSetSourceOne: [    // dataset sample format
         {
           label: 'Data One',
           backgroundColor: '#f87979',
@@ -101,10 +101,10 @@ Vue.component('chartjs-chart-one', {
         }
 
         // JSON responses are automatically parsed.
-        this.chartDataSetSource = response.data.chartDataSetSource
+        this.chartDataSetSourceOne = response.data.chartDataSetSourceOne
 
         this.renderChart({
-          datasets: this.chartDataSetSource,
+          datasets: this.chartDataSetSourceOne,
           options: this.options
         }, {responsive: true, maintainAspectRatio: false})
       }
@@ -119,7 +119,7 @@ Vue.component('chartjs-chart-two', {
   extends: VueChartJs.Bubble,
   data () {
     return {
-      chartDataSetSource: [    // dataset sample format
+      chartDataSetSourceTwo: [    // dataset sample format
         {
           label: 'Data One',
           backgroundColor: '#f87979',
@@ -183,10 +183,10 @@ Vue.component('chartjs-chart-two', {
         }
 
         // JSON responses are automatically parsed.
-        this.chartDataSetSource = response.data.chartDataSetSourceTwo
+        this.chartDataSetSourceTwo = response.data.chartDataSetSourceTwo
 
         this.renderChart({
-          datasets: this.chartDataSetSource,
+          datasets: this.chartDataSetSourceTwo,
           options: this.options
         }, {responsive: true, maintainAspectRatio: false})
       }

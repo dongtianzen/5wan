@@ -20,7 +20,7 @@ class DashpageJsonGenerator extends ControllerBase {
    *
    */
   public function getGameChartJson() {
-    $output['chartDataSetSource'] = $this->getChartDataSetSource();
+    $output['chartDataSetSourceOne'] = $this->getChartDataSetSourceOne();
     $output['chartDataSetSourceTwo'] = $this->getChartDataSetSourceTwo();
 
     return $output;
@@ -39,7 +39,7 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getChartDataSetSource() {
+  public function getChartDataSetSourceOne() {
     $output = [
       [
         'label' => 'win',
@@ -147,7 +147,6 @@ class DashpageJsonGenerator extends ControllerBase {
     ];
     $output[3]['data'][] = $chart_data;
 
-
     //
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
 
@@ -236,11 +235,17 @@ class DashpageJsonGenerator extends ControllerBase {
       'loss' => 0,
     ];
 
-    $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
+    $table_heads = \Drupal::getContainer()
+      ->get('dashpage.tablebasic.service')
+      ->getTrendTableThead();
 
-    $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
+    $node_fields = \Drupal::getContainer()
+      ->get('dashpage.managefields.service')
+      ->getNodeWinField();
 
-    $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
+    $win_nodes = \Drupal::getContainer()
+      ->get('baseinfo.querynode.service')
+      ->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
 
       $tbody = [];
