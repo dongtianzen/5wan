@@ -33,7 +33,7 @@ var query_params = {
 /**
  * @to vue-chartjs v3 to draw line chart
  */
-Vue.component('line-chart', {
+Vue.component('chartjs-chart-one', {
   extends: VueChartJs.Bubble,
   data () {
     return {
@@ -113,9 +113,9 @@ Vue.component('line-chart', {
 })
 
 /**
- * @to vue-chartjs v3 to draw line chart
+ * @to vue-chartjs v3 to draw scatter chart
  */
-Vue.component('chartjs-scatter-chart', {
+Vue.component('chartjs-chart-two', {
   extends: VueChartJs.Bubble,
   data () {
     return {
@@ -200,8 +200,8 @@ Vue.component('chartjs-scatter-chart', {
 var vm = new Vue({
   el: '.appchartjs',
   data: {
-    message: 'Game List Chart X => Draw, y => Loss, R =>  - Hello World',
-    scatterChartTitle: 'x => Draw / Loss, y => Win'
+    chartTitleOne: 'Game List Chart X => Draw, y => Loss, R =>  - Hello World',
+    chartTitleTwo: 'x => Draw / Loss, y => Win'
   }
 })
 

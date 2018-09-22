@@ -34,13 +34,13 @@ class VuepageContentGenerator extends ControllerBase {
   public function gameListContentChartJs() {
     $output = '
       <div class="appchartjs">
-          {{ message }}
+          {{ chartTitleOne }}
         <div class="margin-top-12">
-          <line-chart></line-chart>
+          <chartjs-chart-one></chartjs-chart-one>
         </div>
-          {{ scatterChartTitle }}
+          {{ chartTitleTwo }}
         <div class="margin-top-12">
-          <chartjs-scatter-chart></chartjs-scatter-chart>
+          <chartjs-chart-two></chartjs-chart-two>
         </div>
       </div>
     ';
