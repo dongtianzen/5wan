@@ -200,8 +200,9 @@ Vue.component('chartjs-chart-two', {
 var vm = new Vue({
   el: '.appchartjs',
   data: {
-    chartTitleOne: 'Game List Chart X => Draw, Y => Loss, R => max(win, draw, loss) - max(ini_win, ini_draw, int_loss)',
-    chartTitleTwo: 'X => Draw / Loss, Y => Win, R => max(win, draw, loss) - max(ini_win, ini_draw, int_loss)'
+    chartTitleOne: 'Game List Chart X => Draw, Y => Loss, R => min(win, draw, loss) - min(ini_win, ini_draw, int_loss)',
+    chartTitleTwo: 'X => Draw / Loss, Y => Win, R => min(win, draw, loss) - min(ini_win, ini_draw, int_loss)'
+    chartTitleThree: 'X => Win - ini, Y => Loss - ini, R => Draw - ini'
   }
 })
 

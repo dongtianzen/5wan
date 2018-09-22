@@ -142,22 +142,39 @@ class DashpageJsonGenerator extends ControllerBase {
         'r' => $r_value,
       ];
 
+      $ini_win_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_win');
+      $ini_draw_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_draw');
+      $ini_loss_value = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($win_node, 'field_win_ini_loss');
+      $chart_three_data = [
+        'x' => $tbody['Win'] - $ini_win_value,
+        'y' => $tbody['Loss'] - $ini_loss_value,
+        'r' => $tbody['Draw'] - $ini_draw_value,
+      ];
+
       if ($tbody['GoalH'] > $tbody['GoalA']) {
-        $output['one'][0]['data'][] = $chart_one_data;
-        $output['two'][0]['data'][] = $chart_two_data;
+        $output_key = 0;
       }
       elseif ($tbody['GoalH'] == $tbody['GoalA']) {
-        $output['one'][1]['data'][] = $chart_one_data;
-        $output['two'][1]['data'][] = $chart_two_data;
+        $output_key = 1;
       }
       else {
-        $output['one'][2]['data'][] = $chart_one_data;
-        $output['two'][2]['data'][] = $chart_two_data;
+        $output_key = 2;
       }
+
+      $output['one'][$output_key]['data'][] = $chart_one_data;
+      $output['two'][$output_key]['data'][] = $chart_two_data;
+      $output['three'][$output_key]['data'][] = $chart_three_data;
     }
 
     $output['one'][3]['data'][] = $this->getCurrentGameValueOne();
     $output['two'][3]['data'][] = $this->getCurrentGameValueTwo();
+    $output['three'][3]['data'][] = $this->getCurrentGameValueThree();
 
     return $output;
   }
@@ -166,8 +183,8 @@ class DashpageJsonGenerator extends ControllerBase {
    * @return $r_size is 10 - standard size
    */
   public function getGameRSzie($win_node, $ave_win_value = NULL, $ave_draw_value =NULL, $ave_loss_value = NULL) {
-    $win_value_array = array($ave_win_value, $ave_draw_value, $ave_loss_value);
-    $min_num_index = array_search(min($win_value_array), $win_value_array);
+    $game_value_array = array($ave_win_value, $ave_draw_value, $ave_loss_value);
+    $min_num_index = array_search(min($game_value_array), $game_value_array);
 
     if ($min_num_index == 0) {
       $ini_win_value = \Drupal::getContainer()
