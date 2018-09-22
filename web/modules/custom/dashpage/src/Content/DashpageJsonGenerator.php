@@ -19,9 +19,11 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getGameChartJson() {
-    $output['chartDataSetSourceOne'] = $this->getChartDataSetSourceOne();
-    $output['chartDataSetSourceTwo'] = $this->getChartDataSetSourceTwo();
+  public function getGameListJson() {
+    $output['gridColumns'] = \Drupal::getContainer()
+      ->get('dashpage.tablebasic.service')
+      ->getTrendTableThead();
+    $output['gridData'] = $this->getGameListTbody();
 
     return $output;
   }
@@ -29,9 +31,19 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getGameListJson() {
-    $output['gridColumns'] = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
-    $output['gridData'] = $this->getGameListTbody();
+  public function getGameChartJson() {
+    $node_fields = \Drupal::getContainer()
+      ->get('dashpage.managefields.service')
+      ->getNodeWinField();
+    $win_nodes = \Drupal::getContainer()
+      ->get('baseinfo.querynode.service')
+      ->queryWinNodesByCondition();
+    $table_heads = \Drupal::getContainer()
+      ->get('dashpage.tablebasic.service')
+      ->getTrendTableThead();
+
+    $output['chartDataSetSourceOne'] = $this->getChartDataSetSourceOne($node_fields, $win_nodes, $table_heads);
+    $output['chartDataSetSourceTwo'] = $this->getChartDataSetSourceTwo();
 
     return $output;
   }
@@ -83,15 +95,9 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getChartDataSetSourceOne() {
+  public function getChartDataSetSourceOne($node_fields, $win_nodes, $table_heads) {
     $output = $this->getChartDataBasicColorSet();
 
-    //
-    $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
-
-    $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
-
-    $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
       $tbody = [];
       foreach ($node_fields as $subkey => $subrow) {
@@ -132,15 +138,9 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getChartDataSetSourceTwo() {
+  public function getChartDataSetSourceTwo($node_fields, $win_nodes, $table_heads) {
     $output = $this->getChartDataBasicColorSet();
 
-    //
-    $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
-
-    $node_fields = \Drupal::getContainer()->get('dashpage.managefields.service')->getNodeWinField();
-
-    $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
     foreach ($win_nodes as $key => $win_node) {
       $tbody = [];
       foreach ($node_fields as $subkey => $subrow) {
