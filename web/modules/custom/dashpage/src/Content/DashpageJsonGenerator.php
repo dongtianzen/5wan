@@ -32,18 +32,8 @@ class DashpageJsonGenerator extends ControllerBase {
    *
    */
   public function getGameChartJson() {
-    $node_fields = \Drupal::getContainer()
-      ->get('dashpage.managefields.service')
-      ->getNodeWinField();
-    $win_nodes = \Drupal::getContainer()
-      ->get('baseinfo.querynode.service')
-      ->queryWinNodesByCondition();
-    $table_heads = \Drupal::getContainer()
-      ->get('dashpage.tablebasic.service')
-      ->getTrendTableThead();
-
-    $output['chartDataSetSourceOne'] = $this->getChartDataSetSourceOne($node_fields, $win_nodes, $table_heads);
-    $output['chartDataSetSourceTwo'] = $this->getChartDataSetSourceTwo();
+    $output['chartDataSetSourceOne'] = $this->getChartDataSetSource()['one'];
+    $output['chartDataSetSourceTwo'] = $this->getChartDataSetSource()['two'];
 
     return $output;
   }
@@ -95,8 +85,19 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getChartDataSetSourceOne($node_fields, $win_nodes, $table_heads) {
-    $output = $this->getChartDataBasicColorSet();
+  public function getChartDataSetSource($node_fields, $win_nodes, $table_heads) {
+    $node_fields = \Drupal::getContainer()
+      ->get('dashpage.managefields.service')
+      ->getNodeWinField();
+    $win_nodes = \Drupal::getContainer()
+      ->get('baseinfo.querynode.service')
+      ->queryWinNodesByCondition();
+    $table_heads = \Drupal::getContainer()
+      ->get('dashpage.tablebasic.service')
+      ->getTrendTableThead();
+
+    $output['one'] = $this->getChartDataBasicColorSet();
+    $output['two'] = $this->getChartDataBasicColorSet();
 
     foreach ($win_nodes as $key => $win_node) {
       $tbody = [];
@@ -113,67 +114,36 @@ class DashpageJsonGenerator extends ControllerBase {
         }
       }
 
-      $chart_data = [
+      $r_value = $this->getGameRSzie($win_node, $tbody['Win'], $tbody['Draw'], $tbody['Loss']);
+
+      $chart_one_data = [
         'x' => $tbody['Draw'],
         'y' => $tbody['Loss'],
-        'r' => $this->getGameRSzie($win_node, $tbody['Win'], $tbody['Draw'], $tbody['Loss']),
+        'r' => $r_value,
       ];
 
-      if ($tbody['GoalH'] > $tbody['GoalA']) {
-        $output[0]['data'][] = $chart_data;
-      }
-      elseif ($tbody['GoalH'] == $tbody['GoalA']) {
-        $output[1]['data'][] = $chart_data;
-      }
-      else {
-        $output[2]['data'][] = $chart_data;
-      }
-    }
-
-    $output[3]['data'][] = $this->getCurrentGameValue();
-
-    return $output;
-  }
-
-  /**
-   *
-   */
-  public function getChartDataSetSourceTwo($node_fields, $win_nodes, $table_heads) {
-    $output = $this->getChartDataBasicColorSet();
-
-    foreach ($win_nodes as $key => $win_node) {
-      $tbody = [];
-      foreach ($node_fields as $subkey => $subrow) {
-        if ($subrow['type'] == 'term') {
-          $tbody[$table_heads[$subkey]] = \Drupal::getContainer()
-            ->get('flexinfo.field.service')
-            ->getFieldFirstTargetIdTermName($win_node, $subrow['field']);
-        }
-        else {
-          $tbody[$table_heads[$subkey]] = \Drupal::getContainer()
-            ->get('flexinfo.field.service')
-            ->getFieldFirstValue($win_node, $subrow['field']);
-        }
-      }
-
-      $chart_data = [
+      $chart_two_data = [
         'x' => $tbody['Draw'] / $tbody['Loss'],
         'y' => $tbody['Win'] ,
-        'r' => $this->getGameRSzie($win_node, $tbody['Win'], $tbody['Draw'], $tbody['Loss']),
+        'r' => $r_value,
       ];
 
       if ($tbody['GoalH'] > $tbody['GoalA']) {
-        $output[0]['data'][] = $chart_data;
+        $output['one'][0]['data'][] = $chart_one_data;
+        $output['two'][0]['data'][] = $chart_two_data;
       }
       elseif ($tbody['GoalH'] == $tbody['GoalA']) {
-        $output[1]['data'][] = $chart_data;
+        $output['one'][1]['data'][] = $chart_one_data;
+        $output['two'][1]['data'][] = $chart_two_data;
       }
       else {
-        $output[2]['data'][] = $chart_data;
+        $output['one'][2]['data'][] = $chart_one_data;
+        $output['two'][2]['data'][] = $chart_two_data;
       }
     }
 
-    $output[3]['data'][] = $this->getCurrentGameValue();
+    $output['one'][3]['data'][] = $this->getCurrentGameValue();
+    $output['two'][3]['data'][] = $this->getCurrentGameValue();
 
     return $output;
   }
