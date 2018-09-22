@@ -71,8 +71,12 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
       $away = $request_array['away'];
     }
 
+    //
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
     $query = $query_container->queryNidsByBundle('win');
+
+    $group = $query_container->groupStandardByFieldValue($query, 'field_win_num_company', 50, '>');
+    $query->condition($group);
 
     if ($ave_win) {
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win - $diff_win, '>');
