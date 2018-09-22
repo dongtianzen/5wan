@@ -39,7 +39,7 @@ class DashpageJsonGenerator extends ControllerBase {
   /**
    *
    */
-  public function getChartDataSetSourceOne() {
+  public function getChartDataBasicColorSet() {
     $output = [
       [
         'label' => 'win',
@@ -63,13 +63,28 @@ class DashpageJsonGenerator extends ControllerBase {
       ],
     ];
 
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function getCurrentGameValue() {
     $request_array = \Drupal::request()->query->all();
-    $chart_data = [
+    $output = [
       'x' =>  $request_array['ave_draw'],
       'y' =>  $request_array['ave_loss'],
       'r' => 10,
     ];
-    $output[3]['data'][] = $chart_data;
+
+    return $output;
+  }
+
+  /**
+   *
+   */
+  public function getChartDataSetSourceOne() {
+    $output = $this->getChartDataBasicColorSet();
 
     //
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
@@ -109,6 +124,8 @@ class DashpageJsonGenerator extends ControllerBase {
       }
     }
 
+    $output[3]['data'][] = $this->getCurrentGameValue();
+
     return $output;
   }
 
@@ -116,36 +133,7 @@ class DashpageJsonGenerator extends ControllerBase {
    *
    */
   public function getChartDataSetSourceTwo() {
-    $output = [
-      [
-        'label' => 'win',
-        'backgroundColor' => '#79f879',
-        'data' => [],
-      ],
-      [
-        'label' => 'Draw',
-        'backgroundColor' => '#7979f8',
-        'data' => [],
-      ],
-      [
-        'label' => 'Loss',
-        'backgroundColor' => '#f87979',
-        'data' => [],
-      ],
-      [
-        'label' => 'Test',
-        'backgroundColor' => '#66ccff',
-        'data' => [],
-      ],
-    ];
-
-    $request_array = \Drupal::request()->query->all();
-    $chart_data = [
-      'x' =>  $request_array['ave_draw'] / $request_array['ave_loss'],
-      'y' =>  $request_array['ave_win'],
-      'r' => 10,
-    ];
-    $output[3]['data'][] = $chart_data;
+    $output = $this->getChartDataBasicColorSet();
 
     //
     $table_heads = \Drupal::getContainer()->get('dashpage.tablebasic.service')->getTrendTableThead();
@@ -184,6 +172,8 @@ class DashpageJsonGenerator extends ControllerBase {
         $output[2]['data'][] = $chart_data;
       }
     }
+
+    $output[3]['data'][] = $this->getCurrentGameValue();
 
     return $output;
   }
