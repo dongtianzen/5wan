@@ -17,11 +17,14 @@ from game_json import GameJsonClass
 jsonDataDf = GameJsonClass().getJsonContent()
 
 
-### 随机选取
-# jsonDataDf = jsonDataDf.sample(n = 500)
+jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
+jsonDataDf['ave_draw'] = jsonDataDf['ave_draw'].astype(float)
 jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
+jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
-jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] > 6]
+### 随机选取
+jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] > 4.8]
+# jsonDataDf = jsonDataDf.sample(n = 500)
 
 
 ### 2) 数据信息总览：
@@ -44,10 +47,6 @@ print("")
 print("# 3 1 0 proportion")
 print(jsonDataDf['Result'].value_counts(normalize = True))
 print("")
-
-jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
-jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
-jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 ## ave_win - ini_win 正数为1, 负数为0
 jsonDataDf['ave_ini_win'] = 0
@@ -73,8 +72,8 @@ sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
 plt.show()
 
 ## 用“hex”来展示出现频率，当数据量比较多的时候，散点堆积重叠
-sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, kind = "hex", color = "k")
-plt.show()
+# sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, kind = "hex", color = "k")
+# plt.show()
 
 
 ### 3) Pair Plot, 3 x 3 的plot 用来特征两两对比，对角线上是单变量直方图
