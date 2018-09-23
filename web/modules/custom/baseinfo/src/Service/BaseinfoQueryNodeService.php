@@ -78,6 +78,9 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     $group = $query_container->groupStandardByFieldValue($query, 'field_win_num_company', 50, '>');
     $query->condition($group);
 
+    $group = $query_container->groupStandardByFieldValue($query, 'field_win_outlier', NULL, 'IS NULL');
+    $query->condition($group);
+
     if ($ave_win) {
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win - $diff_win, '>');
       $query->condition($group);

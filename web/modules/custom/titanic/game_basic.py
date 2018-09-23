@@ -7,7 +7,6 @@ python3 web/modules/custom/titanic/5wan_game.py
 import numpy as np
 import pandas as pd
 import seaborn as sns
-
 import matplotlib.pyplot as plt
 
 from pandas.io.json import json_normalize
@@ -19,12 +18,16 @@ jsonDataDf = GameJsonClass().getJsonContent()
 
 
 ### 随机选取
-jsonDataDf = jsonDataDf.sample(n = 500)
+# jsonDataDf = jsonDataDf.sample(n = 500)
+jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
+
+jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] > 6]
 
 
 ### 2) 数据信息总览：
 print("# Train Data Info")
 jsonDataDf.info()
+print(jsonDataDf)
 print("")
 
 ## 排序打印Dataframe
@@ -51,8 +54,8 @@ jsonDataDf['ave_ini_win'] = 0
 jsonDataDf.loc[jsonDataDf['diff_win'] > 0, 'ave_ini_win'] = 1
 
 ## 百分比
-jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
-plt.show()
+# jsonDataDf['Result'].value_counts(normalize = True).plot(kind = "bar", alpha = 0.5)
+# plt.show()
 
 ## Pie chart
 # jsonDataDf['Result'].value_counts().plot.pie(autopct = '%1.2f%%')
@@ -66,12 +69,12 @@ plt.show()
 ### 4) 两个特征的关系，两个变量之间的分布关系
 ### 散点图
 
-# sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
-# plt.show()
+sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
+plt.show()
 
 ## 用“hex”来展示出现频率，当数据量比较多的时候，散点堆积重叠
-# sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, kind = "hex", color = "k")
-# plt.show()
+sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, kind = "hex", color = "k")
+plt.show()
 
 
 ### 3) Pair Plot, 3 x 3 的plot 用来特征两两对比，对角线上是单变量直方图
@@ -117,8 +120,8 @@ plt.show()
 # plt.show()
 
 ### 分类属性绘图
-sns.barplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
-plt.show()
+# sns.barplot(x = 'Result', y = 'ave_win', hue = 'ave_ini_win', data = jsonDataDf)
+# plt.show()
 
 
 
