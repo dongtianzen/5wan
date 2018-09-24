@@ -17,6 +17,8 @@ from sklearn import preprocessing
 from game_json import GameJsonClass
 jsonDataDf = GameJsonClass().getJsonContent()
 
+jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "英冠") | (jsonDataDf['tags'] == "英甲")]
+
 
 ### ) 数据信息总览：
 print("# Game Data Info")

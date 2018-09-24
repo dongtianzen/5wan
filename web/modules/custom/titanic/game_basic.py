@@ -1,5 +1,5 @@
 """
-python3 web/modules/custom/titanic/5wan_game.py
+python3 web/modules/custom/titanic/game_basic.py
 因为读入数据有中文，在sublime text内运行有问题，需要到命令行运行
 """
 
@@ -16,14 +16,15 @@ from game_json import GameJsonClass
 ### 1) 读入数据, 将json串解析为DataFrame
 jsonDataDf = GameJsonClass().getJsonContent()
 
-
 jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
 jsonDataDf['ave_draw'] = jsonDataDf['ave_draw'].astype(float)
 jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
 jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 ### 随机选取
-jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] > 4.8]
+jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "英冠") | (jsonDataDf['tags'] == "英甲")]
+
+# jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] > 4.8]
 # jsonDataDf = jsonDataDf.sample(n = 500)
 
 
