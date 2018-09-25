@@ -23,7 +23,7 @@ jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
 jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "法甲") | (jsonDataDf['tags'] == "法乙")]
-jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] < 2.6]
+jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] < 2.9]
 
 
 ### ) 数据信息总览：
