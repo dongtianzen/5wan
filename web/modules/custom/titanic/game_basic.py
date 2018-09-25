@@ -22,7 +22,7 @@ jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
 jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 ### 随机选取
-jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "英冠") | (jsonDataDf['tags'] == "英甲")]
+jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "法甲") | (jsonDataDf['tags'] == "法乙")]
 
 # jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] > 4.8]
 # jsonDataDf = jsonDataDf.sample(n = 500)

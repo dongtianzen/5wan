@@ -17,7 +17,13 @@ from sklearn import preprocessing
 from game_json import GameJsonClass
 jsonDataDf = GameJsonClass().getJsonContent()
 
-jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "英冠") | (jsonDataDf['tags'] == "英甲")]
+jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
+jsonDataDf['ave_draw'] = jsonDataDf['ave_draw'].astype(float)
+jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
+jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
+
+jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "法甲") | (jsonDataDf['tags'] == "法乙")]
+jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] < 2.6]
 
 
 ### ) 数据信息总览：
