@@ -201,7 +201,7 @@ class FetchPageBasic:
       return None
 
   # @return output is "dict"
-  def convertPageResultDict(self):
+  def convertPageResultDict(self, updateStartPageId = False):
     output = {}
     gameResult = {}
 
@@ -236,8 +236,9 @@ class FetchPageBasic:
 
       # gameResult['date_time'] = self.obtainGameDateAndTime()
 
-      # gameResult['goal_home'] = self.obtainGameResultList()[0]
-      # gameResult['goal_away'] = self.obtainGameResultList()[1]
+      # if bool(updateStartPageId):
+        # gameResult['goal_home'] = self.obtainGameResultList()[0]
+        # gameResult['goal_away'] = self.obtainGameResultList()[1]
 
 
     if len(iniWinValue) > 0:

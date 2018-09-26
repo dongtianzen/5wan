@@ -25,7 +25,7 @@ class RunFetchPageBasic:
 
     try:
       jsonContentFromFile = FlexJsonBasic().readJsonContent(gameInfoJsonFilePath)
-      jsonContentFromFile[gameId] = gameObj.convertPageResultDict()
+      jsonContentFromFile[gameId] = gameObj.convertPageResultDict(updateStartPageId)
     except:
       pass
 
