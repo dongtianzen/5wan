@@ -161,6 +161,23 @@ class VuepageController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
+  public function newGameTable() {
+    $VuepageContentGenerator = new VuepageContentGenerator();
+    $markup = $VuepageContentGenerator->newGameTableContent();
+
+    $build = array(
+      '#type' => 'markup',
+      '#header' => 'header',
+      '#markup' => $markup,
+      '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
+    );
+
+    return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function d3ChartPageContent() {
     $output = '
       <div class="container d3-js-example-wrapper">

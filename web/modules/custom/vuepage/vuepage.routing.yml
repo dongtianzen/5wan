@@ -16,6 +16,15 @@ vuepage.game.list:
   requirements:
     _permission: 'access content'
 
+# vue
+vuepage.newgame.table:
+  path: '/vuepage/newgame/table'
+  defaults:
+    _controller: '\Drupal\vuepage\Controller\VuepageController::newGameTable'
+    _title: 'New Game Table'
+  requirements:
+    _permission: 'access content'
+
 # d3
 vuepage.d3.chart.page:
   path: '/vuepage/d3/chart/page'
