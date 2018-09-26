@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Drupal\vuepage\Content\VuepageContentGenerator;
+use Drupal\vuepage\Content\VuepageTableGenerator;
 
 
 
@@ -162,8 +163,8 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function newGameTable() {
-    $VuepageContentGenerator = new VuepageContentGenerator();
-    $markup = $VuepageContentGenerator->newGameTableContent();
+    $VuepageTableGenerator = new VuepageTableGenerator();
+    $markup = $VuepageTableGenerator->newGameTableContent();
 
     $build = array(
       '#type' => 'markup',

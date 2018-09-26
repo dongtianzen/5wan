@@ -129,8 +129,6 @@ class DashpageContentGenerator extends ControllerBase {
     dpm(count($win_nids));
     dpm($result);
 
-    $tbody;
-
     return $output;
   }
 
