@@ -39,7 +39,7 @@ class VuepageTableGenerator {
     $output = NULL;
 
     $table_keys = $this->getNewGameTableKey();
-    foreach ($table_keys as $value) {
+    foreach ($table_keys as $key => $value) {
       $output .= '<th>';
         $output .= $value;
       $output .= '</th>';
@@ -53,23 +53,23 @@ class VuepageTableGenerator {
    */
   public function getNewGameTableKey() {
     $output = array(
-      "date_time",
-      "name_home",
-      "name_away",
-      "tags",
-      "ave_draw",
-      "ave_loss",
-      "ave_win",
-      "ini_draw",
-      "ini_loss",
-      "ini_win",
-      "num_company",
-      "variation_end_draw",
-      "variation_end_loss",
-      "variation_end_win",
-      "variation_ini_draw",
-      "variation_ini_loss",
-      "variation_ini_win",
+      "date_time" => 'Date',
+      "name_home" => 'Home',
+      "name_away" => 'Away',
+      "tags" => 'Tag',
+      "ave_win" => 'Win',
+      "ave_draw" => 'Draw',
+      "ave_loss" => 'Loss',
+      "ini_win" => 'Ini Win',
+      "ini_draw" => 'Draw',
+      "ini_loss" => 'Loss',
+      "num_company" => 'Num',
+      "variation_end_win" => 'Var Win',
+      "variation_end_draw" => 'Draw',
+      "variation_end_loss" => 'Loss',
+      "variation_ini_win" => 'Var Ini Win',
+      "variation_ini_draw" => 'Draw',
+      "variation_ini_loss" => 'Loss',
     );
 
     return $output;
@@ -90,9 +90,9 @@ class VuepageTableGenerator {
     foreach ($json_array as $row) {
       $output .= '<tr>';
 
-      foreach ($table_keys as $value) {
+      foreach ($table_keys as $subkey => $value) {
         $output .= '<td>';
-          $output .= $row[$value];
+          $output .= $row[$subkey];
         $output .= '</td>';
       }
 
