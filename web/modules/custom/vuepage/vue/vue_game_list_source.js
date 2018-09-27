@@ -30,8 +30,6 @@ if (pathArg[1] == 'game' && pathArg[2] == 'info' ) {
         NewGame.value.default_diff_win = 0.15;
         NewGame.value.default_diff_draw = 0.1;
         NewGame.value.default_diff_loss = 0.2;
-
-        console.log(346688);
       }
       else {
         console.log(522237);
@@ -40,8 +38,6 @@ if (pathArg[1] == 'game' && pathArg[2] == 'info' ) {
   )
 }
 
-
-console.log(44455);
 /**
  *
  */

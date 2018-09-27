@@ -71,6 +71,8 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
       $away = $request_array['away'];
     }
 
+
+
     //
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
     $query = $query_container->queryNidsByBundle('win');

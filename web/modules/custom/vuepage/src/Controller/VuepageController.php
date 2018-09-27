@@ -157,6 +157,15 @@ class VuepageController extends ControllerBase {
   public function gameInfo($entity_id) {
     $build = $this->gameList();
 
+    $file_path = '/sites/default/files/json/5wan/currentGameList.json';
+    $json_array = \Drupal::getContainer()
+      ->get('flexinfo.json.service')
+      ->fetchConvertJsonToArrayFromInternalPath($file_path);
+
+    if (isset($json_array[$entity_id])) {
+      $build['#attached']['drupalSettings']['vuepage']['gameinfo'] = $json_array[$entity_id];
+    }
+
     return $build;
   }
 
