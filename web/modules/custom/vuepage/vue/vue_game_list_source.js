@@ -272,9 +272,7 @@ Vue.component('chartjs-chart-six', {
         }
 
         // JSON responses are automatically parsed.
-        console.log(this.chartDataSetSourceSix)
         this.chartDataSetSourceSix = response.data.chartDataSetSourceSix
-        console.log(this.chartDataSetSourceSix)
         this.renderChart({
           datasets: this.chartDataSetSourceSix,
           options: this.options

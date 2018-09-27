@@ -18,8 +18,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\vuepage\Content\VuepageContentGenerator;
 use Drupal\vuepage\Content\VuepageTableGenerator;
 
-
-
 /**
  * An example controller.
  */
@@ -134,9 +132,6 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function gameList() {
-    // $name = 'time_one';
-    // Timer::start($name);
-
     $VuepageContentGenerator = new VuepageContentGenerator();
 
     $build = array(
@@ -152,9 +147,6 @@ class VuepageController extends ControllerBase {
         )
       ),
     );
-
-    // Timer::stop($name);
-    // dpm(Timer::read($name) . 'ms');
 
     return $build;
   }
@@ -163,21 +155,7 @@ class VuepageController extends ControllerBase {
    * {@inheritdoc}
    */
   public function gameInfo($entity_id) {
-    $VuepageContentGenerator = new VuepageContentGenerator();
-
-    $build = array(
-      '#children' => $VuepageContentGenerator->gameListContent(),
-      '#attached' => array(
-        'library' => array(
-          'vuepage/vue',
-          'vuepage/bootstrap',
-          'vuepage/chart.js',
-          'vuepage/axios',
-          'vuepage/vue-chartjs',
-          'vuepage/vue_game_list',
-        )
-      ),
-    );
+    $build = $this->gameList();
 
     return $build;
   }
