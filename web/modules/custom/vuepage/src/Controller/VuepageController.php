@@ -162,6 +162,29 @@ class VuepageController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
+  public function gameInfo($entity_id) {
+    $VuepageContentGenerator = new VuepageContentGenerator();
+
+    $build = array(
+      '#children' => $VuepageContentGenerator->gameListContent(),
+      '#attached' => array(
+        'library' => array(
+          'vuepage/vue',
+          'vuepage/bootstrap',
+          'vuepage/chart.js',
+          'vuepage/axios',
+          'vuepage/vue-chartjs',
+          'vuepage/vue_game_list',
+        )
+      ),
+    );
+
+    return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function newGameTable() {
     $VuepageTableGenerator = new VuepageTableGenerator();
     $markup = $VuepageTableGenerator->newGameTableContent();
@@ -171,6 +194,25 @@ class VuepageController extends ControllerBase {
       '#header' => 'header',
       '#markup' => $markup,
       '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
+    );
+
+    return $build;
+  }
+
+  /**
+   *
+   */
+  public function d3ChartPage() {
+    $content = $this->d3ChartPageContent();
+
+    $build = array(
+      '#children' => $content,
+      '#attached' => array(
+        'library' => array(
+          'vuepage/d3.js',
+          'vuepage/d3_js_chart_controller',
+        )
+      ),
     );
 
     return $build;
@@ -194,23 +236,5 @@ class VuepageController extends ControllerBase {
     return $output;
   }
 
-  /**
-   *
-   */
-  public function d3ChartPage() {
-    $content = $this->d3ChartPageContent();
-
-    $build = array(
-      '#children' => $content,
-      '#attached' => array(
-        'library' => array(
-          'vuepage/d3.js',
-          'vuepage/d3_js_chart_controller',
-        )
-      ),
-    );
-
-    return $build;
-  }
 
 }

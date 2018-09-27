@@ -3,3 +3,9 @@ vuepage.game.list.menu:
   route_name: vuepage.game.list
   menu_name: main
   weight: 30
+
+vuepage.newgame.table.menu:
+  title: 'Game Table'
+  route_name: vuepage.newgame.table
+  menu_name: main
+  weight: 30

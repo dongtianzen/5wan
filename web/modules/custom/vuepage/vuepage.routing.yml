@@ -17,6 +17,15 @@ vuepage.game.list:
     _permission: 'access content'
 
 # vue
+vuepage.game.info:
+  path: '/vuepage/game/info/{entity_id}'
+  defaults:
+    _controller: '\Drupal\vuepage\Controller\VuepageController::gameInfo'
+    _title: 'Vue Game List'
+  requirements:
+    _permission: 'access content'
+
+# vue
 vuepage.newgame.table:
   path: '/vuepage/newgame/table'
   defaults:
