@@ -1,25 +1,23 @@
 <?php
 /**
  * @file
- * Contains \Drupal\batchinfo\Plugin\QueueWorker\HomepageCacheQueue.
+ * Contains \Drupal\batchinfo\Plugin\QueueWorker\UpdateGmaeJsonQueue.
  */
 
 namespace Drupal\batchinfo\Plugin\QueueWorker;
 
 use Drupal\Core\Queue\QueueWorkerBase;
 
-use Drupal\batchinfo\Content\RunGenerateCache;
-
 /**
  * Processes Tasks for batchinfo.
  *
  * @QueueWorker(
- *   id = "homepagecache_queue",
- *   title = @Translation("batchinfo task worker: Homepage Cache Queue"),
+ *   id = "update_game_json_queue",
+ *   title = @Translation("batchinfo task worker: Update Game Json Queue"),
  *   cron = {"time" = 360}
  * )
  */
-class HomepageCacheQueue extends QueueWorkerBase {
+class UpdateGmaeJsonQueue extends QueueWorkerBase {
   /**
    * {@inheritdoc}
    */
@@ -27,4 +25,5 @@ class HomepageCacheQueue extends QueueWorkerBase {
     $RunGenerateCache = new RunGenerateCache();
     RunGenerateCache::getPageCacheContent($data);
   }
+
 }
