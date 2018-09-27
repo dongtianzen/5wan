@@ -3,6 +3,45 @@
  */
 var NewGame = require('./new_game_value.js');
 
+var pathArg = drupalSettings.path.currentPath.split('/');
+if (pathArg[1] == 'game' && pathArg[2] == 'info' ) {
+
+  axios.get(
+    'http://localhost:8888/5wan/web/sites/default/files/json/5wan/currentGameList.json',
+  )
+  .then(
+    response => {
+      var jsonData = response.data
+
+      if (jsonData[pathArg[3]] != undefined) {
+        var row = jsonData[pathArg[3]];
+        NewGame.value.default_ave_win  = row['ave_win'];
+        NewGame.value.default_ave_draw = row['ave_draw'];
+        NewGame.value.default_ave_loss = row['ave_loss'];
+
+        NewGame.value.default_ini_win  = row['ini_win'];
+        NewGame.value.default_ini_draw = row['ini_draw'];
+        NewGame.value.default_ini_loss = row['ini_loss'];
+
+        NewGame.value.default_name_home = row['name_home'];
+        NewGame.value.default_name_away = row['name_away'];
+        NewGame.value.default_tags = [row['tags']];
+
+        NewGame.value.default_diff_win = 0.15;
+        NewGame.value.default_diff_draw = 0.1;
+        NewGame.value.default_diff_loss = 0.2;
+
+        console.log(346688);
+      }
+      else {
+        console.log(522237);
+      }
+    }
+  )
+}
+
+
+console.log(44455);
 /**
  *
  */
