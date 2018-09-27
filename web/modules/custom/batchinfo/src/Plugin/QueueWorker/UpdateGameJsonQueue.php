@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\batchinfo\Plugin\QueueWorker\UpdateGmaeJsonQueue.
+ * Contains \Drupal\batchinfo\Plugin\QueueWorker\UpdateGameJsonQueue.
  */
 
 namespace Drupal\batchinfo\Plugin\QueueWorker;
@@ -17,13 +17,13 @@ use Drupal\Core\Queue\QueueWorkerBase;
  *   cron = {"time" = 360}
  * )
  */
-class UpdateGmaeJsonQueue extends QueueWorkerBase {
+class UpdateGameJsonQueue extends QueueWorkerBase {
+
   /**
    * {@inheritdoc}
    */
   public function processItem($data) {
-    $RunGenerateCache = new RunGenerateCache();
-    RunGenerateCache::getPageCacheContent($data);
+    return;
   }
 
 }
