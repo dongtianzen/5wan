@@ -5,6 +5,8 @@
  */
 namespace Drupal\vuepage\Content;
 
+use Drupal\Core\Url;
+
 /**
  * An example controller.
  $VuepageTableGenerator = new VuepageTableGenerator();
@@ -87,12 +89,22 @@ class VuepageTableGenerator {
     $table_keys = $this->getNewGameTableKey();
 
     $output = NULL;
-    foreach ($json_array as $row) {
+    foreach ($json_array as $key => $row) {
       $output .= '<tr>';
 
-      foreach ($table_keys as $subkey => $value) {
+      foreach ($table_keys as $subkey => $subrow) {
         $output .= '<td>';
-          $output .= $row[$subkey];
+          if ($subkey == 'name_home') {
+            $url = Url::fromUserInput('/vuepage/game/info/' . $key, array('attributes' => array('class' => array('color-fff'))));
+            $output .= \Drupal::l($row[$subkey], $url);
+          }
+          elseif ($subkey == 'name_away') {
+            $url = Url::fromUri('http://odds.500.com/fenxi/ouzhi-' . $key . '.shtml');
+            $output .= \Drupal::l($row[$subkey], $url);
+          }
+          else {
+            $output .= $row[$subkey];
+          }
         $output .= '</td>';
       }
 
