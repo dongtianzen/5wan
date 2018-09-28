@@ -42,7 +42,7 @@ class VuepageTableGenerator {
 
     $table_keys = $this->getNewGameTableKey();
     foreach ($table_keys as $key => $value) {
-      $output .= '<th data-field="' . $key . '" data-sortable="true">';
+      $output .= '<th>';
         $output .= $value;
       $output .= '</th>';
     }
