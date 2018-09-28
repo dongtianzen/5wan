@@ -8,7 +8,7 @@ from FlexJsonClass import FlexJsonBasic
 from FetchPageClass import FetchPageBasic
 from RunFetchPageClass import RunFetchPageBasic
 
-url = 'http://trade.500.com/sfc/'
+url = 'http://trade.500.com/sfc/?expect=18121'
 gameObj = FetchPageBasic(url)
 
 gameListIds = gameObj.soupCurrentGameListIds()

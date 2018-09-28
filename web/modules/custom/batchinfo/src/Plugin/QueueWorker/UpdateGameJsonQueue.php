@@ -12,7 +12,7 @@ use Drupal\Core\Queue\QueueWorkerBase;
  * Processes Tasks for batchinfo.
  *
  * @QueueWorker(
- *   id = "update_game_json_queue",
+ *   id = "HomepageCacheQueue",
  *   title = @Translation("batchinfo task worker: Update Game Json Queue"),
  *   cron = {"time" = 360}
  * )
