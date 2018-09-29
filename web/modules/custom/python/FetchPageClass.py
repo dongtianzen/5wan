@@ -224,17 +224,17 @@ class FetchPageBasic:
       gameResult['variation_end_draw'] = self.findValueByHtmlTagByHtmlId('td', 'lsdj2')
       gameResult['variation_end_loss'] = self.findValueByHtmlTagByHtmlId('td', 'lslj2')
 
-      gameResult['ini_win']  = iniWinValue
-      gameResult['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
-      gameResult['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
+      # gameResult['ini_win']  = iniWinValue
+      # gameResult['ini_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawc2')
+      # gameResult['ini_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostc2')
 
-      gameResult['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
-      gameResult['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
-      gameResult['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
+      # gameResult['ave_win']  = self.findValueByHtmlTagByHtmlId('td', 'avwinj2')
+      # gameResult['ave_draw'] = self.findValueByHtmlTagByHtmlId('td', 'avdrawj2')
+      # gameResult['ave_loss'] = self.findValueByHtmlTagByHtmlId('td', 'avlostj2')
 
-      gameResult['tags']  = self.filterGameTag()
+      # gameResult['tags']  = self.filterGameTag()
 
-      gameResult['date_time'] = self.obtainGameDateAndTime()
+      # gameResult['date_time'] = self.obtainGameDateAndTime()
 
       # if bool(updateStartPageId):
         # gameResult['goal_home'] = self.obtainGameResultList()[0]
