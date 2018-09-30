@@ -14,7 +14,7 @@ from FlexJsonClass import FlexJsonBasic
 class RunFetchPageBasic:
 
   #
-  def runFetch(self, gameId, jsonFileName = 'downloadGameInfo.json', updateStartPageId = True):
+  def runFetch(self, gameId, jsonFileName = 'downloadGameInfo.json', updateStartPageId = True, basicFields = False):
     gameInfoJsonFilePath = FlexJsonBasic().getGenerateJsonFilePath(jsonFileName)
 
     url = Baseinfo().generateUrl(gameId)
@@ -25,7 +25,7 @@ class RunFetchPageBasic:
 
     try:
       jsonContentFromFile = FlexJsonBasic().readJsonContent(gameInfoJsonFilePath)
-      jsonContentFromFile[gameId] = gameObj.convertPageResultDict(updateStartPageId)
+      jsonContentFromFile[gameId] = gameObj.convertPageResultDict(basicFields)
     except:
       pass
 

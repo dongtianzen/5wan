@@ -18,7 +18,7 @@ gameListIds = gameObj.soupCurrentGameListIds()
 for gameId in gameListIds:
   print(gameId)
   try:
-    RunFetchPageBasic().runFetch(gameId, 'currentGameList.json', False)
+    RunFetchPageBasic().runFetch(gameId, 'currentGameList.json', False, basicFields = True)
   # except Exception:
   except Exception:
     print("Oops!  That was no valid number.  Try again...")
