@@ -58,6 +58,13 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
       $diff_loss = 20;
     }
 
+    /**
+     * manually tweak
+     */
+    $diff_win = 0.99;
+    $diff_draw = 0.9;
+    $diff_loss = 0.8;
+
     //
     if (isset($request_array['tags'])) {
       $tags = $request_array['tags'];
@@ -70,8 +77,6 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     if (isset($request_array['away'])) {
       $away = $request_array['away'];
     }
-
-
 
     //
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
