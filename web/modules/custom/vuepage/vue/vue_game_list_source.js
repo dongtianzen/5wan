@@ -1,40 +1,26 @@
 /**
  *
+ cd web/libraries/
+ npx webpack -w
  */
 var NewGame = require('./new_game_value.js');
 
 /**
  *
  */
-var default_ave_win  = NewGame.value.default_ave_win
-var default_ave_draw = NewGame.value.default_ave_draw
-var default_ave_loss = NewGame.value.default_ave_loss
-
-var default_ini_win  = NewGame.value.default_ini_win
-var default_ini_draw = NewGame.value.default_ini_draw
-var default_ini_loss = NewGame.value.default_ini_loss
-
-var default_diff_win  = NewGame.value.default_diff_win
-var default_diff_draw = NewGame.value.default_ini_draw
-var default_diff_loss = NewGame.value.default_ini_loss
-
-var default_tags = NewGame.value.default_tags
-var default_name_home = NewGame.value.default_name_home
-var default_name_away = NewGame.value.default_name_away
-
 var query_params = {
-  ave_win:  default_ave_win,
-  ave_draw: default_ave_draw,
-  ave_loss: default_ave_loss,
-  ini_win:  default_ini_win,
-  ini_draw: default_ini_draw,
-  ini_loss: default_ini_loss,
-  diff_win:  default_diff_win,
-  diff_draw: default_diff_draw,
-  diff_loss: default_diff_loss,
-  tags: default_tags,
-  home: default_name_home,
-  away: default_name_away,
+  ave_win:  NewGame.value.default_ave_win,
+  ave_draw: NewGame.value.default_ave_draw,
+  ave_loss: NewGame.value.default_ave_loss,
+  ini_win:  NewGame.value.default_ini_win,
+  ini_draw:  NewGame.value.default_ini_draw,
+  ini_loss:  NewGame.value.default_ini_loss,
+  diff_win:   NewGame.value.default_diff_win,
+  diff_draw:  NewGame.value.default_diff_draw,
+  diff_loss:  NewGame.value.default_diff_loss,
+  tags: NewGame.value.default_tags,
+  home: NewGame.value.default_name_home,
+  away: NewGame.value.default_name_away,
 }
 
 /**
@@ -95,9 +81,9 @@ Vue.component('chartjs-chart-one', {
     )
     .then(
       response => {
-        console.log(response.request.responseURL)
-
         this.options = {
+          console.log(response.request.responseURL)
+
           tooltips: {
             callbacks: {
               label: function(tooltipItems, data) {
@@ -177,8 +163,6 @@ Vue.component('chartjs-chart-two', {
     )
     .then(
       response => {
-        console.log(response.request.responseURL)
-
         this.options = {
           tooltips: {
             callbacks: {
@@ -259,8 +243,6 @@ Vue.component('chartjs-chart-six', {
     )
     .then(
       response => {
-        console.log(response.request.responseURL)
-
         this.options = {
           tooltips: {
             callbacks: {
