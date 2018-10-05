@@ -81,9 +81,9 @@ Vue.component('chartjs-chart-one', {
     )
     .then(
       response => {
-        this.options = {
-          console.log(response.request.responseURL)
+        console.log(response.request.responseURL)
 
+        this.options = {
           tooltips: {
             callbacks: {
               label: function(tooltipItems, data) {
