@@ -21,7 +21,7 @@ vuepage.game.info:
   path: '/vuepage/game/info/{entity_id}'
   defaults:
     _controller: '\Drupal\vuepage\Controller\VuepageController::gameInfo'
-    _title: 'Vue Game List'
+    _title: 'Vue Game Info'
   requirements:
     _permission: 'access content'
 

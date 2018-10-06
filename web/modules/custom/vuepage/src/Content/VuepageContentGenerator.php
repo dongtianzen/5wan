@@ -62,7 +62,7 @@ class VuepageContentGenerator extends ControllerBase {
     $output = '
       <div id="game-list-grid-wrapper">
         <div class="game-list-grid-wrapper" >
-          <span class="float-right" style="float:right; font-family:Verdana">
+          <span class="float-right" style="float:right; font-family:Verdana; margin-right:6px;">
             Total is {{totalRow}}
           </span>
           <form id="search" class="game-list-grid-top-search">
