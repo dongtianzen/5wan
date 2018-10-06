@@ -1,13 +1,14 @@
 body {
   font-family: Helvetica Neue, Arial, sans-serif;
-  font-size: 14px;
-  color: #444;
+  font-size: 12px;
+  color: #767676;
 }
 
-table {
+table.table-striped {
   border: 2px solid #ddd;
   border-radius: 3px;
   background-color: #fff;
+  color: #767676;
 }
 
 th {

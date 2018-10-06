@@ -20,12 +20,14 @@ class VuepageContentGenerator extends ControllerBase {
    * @see https://vuejs.org/v2/examples/grid-component.html
    */
   public function gameListContent() {
-    $content = NULL;
-    $content .= $this->gameListContentGridScript();
-    $content .= $this->gameListContentGrid();
-    $content .= $this->gameListContentChartJs();
+    $output = NULL;
+    $output .= '<div class="game-list-content-wrapper" style="margin-left:12px; margin-right:12px;">';
+      $output .= $this->gameListContentGridScript();
+      $output .= $this->gameListContentGrid();
+      $output .= $this->gameListContentChartJs();
+    $output .= '</div>';
 
-    return $content;
+    return $output;
   }
 
   /**
@@ -85,7 +87,7 @@ class VuepageContentGenerator extends ControllerBase {
   public function gameListContentGridScript() {
     $output = '
       <script type="text/x-template" id="grid-template">
-        <table class="table table-bordered table-hover">
+        <table class="table table-striped table-hover">
           <thead>
             <tr class="game-list-grid-thead-filter-total-number">
               <td colspan="8">
