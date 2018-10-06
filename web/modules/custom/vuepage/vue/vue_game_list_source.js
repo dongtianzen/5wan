@@ -327,7 +327,7 @@ Vue.component('game-list-grid-tag', {
           }
         }
 
-        this.filteredTotal = '-Filter is  ' + data.length
+        this.filteredTotal = '- Filter is  ' + data.length
           + ',  Win ' + filterWinNum + ' - ' + (filterWinNum / data.length).toFixed(3) * 100 + '%'
           + ',  Draw ' + filterDrawNum
           + ',  Loss ' + filterLossNum

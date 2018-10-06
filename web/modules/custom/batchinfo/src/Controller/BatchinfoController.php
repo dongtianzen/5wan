@@ -84,7 +84,7 @@ class BatchinfoController extends ControllerBase {
     $every_time_excute_max_number = 2;
     $chunk = array_chunk($json_content, $every_time_excute_max_number, TRUE);
 
-    dpm('every time only excute - ' . $every_time_excute_max_number . ' - save node');
+    // dpm('every time only excute - ' . $every_time_excute_max_number . ' - save node');
 
     $operations = [];
     foreach ($chunk as $piece) {
@@ -113,9 +113,6 @@ class BatchinfoController extends ControllerBase {
    *
    */
   public function runUpdateNodeWinJson() {
-    $name = 'time_one';
-    Timer::start($name);
-
     $SyncJsonToNode = new SyncJsonToNode();
     $json_content = $SyncJsonToNode->getImportJsonContent();
 
@@ -127,8 +124,6 @@ class BatchinfoController extends ControllerBase {
 
     $every_time_excute_max_number = 2;
     $chunk = array_chunk($json_content, $every_time_excute_max_number, TRUE);
-
-    dpm('every time only excute - ' . $every_time_excute_max_number . ' - save node');
 
     $operations = [];
     foreach ($chunk as $piece) {
@@ -149,9 +144,6 @@ class BatchinfoController extends ControllerBase {
     $message = 'Run batch on RunUpdateNodeWinJson()';
     \Drupal::logger('batchinfo')->notice($message);
 
-    Timer::stop($name);
-    dpm(Timer::read($name) . 'ms');
-
     // You have to return batch_process('url') - set redirect page path,
     return batch_process('batchinfo/importjson/guide');
   }
@@ -171,8 +163,6 @@ class BatchinfoController extends ControllerBase {
 
     $every_time_excute_max_number = 5;
     $chunk = array_chunk($json_content, $every_time_excute_max_number, TRUE);
-
-    dpm('every time only excute - ' . $every_time_excute_max_number . ' - save term');
 
     $operations = [];
     foreach ($chunk as $piece) {

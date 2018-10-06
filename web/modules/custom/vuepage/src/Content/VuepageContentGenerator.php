@@ -21,7 +21,7 @@ class VuepageContentGenerator extends ControllerBase {
    */
   public function gameListContent() {
     $content = NULL;
-    $content .= $this->gameListContentScript();
+    $content .= $this->gameListContentGridScript();
     $content .= $this->gameListContentGrid();
     $content .= $this->gameListContentChartJs();
 
@@ -59,7 +59,7 @@ class VuepageContentGenerator extends ControllerBase {
     // <!-- <h3 class="vue-title">Grid Component Example - </h3> -->
     $output = '
       <div id="game-list-grid-wrapper">
-        <div>
+        <div class="game-list-grid-wrapper" >
           <span class="float-right" style="float:right; font-family:Verdana">
             Total is {{totalRow}}
           </span>
@@ -82,10 +82,10 @@ class VuepageContentGenerator extends ControllerBase {
 
   /**
    */
-  public function gameListContentScript() {
+  public function gameListContentGridScript() {
     $output = '
       <script type="text/x-template" id="grid-template">
-        <table>
+        <table class="table table-bordered table-hover">
           <thead>
             <tr class="game-list-grid-thead-filter-total-number">
               <td colspan="8">
