@@ -67,3 +67,6 @@ th.active .arrow {
   color: #f55b5b;
 }
 
+h1.page-header {
+  font-size: 18px;
+}
