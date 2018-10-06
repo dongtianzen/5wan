@@ -1,8 +1,10 @@
 <?php
 
-namespace Drupal\hello_world\Plugin\Block;
+namespace Drupal\dashpage\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a 'Hello' Block.
@@ -13,33 +15,25 @@ use Drupal\Core\Block\BlockBase;
  *   category = @Translation("Dashpage Block"),
  * )
  */
-class HelloBlock extends BlockBase {
+class DashpageGameTableTopBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
    */
   public function build() {
+    $form = \Drupal::formBuilder()->getForm('Drupal\dashpage\Form\DashpageGameTableTopBlockForm');
+
+    // or render
+    $build = array(
+      '#type' => 'markup',
+      '#markup' => render($form),
+    );
+
+    return $build;
+
     return array(
       '#markup' => $this->t('Hello, World!'),
     );
   }
-
-  // /**
-  //   * {@inheritdoc}
-  //   */
-  //  public function blockForm($form, FormStateInterface $form_state) {
-  //    $form = parent::blockForm($form, $form_state);
-
-  //    $config = $this->getConfiguration();
-
-  //    $form['hello_block_name'] = [
-  //      '#type' => 'textfield',
-  //      '#title' => $this->t('Who'),
-  //      '#description' => $this->t('Who do you want to say hello to?'),
-  //      '#default_value' => isset($config['hello_block_name']) ? $config['hello_block_name'] : '',
-  //    ];
-
-  //    return $form;
-  //  }
 
 }

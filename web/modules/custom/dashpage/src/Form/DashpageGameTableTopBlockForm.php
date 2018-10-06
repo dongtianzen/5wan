@@ -29,18 +29,13 @@ class DashpageGameTableTopBlockForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $diff_array = \Drupal::state()->get('game_query_diff_value');
 
-    $form['htmltext'] = [
-      '#type' => 'label',
-      '#title' => '<h5>Diff Form</h5>',
-      '#prefix' => '<div class="clear-both">',
-      '#suffix' => '</div>',
-    ];
-
     $form['diff_win'] = [
       '#type' => 'textfield',
       '#title' => 'Win',
-      '#default_value' => isset($diff_array['win'],) ? $diff_array['win']: 0.2
+      '#default_value' => isset($diff_array['win']) ? $diff_array['win']: 0.2,
       '#size' => 20,
+      '#prefix' => '<div class="float-left col-md-2">',
+      '#suffix' => '</div>',
     ];
 
     $form['diff_draw'] = [
@@ -48,6 +43,8 @@ class DashpageGameTableTopBlockForm extends FormBase {
       '#title' => 'Draw',
       '#default_value' => isset($diff_array['draw']) ? $diff_array['draw']: 0.2,
       '#size' => 20,
+      '#prefix' => '<div class="float-left col-md-2">',
+      '#suffix' => '</div>',
     ];
 
     $form['diff_loss'] = [
@@ -55,6 +52,8 @@ class DashpageGameTableTopBlockForm extends FormBase {
       '#title' => 'Loss',
       '#default_value' => isset($diff_array['loss']) ? $diff_array['loss']: 0.2,
       '#size' => 20,
+      '#prefix' => '<div class="float-left col-md-2">',
+      '#suffix' => '</div>',
     ];
 
     $form['show'] = [
