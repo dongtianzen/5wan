@@ -61,9 +61,9 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     /**
      * manually tweak
      */
-    $diff_win = 0.15;
-    $diff_draw = 0.3;
-    $diff_loss = 0.2;
+    $diff_win = 0.1;
+    $diff_draw = 0.1;
+    $diff_loss = 0.1;
 
     //
     if (isset($request_array['tags'])) {

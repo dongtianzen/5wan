@@ -8,9 +8,9 @@ use Drupal\Core\Block\BlockBase;
  * Provides a 'Hello' Block.
  *
  * @Block(
- *   id = "hello_block",
- *   admin_label = @Translation("Hello block"),
- *   category = @Translation("Hello World"),
+ *   id = "dashpage_game_table_top_block",
+ *   admin_label = @Translation("Dashpage Game Table Top Block"),
+ *   category = @Translation("Dashpage Block"),
  * )
  */
 class HelloBlock extends BlockBase {
@@ -24,22 +24,22 @@ class HelloBlock extends BlockBase {
     );
   }
 
-  /**
-    * {@inheritdoc}
-    */
-   public function blockForm($form, FormStateInterface $form_state) {
-     $form = parent::blockForm($form, $form_state);
+  // /**
+  //   * {@inheritdoc}
+  //   */
+  //  public function blockForm($form, FormStateInterface $form_state) {
+  //    $form = parent::blockForm($form, $form_state);
 
-     $config = $this->getConfiguration();
+  //    $config = $this->getConfiguration();
 
-     $form['hello_block_name'] = [
-       '#type' => 'textfield',
-       '#title' => $this->t('Who'),
-       '#description' => $this->t('Who do you want to say hello to?'),
-       '#default_value' => isset($config['hello_block_name']) ? $config['hello_block_name'] : '',
-     ];
+  //    $form['hello_block_name'] = [
+  //      '#type' => 'textfield',
+  //      '#title' => $this->t('Who'),
+  //      '#description' => $this->t('Who do you want to say hello to?'),
+  //      '#default_value' => isset($config['hello_block_name']) ? $config['hello_block_name'] : '',
+  //    ];
 
-     return $form;
-   }
+  //    return $form;
+  //  }
 
 }
