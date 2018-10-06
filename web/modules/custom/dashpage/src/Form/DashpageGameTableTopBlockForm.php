@@ -34,7 +34,7 @@ class DashpageGameTableTopBlockForm extends FormBase {
       '#title' => 'Win',
       '#default_value' => isset($diff_array['win']) ? $diff_array['win']: 0.2,
       '#size' => 20,
-      '#prefix' => '<div class="float-left col-md-2">',
+      '#prefix' => '<div class="col-md-2">',
       '#suffix' => '</div>',
     ];
 
@@ -43,7 +43,7 @@ class DashpageGameTableTopBlockForm extends FormBase {
       '#title' => 'Draw',
       '#default_value' => isset($diff_array['draw']) ? $diff_array['draw']: 0.2,
       '#size' => 20,
-      '#prefix' => '<div class="float-left col-md-2">',
+      '#prefix' => '<div class="col-md-2">',
       '#suffix' => '</div>',
     ];
 
@@ -52,13 +52,15 @@ class DashpageGameTableTopBlockForm extends FormBase {
       '#title' => 'Loss',
       '#default_value' => isset($diff_array['loss']) ? $diff_array['loss']: 0.2,
       '#size' => 20,
-      '#prefix' => '<div class="float-left col-md-2">',
+      '#prefix' => '<div class="col-md-2">',
       '#suffix' => '</div>',
     ];
 
     $form['show'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
+      '#prefix' => '<div class="col-md-2">',
+      '#suffix' => '</div>',
     ];
 
     $form['#prefix'] = '<div class="container">';
@@ -71,20 +73,11 @@ class DashpageGameTableTopBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    drupal_set_message($this->t('Your win value is @win', ['@win' => $form_state->getValue('ave_win')]));
-
     $diff_array['win'] = $form_state->getValue('diff_win');
     $diff_array['draw'] = $form_state->getValue('diff_draw');
     $diff_array['loss'] = $form_state->getValue('diff_loss');
 
     \Drupal::state()->set('game_query_diff_value', $diff_array);
-
-    $url = Url::fromRoute(
-      'dashpage.trend.page',
-      [],
-      ['query' => ['ave_win' => $ave_win, 'tags' => $tags]]
-    );
-    $form_state->setRedirectUrl($url);
   }
 
 }

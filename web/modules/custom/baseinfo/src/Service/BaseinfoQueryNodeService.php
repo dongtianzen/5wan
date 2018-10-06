@@ -59,11 +59,12 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     /**
-     * manually tweak
+     * manually set form diff value tweak
      */
-    $diff_win = 0.1;
-    $diff_draw = 0.1;
-    $diff_loss = 0.1;
+    $diff_array = \Drupal::state()->get('game_query_diff_value');
+    $diff_win  = isset($diff_array['win']) ? $diff_array['win']: 0.2;
+    $diff_draw = isset($diff_array['draw']) ? $diff_array['draw']: 0.2;
+    $diff_loss = isset($diff_array['loss']) ? $diff_array['loss']: 0.2;
 
     //
     if (isset($request_array['tags'])) {

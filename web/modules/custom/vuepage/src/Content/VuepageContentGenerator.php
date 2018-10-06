@@ -60,7 +60,7 @@ class VuepageContentGenerator extends ControllerBase {
   public function gameListContentGrid() {
     // <!-- <h3 class="vue-title">Grid Component Example - </h3> -->
     $output = '
-      <div id="game-list-grid-wrapper">
+      <div id="game-list-grid-wrapper" style="margin-top:12px;">
         <div class="game-list-grid-top-wrapper">
           <span class="float-right" style="float:right; font-family:Verdana; margin-right:6px;">
             Total is {{totalRow}}
