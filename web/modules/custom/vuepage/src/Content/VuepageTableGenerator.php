@@ -111,9 +111,7 @@ class VuepageTableGenerator {
       $output .= '</tr>';
     }
 
-
     return $output;
   }
-
 
 }
