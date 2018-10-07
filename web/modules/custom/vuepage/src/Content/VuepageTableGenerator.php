@@ -20,7 +20,7 @@ class VuepageTableGenerator {
    */
   public function newGameTableContent() {
     $output = NULL;
-    $output .= '<table class="table table-striped">';
+    $output .= '<table class="table table-striped table-hover">';
       $output .= '<thead>';
         $output .= '<tr>';
           $output .= $this->getNewGameTableThead();
