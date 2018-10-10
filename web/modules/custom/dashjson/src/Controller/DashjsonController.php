@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Drupal\dashjson\Content\DashjsonContentGenerator;
+use Drupal\dashjson\Content\DashjsonFieldsValueGenerator;
 
 /**
  * An example controller.
@@ -49,7 +50,7 @@ class DashjsonController extends ControllerBase {
     Timer::start($name);
 
     $DashjsonFieldsValueGenerator = new DashjsonFieldsValueGenerator();
-    $object_FieldsValue_data = $DashjsonFieldsValueGenerator->gameFieldsValue();
+    $object_content_data = $DashjsonFieldsValueGenerator->gameFieldsValue();
 
     return new JsonResponse($object_content_data);
 
