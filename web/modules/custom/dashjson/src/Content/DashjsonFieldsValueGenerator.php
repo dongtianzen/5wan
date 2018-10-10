@@ -5,6 +5,8 @@
  */
 namespace Drupal\dashjson\Content;
 
+use Drupal\Core\Database\Connection;
+
 
 /**
  * An example controller.
@@ -98,6 +100,7 @@ class DashjsonFieldsValueGenerator {
 
     $game_data = array();
 
+    $output['ave_win'] = 'dd';
     $output['ave_win'] = $this->dbSelectFieldsValue($win_nids);
     $output['ave_draw'] = $game_data;
     $output['ave_loss'] = $game_data;
@@ -109,13 +112,20 @@ class DashjsonFieldsValueGenerator {
    * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=英冠
    */
   public function dbSelectFieldsValue($win_nids) {
-    $query = \Drupal::database()->select('field_win_ave_win', 'y1');
-    $query->fields('y1', array('entity_id', 'field_win_ini_win_value'));
-    $query->condition('y1.entity_id', $win_nids, 'IN');
-    // $query->range(0, 1);
+    $query = \Drupal::database()->select('node', 'y1');
+    $query->addExpression('COUNT(*)');
+    $query->range(0, 1);
+    $output = $query->execute()->fetchField();
 
-    $output = $query->execute()->fetchAll();
-    // $output = $query->execute()->fetchField();
+    return $output;
+
+    $query = \Drupal::database()->select('node', 'y1');
+    // $query->fields('y1', array('entity_id', 'field_win_ini_win_value'));
+    // $query->condition('y1.entity_id', $win_nids, 'IN');
+    $query->range(0, 1);
+
+    // $output = $query->execute()->fetchAll();
+    $output = $query->execute()->fetchField();
 dpm($output);
     return $output;
   }
