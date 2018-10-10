@@ -33,10 +33,19 @@ class DashjsonFieldsValueGenerator {
       ),
     );
 
-    $win_nodes = \Drupal::getContainer()
-      ->get('baseinfo.querynode.service')
-      ->queryWinNodesByUrlRequest();
+    // $win_nids = \Drupal::getContainer()
+    //   ->get('baseinfo.querynode.service')
+    //   ->queryWinNodesByCondition(
+    //     $ave_win = 2.05,
+    //     $ave_draw = NULL,
+    //     $ave_loss = NULL,
+    //     $diff_win = 0.01,
+    //     $diff_draw = NULL,
+    //     $diff_loss = NULL,
+    //     $tags = array()
+    //   );
 
+    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple(array(35, 36, 37));
 
     foreach ($win_nodes as $key => $win_node) {
 
@@ -98,11 +107,10 @@ class DashjsonFieldsValueGenerator {
     $win_nids = array(35, 36, 37);
 
     $game_data = array();
-dpm($this->dbSelectFieldsValue($win_nids));
+
     $output['ave_win'] = $this->dbSelectFieldsValue($win_nids);
-    // $output['ave_win'] = array_value($this->dbSelectFieldsValue($win_nids));
-    $output['ave_draw'] = $game_data;
-    $output['ave_loss'] = $game_data;
+    $output['ave_draw'] = $this->dbSelectFieldsValue($win_nids);
+    $output['ave_loss'] = $this->dbSelectFieldsValue($win_nids);
 
     return $output;
   }
