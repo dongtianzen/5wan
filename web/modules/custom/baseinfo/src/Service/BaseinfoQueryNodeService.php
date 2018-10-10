@@ -24,7 +24,7 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
   /**
    *
    */
-  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
+  public function queryWinNidsByUrlRequest($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
     $request_array = \Drupal::request()->query->all();
 
     if (isset($request_array['ave_win'])) {
@@ -66,6 +66,19 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     return $output;
   }
 
+  /**
+   *
+   */
+  public function queryWinNodesByUrlRequest() {
+    $nids = $this->queryWinNidsByUrlRequest();
+    $nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($nids);
+
+    return $nodes;
+  }
+
+  /**
+   *
+   */
   public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
 
     if (!$diff_win) {
