@@ -112,21 +112,13 @@ class DashjsonFieldsValueGenerator {
    * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=英冠
    */
   public function dbSelectFieldsValue($win_nids) {
-    $query = \Drupal::database()->select('node', 'y1');
-    $query->addExpression('COUNT(*)');
-    $query->range(0, 1);
-    $output = $query->execute()->fetchField();
+    $query = \Drupal::database()->select('node__field_win_ave_win', 'y1');
+    $query->fields('y1', ['entity_id', 'field_win_ave_win_value']);
+    $query->condition('y1.entity_id', $win_nids, 'IN');
+    $query->range(0, 30);
 
-    return $output;
+    $output = $query->execute()->fetchAll();
 
-    $query = \Drupal::database()->select('node', 'y1');
-    // $query->fields('y1', array('entity_id', 'field_win_ini_win_value'));
-    // $query->condition('y1.entity_id', $win_nids, 'IN');
-    $query->range(0, 1);
-
-    // $output = $query->execute()->fetchAll();
-    $output = $query->execute()->fetchField();
-dpm($output);
     return $output;
   }
 
