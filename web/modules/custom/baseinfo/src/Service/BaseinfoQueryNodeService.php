@@ -48,6 +48,26 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
       $diff_loss = $request_array['diff_loss'];
     }
 
+    //
+    if (isset($request_array['tags'])) {
+      $tags = $request_array['tags'];
+    }
+
+    //
+    if (isset($request_array['home'])) {
+      $home = $request_array['home'];
+    }
+    if (isset($request_array['away'])) {
+      $away = $request_array['away'];
+    }
+
+    $output = $this->queryWinNidsByCondition($ave_win, $ave_draw, $ave_loss, $diff_win, $diff_draw, $diff_loss, $tags, $home, $away);
+
+    return $output;
+  }
+
+  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
+
     if (!$diff_win) {
       $diff_win = 0.001;
     }
@@ -65,19 +85,6 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     $diff_win  = isset($diff_array['win']) ? $diff_array['win']: 0.2;
     $diff_draw = isset($diff_array['draw']) ? $diff_array['draw']: 0.2;
     $diff_loss = isset($diff_array['loss']) ? $diff_array['loss']: 0.2;
-
-    //
-    if (isset($request_array['tags'])) {
-      $tags = $request_array['tags'];
-    }
-
-    //
-    if (isset($request_array['home'])) {
-      $home = $request_array['home'];
-    }
-    if (isset($request_array['away'])) {
-      $away = $request_array['away'];
-    }
 
     //
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
@@ -120,14 +127,14 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
       $query->condition($group);
     }
 
-    if ($home || $away) {
-      $group = $query->orConditionGroup()
-        ->condition('field_win_name_home', $home, 'CONTAINS')
-        ->condition('field_win_name_away', $away, 'CONTAINS');
-        // ->condition('field_win_name_home', array($home, $away), 'IN')
-        // ->condition('field_win_name_away', array($home, $away), 'IN');
-      $query->condition($group);
-    }
+    // if ($home || $away) {
+    //   $group = $query->orConditionGroup()
+    //     ->condition('field_win_name_home', $home, 'CONTAINS')
+    //     ->condition('field_win_name_away', $away, 'CONTAINS');
+    //     // ->condition('field_win_name_home', array($home, $away), 'IN')
+    //     // ->condition('field_win_name_away', array($home, $away), 'IN');
+    //   $query->condition($group);
+    // }
 
 
     // $query->sort('field_win_date', 'DESC');

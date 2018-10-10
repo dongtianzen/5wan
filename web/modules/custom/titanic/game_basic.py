@@ -22,8 +22,8 @@ jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
 jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 ### 随机选取
-jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "法甲") | (jsonDataDf['tags'] == "法乙")]
-jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] < 2.6]
+# jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "法甲") | (jsonDataDf['tags'] == "法乙")]
+# jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] < 2.6]
 
 # jsonDataDf = jsonDataDf[jsonDataDf['ave_loss'] > 4.8]
 # jsonDataDf = jsonDataDf.sample(n = 500)
@@ -70,8 +70,8 @@ jsonDataDf.loc[jsonDataDf['diff_win'] > 0, 'ave_ini_win'] = 1
 ### 4) 两个特征的关系，两个变量之间的分布关系
 ### 散点图
 
-sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
-plt.show()
+# sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
+# plt.show()
 
 ## 用“hex”来展示出现频率，当数据量比较多的时候，散点堆积重叠
 # sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, kind = "hex", color = "k")
@@ -106,8 +106,8 @@ plt.show()
 ### 1) 回归分析, 线性关系的可视化
 
 ### 散点图
-# sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result', aspect = 10/6.18, legend_out = False)
-# plt.show()
+sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result', aspect = 10/6.18, legend_out = False)
+plt.show()
 
 ### 盒图
 # sns.set(rc={'figure.figsize':(10, 6.2)})
