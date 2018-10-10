@@ -87,7 +87,7 @@ class DashpageContentGenerator extends ControllerBase {
       'loss' => 0,
     ];
 
-    $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByCondition();
+    $win_nodes = \Drupal::getContainer()->get('baseinfo.querynode.service')->queryWinNodesByUrlRequest();
     foreach ($win_nodes as $key => $win_node) {
 
       foreach ($node_fields as $row) {

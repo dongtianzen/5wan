@@ -120,7 +120,7 @@ class DashpageJsonGenerator extends ControllerBase {
       ->getNodeWinField();
     $win_nodes = \Drupal::getContainer()
       ->get('baseinfo.querynode.service')
-      ->queryWinNodesByCondition();
+      ->queryWinNodesByUrlRequest();
     $table_heads = \Drupal::getContainer()
       ->get('dashpage.tablebasic.service')
       ->getTrendTableThead();
@@ -252,7 +252,7 @@ class DashpageJsonGenerator extends ControllerBase {
 
     $win_nodes = \Drupal::getContainer()
       ->get('baseinfo.querynode.service')
-      ->queryWinNodesByCondition();
+      ->queryWinNodesByUrlRequest();
     foreach ($win_nodes as $key => $win_node) {
 
       $tbody = [];

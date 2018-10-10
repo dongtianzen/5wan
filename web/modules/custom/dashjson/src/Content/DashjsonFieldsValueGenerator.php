@@ -34,7 +34,7 @@ class DashjsonFieldsValueGenerator {
 
     $win_nodes = \Drupal::getContainer()
       ->get('baseinfo.querynode.service')
-      ->queryWinNodesByCondition();
+      ->queryWinNodesByUrlRequest();
 
 
     foreach ($win_nodes as $key => $win_node) {
