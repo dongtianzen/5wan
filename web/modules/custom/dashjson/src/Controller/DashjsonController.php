@@ -41,5 +41,23 @@ class DashjsonController extends ControllerBase {
     return $build;
   }
 
+  /**
+   *
+   */
+  public function gameFieldsValue() {
+    $DashjsonFieldsValueGenerator = new DashjsonFieldsValueGenerator();
+    $object_FieldsValue_data = $DashjsonFieldsValueGenerator->gameFieldsValue();
+
+    return new JsonResponse($object_content_data);
+
+    // debug output as JSON format
+    $build = array(
+      '#type' => 'markup',
+      '#markup' => json_encode($object_content_data),
+    );
+
+    return $build;
+  }
+
 
 }

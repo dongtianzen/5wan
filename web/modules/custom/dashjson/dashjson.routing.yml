@@ -5,3 +5,11 @@ dashjson.game.dataset:
     _controller: '\Drupal\dashjson\Controller\DashjsonController::gameDataset'
   requirements:
     _access: 'TRUE'
+
+#
+dashjson.game.fields.value:
+  path: '/dashjson/game/fields/value'
+  defaults:
+    _controller: '\Drupal\dashjson\Controller\DashjsonController::gameFieldsValue'
+  requirements:
+    _access: 'TRUE'

@@ -1,5 +1,0 @@
-
-dashpage.trend.form.menu:
-  title: 'Trend Form'
-  route_name: dashpage.trend.form
-  menu_name: main
