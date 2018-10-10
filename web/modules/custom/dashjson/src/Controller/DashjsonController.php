@@ -45,6 +45,9 @@ class DashjsonController extends ControllerBase {
    *
    */
   public function gameFieldsValue() {
+    $name = 'time_one';
+    Timer::start($name);
+
     $DashjsonFieldsValueGenerator = new DashjsonFieldsValueGenerator();
     $object_FieldsValue_data = $DashjsonFieldsValueGenerator->gameFieldsValue();
 
@@ -55,6 +58,9 @@ class DashjsonController extends ControllerBase {
       '#type' => 'markup',
       '#markup' => json_encode($object_content_data),
     );
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms');
 
     return $build;
   }

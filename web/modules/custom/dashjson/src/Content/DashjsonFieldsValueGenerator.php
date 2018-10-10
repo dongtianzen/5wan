@@ -82,15 +82,40 @@ class DashjsonFieldsValueGenerator {
       ),
     );
 
-    $win_nids = \Drupal::getContainer()
-      ->get('baseinfo.querynode.service')
-      ->queryWinNidsByCondition();
+    // $win_nids = \Drupal::getContainer()
+    //   ->get('baseinfo.querynode.service')
+    //   ->queryWinNidsByCondition(
+    //     $ave_win = NULL,
+    //     $ave_draw = NULL,
+    //     $ave_loss = NULL,
+    //     $diff_win = NULL,
+    //     $diff_draw = NULL,
+    //     $diff_loss = NULL,
+    //     $tags = array()
+    //   );
+
+    $win_nids = array(35, 36, 37);
+
+    $game_data = array();
 
     $output['ave_win'] = $game_data;
     $output['ave_draw'] = $game_data;
     $output['ave_loss'] = $game_data;
 
     return $output;
+  }
+
+  /**
+   * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=英冠
+   */
+  public function gameFieldsValue2($win_nids) {
+    $query = \Drupal::database()->select('node__field_win_ave_win', 'y1');
+    $query->condition('y1.entity_id', $win_nids, 'IN');
+    // $query->range(0, 1);
+
+    $yamlform_id = $query->execute()->fetchField();
+
+    return $yamlform_id;
   }
 
 }
