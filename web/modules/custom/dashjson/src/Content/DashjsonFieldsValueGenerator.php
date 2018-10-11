@@ -33,19 +33,21 @@ class DashjsonFieldsValueGenerator {
       ),
     );
 
-    // $win_nids = \Drupal::getContainer()
-    //   ->get('baseinfo.querynode.service')
-    //   ->queryWinNodesByCondition(
-    //     $ave_win = 2.05,
-    //     $ave_draw = NULL,
-    //     $ave_loss = NULL,
-    //     $diff_win = 0.01,
-    //     $diff_draw = NULL,
-    //     $diff_loss = NULL,
-    //     $tags = array()
-    //   );
+    $win_nodes = \Drupal::getContainer()
+      ->get('baseinfo.querynode.service')
+      ->queryWinNodesByCondition(
+        $ave_win = 2.06,
+        $ave_draw = NULL,
+        $ave_loss = NULL,
+        $diff_win = 0.01,
+        $diff_draw = NULL,
+        $diff_loss = NULL,
+        $tags = array()
+      );
 
-    $win_nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple(array(35, 36, 37));
+    // $win_nodes = \Drupal::entityManager()
+    //   ->getStorage('node')
+    //   ->loadMultiple(array(35, 36, 37));
 
     foreach ($win_nodes as $key => $win_node) {
 
@@ -74,7 +76,7 @@ class DashjsonFieldsValueGenerator {
   /**
    * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=英冠
    */
-  public function gameFieldsValue() {
+  public function gameFieldsValue2() {
     $output = '';
 
     $node_fields = array(
@@ -92,20 +94,20 @@ class DashjsonFieldsValueGenerator {
       ),
     );
 
-    // $win_nids = \Drupal::getContainer()
-    //   ->get('baseinfo.querynode.service')
-    //   ->queryWinNidsByCondition(
-    //     $ave_win = 2.05,
-    //     $ave_draw = NULL,
-    //     $ave_loss = NULL,
-    //     $diff_win = 0.01,
-    //     $diff_draw = NULL,
-    //     $diff_loss = NULL,
-    //     $tags = array()
-    //   );
+    $win_nids = \Drupal::getContainer()
+      ->get('baseinfo.querynode.service')
+      ->queryWinNidsByCondition(
+        $ave_win = 2.06,
+        $ave_draw = NULL,
+        $ave_loss = NULL,
+        $diff_win = 0.11,
+        $diff_draw = NULL,
+        $diff_loss = NULL,
+        $tags = array("英超")
+      );
+    // $win_nids = array(35, 36, 37);
 
-    $win_nids = array(35, 36, 37);
-
+    $output['nids'] = $win_nids;
     $output['ave_win'] = $this->dbSelectFieldsValue(
       $win_nids,
       'node__field_win_ave_win',
@@ -127,17 +129,15 @@ class DashjsonFieldsValueGenerator {
 
   /**
    * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=英冠
-     $query->fields('y1', ['entity_id', 'field_win_ave_win_value']);
+     $query->fields('tablename', ['entity_id', 'field_win_ave_win_value']);
    */
   public function dbSelectFieldsValue($win_nids, $table = 'node__field_win_ave_win', $field_name = 'field_win_ave_win_value') {
-    $query = \Drupal::database()->select($table, 'y1');
-    $query->fields('y1', [$field_name]);
-    $query->condition('y1.entity_id', $win_nids, 'IN');
-    $query->range(0, 30);
-
+    $query = \Drupal::database()->select($table, 'tablename');
+    $query->fields('tablename', [$field_name]);
+    $query->condition('tablename.entity_id', $win_nids, 'IN');
+    // $query->range(0, 200);
 
     $output = $query->execute()->fetchCol();
-
     // $output = $query->countQuery()->execute()->fetchField();
 
     return $output;

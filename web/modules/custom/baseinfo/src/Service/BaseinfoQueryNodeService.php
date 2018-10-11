@@ -48,6 +48,14 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
       $diff_loss = $request_array['diff_loss'];
     }
 
+    /**
+     * manually set form diff value tweak
+     */
+    $diff_array = \Drupal::state()->get('game_query_diff_value');
+    $diff_win  = isset($diff_array['win']) ? $diff_array['win']: 0.2;
+    $diff_draw = isset($diff_array['draw']) ? $diff_array['draw']: 0.2;
+    $diff_loss = isset($diff_array['loss']) ? $diff_array['loss']: 0.2;
+
     //
     if (isset($request_array['tags'])) {
       $tags = $request_array['tags'];
@@ -90,14 +98,6 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     if (!$diff_loss) {
       $diff_loss = 20;
     }
-
-    /**
-     * manually set form diff value tweak
-     */
-    $diff_array = \Drupal::state()->get('game_query_diff_value');
-    $diff_win  = isset($diff_array['win']) ? $diff_array['win']: 0.2;
-    $diff_draw = isset($diff_array['draw']) ? $diff_array['draw']: 0.2;
-    $diff_loss = isset($diff_array['loss']) ? $diff_array['loss']: 0.2;
 
     //
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
@@ -151,7 +151,7 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
 
 
     // $query->sort('field_win_date', 'DESC');
-    // $query->range(0, 2);
+    // $query->range(0, 200000);
     $nids = $query_container->runQueryWithGroup($query);
 
     return $nids;

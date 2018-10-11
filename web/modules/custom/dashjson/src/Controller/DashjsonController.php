@@ -50,7 +50,7 @@ class DashjsonController extends ControllerBase {
     Timer::start($name);
 
     $DashjsonFieldsValueGenerator = new DashjsonFieldsValueGenerator();
-    $object_content_data = $DashjsonFieldsValueGenerator->gameFieldsValue();
+    $object_content_data = $DashjsonFieldsValueGenerator->gameFieldsValue2();
 
     return new JsonResponse($object_content_data);
 
@@ -61,7 +61,7 @@ class DashjsonController extends ControllerBase {
     );
 
     Timer::stop($name);
-    dpm(Timer::read($name) . 'ms');
+    dpm(Timer::read($name) . 'ms' . '655');
 
     return $build;
   }
