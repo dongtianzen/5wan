@@ -43,7 +43,7 @@ class DashjsonController extends ControllerBase {
   }
 
   /**
-   *
+   * dashjson/game/fields/value?ave_win=2.76&tags[]=荷乙&tags[]=荷甲
    */
   public function gameFieldsValue() {
     $name = 'time_one';

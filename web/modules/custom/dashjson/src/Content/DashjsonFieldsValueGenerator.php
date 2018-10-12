@@ -13,7 +13,7 @@ namespace Drupal\dashjson\Content;
 class DashjsonFieldsValueGenerator {
 
   /**
-   * dashjson/game/fields/value?ave_win=2.76&tags=["英冠"]
+   *
    */
   public function gameFieldsValue1() {
     $output = '';
@@ -78,7 +78,7 @@ class DashjsonFieldsValueGenerator {
   }
 
   /**
-   * dashjson/game/fields/value?ave_win=2.76&tags=["英冠"]
+   *
    */
   public function gameFieldsValue2() {
     $output = '';
