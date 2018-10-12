@@ -124,8 +124,8 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     if ($tags) {
-      // $tags = explode(',', $tags);
-
+      $tags = explode(',', $tags);
+dpm($tags);
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags, 'IN');
       $query->condition($group);
     }

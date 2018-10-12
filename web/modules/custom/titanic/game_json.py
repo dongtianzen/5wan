@@ -21,7 +21,8 @@ class GameJsonClass:
 
   # 读入数据, 将json串解析为DataFrame
   def getJsonContent(self):
-    pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.001&tags=["英冠]'
+    # pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.001'
+    pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.76&diff_win=0.001'
     # pathUrl = 'http://localhost:8888/5wan/web/sites/default/files/titanic/src/sklearn_game_train.json'
     jsonData = self.readJsonDecode(pathUrl)
 
