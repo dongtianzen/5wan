@@ -38,18 +38,18 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     //
-    if (isset($request_array['diff_win'])) {
-      $diff_win = $request_array['diff_win'];
-    }
-    if (isset($request_array['diff_draw'])) {
-      $diff_draw = $request_array['diff_draw'];
-    }
-    if (isset($request_array['diff_loss'])) {
-      $diff_loss = $request_array['diff_loss'];
-    }
+    // if (isset($request_array['diff_win'])) {
+    //   $diff_win = $request_array['diff_win'];
+    // }
+    // if (isset($request_array['diff_draw'])) {
+    //   $diff_draw = $request_array['diff_draw'];
+    // }
+    // if (isset($request_array['diff_loss'])) {
+    //   $diff_loss = $request_array['diff_loss'];
+    // }
 
     /**
-     * manually set form diff value tweak
+     * manually set form diff value from \Drupal::state()
      */
     $diff_array = \Drupal::state()->get('game_query_diff_value');
     $diff_win  = isset($diff_array['win']) ? $diff_array['win']: 0.2;
