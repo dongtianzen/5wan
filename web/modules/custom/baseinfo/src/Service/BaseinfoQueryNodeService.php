@@ -87,17 +87,7 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
   /**
    *
    */
-  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
-
-    if (!$diff_win) {
-      $diff_win = 0.001;
-    }
-    if (!$diff_draw) {
-      $diff_draw = 2;
-    }
-    if (!$diff_loss) {
-      $diff_loss = 20;
-    }
+  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = 0.1, $diff_draw = 0.2, $diff_loss = 0.2, $tags = array(), $home = NULL, $away = NULL) {
 
     //
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
@@ -110,10 +100,10 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     $query->condition($group);
 
     if ($ave_win) {
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win - $diff_win, '>');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', ($ave_win - $diff_win), '>');
       $query->condition($group);
 
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', $ave_win + $diff_win, '<');
+      $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_win', ($ave_win + $diff_win), '<');
       $query->condition($group);
     }
 
