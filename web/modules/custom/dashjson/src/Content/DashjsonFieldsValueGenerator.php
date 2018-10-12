@@ -115,22 +115,25 @@ class DashjsonFieldsValueGenerator {
       ->get('baseinfo.querynode.service')
       ->queryWinNidsByUrlRequest();
 
+    $output['count'] = count($win_nids);
     $output['nids'] = $win_nids;
-    // $output['ave_win'] = $this->dbSelectFieldsValue(
-    //   $win_nids,
-    //   'node__field_win_ave_win',
-    //   'field_win_ave_win_value'
-    //  );
-    // $output['ave_draw'] = $this->dbSelectFieldsValue(
-    //   $win_nids,
-    //   'node__field_win_ave_draw',
-    //   'field_win_ave_draw_value'
-    //  );
-    // $output['ave_loss'] = $this->dbSelectFieldsValue(
-    //   $win_nids,
-    //   'node__field_win_ave_loss',
-    //   'field_win_ave_loss_value'
-    //  );
+    if ($win_nids) {
+      $output['ave_win'] = $this->dbSelectFieldsValue(
+        $win_nids,
+        'node__field_win_ave_win',
+        'field_win_ave_win_value'
+       );
+      $output['ave_draw'] = $this->dbSelectFieldsValue(
+        $win_nids,
+        'node__field_win_ave_draw',
+        'field_win_ave_draw_value'
+       );
+      $output['ave_loss'] = $this->dbSelectFieldsValue(
+        $win_nids,
+        'node__field_win_ave_loss',
+        'field_win_ave_loss_value'
+       );
+    }
 
     return $output;
   }

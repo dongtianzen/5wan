@@ -6,6 +6,8 @@ python3 web/modules/custom/titanic/game_json.py
 import json
 import urllib.request
 
+import pandas as pd
+
 from pandas.io.json import json_normalize
 
 
@@ -22,15 +24,14 @@ class GameJsonClass:
   # 读入数据, 将json串解析为DataFrame
   def getJsonContent(self):
     # pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/dataset?ave_win=2.76&diff_win=0.001'
-    pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.76&diff_win=0.001'
+    pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.86&diff_win=0.001&ave_draw=2.76&ave_loss=2.96'
     # pathUrl = 'http://localhost:8888/5wan/web/sites/default/files/titanic/src/sklearn_game_train.json'
     jsonData = self.readJsonDecode(pathUrl)
 
-    jsonDataDf = json_normalize(jsonData)
+    # jsonDataDf = json_normalize(jsonData)
+    jsonDataDf = pd.DataFrame.from_dict(jsonData)
 
     return jsonDataDf
-
-
 
 ##
 

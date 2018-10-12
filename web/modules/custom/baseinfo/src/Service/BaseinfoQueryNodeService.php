@@ -116,6 +116,7 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     if ($ave_loss) {
+      dpm($ave_loss);
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss - $diff_loss, '>');
       $query->condition($group);
 
@@ -124,10 +125,13 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     if ($tags) {
-      $tags = explode(',', $tags);
-dpm($tags);
-      $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags, 'IN');
-      $query->condition($group);
+      if (is_array($tags)) {
+        $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags, 'IN');
+      }
+      else {
+        $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags="英超");
+        $query->condition($group);
+      }
     }
 
     // if ($home || $away) {

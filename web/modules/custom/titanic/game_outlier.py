@@ -19,7 +19,6 @@ jsonDataDf = GameJsonClass().getJsonContent()
 jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
 jsonDataDf['ave_draw'] = jsonDataDf['ave_draw'].astype(float)
 jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
-jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 
 ### 随机选取
 # jsonDataDf = jsonDataDf[(jsonDataDf['tags'] == "法甲") | (jsonDataDf['tags'] == "法乙")]
@@ -33,7 +32,7 @@ jsonDataDf['Result'] = jsonDataDf['Result'].astype(int)
 print("# Train Data Info")
 jsonDataDf.info()
 print(jsonDataDf)
-print("")
+# print("")
 
 ## 排序打印Dataframe
 # print(jsonDataDf['Result'].sort_values(ascending = False))
@@ -46,13 +45,7 @@ print("")
 
 ### 3) 单变量分析,
 ### 绘制直方图
-print("# 3 1 0 proportion")
-print(jsonDataDf['Result'].value_counts(normalize = True))
-print("")
 
-## 个数分布
-# sns.distplot(jsonDataDf['Result'], bins = 6, kde = False)
-# plt.show()
 
 
 ### 4) 两个特征的关系，两个变量之间的分布关系
@@ -65,7 +58,7 @@ print("")
 ### 1) 回归分析, 线性关系的可视化
 
 ### 散点图
-sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'Result', aspect = 10/6.18, legend_out = False)
+sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, aspect = 10/6.18)
 plt.show()
 
 
