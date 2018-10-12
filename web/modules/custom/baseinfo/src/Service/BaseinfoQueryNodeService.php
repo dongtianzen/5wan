@@ -22,7 +22,7 @@ use Drupal\flexinfo\Service\FlexinfoQueryNodeService;
 class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
 
   /**
-   *
+   * dashjson/game/fields/value?ave_win=2.76&tags[]=荷乙&tags[]=荷甲
    */
   public function queryWinNidsByUrlRequest($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
     $request_array = \Drupal::request()->query->all();
@@ -116,7 +116,6 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     if ($ave_loss) {
-      dpm($ave_loss);
       $group = $query_container->groupStandardByFieldValue($query, 'field_win_ave_loss', $ave_loss - $diff_loss, '>');
       $query->condition($group);
 
@@ -124,14 +123,17 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
       $query->condition($group);
     }
 
+
     if ($tags) {
       if (is_array($tags)) {
+        // dashjson/game/fields/value?ave_win=2.76&tags[]=荷乙&tags[]=荷甲
         $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags, 'IN');
       }
       else {
-        $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags="英超");
-        $query->condition($group);
+        // dashjson/game/fields/value?ave_win=2.76&tags=荷甲
+        $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags);
       }
+      $query->condition($group);
     }
 
     // if ($home || $away) {
