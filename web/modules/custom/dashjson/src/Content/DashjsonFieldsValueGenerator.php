@@ -74,7 +74,7 @@ class DashjsonFieldsValueGenerator {
   }
 
   /**
-   * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=英冠
+   * dashjson/game/fields/value?ave_win=2.76&tags=["英冠"]
    */
   public function gameFieldsValue2() {
     $output = '';
@@ -94,17 +94,21 @@ class DashjsonFieldsValueGenerator {
       ),
     );
 
+    // $win_nids = \Drupal::getContainer()
+    //   ->get('baseinfo.querynode.service')
+    //   ->queryWinNidsByCondition(
+    //     $ave_win = 2.06,
+    //     $ave_draw = NULL,
+    //     $ave_loss = NULL,
+    //     $diff_win = 0.11,
+    //     $diff_draw = NULL,
+    //     $diff_loss = NULL,
+    //     $tags = array("英超")
+    //   );
+
     $win_nids = \Drupal::getContainer()
       ->get('baseinfo.querynode.service')
-      ->queryWinNidsByCondition(
-        $ave_win = 2.06,
-        $ave_draw = NULL,
-        $ave_loss = NULL,
-        $diff_win = 0.11,
-        $diff_draw = NULL,
-        $diff_loss = NULL,
-        $tags = array("英超")
-      );
+      ->queryWinNidsByUrlRequest();
     // $win_nids = array(35, 36, 37);
 
     $output['nids'] = $win_nids;
@@ -123,6 +127,36 @@ class DashjsonFieldsValueGenerator {
       'node__field_win_ave_loss',
       'field_win_ave_loss_value'
      );
+
+    return $output;
+  }
+
+  /**
+   * dashjson/game/dataset?ave_win=2.76&diff_win=0.2&tags=["英冠]
+     $query->fields('tablename', ['entity_id', 'field_win_ave_win_value']);
+   */
+  public function getWinNidsByRequestQuery($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $tags = array("英超")) {
+    if (isset($request_array['ave_win'])) {
+      $ave_win = $request_array['ave_win'];
+    }
+    if (isset($request_array['ave_draw'])) {
+      $ave_draw = $request_array['ave_draw'];
+    }
+    if (isset($request_array['ave_loss'])) {
+      $ave_loss = $request_array['ave_loss'];
+    }
+
+    $output = \Drupal::getContainer()
+      ->get('baseinfo.querynode.service')
+      ->queryWinNidsByCondition(
+        $ave_win = $ave_win,
+        $ave_draw = $ave_draw,
+        $ave_loss = $ave_loss,
+        $diff_win = 0.15,
+        $diff_draw = 0.2,
+        $diff_loss = 0.2,
+        $tags = $tags
+      );
 
     return $output;
   }

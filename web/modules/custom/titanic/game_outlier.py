@@ -1,5 +1,5 @@
 """
-python3 web/modules/custom/titanic/game_basic.py
+python3 web/modules/custom/titanic/game_outier.py
 因为读入数据有中文，在sublime text内运行有问题，需要到命令行运行
 """
 
