@@ -43,19 +43,8 @@ print(jsonDataDf)
 # print("# Train Data Head Teaser")
 # print(jsonDataDf.head(30))
 
-### 3) 单变量分析,
-### 绘制直方图
-
-
-
-### 4) 两个特征的关系，两个变量之间的分布关系
-### 散点图
-
-# sns.jointplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf)
-# plt.show()
-
-
 ### 1) 回归分析, 线性关系的可视化
+###    两个特征的关系，两个变量之间的分布关系
 
 ### 散点图
 sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, aspect = 10/6.18)
