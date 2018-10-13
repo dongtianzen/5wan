@@ -105,11 +105,12 @@ class FetchPageBasic:
     gameListHtmlResultSet = self.soupGb2312.find_all(name = "td", attrs = {"class": "td-data"})
 
     gameList = []
-
     for row in gameListHtmlResultSet:
       rowHrefLink = row.find('a').attrs['href']
       matchDateObj = re.search(r"(\d{6})", rowHrefLink)
-      gameList.append(matchDateObj.group(0))
+      if matchDateObj:
+        gameList.append(matchDateObj.group(0))
+        pass
 
     return gameList
 
