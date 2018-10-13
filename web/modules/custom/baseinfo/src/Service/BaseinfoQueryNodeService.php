@@ -38,23 +38,15 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     //
-    // if (isset($request_array['diff_win'])) {
-    //   $diff_win = $request_array['diff_win'];
-    // }
-    // if (isset($request_array['diff_draw'])) {
-    //   $diff_draw = $request_array['diff_draw'];
-    // }
-    // if (isset($request_array['diff_loss'])) {
-    //   $diff_loss = $request_array['diff_loss'];
-    // }
-
-    /**
-     * manually set form diff value from \Drupal::state()
-     */
-    $diff_array = \Drupal::state()->get('game_query_diff_value');
-    $diff_win  = isset($diff_array['win']) ? $diff_array['win']: 0.2;
-    $diff_draw = isset($diff_array['draw']) ? $diff_array['draw']: 0.2;
-    $diff_loss = isset($diff_array['loss']) ? $diff_array['loss']: 0.2;
+    if (isset($request_array['diff_win'])) {
+      $diff_win = $request_array['diff_win'];
+    }
+    if (isset($request_array['diff_draw'])) {
+      $diff_draw = $request_array['diff_draw'];
+    }
+    if (isset($request_array['diff_loss'])) {
+      $diff_loss = $request_array['diff_loss'];
+    }
 
     //
     if (isset($request_array['tags'])) {
@@ -87,7 +79,20 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
   /**
    *
    */
-  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = 0.1, $diff_draw = 0.2, $diff_loss = 0.2, $tags = array(), $home = NULL, $away = NULL) {
+  public function queryWinNidsByCondition($ave_win = NULL, $ave_draw = NULL, $ave_loss = NULL, $diff_win = NULL, $diff_draw = NULL, $diff_loss = NULL, $tags = array(), $home = NULL, $away = NULL) {
+    /**
+     * manually set form diff value from \Drupal::state()
+     */
+    $diff_array = \Drupal::state()->get('game_query_diff_value');
+    if (!$diff_win) {
+      $diff_win  = isset($diff_array['win']) ? $diff_array['win']: 0.2;
+    }
+    if (!$diff_draw) {
+      $diff_draw = isset($diff_array['draw']) ? $diff_array['draw']: 0.2;
+    }
+    if (!$diff_loss) {
+      $diff_loss = isset($diff_array['loss']) ? $diff_array['loss']: 0.2;
+    }
 
     //
     $query_container = \Drupal::getContainer()->get('flexinfo.querynode.service');
