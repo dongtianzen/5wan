@@ -14,7 +14,7 @@ from pandas.io.json import json_normalize
 from game_json import GameJsonClass
 
 ### 1) 读入数据, 将json串解析为DataFrame
-jsonDataDf = GameJsonClass().getJsonContent()
+jsonDataDf = GameJsonClass().getJsonFromDictContent()
 
 jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
 jsonDataDf['ave_draw'] = jsonDataDf['ave_draw'].astype(float)
