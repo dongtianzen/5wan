@@ -34,6 +34,15 @@ vuepage.newgame.table:
   requirements:
     _permission: 'access content'
 
+# vue
+vuepage.newjingcai.table:
+  path: '/vuepage/newjingcai/table'
+  defaults:
+    _controller: '\Drupal\vuepage\Controller\VuepageController::newJingCaiTable'
+    _title: 'New Game Table'
+  requirements:
+    _permission: 'access content'
+
 # d3
 vuepage.d3.chart.page:
   path: '/vuepage/d3/chart/page'

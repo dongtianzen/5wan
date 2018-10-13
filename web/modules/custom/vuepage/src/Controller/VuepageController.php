@@ -187,6 +187,23 @@ class VuepageController extends ControllerBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function newJingCaiTable() {
+    $VuepageTableGenerator = new VuepageTableGenerator();
+    $markup = $VuepageTableGenerator->newGameTableContent('currentJingCaiList.json');
+
+    $build = array(
+      '#type' => 'markup',
+      '#header' => 'header',
+      '#markup' => $markup,
+      '#allowed_tags' => \Drupal::getContainer()->get('flexinfo.setting.service')->adminTag(),
+    );
+
+    return $build;
+  }
+
+  /**
    *
    */
   public function d3ChartPage() {

@@ -18,7 +18,7 @@ class VuepageTableGenerator {
    * {@inheritdoc}
    * @see https://vuejs.org/v2/examples/grid-component.html
    */
-  public function newGameTableContent() {
+  public function newGameTableContent($json_name = 'currentGameList.json') {
     $output = NULL;
     $output .= '<table class="table table-striped table-hover">';
       $output .= '<thead>';
@@ -27,7 +27,7 @@ class VuepageTableGenerator {
         $output .= '</tr>';
       $output .= '</thead>';
       $output .= '<tbody>';
-        $output .= $this->getNewGameTableTbody();
+        $output .= $this->getNewGameTableTbody($json_name);
       $output .= '</tbody>';
     $output .= '</table>';
 
@@ -80,8 +80,8 @@ class VuepageTableGenerator {
   /**
    *
    */
-  public function getNewGameTableTbody() {
-    $file_path = '/sites/default/files/json/5wan/currentGameList.json';
+  public function getNewGameTableTbody($json_name = 'currentGameList.json') {
+    $file_path = '/sites/default/files/json/5wan/' . $json_name;
     $json_array = \Drupal::getContainer()
       ->get('flexinfo.json.service')
       ->fetchConvertJsonToArrayFromInternalPath($file_path);
