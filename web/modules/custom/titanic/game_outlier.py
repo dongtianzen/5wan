@@ -14,7 +14,8 @@ from pandas.io.json import json_normalize
 from game_json import GameJsonClass
 
 ### 1) 读入数据, 将json串解析为DataFrame
-jsonDataDf = GameJsonClass().getJsonFromDictContent()
+pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.86&diff_win=0.01'
+jsonDataDf = GameJsonClass().getJsonFromDictContent(pathUrl)
 
 jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
 jsonDataDf['ave_draw'] = jsonDataDf['ave_draw'].astype(float)
@@ -31,11 +32,13 @@ jsonDataDf['ave_loss'] = jsonDataDf['ave_loss'].astype(float)
 ### 2) 数据信息总览：
 print("# Train Data Info")
 jsonDataDf.info()
-print(jsonDataDf)
+
+# print(jsonDataDf)
+
+## 排序Dataframe
+print(jsonDataDf.sort_values(by='ave_loss'))
 # print("")
 
-## 排序打印Dataframe
-# print(jsonDataDf['Result'].sort_values(ascending = False))
 
 ## 观察前几行的源数据：
 ## 因为读入数据有中文，在sublime text内运行有问题，需要到命令行运行

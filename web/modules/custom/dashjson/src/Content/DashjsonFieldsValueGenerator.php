@@ -133,6 +133,17 @@ class DashjsonFieldsValueGenerator {
         'node__field_win_ave_loss',
         'field_win_ave_loss_value'
        );
+
+      $output['goal_home'] = $this->dbSelectFieldsValue(
+        $win_nids,
+        'node__field_win_goal_home',
+        'field_win_goal_home_value'
+       );
+      $output['goal_away'] = $this->dbSelectFieldsValue(
+        $win_nids,
+        'node__field_win_goal_away',
+        'field_win_goal_away_value'
+       );
     }
 
     return $output;

@@ -2,8 +2,8 @@
 python3 web/modules/custom/titanic/game_json.py
 因为读入数据有中文，在sublime text内运行有问题，需要到命令行运行
 """
-# -*- coding: utf-8 -*-
 
+# -*- coding: utf-8 -*-
 import json
 import urllib.request
 
@@ -34,8 +34,8 @@ class GameJsonClass:
     return jsonDataDf
 
   # 读入数据, 将json Dict 解析为DataFrame
-  def getJsonFromDictContent(self):
-    pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.86&diff_win=0.03&ave_draw=2.76'
+  # pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.86&diff_win=0.03'
+  def getJsonFromDictContent(self, pathUrl):
 
     jsonData = self.readJsonDecode(pathUrl)
     jsonDataDf = pd.DataFrame.from_dict(jsonData)
