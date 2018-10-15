@@ -9,3 +9,9 @@ vuepage.newgame.table.menu:
   route_name: vuepage.newgame.table
   menu_name: main
   weight: 30
+
+vuepage.newjingcai.table.menu:
+  title: 'Jing Cai'
+  route_name: vuepage.newjingcai.table
+  menu_name: main
+  weight: 30

@@ -18,6 +18,7 @@ pd.set_option('display.max_columns', None)
 
 ### 1) 读入数据, 将json串解析为DataFrame
 pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.86&diff_win=0.1&ave_loss=2.55&diff_loss=0.2'
+pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=3.67&diff_win=0.1'
 jsonDataDf = GameJsonClass().getJsonFromDictContent(pathUrl)
 
 jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
@@ -52,10 +53,19 @@ print(jsonDataDf.sort_values(by='ave_loss'))
 # print("# Train Data Head Teaser")
 # print(jsonDataDf.head(30))
 
+### 3) 单变量分析,
+### 绘制直方图
+print("# 3 1 0 proportion")
+print(jsonDataDf['result'].value_counts(normalize = True))
+print("")
+
 ### 1) 回归分析, 线性关系的可视化
 ###    两个特征的关系，两个变量之间的分布关系
 
 ### 散点图
+
+sns.scatterplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full")
+plt.show()
 sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
 plt.show()
 
