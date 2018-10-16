@@ -69,10 +69,12 @@ print("")
 jsonDataDf['win_divide_loss'] = jsonDataDf['ave_win'] / jsonDataDf['ave_loss']
 jsonDataDf['win_divide_draw'] = jsonDataDf['ave_win'] / jsonDataDf['ave_draw']
 
-
-fig, (ax1, ax2) = plt.subplots(ncols=2, sharey=True)
+### 3个变量对比
+fig, (ax1, ax2, ax3) = plt.subplots(ncols=3, sharey=True)
 sns.scatterplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full", ax=ax1, palette="Accent")
 sns.scatterplot(x = 'ave_win', y = 'ave_draw', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full", ax=ax2, palette="Accent")
+sns.scatterplot(x = 'ave_draw', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full", ax=ax3, palette="Accent")
+
 
 ### 分组散点图
 # sns.pairplot(jsonDataDf, x_vars=["ave_win", "ave_draw", "ave_loss"], y_vars=["win_divide_draw"],
