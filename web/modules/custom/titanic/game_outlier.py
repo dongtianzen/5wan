@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 
 from pandas.io.json import json_normalize
 
@@ -67,15 +68,31 @@ print("")
 jsonDataDf['win_divide_loss'] = jsonDataDf['ave_win'] / jsonDataDf['ave_loss']
 jsonDataDf['win_divide_draw'] = jsonDataDf['ave_win'] / jsonDataDf['ave_draw']
 
-
 # sns.scatterplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full")
 
-plt.figure(1, figsize = (18, 8))
-plt.subplot(122)
-sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
+#
+# create df, and call regplot on each axes
+# x = np.linspace(0, 2 * np.pi, 400)
+# df = pd.DataFrame({'x': x, 'y': np.sin(x ** 2)})
+# df.index.names = ['obs']
+# df.columns.names = ['vars']
 
-plt.subplot(121)
-sns.lmplot(x = 'win_divide_loss', y = 'win_divide_draw', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
+# idx = np.array(df.index.tolist(), dtype='float')  # make an array of x-values
+
+# fig, (ax1, ax2) = plt.subplots(ncols=2, sharey=True)
+# sns.regplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, ax=ax1)
+# sns.regplot(x = 'win_divide_loss', y = 'win_divide_draw', data = jsonDataDf, ax=ax2)
+
+###
+sns.pairplot(jsonDataDf, x_vars=["ave_win", "ave_draw"], y_vars=["ave_loss"],
+             size=5, aspect=.8, kind="reg", hue="result",palette="husl");
+
+###
+# sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
+# sns.lmplot(x = 'win_divide_loss', y = 'win_divide_draw', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
+
+
+
 plt.show()
 
 exit()
