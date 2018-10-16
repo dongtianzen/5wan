@@ -18,7 +18,7 @@ pd.set_option('display.max_columns', None)
 
 ### 1) 读入数据, 将json串解析为DataFrame
 pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=2.86&diff_win=0.1&ave_loss=2.55&diff_loss=0.2'
-pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=3.67&diff_win=0.1'
+pathUrl = 'http://localhost:8888/5wan/web/dashjson/game/fields/value?ave_win=1.97&diff_win=0.2'
 jsonDataDf = GameJsonClass().getJsonFromDictContent(pathUrl)
 
 jsonDataDf['ave_win'] = jsonDataDf['ave_win'].astype(float)
@@ -64,11 +64,18 @@ print("")
 
 ### 散点图
 
-sns.scatterplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full")
-plt.show()
+jsonDataDf['win_divide_loss'] = jsonDataDf['ave_win'] / jsonDataDf['ave_loss']
+jsonDataDf['win_divide_draw'] = jsonDataDf['ave_win'] / jsonDataDf['ave_draw']
+
+
+# sns.scatterplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full")
+
+plt.figure(1, figsize = (18, 8))
+plt.subplot(122)
 sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
+
+plt.subplot(121)
+sns.lmplot(x = 'win_divide_loss', y = 'win_divide_draw', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
 plt.show()
-
-
 
 exit()

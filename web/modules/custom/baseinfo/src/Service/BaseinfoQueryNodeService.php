@@ -129,14 +129,13 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     // condition
-    // $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_win', 100, '>');
-    // $query->condition($group);
+    $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_win', 4, '<');
+    $query->condition($group);
 
     // $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_draw', 30, '<');
     // $query->condition($group);
     // $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_loss', 100, '>');
     // $query->condition($group);
-
 
     // if ($tags) {
     //   if (is_array($tags)) {
