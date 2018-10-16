@@ -66,27 +66,17 @@ print("")
 ###    两个特征的关系，两个变量之间的分布关系
 
 ### 散点图
-# sns.scatterplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full")
-
-
 jsonDataDf['win_divide_loss'] = jsonDataDf['ave_win'] / jsonDataDf['ave_loss']
 jsonDataDf['win_divide_draw'] = jsonDataDf['ave_win'] / jsonDataDf['ave_draw']
-#
-# create df, and call regplot on each axes
-# x = np.linspace(0, 2 * np.pi, 400)
-# df = pd.DataFrame({'x': x, 'y': np.sin(x ** 2)})
-# df.index.names = ['obs']
-# df.columns.names = ['vars']
 
-# idx = np.array(df.index.tolist(), dtype='float')  # make an array of x-values
 
-# fig, (ax1, ax2) = plt.subplots(ncols=2, sharey=True)
-# sns.regplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, ax=ax1)
-# sns.regplot(x = 'win_divide_loss', y = 'win_divide_draw', data = jsonDataDf, ax=ax2)
+fig, (ax1, ax2) = plt.subplots(ncols=2, sharey=True)
+sns.scatterplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full", ax=ax1, palette="Accent")
+sns.scatterplot(x = 'ave_win', y = 'ave_draw', data = jsonDataDf, hue = 'result', sizes=(200, 300), legend="full", ax=ax2, palette="Accent")
 
 ### 分组散点图
-sns.pairplot(jsonDataDf, x_vars=["ave_win", "ave_draw", "ave_loss"], y_vars=["win_divide_draw"],
-             size=5, aspect=.8, kind="reg", hue="result", palette="husl");
+# sns.pairplot(jsonDataDf, x_vars=["ave_win", "ave_draw", "ave_loss"], y_vars=["win_divide_draw"],
+#              size=5, aspect=.8, kind="reg", hue="result", palette="husl");
 
 ###
 # sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
