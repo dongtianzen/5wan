@@ -84,7 +84,8 @@ sns.scatterplot(x = 'ave_draw', y = 'ave_loss', data = jsonDataDf, hue = 'result
 # sns.lmplot(x = 'ave_win', y = 'ave_loss', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
 # sns.lmplot(x = 'win_divide_loss', y = 'win_divide_draw', data = jsonDataDf, hue = 'result', aspect = 10/6.18, legend_out = False)
 
-
+### 三变量，绘制多个facet， 分别用hue="smoker", col="time", row="sex",
+# sns.lmplot(x="total_bill", y="tip", hue="smoker", col="time", row="sex", data=tips, palette="husl");
 
 plt.show()
 
