@@ -107,3 +107,43 @@ function _entity_create_fields_save($entity_info, $field) {
     ])
     ->save();
 }
+
+/**
+ *
+ require_once(DRUPAL_ROOT . '/modules/custom/debug/field_debug.php');
+ _entity_update_fields_value();
+ */
+function _entity_update_fields_value() {
+  return;
+  $old_value = 380;
+  $new_value = 373;
+
+  $old_values = range(380, 395);
+
+  foreach ($old_values as $old_value) {
+    $entitys = \Drupal::getContainer()
+      ->get('flexinfo.querynode.service')
+      ->nodesByStandardByFieldValue('win', $field_name = 'field_win_tags', $field_value = $old_value);
+
+    foreach ($entitys as $key => $entity) {
+      \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->updateFieldValue('node', $entity, 'field_win_tags', $new_value);
+    }
+
+    $entitys = \Drupal::getContainer()
+      ->get('flexinfo.querynode.service')
+      ->nodesByStandardByFieldValue('win', $field_name = 'field_win_tags', $field_value = $old_value);
+
+    if (count($entitys) == 0) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($old_value);
+      if ($term) {
+        $term->delete();
+        dpm('delete term - ' . $old_value);
+      }
+    }
+
+    usleep(150000);
+  }
+
+}
