@@ -75,8 +75,8 @@ class DashpageJsonGenerator extends ControllerBase {
   public function getCurrentGameValueOne() {
     $request_array = \Drupal::request()->query->all();
     $output = [
-      'x' =>  $request_array['ave_draw'],
-      'y' =>  $request_array['ave_loss'],
+      'x' =>  (1 / $request_array['ave_win']) + (1 / $request_array['ave_draw']) + (1 / $request_array['ave_loss']),
+      'y' =>  $request_array['ave_win'] + $request_array['ave_draw'] + $request_array['ave_loss'],
       'r' => 10,
     ];
 
@@ -89,8 +89,8 @@ class DashpageJsonGenerator extends ControllerBase {
   public function getCurrentGameValueTwo() {
     $request_array = \Drupal::request()->query->all();
     $output = [
-      'x' =>  $request_array['ave_draw'] / $request_array['ave_loss'],
-      'y' =>  $request_array['ave_win'],
+      'x' =>  1 / $request_array['ave_win'],
+      'y' =>  1 / $request_array['ave_loss'],
       'r' => 10,
     ];
 
@@ -147,14 +147,14 @@ class DashpageJsonGenerator extends ControllerBase {
       $r_value = $this->getGameRSzie($win_node, $tbody['Win'], $tbody['Draw'], $tbody['Loss']);
 
       $chart_one_data = [
-        'x' => $tbody['Draw'],
-        'y' => $tbody['Loss'],
+        'x' => (1 / $tbody['Win']) + (1 / $tbody['Draw']) + (1 / $tbody['Loss']),
+        'y' => $tbody['Win'] + $tbody['Draw'] + $tbody['Loss'],
         'r' => $r_value,
       ];
 
       $chart_two_data = [
-        'x' => $tbody['Draw'] / $tbody['Loss'],
-        'y' => $tbody['Win'] ,
+        'x' => 1 / $tbody['Win'],
+        'y' => 1 / $tbody['Loss'],
         'r' => $r_value,
       ];
 

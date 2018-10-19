@@ -129,25 +129,25 @@ class BaseinfoQueryNodeService extends FlexinfoQueryNodeService {
     }
 
     // condition
-    $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_win', 4, '<');
-    $query->condition($group);
+    // $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_win', 4, '<');
+    // $query->condition($group);
 
     // $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_draw', 30, '<');
     // $query->condition($group);
     // $group = $query_container->groupStandardByFieldValue($query, 'field_win_variation_end_loss', 100, '>');
     // $query->condition($group);
 
-    // if ($tags) {
-    //   if (is_array($tags)) {
-    //     // dashjson/game/fields/value?ave_win=2.76&tags[]=荷乙&tags[]=荷甲
-    //     $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags, 'IN');
-    //   }
-    //   else {
-    //     // dashjson/game/fields/value?ave_win=2.76&tags=荷甲
-    //     $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags);
-    //   }
-    //   $query->condition($group);
-    // }
+    if ($tags) {
+      if (is_array($tags)) {
+        // dashjson/game/fields/value?ave_win=2.76&tags[]=荷乙&tags[]=荷甲
+        $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags, 'IN');
+      }
+      else {
+        // dashjson/game/fields/value?ave_win=2.76&tags=荷甲
+        $group = $query_container->groupStandardByFieldValue($query, 'field_win_tags.entity.name', $tags);
+      }
+      $query->condition($group);
+    }
 
     // if ($home || $away) {
     //   $group = $query->orConditionGroup()
