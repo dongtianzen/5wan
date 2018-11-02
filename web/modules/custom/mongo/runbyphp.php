@@ -8,6 +8,8 @@
 
 /**
  * Execute a database query
+ *
+ * http://zetcode.com/db/mongodbphp/
  */
 function _run_create_fields() {
 
@@ -23,6 +25,15 @@ function _run_create_fields() {
   // $manager->executeBulkWrite('5wan.game', $bulk);
 
   /**
+   * update and delete
+   * The MongoDB\BSON\ObjectID generates a new ObjectId. It is a value used to uniquely identify documents in a collection.
+   */
+  // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
+  // $bulk->insert($doc);
+  // $bulk->update(['name' => 'Audi'], ['$set' => ['price' => 52000]]);
+  // $bulk->delete(['name' => 'Hummer']);
+
+  /**
    * query
    */
   // $filter = ['ave_win' => ['$gt' => 1]];
@@ -33,8 +44,9 @@ function _run_create_fields() {
   //     '_id' => 0,
   //     'ave_win' => 0,
   //   ],
-  //   'sort' => ['x' => -1],
+  //   'sort' => ['ave_win' => -1],    // 1 or -1
   //   'maxTimeMS' => 3000,
+  //   'limit' => 5
   // ];
   // $options = [];
 
