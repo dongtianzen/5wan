@@ -15,7 +15,7 @@
  */
 
 /**
- * An example controller.
+ *
  */
 class MongoDriverManager {
 
@@ -26,9 +26,6 @@ class MongoDriverManager {
 
   public function __construct() {
     $this->manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-
-    // $client = new MongoDB\Client('mongodb://localhost:27017');
-    // var_dump($client->listDatabases());
   }
 
   /**
@@ -129,3 +126,26 @@ class MongoDriverManager {
 
 }
 
+/**
+ *
+ require_once(DRUPAL_ROOT . '/modules/custom/mongo/runbyphp.php');
+
+ $MongoClient = new MongoClient();
+ $MongoClient->runListDatabases();
+
+ */
+class MongoClient {
+
+  public $client;
+  public function __construct() {
+    $this->client = new MongoDB\Client('mongodb://localhost:27017');
+  }
+
+  /**
+   * Database statistics
+   */
+  function runListDatabases() {
+    var_dump($this->client->listDatabases());
+  }
+
+}
