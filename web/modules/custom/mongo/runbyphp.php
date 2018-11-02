@@ -15,7 +15,10 @@ function _run_create_fields() {
 
   // $MongoClient = new MongoClient();
 
-  $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+  // $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+
+  $client = new MongoDB\Client('mongodb://localhost:27017');
+  var_dump($client->listDatabases());
 
   /**
    * insert
@@ -77,21 +80,21 @@ function _run_create_fields() {
    * Projections can be used to specify which fields should be returned.
    * Here we hide the '_id' field and 'ave_win' field when the return result.
    */
-  $options = [
-    "projection" => [
-      '_id' => 0,
-      'ave_win' => 0,
-    ]
-  ];
-  $filter = [];
-  $query = new MongoDB\Driver\Query($filter, $options);
+  // $options = [
+  //   "projection" => [
+  //     '_id' => 0,
+  //     'ave_win' => 0,
+  //   ]
+  // ];
+  // $filter = [];
+  // $query = new MongoDB\Driver\Query($filter, $options);
 
-  $rows = $manager->executeQuery("5wan.game", $query);
+  // $rows = $manager->executeQuery("5wan.game", $query);
 
-  foreach ($rows as $row) {
+  // foreach ($rows as $row) {
 
-         print_r($row);
-  }
+  //        print_r($row);
+  // }
 
 
 }
