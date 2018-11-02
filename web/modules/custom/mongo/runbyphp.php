@@ -15,12 +15,16 @@ function _run_create_fields() {
 
   $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 
-  // insert
+  /**
+   * insert
+   */
   // $bulk = new MongoDB\Driver\BulkWrite;
   // $bulk->insert(['ave_win' => 6]);
   // $manager->executeBulkWrite('5wan.game', $bulk);
 
-  // query
+  /**
+   * query
+   */
   // $filter = ['ave_win' => ['$gt' => 1]];
   // $filter = [ 'name' => 'Volkswagen' ];
   // $filter = [];
@@ -44,7 +48,9 @@ function _run_create_fields() {
   //   var_dump($document);
   // }
 
-  // Database statistics
+  /**
+   * Database statistics
+   */
   // $stats = new MongoDB\Driver\Command(["dbstats" => 1]);
   // $result = $manager->executeCommand("5wan", $stats);
 
@@ -53,9 +59,12 @@ function _run_create_fields() {
   // print_r($stats);
 
 
-  // Projections
-  // Projections can be used to specify which fields should be returned.
-  // Here we hide the '_id' field and 'ave_win' field.
+  //
+  /**
+   * Projections
+   * Projections can be used to specify which fields should be returned.
+   * Here we hide the '_id' field and 'ave_win' field when the return result.
+   */
   $options = [
     "projection" => [
       '_id' => 0,
