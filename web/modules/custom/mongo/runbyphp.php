@@ -22,6 +22,7 @@ function _run_create_fields() {
 
   // query
   // $filter = ['ave_win' => ['$gt' => 1]];
+  // $filter = [ 'name' => 'Volkswagen' ];
   // $filter = [];
   // $options = [
   //   'projection' => [
@@ -31,11 +32,12 @@ function _run_create_fields() {
   //   'sort' => ['x' => -1],
   //   'maxTimeMS' => 3000,
   // ];
+  // $options = [];
 
   // $query = new MongoDB\Driver\Query($filter, $options);
-  // $cursor = $manager->executeQuery('5wan.game', $query);
+  // $rows = $manager->executeQuery('5wan.game', $query);
 
-  // foreach ($cursor as $document) {
+  // foreach ($rows as $document) {
   //   dpm(999);
   //   dpm($document->ave_win);
   //   // ksm($document);
@@ -43,12 +45,32 @@ function _run_create_fields() {
   // }
 
   // Database statistics
-  $stats = new MongoDB\Driver\Command(["dbstats" => 1]);
-  $result = $manager->executeCommand("5wan", $stats);
+  // $stats = new MongoDB\Driver\Command(["dbstats" => 1]);
+  // $result = $manager->executeCommand("5wan", $stats);
 
-  $stats = current($result->toArray());
+  // $stats = current($result->toArray());
 
-  print_r($stats);
+  // print_r($stats);
+
+
+  // Projections
+  // Projections can be used to specify which fields should be returned.
+  // Here we hide the '_id' field and 'ave_win' field.
+  $options = [
+    "projection" => [
+      '_id' => 0,
+      'ave_win' => 0,
+    ]
+  ];
+  $filter = [];
+  $query = new MongoDB\Driver\Query($filter, $options);
+
+  $rows = $manager->executeQuery("5wan.game", $query);
+
+  foreach ($rows as $row) {
+
+         print_r($row);
+  }
 
 
 }
