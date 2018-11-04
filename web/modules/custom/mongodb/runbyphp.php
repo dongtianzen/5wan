@@ -30,23 +30,28 @@ class MongoDriverManager {
 
   /**
    * insert
+   *
+
    */
-  function runInsertFields() {
+  function runInsertFields($doc = []) {
+    // $doc = ['name' => 'Toyota', 'price' => 26700];
+    // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
+
     $bulk = new MongoDB\Driver\BulkWrite;
-    $bulk->insert(['ave_win' => 6]);
+    $bulk->insert($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
-    // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
-    // $bulk->insert($doc);
   }
 
   /**
    * update
    * The MongoDB\BSON\ObjectID generates a new ObjectId. It is a value used to uniquely identify documents in a collection.
    */
-  function runUpdateFields() {
+  function runUpdateFields($doc = []) {
+    // $doc = ['name' => 'Audi'], ['$set' => ['price' => 52000]];
+
     $bulk = new MongoDB\Driver\BulkWrite;
-    $bulk->update(['name' => 'Audi'], ['$set' => ['price' => 52000]]);
+    $bulk->update($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
   }
@@ -54,15 +59,17 @@ class MongoDriverManager {
   /**
    * delete
    */
-  function runDeleteFields() {
+  function runDeleteFields($doc = []) {
+    // $doc = ['name' => 'Hummer'];
+
     $bulk = new MongoDB\Driver\BulkWrite;
-    $bulk->delete(['name' => 'Hummer']);
+    $bulk->delete($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
   }
 
   /**
-   * query
+   * MongoDB\Driver\Query
    */
   function runQueryFields() {
     $filter = ['ave_win' => ['$gt' => 1]];
@@ -90,7 +97,7 @@ class MongoDriverManager {
   }
 
   /**
-   * query
+   * MongoDB\Driver\Query
    * Projections
    * Projections can be used to specify which fields should be returned.
    * Here we hide the '_id' field and 'ave_win' field when the return result.
@@ -126,26 +133,3 @@ class MongoDriverManager {
 
 }
 
-/**
- *
- require_once(DRUPAL_ROOT . '/modules/custom/mongo/runbyphp.php');
-
- $MongoClient = new MongoClient();
- $MongoClient->runListDatabases();
-
- */
-class MongoClient {
-
-  public $client;
-  public function __construct() {
-    $this->client = new MongoDB\Client('mongodb://localhost:27017');
-  }
-
-  /**
-   * Database statistics
-   */
-  function runListDatabases() {
-    var_dump($this->client->listDatabases());
-  }
-
-}
