@@ -14,16 +14,13 @@
  * http://zetcode.com/db/mongodbphp/
  */
 
-use Drupal\mongo\MongoDriverSet;
-
-
 /**
  *
  */
 class ManageContent {
 
   public function runInsert() {
-    $win_nids = array(35);
+    $win_nids = array(36);
 
     $query = $this->dbSelectFieldsValue(
       $win_nids,
@@ -35,26 +32,10 @@ class ManageContent {
     $output['ave_win'] = current($query);
     dpm($output);
 
-    // $Manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-    $MongoDriverSet = new MongoDriverSet();
-
-    $bulk = new MongoDB\Driver\BulkWrite;
-    $MongoDriverSet->runInsertFields($output, $bulk);
-
     // sudo composer require mongodb/mongodb
-    try {
-      $output = \Drupal::getContainer()
-        ->get('mongo.driver.set')
-        ->runDatabaseStats();
-    }
-    catch (Exception $e) {
-      print $e->getMessage();
-      exit();
-    }
-
-    // $output = \Drupal::getContainer()
-    //   ->get('mongo.driver.set')
-    //   ->runInsertFields($output);
+    $result = \Drupal::getContainer()
+      ->get('mongo.driver.set')
+      ->runInsertFields($output);
   }
 
   /**
@@ -72,8 +53,5 @@ class ManageContent {
 
     return $output;
   }
-
-
-
 
 }

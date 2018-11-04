@@ -2,7 +2,12 @@
 
 namespace Drupal\mongo\Services;
 
-// sudo composer require mongodb/mongodb
+/**
+ *
+ $output = \Drupal::getContainer()
+   ->get('mongo.driver.set')
+   ->runDatabaseStats();
+ */
 
 /**
  * Class MongoDriverSet.
@@ -19,20 +24,17 @@ class MongoDriverSet {
    * Constructs a new MongoDriverSet object.
    */
   public function __construct() {
-    // $this->manager = $Manager;
-    // $this->manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+    $this->manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
   }
 
   /**
    * insert
-   *
-
    */
-  function runInsertFields($doc = [], $bulk) {
+  function runInsertFields($doc = []) {
     // $doc = ['name' => 'Toyota', 'price' => 26700];
     // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
 
-    // $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk = new \MongoDB\Driver\BulkWrite;
     $bulk->insert($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
@@ -118,10 +120,10 @@ class MongoDriverSet {
    * Database statistics
    */
   function runDatabaseStats() {
-    $stats = new MongoDB\Driver\Command(["dbstats" => 1]);
+    $command = ["dbstats" => 1];
+    $stats = new \MongoDB\Driver\Command($command);
 
-    $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-    $result = $manager->executeCommand("5wan", $stats);
+    $result = $this->manager->executeCommand("5wan", $stats);
 
     $stats = current($result->toArray());
 
