@@ -97,17 +97,33 @@ class MongoDriverSet {
    * MongoDB\Driver\Query
    * Projections
    * Projections can be used to specify which fields should be returned.
-   * Here we hide the '_id' field and 'ave_win' field when the return result.
+   * Here we hide the '_id' field and 'ave_win' field 但是显示其它的.
+   [
+     '_id' => 0,
+     'ave_win' => 0,
+   ]
+   * 只显示下面两个指定的field
+   [
+     '_id' => 0,
+     'ave_win' => 1,
+     'ave_draw' => 1,
+   ]
+   *
+   *
+   $output = \Drupal::getContainer()
+     ->get('mongo.driver.set')
+     ->runQueryFieldsWithHideFields();
    */
   function runQueryFieldsWithHideFields() {
     $options = [
       "projection" => [
         '_id' => 0,
-        'ave_win' => 0,
+        'ave_win' => 1,
+        'ave_draw' => 1,
       ]
     ];
     $filter = [];
-    $query = new MongoDB\Driver\Query($filter, $options);
+    $query = new \MongoDB\Driver\Query($filter, $options);
 
     $rows = $this->manager->executeQuery("5wan.game", $query);
 
