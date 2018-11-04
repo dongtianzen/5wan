@@ -19,6 +19,31 @@
  */
 class ManageContent {
 
+  /**
+   *
+   */
+  public function getWinFields() {
+    $output = array(
+      "ave_win",
+      "ave_draw",
+      "ave_loss",
+      "ini_win",
+      "ini_draw",
+      "ini_loss",
+      "variation_end_win",
+      "variation_end_draw",
+      "variation_end_loss",
+      "variation_ini_win",
+      "variation_ini_draw",
+      "variation_ini_loss",
+    );
+
+    return $output;
+  }
+
+  /**
+   *
+   */
   public function getNids() {
     $query = \Drupal::entityQuery('node');
 
@@ -35,26 +60,28 @@ class ManageContent {
    *
    */
   public function runInsert() {
+    $win_fields = $this->getWinFields();
     $nids = $this->getNids();
 
     foreach ($nids as $key => $nid) {
-      $query = $this->dbSelectFieldsValue(
-        $nid,
-        'node__field_win_ave_win',
-        'field_win_ave_win_value'
-      );
+      $row = array();
+      foreach ($win_fields as $key => $field) {
+        $query = $this->dbSelectFieldsValue(
+          $nid,
+          'node__field_win_' . $field,
+          'field_win_' . $field . '_value'
+        );
 
-      $row['ave_win'] = current($query);
+        $row[$field] = current($query);
+      }
 
-      $output[] = $row;
+      $result = \Drupal::getContainer()
+        ->get('mongo.driver.set')
+        ->runInsertFields($row);
+
+      dpm($result);
     }
 
-    dpm($output);
-
-    // // sudo composer require mongodb/mongodb
-    $result = \Drupal::getContainer()
-      ->get('mongo.driver.set')
-      ->runInsertFields($output);
   }
 
   /**
