@@ -8,17 +8,13 @@ namespace Drupal\mongo;
 class MongoDriverSet implements MongoDriverSetInterface {
 
   /**
-   * Constructs a new MongoDriverSet object.
-   */
-  public function __construct() {
-
-  }
-
-  /**
    *
    */
   public $manager;
 
+  /**
+   * Constructs a new MongoDriverSet object.
+   */
   public function __construct() {
     $this->manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
   }
