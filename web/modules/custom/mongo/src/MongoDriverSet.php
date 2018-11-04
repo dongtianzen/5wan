@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\mongo;
+namespace Drupal\mongo\Services;
 
 /**
  * Class MongoDriverSet.
@@ -16,9 +16,9 @@ class MongoDriverSet {
   /**
    * Constructs a new MongoDriverSet object.
    */
-  public function __construct($Manager) {
-    $this->manager = $Manager;
-    // $this->manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+  public function __construct() {
+    // $this->manager = $Manager;
+    $this->manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
   }
 
   /**
