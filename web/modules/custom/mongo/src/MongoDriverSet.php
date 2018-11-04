@@ -1,6 +1,7 @@
 <?php
 
-namespace Drupal\mongo\Services;
+namespace Drupal\mongo;
+// namespace Drupal\mongo\Services;
 
 /**
  * Class MongoDriverSet.
@@ -18,7 +19,7 @@ class MongoDriverSet {
    */
   public function __construct() {
     // $this->manager = $Manager;
-    $this->manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+    // $this->manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
   }
 
   /**
@@ -117,7 +118,9 @@ class MongoDriverSet {
    */
   function runDatabaseStats() {
     $stats = new MongoDB\Driver\Command(["dbstats" => 1]);
-    $result = $this->manager->executeCommand("5wan", $stats);
+
+    $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+    $result = $manager->executeCommand("5wan", $stats);
 
     $stats = current($result->toArray());
 
