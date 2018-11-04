@@ -65,6 +65,7 @@ class ManageContent {
 
     foreach ($nids as $key => $nid) {
       $row = array();
+
       foreach ($win_fields as $key => $field) {
         $query = $this->dbSelectFieldsValue(
           $nid,
@@ -78,10 +79,7 @@ class ManageContent {
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
         ->runInsertFields($row);
-
-      dpm($result);
     }
-
   }
 
   /**
