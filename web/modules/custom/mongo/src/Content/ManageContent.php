@@ -14,6 +14,9 @@
  * http://zetcode.com/db/mongodbphp/
  */
 
+use Drupal\mongo\MongoDriverSet;
+
+
 /**
  *
  */
@@ -33,9 +36,14 @@ class ManageContent {
     $output['ave_win'] = current($query);
     dpm($output);
 
-    $output = \Drupal::getContainer()
-      ->get('mongo.driver.set')
-      ->runInsertFields($output);
+    $Manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+
+    $MongoDriverSet = new MongoDriverSet($Manager);
+    $MongoDriverSet->runInsertFields($output);
+
+    // $output = \Drupal::getContainer()
+    //   ->get('mongo.driver.set')
+    //   ->runInsertFields($output);
   }
 
   /**
