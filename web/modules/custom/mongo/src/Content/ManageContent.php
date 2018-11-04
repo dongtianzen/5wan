@@ -41,6 +41,7 @@ class ManageContent {
     $bulk = new MongoDB\Driver\BulkWrite;
     $MongoDriverSet->runInsertFields($output, $bulk);
 
+    // sudo composer require mongodb/mongodb
     try {
       $output = \Drupal::getContainer()
         ->get('mongo.driver.set')

@@ -1,7 +1,8 @@
 <?php
 
-namespace Drupal\mongo;
-// namespace Drupal\mongo\Services;
+namespace Drupal\mongo\Services;
+
+// sudo composer require mongodb/mongodb
 
 /**
  * Class MongoDriverSet.
