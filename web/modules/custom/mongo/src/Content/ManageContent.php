@@ -37,9 +37,10 @@ class ManageContent {
     dpm($output);
 
     $Manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-
     $MongoDriverSet = new MongoDriverSet($Manager);
-    $MongoDriverSet->runInsertFields($output);
+
+    $bulk = new MongoDB\Driver\BulkWrite;
+    $MongoDriverSet->runInsertFields($output, $bulk);
 
     // $output = \Drupal::getContainer()
     //   ->get('mongo.driver.set')

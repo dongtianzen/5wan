@@ -26,11 +26,11 @@ class MongoDriverSet {
    *
 
    */
-  function runInsertFields($doc = []) {
+  function runInsertFields($doc = [], $bulk) {
     // $doc = ['name' => 'Toyota', 'price' => 26700];
     // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
 
-    $bulk = new MongoDB\Driver\BulkWrite;
+    // $bulk = new MongoDB\Driver\BulkWrite;
     $bulk->insert($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
