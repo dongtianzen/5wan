@@ -19,20 +19,39 @@
  */
 class ManageContent {
 
+  public function getNids() {
+    $query = \Drupal::entityQuery('node');
+
+    $query->condition('status', 1);
+    $query->condition('type', 'win');
+    $query->range(10, 3);
+
+    $result = $query->execute();
+
+    return array_values($result);
+  }
+
+  /**
+   *
+   */
   public function runInsert() {
-    $win_nids = array(36);
+    $nids = $this->getNids();
 
-    $query = $this->dbSelectFieldsValue(
-      $win_nids,
-      'node__field_win_ave_win',
-      'field_win_ave_win_value'
-    );
+    foreach ($nids as $key => $nid) {
+      $query = $this->dbSelectFieldsValue(
+        $nid,
+        'node__field_win_ave_win',
+        'field_win_ave_win_value'
+      );
 
+      $row['ave_win'] = current($query);
 
-    $output['ave_win'] = current($query);
+      $output[] = $row;
+    }
+
     dpm($output);
 
-    // sudo composer require mongodb/mongodb
+    // // sudo composer require mongodb/mongodb
     $result = \Drupal::getContainer()
       ->get('mongo.driver.set')
       ->runInsertFields($output);
@@ -42,11 +61,10 @@ class ManageContent {
    *
      $query->fields('tablename', ['entity_id', 'field_win_ave_win_value']);
    */
-  public function dbSelectFieldsValue($win_nids, $table = 'node__field_win_ave_win', $field_name = 'field_win_ave_win_value') {
+  public function dbSelectFieldsValue($win_nid, $table = 'node__field_win_ave_win', $field_name = 'field_win_ave_win_value') {
     $query = \Drupal::database()->select($table, 'tablename');
     $query->fields('tablename', [$field_name]);
-    $query->condition('tablename.entity_id', $win_nids, 'IN');
-    // $query->range(0, 200);
+    $query->condition('tablename.entity_id', $win_nid);
 
     $output = $query->execute()->fetchCol();
     // $output = $query->countQuery()->execute()->fetchField();
