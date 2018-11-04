@@ -14,6 +14,8 @@
  * http://zetcode.com/db/mongodbphp/
  */
 
+use Drupal\Component\Utility\Timer;
+
 /**
  *
  */
@@ -49,7 +51,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(10, 3);
+    $query->range(0, 600);
 
     $result = $query->execute();
 
@@ -63,8 +65,13 @@ class ManageContent {
     $win_fields = $this->getWinFields();
     $nids = $this->getNids();
 
+    $name = 'time_one';
+    Timer::start($name);
+
     foreach ($nids as $key => $nid) {
       $row = array();
+      $row['create'] = time();
+      $row['game_id'] = $nid;
 
       foreach ($win_fields as $key => $field) {
         $query = $this->dbSelectFieldsValue(
@@ -80,6 +87,36 @@ class ManageContent {
         ->get('mongo.driver.set')
         ->runInsertFields($row);
     }
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms');
+  }
+
+  /**
+   *
+   */
+  public function runInsert2() {
+    $win_fields = $this->getWinFields();
+    $nids = $this->getNids();
+
+    $name = 'time_one';
+    Timer::start($name);
+
+    $nodes = \Drupal::entityManager()->getStorage('node')->loadMultiple($nids);
+    foreach ($nodes as $key => $node) {
+      $row = array();
+      $row['create'] = time();
+      $row['game_id'] = $nid;
+
+      foreach ($win_fields as $key => $field) {
+        $row[$field] = \Drupal::getContainer()
+          ->get('flexinfo.field.service')
+          ->getFieldFirstValue($node, 'field_win_'. $field);
+      }
+    }
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms -- 2');
   }
 
   /**
