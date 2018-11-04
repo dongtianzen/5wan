@@ -2,7 +2,7 @@
 
 /**
  *
-  require_once(DRUPAL_ROOT . '/modules/custom/mongo/runbyphp.php');
+  require_once(DRUPAL_ROOT . '/modules/custom/mongodb/runbyphp.php');
 
   $MongoDriverManager = new MongoDriverManager();
   $MongoDriverManager->runQueryFieldsWithHideFields();
