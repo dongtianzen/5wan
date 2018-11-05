@@ -51,7 +51,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(0, 600);
+    $query->range(0, 6);
 
     $result = $query->execute();
 
@@ -85,7 +85,7 @@ class ManageContent {
 
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
-        ->runInsertFields($row);
+        ->bulkInsertFields($row);
     }
 
     Timer::stop($name);

@@ -28,13 +28,22 @@ class MongoDriverSet {
   }
 
   /**
+   *
+   */
+  public function getBulkWrite() {
+    $bulk = new \MongoDB\Driver\BulkWrite;
+
+    return $bulk;
+  }
+
+  /**
    * insert
    */
-  function runInsertFields($doc = []) {
+  function bulkInsertFields($doc = []) {
     // $doc = ['name' => 'Toyota', 'price' => 26700];
     // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
 
-    $bulk = new \MongoDB\Driver\BulkWrite;
+    $bulk = $this->getBulkWrite();
     $bulk->insert($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
@@ -44,10 +53,10 @@ class MongoDriverSet {
    * update
    * The MongoDB\BSON\ObjectID generates a new ObjectId. It is a value used to uniquely identify documents in a collection.
    */
-  function runUpdateFields($doc = []) {
+  function bulkUpdateFields($doc = []) {
     // $doc = ['name' => 'Audi'], ['$set' => ['price' => 52000]];
 
-    $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk = $this->getBulkWrite();
     $bulk->update($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
@@ -56,10 +65,10 @@ class MongoDriverSet {
   /**
    * delete
    */
-  function runDeleteFields($doc = []) {
+  function bulkDeleteFields($doc = []) {
     // $doc = ['name' => 'Hummer'];
 
-    $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk = $this->getBulkWrite();
     $bulk->delete($doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
@@ -123,6 +132,7 @@ class MongoDriverSet {
       ]
     ];
     $filter = [];
+
     $query = new \MongoDB\Driver\Query($filter, $options);
 
     $rows = $this->manager->executeQuery("5wan.game", $query);
@@ -137,10 +147,10 @@ class MongoDriverSet {
    */
   function runDatabaseStats() {
     $command = ["dbstats" => 1];
+
     $stats = new \MongoDB\Driver\Command($command);
 
     $result = $this->manager->executeCommand("5wan", $stats);
-
     $stats = current($result->toArray());
 
     print_r($stats);
