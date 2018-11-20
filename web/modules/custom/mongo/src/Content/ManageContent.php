@@ -26,20 +26,20 @@ class ManageContent {
    */
   public function getWinFields() {
     $output = array(
-      "num_company",
-      "outlier",
-      "ave_win",
-      "ave_draw",
-      "ave_loss",
-      "ini_win",
-      "ini_draw",
-      "ini_loss",
-      "variation_end_win",
-      "variation_end_draw",
-      "variation_end_loss",
-      "variation_ini_win",
-      "variation_ini_draw",
-      "variation_ini_loss",
+      "num" => "num_company",
+      "outlier" => "outlier",
+      "e_win" => "ave_win",     // end
+      "e_draw" => "ave_draw",
+      "e_loss" => "ave_loss",
+      "i_win" => "ini_win",     // ini
+      "i_draw" => "ini_draw",
+      "i_loss" => "ini_loss",
+      "ve_win" => "variation_end_win",     // variation_end
+      "ve_draw" => "variation_end_draw",
+      "ve_loss" => "variation_end_loss",
+      "vi_win" => "variation_ini_win",
+      "vi_draw" => "variation_ini_draw",
+      "vi_loss" => "variation_ini_loss",
     );
 
     return $output;
@@ -53,7 +53,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(10000, 90000);      // from 10, total 10
+    $query->range(0, 10000);      // from 10, total 10
 
     $result = $query->execute();
 
@@ -81,14 +81,16 @@ class ManageContent {
           'field_win_' . $field . '_value'
         );
 
-        if ($field == 'num_company') {
-          $row[$field] = intval(current($query));
-        }
-        elseif ($field == 'outlier') {
-          $row[$field] = intval(current($query));
-        }
-        else {
-          $row[$field] = floatval(current($query));
+        if (current($query)) {
+          if ($field == 'num_company') {
+            $row[$key] = intval(current($query));
+          }
+          elseif ($field == 'outlier') {
+            $row[$key] = intval(current($query));
+          }
+          else {
+            $row[$key] = floatval(current($query));
+          }
         }
       }
 
