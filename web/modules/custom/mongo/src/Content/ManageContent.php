@@ -22,24 +22,24 @@ use Drupal\Component\Utility\Timer;
 class ManageContent {
 
   /**
-   *
+   * save shorter field name
    */
   public function getWinFields() {
     $output = array(
       "num" => "num_company",
       "outlier" => "outlier",
-      "e_win" => "ave_win",     // end
-      "e_draw" => "ave_draw",
-      "e_loss" => "ave_loss",
-      "i_win" => "ini_win",     // ini
-      "i_draw" => "ini_draw",
-      "i_loss" => "ini_loss",
-      "ve_win" => "variation_end_win",     // variation_end
-      "ve_draw" => "variation_end_draw",
-      "ve_loss" => "variation_end_loss",
-      "vi_win" => "variation_ini_win",
-      "vi_draw" => "variation_ini_draw",
-      "vi_loss" => "variation_ini_loss",
+      "ew" => "ave_win",     // end
+      "ed" => "ave_draw",
+      "el" => "ave_loss",
+      "iw" => "ini_win",     // ini
+      "id" => "ini_draw",
+      "il" => "ini_loss",
+      "vew" => "variation_end_win",     // variation_end
+      "ved" => "variation_end_draw",
+      "vel" => "variation_end_loss",
+      "viw" => "variation_ini_win",
+      "vid" => "variation_ini_draw",
+      "vil" => "variation_ini_loss",
     );
 
     return $output;
@@ -53,7 +53,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(0, 10000);      // from 10, total 10
+    $query->range(400000, 100000);      // from 10, total 10
 
     $result = $query->execute();
 
@@ -104,7 +104,7 @@ class ManageContent {
   }
 
   /**
-   * Test execute time to compare
+   * Test load Nodes to execute time to compare
    */
   public function runInsert2() {
     $win_fields = $this->getWinFields();
