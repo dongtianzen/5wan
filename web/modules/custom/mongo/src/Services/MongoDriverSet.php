@@ -64,7 +64,10 @@ class MongoDriverSet {
     $bulk = $this->getBulkWrite();
     $bulk->update($filter, $newObj, $updateOptions);
 
-    $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $count = $updateResult->getModifiedCount();
+
+    dpm($count);
   }
 
   /**
@@ -87,7 +90,10 @@ class MongoDriverSet {
     $bulk = $this->getBulkWrite();
     $bulk->update($filter, $newObj, $updateOptions);
 
-    $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $count = $updateResult->getModifiedCount();
+
+    dpm($count);
   }
 
 
@@ -95,10 +101,11 @@ class MongoDriverSet {
    * delete
    */
   function bulkDeleteFields($doc = []) {
-    // $doc = ['name' => 'Hummer'];
+    $filter = ['name' => 'Hummer'];
+    $doc = ['limit' => 1];
 
     $bulk = $this->getBulkWrite();
-    $bulk->delete($doc);
+    $bulk->delete($filter, $doc);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
   }

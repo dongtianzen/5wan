@@ -167,7 +167,7 @@ class ManageContent {
   public function runFindUpdateOne() {
     $result = \Drupal::getContainer()
       ->get('mongo.driver.set')
-      ->bulkFindUpdateOne2();
+      ->bulkFindUpdateOne();
   }
 
 }
