@@ -6,6 +6,8 @@
 
   $ManageContent = new ManageContent();
   $ManageContent->runInsert();
+
+  mongodump -h 127.0.0.1:27017 -d 5wan -o /Applications/MAMP/htdocs/yourfolder/
  */
 
 /**
@@ -141,6 +143,20 @@ class ManageContent {
     // $output = $query->countQuery()->execute()->fetchField();
 
     return $output;
+  }
+
+  /**
+   *
+   require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
+
+   $ManageContent = new ManageContent();
+   $cc = $ManageContent->runFindUpdateOne();
+   dpm($cc);
+   */
+  public function runFindUpdateOne() {
+    $result = \Drupal::getContainer()
+      ->get('mongo.driver.set')
+      ->bulkFindUpdateOne();
   }
 
 }
