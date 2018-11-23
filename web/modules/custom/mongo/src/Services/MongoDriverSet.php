@@ -55,14 +55,41 @@ class MongoDriverSet {
    */
   function bulkFindUpdateOne($doc = []) {
     $filter = ['game_id' => 35];
-    $newObj = ['ew' => 53000];
-    $updateOptions = [TRUE, FALSE];
+    $newObj = [
+      "game_id" => 35,
+      'ew' => 53000
+    ];
+    $updateOptions = ['multi' => false, 'upsert' => true];
 
     $bulk = $this->getBulkWrite();
     $bulk->update($filter, $newObj, $updateOptions);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
   }
+
+  /**
+   * update
+   * The MongoDB\BSON\ObjectID generates a new ObjectId. It is a value used to uniquely identify documents in a collection.
+   */
+  function bulkFindUpdateOne2($doc = []) {
+    $filter = ['game_id' => 35];
+    $newObj = [
+      "game_id" => 35,
+      "ew" => 2.68,
+      "ed" => 3.13,
+      "el" => 2.62,
+      "iw" => 2.74,
+      "id" => 3.2,
+      "il" => 2.47
+    ];
+    $updateOptions = ['multi' => false, 'upsert' => true];
+
+    $bulk = $this->getBulkWrite();
+    $bulk->update($filter, $newObj, $updateOptions);
+
+    $this->manager->executeBulkWrite('5wan.game', $bulk);
+  }
+
 
   /**
    * delete
