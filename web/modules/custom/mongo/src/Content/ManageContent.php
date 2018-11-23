@@ -152,6 +152,17 @@ class ManageContent {
    $ManageContent = new ManageContent();
    $cc = $ManageContent->runFindUpdateOne();
    dpm($cc);
+
+   {
+    "_id" : ObjectId("5bf43edb931c0924332738fc"),
+    "game_id" : 35,
+    "ew" : 2.68,
+    "ed" : 3.13,
+    "el" : 2.62,
+    "iw" : 2.74,
+    "id" : 3.2,
+    "il" : 2.47
+   }
    */
   public function runFindUpdateOne() {
     $result = \Drupal::getContainer()

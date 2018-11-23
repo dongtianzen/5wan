@@ -56,10 +56,10 @@ class MongoDriverSet {
   function bulkFindUpdateOne($doc = []) {
     $filter = ['game_id' => 35];
     $newObj = ['ew' => 53000];
-    // $updateOptions = [];
+    $updateOptions = [TRUE, FALSE];
 
     $bulk = $this->getBulkWrite();
-    $bulk->update($filter, $newObj);
+    $bulk->update($filter, $newObj, $updateOptions);
 
     $this->manager->executeBulkWrite('5wan.game', $bulk);
   }
