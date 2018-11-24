@@ -49,11 +49,56 @@ class MongoDriverSet {
     $this->manager->executeBulkWrite('5wan.game', $bulk);
   }
 
+
+  /**
+   *
+   *
+   */
+  function bulkFindUpdateInc($game_id = '', $value = '') {
+    $query = ['game_id' => $game_id];
+    $update = [
+      '$inc' => [
+        'id' => $value
+      ]
+    ];
+    $updateOptions = ['multi' => false, 'upsert' => false];
+
+    $bulk = $this->getBulkWrite();
+    $bulk->update($query, $update, $updateOptions);
+
+    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+
+    dpm($value);
+  }
+
   /**
    * update
    *
    */
   function bulkFindUpdateSet($doc = []) {
+    $query = ['game_id' => 35];
+    $update = [
+      '$set' => [
+        'ew' => 2.68
+      ]
+    ];
+    $updateOptions = ['multi' => false, 'upsert' => false];
+
+    $bulk = $this->getBulkWrite();
+    $bulk->update($query, $update, $updateOptions);
+
+    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $count = $updateResult->getModifiedCount();
+
+    dpm($count);
+  }
+
+
+  /**
+   *
+   *
+   */
+  function bulkFindUpdateSet($query = [], $update = []) {
     $query = ['game_id' => 35];
     $update = [
       '$set' => [

@@ -8,6 +8,8 @@
   $ManageContent->runInsert();
 
   mongodump -h 127.0.0.1:27017 -d 5wan -o /Applications/MAMP/htdocs/yourfolder/
+
+  mongorestore -h 127.0.0.1:27017 -d 5wan /Applications/MAMP/htdocs/yourfolder/5wan/game440071.bson
  */
 
 /**
@@ -56,11 +58,36 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(0, 100000);      // from 10, total 10
+    $query->range(0, 5);      // from 10, total 10
 
     $result = $query->execute();
 
     return array_values($result);
+  }
+
+  /**
+   *
+   */
+  public function runUpdateInc() {
+    $nids = $this->getNids();
+
+    $name = 'time_one';
+    Timer::start($name);
+
+    foreach ($nids as $key => $nid) {
+      $query = $this->dbSelectFieldsValue(
+        $nid,
+        'node__field_win_id_500',
+        'field_win_id_500_value'
+      );
+
+      $result = \Drupal::getContainer()
+        ->get('mongo.driver.set')
+        ->bulkFindUpdateInc($nid, intval(current($query)));
+    }
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms');
   }
 
   /**
@@ -75,7 +102,6 @@ class ManageContent {
 
     foreach ($nids as $key => $nid) {
       $row = array();
-      $row['game_id'] = intval($nid);
 
       foreach ($win_fields as $key => $field) {
         $query = $this->dbSelectFieldsValue(
