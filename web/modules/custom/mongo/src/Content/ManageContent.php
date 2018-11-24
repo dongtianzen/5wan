@@ -58,7 +58,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(0, 5);      // from 10, total 10
+    $query->range(0, 2);      // from 10, total 10
 
     $result = $query->execute();
 
