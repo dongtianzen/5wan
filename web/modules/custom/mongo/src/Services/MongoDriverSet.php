@@ -51,15 +51,15 @@ class MongoDriverSet {
 
   /**
    * update
-   * The MongoDB\BSON\ObjectID generates a new ObjectId. It is a value used to uniquely identify documents in a collection.
+   *
    */
   function bulkFindUpdateOne($doc = []) {
     $filter = ['game_id' => 35];
     $newObj = [
-      "game_id" => 35,
+      'game_id' => 35,
       'ew' => 53000
     ];
-    $updateOptions = ['multi' => false, 'upsert' => true];
+    $updateOptions = ['multi' => false, 'upsert' => false];
 
     $bulk = $this->getBulkWrite();
     $bulk->update($filter, $newObj, $updateOptions);
@@ -72,12 +72,35 @@ class MongoDriverSet {
 
   /**
    * update
-   * The MongoDB\BSON\ObjectID generates a new ObjectId. It is a value used to uniquely identify documents in a collection.
+   *
+   */
+  function bulkFindUpdateOneSet($doc = []) {
+    $filter = ['game_id' => 35];
+    $newObj = [
+      '$set' => [
+        'game_id' => 35,
+        'ew' => 53000
+      ]
+    ];
+    $updateOptions = ['multi' => false, 'upsert' => false];
+
+    $bulk = $this->getBulkWrite();
+    $bulk->update($filter, $newObj, $updateOptions);
+
+    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $count = $updateResult->getModifiedCount();
+
+    dpm($count);
+  }
+
+  /**
+   * update
+   *
    */
   function bulkFindUpdateOne2($doc = []) {
     $filter = ['game_id' => 35];
     $newObj = [
-      "game_id" => 35,
+      'game_id' => 35,
       "ew" => 2.68,
       "ed" => 3.13,
       "el" => 2.62,
@@ -95,7 +118,6 @@ class MongoDriverSet {
 
     dpm($count);
   }
-
 
   /**
    * delete

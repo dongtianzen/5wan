@@ -151,7 +151,6 @@ class ManageContent {
 
    $ManageContent = new ManageContent();
    $cc = $ManageContent->runFindUpdateOne();
-   dpm($cc);
 
    {
     "_id" : ObjectId("5bf43edb931c0924332738fc"),
@@ -167,7 +166,7 @@ class ManageContent {
   public function runFindUpdateOne() {
     $result = \Drupal::getContainer()
       ->get('mongo.driver.set')
-      ->bulkFindUpdateOne();
+      ->bulkFindUpdateOneSet();
   }
 
 }
