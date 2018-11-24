@@ -57,10 +57,9 @@ class MongoDriverSet {
     $query = ['game_id' => $game_id];
     $update = [
       '$inc' => [
-        'id' => $value
+        'id5' => $value
       ]
     ];
-    $updateOptions = ['multi' => false, 'upsert' => false];
 
     $bulk = $this->getBulkWrite();
     $bulk->update($query, $update);
@@ -82,7 +81,7 @@ class MongoDriverSet {
     $query = ['game_id' => 35];
     $update = [
       '$set' => [
-        'ew' => 2.68
+        'ew' => 2.78
       ]
     ];
     $updateOptions = ['multi' => false, 'upsert' => false];

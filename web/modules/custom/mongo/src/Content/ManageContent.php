@@ -83,7 +83,7 @@ class ManageContent {
 
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
-        ->bulkFindUpdateInc($nid, intval(current($query)));
+        ->bulkFindUpdateInc(intval($nid), intval(current($query)));
     }
 
     Timer::stop($name);
