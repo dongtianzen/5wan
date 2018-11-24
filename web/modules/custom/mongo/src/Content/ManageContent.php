@@ -29,19 +29,20 @@ class ManageContent {
   public function getWinFields() {
     $output = array(
       "num" => "num_company",
+      "id" => "id_500",
       "outlier" => "outlier",
       "ew" => "ave_win",     // end
       "ed" => "ave_draw",
       "el" => "ave_loss",
-      "iw" => "ini_win",     // ini
-      "id" => "ini_draw",
-      "il" => "ini_loss",
+      "sw" => "ini_win",     // start
+      "sd" => "ini_draw",
+      "sl" => "ini_loss",
       "vew" => "variation_end_win",     // variation_end
       "ved" => "variation_end_draw",
       "vel" => "variation_end_loss",
-      "viw" => "variation_ini_win",
-      "vid" => "variation_ini_draw",
-      "vil" => "variation_ini_loss",
+      "vsw" => "variation_ini_win",     // variation start
+      "vsd" => "variation_ini_draw",
+      "vsl" => "variation_ini_loss",
     );
 
     return $output;
@@ -55,7 +56,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(400000, 100000);      // from 10, total 10
+    $query->range(0, 100000);      // from 10, total 10
 
     $result = $query->execute();
 
@@ -166,7 +167,7 @@ class ManageContent {
   public function runFindUpdateOne() {
     $result = \Drupal::getContainer()
       ->get('mongo.driver.set')
-      ->bulkFindUpdateOneSet();
+      ->bulkFindUpdateSet();
   }
 
 }

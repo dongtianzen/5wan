@@ -53,65 +53,17 @@ class MongoDriverSet {
    * update
    *
    */
-  function bulkFindUpdateOne($doc = []) {
-    $filter = ['game_id' => 35];
-    $newObj = [
-      'game_id' => 35,
-      'ew' => 53000
-    ];
-    $updateOptions = ['multi' => false, 'upsert' => false];
-
-    $bulk = $this->getBulkWrite();
-    $bulk->update($filter, $newObj, $updateOptions);
-
-    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
-    $count = $updateResult->getModifiedCount();
-
-    dpm($count);
-  }
-
-  /**
-   * update
-   *
-   */
-  function bulkFindUpdateOneSet($doc = []) {
-    $filter = ['game_id' => 35];
-    $newObj = [
+  function bulkFindUpdateSet($doc = []) {
+    $query = ['game_id' => 35];
+    $update = [
       '$set' => [
-        'game_id' => 35,
-        'ew' => 53000
+        'ew' => 2.68
       ]
     ];
     $updateOptions = ['multi' => false, 'upsert' => false];
 
     $bulk = $this->getBulkWrite();
-    $bulk->update($filter, $newObj, $updateOptions);
-
-    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
-    $count = $updateResult->getModifiedCount();
-
-    dpm($count);
-  }
-
-  /**
-   * update
-   *
-   */
-  function bulkFindUpdateOne2($doc = []) {
-    $filter = ['game_id' => 35];
-    $newObj = [
-      'game_id' => 35,
-      "ew" => 2.68,
-      "ed" => 3.13,
-      "el" => 2.62,
-      "iw" => 2.74,
-      "id" => 3.2,
-      "il" => 2.47
-    ];
-    $updateOptions = ['multi' => false, 'upsert' => true];
-
-    $bulk = $this->getBulkWrite();
-    $bulk->update($filter, $newObj, $updateOptions);
+    $bulk->update($query, $update, $updateOptions);
 
     $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
     $count = $updateResult->getModifiedCount();
