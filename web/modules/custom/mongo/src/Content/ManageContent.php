@@ -58,7 +58,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(0, 2);      // from 10, total 10
+    $query->range(100000, 100000);      // from 10, total 10
 
     $result = $query->execute();
 
@@ -95,7 +95,7 @@ class ManageContent {
    */
   public function runInsert() {
     $win_fields = $this->getWinFields();
-    $nids = $this->getNids();
+    // $nids = $this->getNids();
 
     $name = 'time_one';
     Timer::start($name);

@@ -65,12 +65,6 @@ class MongoDriverSet {
     $bulk->update($query, $update);
 
     $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
-    $count = $updateResult->getModifiedCount();
-
-    dpm('count ' . $count);
-
-    dpm('$game_id ' . $game_id);
-    dpm($value);
   }
 
   /**
