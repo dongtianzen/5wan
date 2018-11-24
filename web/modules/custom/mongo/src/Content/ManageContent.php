@@ -92,6 +92,48 @@ class ManageContent {
 
   /**
    *
+   "name_away": "莫纳加斯",
+   "name_home": "FC波图格萨",
+   "num_company": 111,
+   "variation_end_draw": "5.63",
+   "variation_end_loss": "31.16",
+   "variation_end_win": "4.75",
+   "variation_ini_draw": "8.84",
+   "variation_ini_loss": "24.48",
+   "variation_ini_win": "3.39"
+   */
+  public function runUpdateFromJson() {
+    $SyncJsonToNode = new SyncJsonToNode();
+    $json_content = $SyncJsonToNode->getImportJsonContent();
+
+    $name = 'time_one';
+    Timer::start($name);
+
+    foreach ($json_content as $key => $row) {
+      $query = [
+        'id5' => intval($key)
+      ];
+
+      $update_set = [
+        "vew" => floatval($row["variation_end_win"]),
+        "ved" => floatval($row["variation_end_draw"]),
+        "vel" => floatval($row["variation_end_loss"]),
+        "vsw" => floatval($row["variation_ini_win"]),
+        "vsd" => floatval($row["variation_ini_draw"]),
+        "vsl" => floatval($row["variation_ini_loss"]),
+      ];
+
+      $result = \Drupal::getContainer()
+        ->get('mongo.driver.set')
+        ->bulkFindUpdateInc($query, $update_set));
+    }
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms');
+  }
+
+  /**
+   *
    */
   public function runInsert() {
     $win_fields = $this->getWinFields();
