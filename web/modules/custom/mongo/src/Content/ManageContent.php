@@ -20,6 +20,8 @@
 
 use Drupal\Component\Utility\Timer;
 
+use Drupal\batchinfo\Content\SyncJsonToNode;
+
 /**
  *
  */
@@ -58,7 +60,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(100000, 100000);      // from 10, total 10
+    $query->range(400000, 100000);      // from 10, total 10
 
     $result = $query->execute();
 
@@ -101,6 +103,11 @@ class ManageContent {
    "variation_ini_draw": "8.84",
    "variation_ini_loss": "24.48",
    "variation_ini_win": "3.39"
+
+   require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
+
+   $ManageContent = new ManageContent();
+   $ManageContent->runUpdateFromJson();
    */
   public function runUpdateFromJson() {
     $SyncJsonToNode = new SyncJsonToNode();
@@ -125,7 +132,7 @@ class ManageContent {
 
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
-        ->bulkFindUpdateInc($query, $update_set));
+        ->bulkFindUpdateSetFromJson($query, $update_set);
     }
 
     Timer::stop($name);

@@ -100,9 +100,9 @@ class MongoDriverSet {
     $bulk->update($query, $update, $updateOptions);
 
     $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
-    $count = $updateResult->getModifiedCount();
+    // $count = $updateResult->getModifiedCount();
 
-    dpm($count);
+    // dpm($count);
   }
 
   /**
