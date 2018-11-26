@@ -52,6 +52,30 @@ class MongoDriverSet {
   /**
    *
    */
+  function runCommandCount($game_id = '') {
+    $options = [
+      'count' => "game",
+      'query' => [
+        'id5' => $game_id
+      ]
+    ];
+
+    $this->runExecuteCommand($options);
+  }
+
+  /**
+   * Database statistics
+   */
+  function runExecuteCommand($options) {
+    $command = new \MongoDB\Driver\Command($options);
+    $cursor = $this->manager->executeCommand("5wan", $command);
+    $response = $cursor->toArray();
+    print_r($response);
+  }
+
+  /**
+   *
+   */
   function bulkFindUpdateInc($game_id = '', $value = '') {
     $query = ['game_id' => $game_id];
     $update = [

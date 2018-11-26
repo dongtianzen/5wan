@@ -60,11 +60,40 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(400000, 100000);      // from 10, total 10
+    $query->range(0, 10);      // from 10, total 10
 
     $result = $query->execute();
 
     return array_values($result);
+  }
+
+  /**
+   *
+   require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
+
+   $ManageContent = new ManageContent();
+   $ManageContent->runCheckDuplication();
+   */
+  public function runCheckDuplication() {
+    $nids = $this->getNids();
+
+    $name = 'time_one';
+    Timer::start($name);
+
+    foreach ($nids as $key => $nid) {
+      $query = $this->dbSelectFieldsValue(
+        $nid,
+        'node__field_win_id_500',
+        'field_win_id_500_value'
+      );
+
+      $result = \Drupal::getContainer()
+        ->get('mongo.driver.set')
+        ->bulkFindUpdateInc(intval(current($query)));
+    }
+
+    Timer::stop($name);
+    dpm(Timer::read($name) . 'ms');
   }
 
   /**
