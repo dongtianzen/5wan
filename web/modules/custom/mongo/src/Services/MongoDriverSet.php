@@ -60,17 +60,22 @@ class MongoDriverSet {
       ]
     ];
 
-    $this->runExecuteCommand($options);
+    $this->runExecuteCommand($options, $game_id);
   }
 
   /**
    * Database statistics
    */
-  function runExecuteCommand($options) {
+  function runExecuteCommand($options, $game_id) {
     $command = new \MongoDB\Driver\Command($options);
     $cursor = $this->manager->executeCommand("5wan", $command);
     $response = $cursor->toArray();
-    print_r($response);
+
+    // print_r($response);
+    $count_num = $response[0]->n;
+    if ($count_num > 0) {
+      dpm($game_id . ' have more than 1');
+    }
   }
 
   /**

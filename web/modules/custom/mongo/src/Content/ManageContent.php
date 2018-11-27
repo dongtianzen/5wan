@@ -60,7 +60,7 @@ class ManageContent {
 
     $query->condition('status', 1);
     $query->condition('type', 'win');
-    $query->range(0, 10);      // from 10, total 10
+    $query->range(0, 50000);      // from 10, total 10
 
     $result = $query->execute();
 
@@ -75,21 +75,15 @@ class ManageContent {
    $ManageContent->runCheckDuplication();
    */
   public function runCheckDuplication() {
-    $nids = $this->getNids();
+    $game_ids = range(0, 5);
 
     $name = 'time_one';
     Timer::start($name);
 
-    foreach ($nids as $key => $nid) {
-      $query = $this->dbSelectFieldsValue(
-        $nid,
-        'node__field_win_id_500',
-        'field_win_id_500_value'
-      );
-
+    foreach ($game_ids as $key => $game_id) {
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
-        ->bulkFindUpdateInc(intval(current($query)));
+        ->runCommandCount($game_id);
     }
 
     Timer::stop($name);
