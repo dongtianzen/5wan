@@ -73,7 +73,7 @@ class MongoDriverSet {
 
     // print_r($response);
     $count_num = $response[0]->n;
-    if ($count_num > 0) {
+    if ($count_num > 1) {
       dpm($game_id . ' have more than 1');
     }
   }

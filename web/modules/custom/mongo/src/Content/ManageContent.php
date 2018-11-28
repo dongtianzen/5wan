@@ -75,7 +75,7 @@ class ManageContent {
    $ManageContent->runCheckDuplication();
    */
   public function runCheckDuplication() {
-    $game_ids = range(0, 5);
+    $game_ids = range(0, 50000);
 
     $name = 'time_one';
     Timer::start($name);
