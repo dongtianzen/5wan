@@ -30,11 +30,16 @@ class BasicQueryPyMongo:
     return doc
 
   ###
+  def executeFindCountCommand(self, queryObj):
+    doc = self.getCollection().find(queryObj).count()
+    return doc
+
+  ###
   def runFindCommand(self):
     for num in range(520021, 520025):
       queryObj = { "id5": num }
 
-      doc = self.executeFindCommand(queryObj)
+      doc = self.executeFindCountCommand(queryObj)
 
       for x in doc:
         print(x)
