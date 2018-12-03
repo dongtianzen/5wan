@@ -7,13 +7,40 @@ python3 web/modules/custom/python/pymongo/runCheckDuplication.py
 
 import pymongo
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["5wan"]
-myCollection = mydb["game"]
+dbClient = pymongo.MongoClient("mongodb://localhost:27017/")
+database = dbClient["5wan"]
+dbCollection = database["game"]
 
-myquery = { "id5": 520021 }
+queryObj = { "id5": 520021 }
 
-mydoc = myCollection.find(myquery)
+mydoc = dbCollection.find(queryObj)
 
 for x in mydoc:
   print(x)
+
+#%%
+# define a class
+class BasicQueryPyMongo:
+
+  ###
+  def getDbClient(self):
+    dbClient = pymongo.MongoClient("mongodb://localhost:27017/")
+    return dbClient
+  ###
+  def getDatabase(self):
+    database = self.getDbClient()["5wan"]
+    return database
+
+  ###
+  def getCollection(self):
+    dbCollection = self.getDatabase()["game"]
+    return dbCollection
+
+  ###
+  def runFindCommand(self):
+    queryObj = { "id5": 520021 }
+
+    mydoc = self.getCollection().find(queryObj)
+
+    for x in mydoc:
+      print(x)
