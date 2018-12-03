@@ -6,18 +6,6 @@ python3 web/modules/custom/python/pymongo/runCheckDuplication.py
 #!/usr/bin/python3
 
 import pymongo
-
-dbClient = pymongo.MongoClient("mongodb://localhost:27017/")
-database = dbClient["5wan"]
-dbCollection = database["game"]
-
-queryObj = { "id5": 520021 }
-
-mydoc = dbCollection.find(queryObj)
-
-for x in mydoc:
-  print(x)
-
 #%%
 # define a class
 class BasicQueryPyMongo:
