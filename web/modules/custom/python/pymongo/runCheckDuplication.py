@@ -11,7 +11,7 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["5wan"]
 myCollection = mydb["game"]
 
-myquery = { "id5": "520021" }
+myquery = { "id5": 520021 }
 
 mydoc = myCollection.find(myquery)
 
