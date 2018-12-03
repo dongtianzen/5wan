@@ -40,7 +40,9 @@ class BasicQueryPyMongo:
       queryObj = { "id5": num }
 
       result = self.executeFindCountCommand(queryObj)
-      print(result)
+      if (result > 1):
+        pass
+      print('find ' + str(result) + ' have ' + str(result))
 
   ###
   def runFindCommand(self):
