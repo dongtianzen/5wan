@@ -25,12 +25,12 @@ class BasicQueryPyMongo:
     return dbCollection
 
   ###
-  def executeFindCommand(queryObj):
+  def executeFindCommand(self, queryObj):
     doc = self.getCollection().find(queryObj)
     return doc
 
   ###
-  def runFindCommand(queryObj):
+  def runFindCommand(self):
     for num in range(520021, 520025):
       queryObj = { "id5": num }
 
