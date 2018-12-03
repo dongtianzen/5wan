@@ -44,3 +44,6 @@ class BasicQueryPyMongo:
 
     for x in mydoc:
       print(x)
+
+  ###
+BasicQueryPyMongo().runFindCommand()
