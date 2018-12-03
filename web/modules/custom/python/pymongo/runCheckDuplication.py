@@ -13,7 +13,7 @@ myCollection = mydb["game"]
 
 myquery = { "id5": "520021" }
 
-mydoc = mycol.find(myquery)
+mydoc = myCollection.find(myquery)
 
 for x in mydoc:
   print(x)
