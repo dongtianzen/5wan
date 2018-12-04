@@ -37,13 +37,13 @@ class BasicQueryPyMongo:
 
   ###
   def runFindCountCommand(self):
-    logging.basicConfig(
-      filename='logname',
-      filemode='a',
-      format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-      datefmt='%H:%M:%S',
-      level=logging.INFO
-    )
+    # logging.basicConfig(
+    #   filename='logname',
+    #   filemode='a',
+    #   format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    #   datefmt='%H:%M:%S',
+    #   level=logging.INFO
+    # )
 
     logging.info("Running Urban Planning")
 
