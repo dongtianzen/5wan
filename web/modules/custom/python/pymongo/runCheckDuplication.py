@@ -37,7 +37,7 @@ class BasicQueryPyMongo:
 
   ###
   def runFindCountCommand(self):
-    logging.basicConfig(filename = 'logfilename.log', level = logging.WARNING)
+    logging.basicConfig(filename = 'web/modules/custom/python/pymongo/logfilename.log', level = logging.WARNING)
       # filemode = 'a'
       # datefmt = '%H:%M:%S',
       # format = '%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
