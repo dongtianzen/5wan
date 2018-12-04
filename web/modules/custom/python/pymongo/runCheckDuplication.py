@@ -54,7 +54,7 @@ class BasicQueryPyMongo:
       result = self.executeFindCountCommand(queryObj)
       if (result > 1):
         print('find ' + str(num) + ' have ' + str(result))
-        logging.debug("find duplicate ' + str(num) + ' have ' + str(result))
+        logging.debug("find duplicate " + str(num) + ' have ' + str(result))
   ###
 
   ###
