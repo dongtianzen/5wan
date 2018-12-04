@@ -46,6 +46,7 @@ class BasicQueryPyMongo:
     # )
 
     logging.info("Running Urban Planning")
+    logging.warning("Running Urban warning")
 
     for num in range(100000, 100010):
       queryObj = { "id5": num }
