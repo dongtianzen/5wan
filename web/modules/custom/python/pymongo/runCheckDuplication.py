@@ -42,19 +42,19 @@ class BasicQueryPyMongo:
       # datefmt = '%H:%M:%S',
       # format = '%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
 
-    logging.debug("Running debug to")
+    logging.warning("Running warning to")
 
-    for num in range(100000, 100500):
+    for num in range(100500, 201000):
       queryObj = { "id5": num }
 
       if ((num % 100) == 0):
         print(num)
-        logging.warning("Running Number to" + str(num))
+        logging.warning("Running Number to " + str(num))
 
       result = self.executeFindCountCommand(queryObj)
       if (result > 1):
         print('find ' + str(num) + ' have ' + str(result))
-        logging.debug("find duplicate " + str(num) + ' have ' + str(result))
+        logging.warning("find duplicate " + str(num) + ' have ' + str(result))
   ###
 
   ###
