@@ -39,6 +39,9 @@ class BasicQueryPyMongo:
     for num in range(50000, 100000):
       queryObj = { "id5": num }
 
+      if ((num % 100) == 0):
+        print(num)
+
       result = self.executeFindCountCommand(queryObj)
       if (result > 1):
         print('find ' + str(num) + ' have ' + str(result))
