@@ -4,8 +4,9 @@ python3 web/modules/custom/python/pymongo/runCheckDuplication.py
 """
 
 #!/usr/bin/python3
-
+import logging
 import pymongo
+
 #%%
 # define a class
 class BasicQueryPyMongo:
@@ -36,10 +37,20 @@ class BasicQueryPyMongo:
 
   ###
   def runFindCountCommand(self):
-    for num in range(50000, 100000):
+    logging.basicConfig(
+      filename='logname',
+      filemode='a',
+      format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+      datefmt='%H:%M:%S',
+      level=logging.DEBUG
+    )
+
+    logging.info("Running Urban Planning")
+
+    for num in range(100000, 100010):
       queryObj = { "id5": num }
 
-      if ((num % 100) == 0):
+      if ((num % 1000) == 0):
         print(num)
 
       result = self.executeFindCountCommand(queryObj)
