@@ -6,6 +6,7 @@ namespace Drupal\mongo\Services;
  *
  $output = \Drupal::getContainer()
    ->get('mongo.driver.set')
+   ->commandSet()
    ->runDatabaseStats();
  */
 class MongoDriverSet {
@@ -18,6 +19,12 @@ class MongoDriverSet {
 
   function bulkSet() {
     $output = new MongoDriverSetBulk();
+
+    return $output;
+  }
+
+  function querySet() {
+    $output = new MongoDriverSetQuery();
 
     return $output;
   }
@@ -138,7 +145,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
   /**
    * insert
    */
-  function bulkInsertFields($doc = []) {
+  public function bulkInsertFields($doc = []) {
     // $doc = ['name' => 'Toyota', 'price' => 26700];
     // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
 
@@ -162,7 +169,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
   }
 
   /**
-   * $set修改器
+   * $set修改器, $set操作符替换掉指定字段的值
    * @param
      $query = ['game_id' => 35];
      $set_array = [
@@ -192,7 +199,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
 class MongoDriverSetQuery extends MongoDriverSetBasic {
 
   /**
-   *
+   * MongoDB\Driver\Query
    */
   public function runExecuteQuery($filter, $options) {
     $query = new MongoDB\Driver\Query($filter, $options);
@@ -204,14 +211,16 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
       // ksm($document);
       var_dump($document);
     }
+
+    return $rows;
   }
 
   /**
-   * MongoDB\Driver\Query
+   *
    */
-  function runQueryFields() {
-    $filter = ['ave_win' => ['$gt' => 1]];
+  function runQueryFieldsExample() {
     $filter = ['name' => 'Volkswagen'];
+    $filter = ['ave_win' => ['$gt' => 1]];
     $filter = [];
     $options = [
       'projection' => [
@@ -224,7 +233,8 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
     ];
     $options = [];
 
-    $this->runExecuteQuery($filter, $options);
+    $output = $this->runExecuteQuery($filter, $options);
+    return $output;
   }
 
   /**
@@ -243,12 +253,8 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
      'ave_draw' => 1,
    ]
    *
-   *
-   $output = \Drupal::getContainer()
-     ->get('mongo.driver.set')
-     ->runQueryFieldsWithHideFields();
    */
-  function runQueryFieldsWithHideFields() {
+  function runQueryFieldsWithHideFieldsExample() {
     $options = [
       "projection" => [
         '_id' => 0,
@@ -258,7 +264,8 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
     ];
     $filter = [];
 
-    $this->runExecuteQuery($filter, $options);
+    $output = $this->runExecuteQuery($filter, $options);
+    return $output;
   }
 
 }

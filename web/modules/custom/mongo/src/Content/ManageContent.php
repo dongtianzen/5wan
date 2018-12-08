@@ -25,7 +25,29 @@ use Drupal\batchinfo\Content\SyncJsonToNode;
 /**
  *
  */
-class ManageContent {
+class ManageDrupalContent {
+
+  /**
+   *
+     $query->fields('tablename', ['entity_id', 'field_win_ave_win_value']);
+   */
+  public function dbSelectFieldsValue($win_nid, $table = 'node__field_win_ave_win', $field_name = 'field_win_ave_win_value') {
+    $query = \Drupal::database()->select($table, 'tablename');
+    $query->fields('tablename', [$field_name]);
+    $query->condition('tablename.entity_id', $win_nid);
+
+    $output = $query->execute()->fetchCol();
+    // $output = $query->countQuery()->execute()->fetchField();
+
+    return $output;
+  }
+
+}
+
+/**
+ *
+ */
+class ManageContent extends ManageDrupalContent {
 
   /**
    * save shorter field name
@@ -229,54 +251,16 @@ class ManageContent {
 
   /**
    *
-     $query->fields('tablename', ['entity_id', 'field_win_ave_win_value']);
-   */
-  public function dbSelectFieldsValue($win_nid, $table = 'node__field_win_ave_win', $field_name = 'field_win_ave_win_value') {
-    $query = \Drupal::database()->select($table, 'tablename');
-    $query->fields('tablename', [$field_name]);
-    $query->condition('tablename.entity_id', $win_nid);
-
-    $output = $query->execute()->fetchCol();
-    // $output = $query->countQuery()->execute()->fetchField();
-
-    return $output;
-  }
-
-  /**
-   *
    require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
 
    $ManageContent = new ManageContent();
-   $cc = $ManageContent->runFindUpdateOne();
-
-   {
-    "_id" : ObjectId("5bf43edb931c0924332738fc"),
-    "game_id" : 35,
-    "ew" : 2.68,
-    "ed" : 3.13,
-    "el" : 2.62,
-    "iw" : 2.74,
-    "id" : 3.2,
-    "il" : 2.47
-   }
+   $cc = $ManageContent->runFindUpdateValue();
    */
-  public function runFindUpdateOne() {
-    $result = \Drupal::getContainer()
+  public function runFindUpdateValue() {
+    $result =  $output = \Drupal::getContainer()
       ->get('mongo.driver.set')
-      ->bulkFindUpdateSet();
-  }
-
-  /**
-   *
-   require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
-
-   $ManageContent = new ManageContent();
-   $cc = $ManageContent->runFindUpdateOne();
-   */
-  public function runFindUpdateOneQQ() {
-    $result = \Drupal::getContainer()
-      ->get('mongo.driver.set')
-      ->bulkFindUpdateSet();
+      ->commandSet()
+      ->runDatabaseStats();
   }
 
 }
