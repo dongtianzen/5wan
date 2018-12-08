@@ -95,9 +95,8 @@ class ManageContent {
    */
   public function runUpdateInc() {
     $nids = $this->getNids();
+    $nids = array(430398, 391207);
 
-    $name = 'time_one';
-    Timer::start($name);
 
     foreach ($nids as $key => $nid) {
       $query = $this->dbSelectFieldsValue(
@@ -106,13 +105,12 @@ class ManageContent {
         'field_win_id_500_value'
       );
 
+      dpm($query);
+
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
         ->bulkFindUpdateInc(intval($nid), intval(current($query)));
     }
-
-    Timer::stop($name);
-    dpm(Timer::read($name) . 'ms');
   }
 
   /**
