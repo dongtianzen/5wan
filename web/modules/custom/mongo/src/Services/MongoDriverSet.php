@@ -43,6 +43,24 @@ class MongoDriverSetCommand extends MongoDriverSetBasic {
   /**
    *
    */
+  function runExecuteCommand($options, $game_id = NULL) {
+    $command = new \MongoDB\Driver\Command($options);
+    $cursor = $this->manager->executeCommand("5wan", $command);
+    $response = $cursor->toArray();
+
+    print_r($response);
+
+    if ($game_id) {
+      $count_num = $response[0]->n;
+      if ($count_num > 1) {
+        dpm($game_id . ' have more than 1');
+      }
+    }
+  }
+
+  /**
+   *
+   */
   function runCommandCount($game_id = '') {
     $options = [
       'count' => "game",
@@ -51,38 +69,16 @@ class MongoDriverSetCommand extends MongoDriverSetBasic {
       ]
     ];
 
-    dpm($game_id);
-    $result = $this->runExecuteCommand($options, $game_id);
-    dpm($result);
-  }
-
-  /**
-   * Database statistics
-   */
-  function runExecuteCommand($options, $game_id) {
-    $command = new \MongoDB\Driver\Command($options);
-    $cursor = $this->manager->executeCommand("5wan", $command);
-    $response = $cursor->toArray();
-
-    // print_r($response);
-    $count_num = $response[0]->n;
-    if ($count_num > 1) {
-      dpm($game_id . ' have more than 1');
-    }
+    $this->runExecuteCommand($options, $game_id);
   }
 
   /**
    * Database statistics
    */
   function runDatabaseStats() {
-    $command = ["dbstats" => 1];
+    $options = ["dbstats" => 1];
 
-    $stats = new \MongoDB\Driver\Command($command);
-
-    $result = $this->manager->executeCommand("5wan", $stats);
-    $stats = current($result->toArray());
-
-    print_r($stats);
+    $this->runExecuteCommand($options);
   }
 
 }

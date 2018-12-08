@@ -82,7 +82,7 @@ class ManageContent {
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
         ->commandSet()
-        ->runCommandCount($game_id);
+        ->runDatabaseStats($game_id);
     }
 
   }
