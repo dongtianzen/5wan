@@ -8,12 +8,21 @@ namespace Drupal\mongo\Services;
    ->get('mongo.driver.set')
    ->runDatabaseStats();
  */
+class MongoDriverSet {
+
+  function commandSet() {
+    $output = new MongoDriverSetCommand();
+
+    return $output;
+  }
+
+}
 
 /**
  * Class MongoDriverSet.
  */
 // class MongoDriverSet implements MongoDriverSetInterface {
-class MongoDriverSet {
+class MongoDriverSetBasic {
 
   /**
    *
@@ -29,7 +38,7 @@ class MongoDriverSet {
 
 }
 
-class MongoDriverSetCommand extends MongoDriverSet {
+class MongoDriverSetCommand extends MongoDriverSetBasic {
 
   /**
    *
@@ -42,7 +51,9 @@ class MongoDriverSetCommand extends MongoDriverSet {
       ]
     ];
 
-    $this->runExecuteCommand($options, $game_id);
+    dpm($game_id);
+    $result = $this->runExecuteCommand($options, $game_id);
+    dpm($result);
   }
 
   /**
@@ -76,7 +87,7 @@ class MongoDriverSetCommand extends MongoDriverSet {
 
 }
 
-class MongoDriverSetBulk extends MongoDriverSet {
+class MongoDriverSetBulk extends MongoDriverSetBasic {
 
   /**
    *
@@ -171,7 +182,7 @@ class MongoDriverSetBulk extends MongoDriverSet {
 
 }
 
-class MongoDriverSetQuery extends MongoDriverSet {
+class MongoDriverSetQuery extends MongoDriverSetBasic {
 
   /**
    * MongoDB\Driver\Query

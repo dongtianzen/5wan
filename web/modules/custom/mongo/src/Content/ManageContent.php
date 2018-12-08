@@ -75,19 +75,16 @@ class ManageContent {
    $ManageContent->runCheckDuplication();
    */
   public function runCheckDuplication() {
-    $game_ids = range(0, 50000);
-
-    $name = 'time_one';
-    Timer::start($name);
+    $game_ids = range(430398, 430399);
+    $game_ids = range(84054, 84055);
 
     foreach ($game_ids as $key => $game_id) {
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
+        ->commandSet()
         ->runCommandCount($game_id);
     }
 
-    Timer::stop($name);
-    dpm(Timer::read($name) . 'ms');
   }
 
   /**
@@ -273,7 +270,7 @@ class ManageContent {
    $ManageContent = new ManageContent();
    $cc = $ManageContent->runFindUpdateOne();
    */
-  public function runFindUpdateOne() {
+  public function runFindUpdateOneQQ() {
     $result = \Drupal::getContainer()
       ->get('mongo.driver.set')
       ->bulkFindUpdateSet();
