@@ -11,18 +11,27 @@ namespace Drupal\mongo\Services;
  */
 class MongoDriverSet {
 
+  /**
+   *
+   */
   function commandSet() {
     $output = new MongoDriverSetCommand();
 
     return $output;
   }
 
+  /**
+   *
+   */
   function bulkSet() {
     $output = new MongoDriverSetBulk();
 
     return $output;
   }
 
+  /**
+   *
+   */
   function querySet() {
     $output = new MongoDriverSetQuery();
 
@@ -156,13 +165,13 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
    * $inc修改器, 用来增加已有键的值，或者在键不存在时创建一个键。这在有变化数值的地方，使用起来非常方便
    * @param
      $query = ['game_id' => 30258];
-     $inc_array = [
+     $modify_array = [
        'id5' => 506845
      ];
    */
-  function bulkFindUpdateInc($query = [], $inc_array = []) {
+  public function bulkFindUpdateInc($query = [], $modify_array = []) {
     $update = [
-      '$inc' => $inc_array
+      '$inc' => $modify_array
     ];
 
     $this->runExecuteBulkWriteUpdate($query, $update);
@@ -172,13 +181,36 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
    * $set修改器, $set操作符替换掉指定字段的值
    * @param
      $query = ['game_id' => 35];
-     $set_array = [
+     $modify_array = [
        'ew' => 2.78
      ];
    */
-  function bulkFindUpdateSet($query = [], $set_array = []) {
+  public function bulkFindUpdateSet($query = [], $modify_array = []) {
     $update = [
-      '$set' => $set_array
+      '$set' => $modify_array
+    ];
+
+    $this->runExecuteBulkWriteUpdate($query, $update);
+  }
+
+  /**
+   * $unset修改器, The $unset operator deletes a particular field.
+   * 如果条件为空，就是删除所有collection 下的这个字段
+   */
+  public function bulkFindUpdateUnset($query = [], $modify_array = []) {
+    $update = [
+      '$unset' => $modify_array
+    ];
+
+    $this->runExecuteBulkWriteUpdate($query, $update);
+  }
+
+  /**
+   * $rename 若要重命名某个列应使用　
+   */
+  public function bulkFindUpdateRename($query = [], $modify_array = []) {
+    $update = [
+      '$unset' => $modify_array
     ];
 
     $this->runExecuteBulkWriteUpdate($query, $update);
@@ -187,7 +219,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
   /**
    * delete
    */
-  function bulkDeleteFields($doc = []) {
+  public function bulkDeleteFields($doc = []) {
     $filter = ['name' => 'Hummer'];
     $doc = ['limit' => 1];
 
@@ -201,16 +233,16 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
   /**
    * MongoDB\Driver\Query
    */
-  public function runExecuteQuery($filter, $options) {
-    $query = new MongoDB\Driver\Query($filter, $options);
+  public function runExecuteQuery($filter = [], $options = []) {
+    $query = new \MongoDB\Driver\Query($filter, $options);
 
     $rows = $this->manager->executeQuery('5wan.game', $query);
 
-    foreach ($rows as $document) {
-      dpm($document->ave_win);
+    // foreach ($rows as $document) {
+      // dpm($document->sw);
       // ksm($document);
-      var_dump($document);
-    }
+      // var_dump($document);
+    // }
 
     return $rows;
   }
@@ -218,7 +250,7 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
   /**
    *
    */
-  function runQueryFieldsExample() {
+  public function runQueryFieldsExample() {
     $filter = ['name' => 'Volkswagen'];
     $filter = ['ave_win' => ['$gt' => 1]];
     $filter = [];
@@ -254,7 +286,7 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
    ]
    *
    */
-  function runQueryFieldsWithHideFieldsExample() {
+  public function runQueryFieldsWithHideFieldsExample() {
     $options = [
       "projection" => [
         '_id' => 0,

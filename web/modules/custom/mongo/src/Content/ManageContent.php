@@ -124,7 +124,7 @@ class ManageContent extends ManageDrupalContent {
       );
 
       $inc_array = [
-        'id5' = intval(current($sql_query))
+        'id5' => intval(current($sql_query))
       ];
 
       $query = ['game_id' => intval($nid)];
@@ -254,13 +254,45 @@ class ManageContent extends ManageDrupalContent {
    require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
 
    $ManageContent = new ManageContent();
-   $cc = $ManageContent->runFindUpdateValue();
+   $cc = $ManageContent->runFindAndUpdateValue();
    */
-  public function runFindUpdateValue() {
-    $result =  $output = \Drupal::getContainer()
+  public function runFindAndUpdateValue() {
+    $search_500_id = 167832;
+    $filter = ['id5' => $search_500_id];
+    $rows = \Drupal::getContainer()
       ->get('mongo.driver.set')
-      ->commandSet()
-      ->runDatabaseStats();
+      ->querySet()
+      ->runExecuteQuery($filter);
+
+    $nids = [];
+    foreach ($rows as $document) {
+      $node = \Drupal::entityManager()->getStorage('node')->load($document->game_id);
+      $node_500_id = \Drupal::getContainer()
+        ->get('flexinfo.field.service')
+        ->getFieldFirstValue($node, 'field_win_id_500');
+
+      if ($node_500_id != $search_500_id) {
+        dpm($node->id());
+
+        $query = ['_id' => $document->_id];
+        // dpm($document->_id->__toString());
+
+        $modify_array = [
+          'id5' => ""
+        ];
+
+        $result = \Drupal::getContainer()
+          ->get('mongo.driver.set')
+          ->bulkSet()
+          ->bulkFindUpdateUnset($query, $modify_array);
+      }
+
+      // dpm($document->_id->__toString());
+
+      // ksm($document);
+      // var_dump($document);
+    }
+
   }
 
 }
