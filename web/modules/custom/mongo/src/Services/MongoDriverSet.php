@@ -16,6 +16,12 @@ class MongoDriverSet {
     return $output;
   }
 
+  function bulkSet() {
+    $output = new MongoDriverSetBulk();
+
+    return $output;
+  }
+
 }
 
 /**
