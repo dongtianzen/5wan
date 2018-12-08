@@ -266,4 +266,17 @@ class ManageContent {
       ->bulkFindUpdateSet();
   }
 
+  /**
+   *
+   require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
+
+   $ManageContent = new ManageContent();
+   $cc = $ManageContent->runFindUpdateOne();
+   */
+  public function runFindUpdateOne() {
+    $result = \Drupal::getContainer()
+      ->get('mongo.driver.set')
+      ->bulkFindUpdateSet();
+  }
+
 }

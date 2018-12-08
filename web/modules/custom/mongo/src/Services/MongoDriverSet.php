@@ -27,27 +27,9 @@ class MongoDriverSet {
     $this->manager = new \MongoDB\Driver\Manager("mongodb://localhost:27017");
   }
 
-  /**
-   *
-   */
-  public function getBulkWrite() {
-    $bulk = new \MongoDB\Driver\BulkWrite;
+}
 
-    return $bulk;
-  }
-
-  /**
-   * insert
-   */
-  function bulkInsertFields($doc = []) {
-    // $doc = ['name' => 'Toyota', 'price' => 26700];
-    // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
-
-    $bulk = $this->getBulkWrite();
-    $bulk->insert($doc);
-
-    $this->manager->executeBulkWrite('5wan.game', $bulk);
-  }
+class MongoDriverSetCommand extends MongoDriverSet {
 
   /**
    *
@@ -76,6 +58,46 @@ class MongoDriverSet {
     if ($count_num > 1) {
       dpm($game_id . ' have more than 1');
     }
+  }
+
+  /**
+   * Database statistics
+   */
+  function runDatabaseStats() {
+    $command = ["dbstats" => 1];
+
+    $stats = new \MongoDB\Driver\Command($command);
+
+    $result = $this->manager->executeCommand("5wan", $stats);
+    $stats = current($result->toArray());
+
+    print_r($stats);
+  }
+
+}
+
+class MongoDriverSetBulk extends MongoDriverSet {
+
+  /**
+   *
+   */
+  public function getBulkWrite() {
+    $bulk = new \MongoDB\Driver\BulkWrite;
+
+    return $bulk;
+  }
+
+  /**
+   * insert
+   */
+  function bulkInsertFields($doc = []) {
+    // $doc = ['name' => 'Toyota', 'price' => 26700];
+    // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
+
+    $bulk = $this->getBulkWrite();
+    $bulk->insert($doc);
+
+    $this->manager->executeBulkWrite('5wan.game', $bulk);
   }
 
   /**
@@ -147,6 +169,10 @@ class MongoDriverSet {
     $this->manager->executeBulkWrite('5wan.game', $bulk);
   }
 
+}
+
+class MongoDriverSetQuery extends MongoDriverSet {
+
   /**
    * MongoDB\Driver\Query
    */
@@ -215,18 +241,5 @@ class MongoDriverSet {
     }
   }
 
-  /**
-   * Database statistics
-   */
-  function runDatabaseStats() {
-    $command = ["dbstats" => 1];
-
-    $stats = new \MongoDB\Driver\Command($command);
-
-    $result = $this->manager->executeCommand("5wan", $stats);
-    $stats = current($result->toArray());
-
-    print_r($stats);
-  }
 
 }
