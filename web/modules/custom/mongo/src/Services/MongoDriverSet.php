@@ -101,6 +101,16 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
   }
 
   /**
+   *
+   */
+  public function runExecuteBulkWrite($bulk) {
+    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+
+    $count = $updateResult->getModifiedCount();
+    dpm($count);
+  }
+
+  /**
    * insert
    */
   function bulkInsertFields($doc = []) {
@@ -110,7 +120,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     $bulk = $this->getBulkWrite();
     $bulk->insert($doc);
 
-    $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $this->runExecuteBulkWrite($bulk);
   }
 
   /**
@@ -127,7 +137,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     $bulk = $this->getBulkWrite();
     $bulk->update($query, $update);
 
-    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $this->runExecuteBulkWrite($bulk);
   }
 
   /**
@@ -145,10 +155,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     $bulk = $this->getBulkWrite();
     $bulk->update($query, $update, $updateOptions);
 
-    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
-    $count = $updateResult->getModifiedCount();
-
-    dpm($count);
+    $this->runExecuteBulkWrite($bulk);
   }
 
   /**
@@ -163,10 +170,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     $bulk = $this->getBulkWrite();
     $bulk->update($query, $update, $updateOptions);
 
-    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
-    // $count = $updateResult->getModifiedCount();
-
-    // dpm($count);
+    $this->runExecuteBulkWrite($bulk);
   }
 
   /**
@@ -179,7 +183,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     $bulk = $this->getBulkWrite();
     $bulk->delete($filter, $doc);
 
-    $this->manager->executeBulkWrite('5wan.game', $bulk);
+    $this->runExecuteBulkWrite($bulk);
   }
 
 }
