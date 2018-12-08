@@ -146,39 +146,32 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
   }
 
   /**
-   *
+   * $inc修改器, 用来增加已有键的值，或者在键不存在时创建一个键。这在有变化数值的地方，使用起来非常方便
+   * @param
+     $query = ['game_id' => 30258];
+     $inc_array = [
+       'id5' => 506845
+     ];
    */
-  function bulkFindUpdateInc($game_id = '', $value = '') {
-    $query = ['game_id' => $game_id];
+  function bulkFindUpdateInc($query = [], $inc_array = []) {
     $update = [
-      '$inc' => [
-        'id5' => $value
-      ]
+      '$inc' => $inc_array
     ];
 
     $this->runExecuteBulkWriteUpdate($query, $update);
   }
 
   /**
-   *
+   * $set修改器
+   * @param
+     $query = ['game_id' => 35];
+     $set_array = [
+       'ew' => 2.78
+     ];
    */
-  function bulkFindUpdateSet($query = [], $update = []) {
-    $query = ['game_id' => 35];
+  function bulkFindUpdateSet($query = [], $set_array = []) {
     $update = [
-      '$set' => [
-        'ew' => 2.78
-      ]
-    ];
-
-    $this->runExecuteBulkWriteUpdate($query, $update);
-  }
-
-  /**
-   *
-   */
-  function bulkFindUpdateSetFromJson($query = [], $update_set = []) {
-    $update = [
-      '$set' => $update_set
+      '$set' => $set_array
     ];
 
     $this->runExecuteBulkWriteUpdate($query, $update);

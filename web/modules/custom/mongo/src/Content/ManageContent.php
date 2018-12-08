@@ -94,19 +94,22 @@ class ManageContent {
     $nids = $this->getNids();
     $nids = array(430398, 391207);
 
-
     foreach ($nids as $key => $nid) {
-      $query = $this->dbSelectFieldsValue(
+      $sql_query = $this->dbSelectFieldsValue(
         $nid,
         'node__field_win_id_500',
         'field_win_id_500_value'
       );
 
-      dpm($query);
+      $inc_array = [
+        'id5' = intval(current($sql_query))
+      ];
+
+      $query = ['game_id' => intval($nid)];
 
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
-        ->bulkFindUpdateInc(intval($nid), intval(current($query)));
+        ->bulkFindUpdateInc($query, $inc_array);
     }
   }
 
@@ -150,7 +153,7 @@ class ManageContent {
 
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
-        ->bulkFindUpdateSetFromJson($query, $update_set);
+        ->bulkFindUpdateSet($query, $update_set);
     }
 
     Timer::stop($name);
