@@ -103,11 +103,36 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
   /**
    *
    */
-  public function runExecuteBulkWrite($bulk) {
-    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk);
+  public function runExecuteBulkWriteInsert($doc) {
+    $bulk = $this->getBulkWrite();
+    $bulk->insert($doc);
+
+    $result = $this->manager->executeBulkWrite('5wan.game', $bulk);
+  }
+
+  /**
+   *
+   */
+  public function runExecuteBulkWriteUpdate($query, $update) {
+    $updateOptions = ['multi' => false, 'upsert' => false];
+
+    $bulk = $this->getBulkWrite();
+    $bulk->update($query, $update);
+
+    $updateResult = $this->manager->executeBulkWrite('5wan.game', $bulk, $updateOptions);
 
     $count = $updateResult->getModifiedCount();
     dpm($count);
+  }
+
+  /**
+   *
+   */
+  public function runExecuteBulkWriteDelete($filter, $doc) {
+    $bulk = $this->getBulkWrite();
+    $bulk->delete($filter, $doc);
+
+    $result = $this->runExecuteBulkWrite($bulk);
   }
 
   /**
@@ -117,10 +142,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     // $doc = ['name' => 'Toyota', 'price' => 26700];
     // $doc = ['_id' => new MongoDB\BSON\ObjectID, 'name' => 'Toyota', 'price' => 26700];
 
-    $bulk = $this->getBulkWrite();
-    $bulk->insert($doc);
-
-    $this->runExecuteBulkWrite($bulk);
+    $this->runExecuteBulkWriteInsert($doc);
   }
 
   /**
@@ -134,10 +156,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
       ]
     ];
 
-    $bulk = $this->getBulkWrite();
-    $bulk->update($query, $update);
-
-    $this->runExecuteBulkWrite($bulk);
+    $this->runExecuteBulkWriteUpdate($query, $update);
   }
 
   /**
@@ -150,12 +169,8 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
         'ew' => 2.78
       ]
     ];
-    $updateOptions = ['multi' => false, 'upsert' => false];
 
-    $bulk = $this->getBulkWrite();
-    $bulk->update($query, $update, $updateOptions);
-
-    $this->runExecuteBulkWrite($bulk);
+    $this->runExecuteBulkWriteUpdate($query, $update);
   }
 
   /**
@@ -165,12 +180,8 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     $update = [
       '$set' => $update_set
     ];
-    $updateOptions = ['multi' => false, 'upsert' => false];
 
-    $bulk = $this->getBulkWrite();
-    $bulk->update($query, $update, $updateOptions);
-
-    $this->runExecuteBulkWrite($bulk);
+    $this->runExecuteBulkWriteUpdate($query, $update);
   }
 
   /**
@@ -180,15 +191,27 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
     $filter = ['name' => 'Hummer'];
     $doc = ['limit' => 1];
 
-    $bulk = $this->getBulkWrite();
-    $bulk->delete($filter, $doc);
-
-    $this->runExecuteBulkWrite($bulk);
+    $this->runExecuteBulkWriteDelete($filter, $doc);
   }
 
 }
 
 class MongoDriverSetQuery extends MongoDriverSetBasic {
+
+  /**
+   *
+   */
+  public function runExecuteQuery($filter, $options) {
+    $query = new MongoDB\Driver\Query($filter, $options);
+
+    $rows = $this->manager->executeQuery('5wan.game', $query);
+
+    foreach ($rows as $document) {
+      dpm($document->ave_win);
+      // ksm($document);
+      var_dump($document);
+    }
+  }
 
   /**
    * MongoDB\Driver\Query
@@ -208,14 +231,7 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
     ];
     $options = [];
 
-    $query = new MongoDB\Driver\Query($filter, $options);
-    $rows = $this->manager->executeQuery('5wan.game', $query);
-
-    foreach ($rows as $document) {
-      dpm($document->ave_win);
-      // ksm($document);
-      var_dump($document);
-    }
+    $this->runExecuteQuery($filter, $options);
   }
 
   /**
@@ -249,14 +265,7 @@ class MongoDriverSetQuery extends MongoDriverSetBasic {
     ];
     $filter = [];
 
-    $query = new \MongoDB\Driver\Query($filter, $options);
-
-    $rows = $this->manager->executeQuery("5wan.game", $query);
-
-    foreach ($rows as $row) {
-      print_r($row);
-    }
+    $this->runExecuteQuery($filter, $options);
   }
-
 
 }
