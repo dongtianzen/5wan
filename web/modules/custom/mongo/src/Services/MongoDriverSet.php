@@ -166,7 +166,7 @@ class MongoDriverSetBulk extends MongoDriverSetBasic {
    * @param
      $query = ['game_id' => 30258];
      $modify_array = [
-       'id5' => 506845
+       'num' => 150
      ];
    */
   public function bulkFindUpdateInc($query = [], $modify_array = []) {

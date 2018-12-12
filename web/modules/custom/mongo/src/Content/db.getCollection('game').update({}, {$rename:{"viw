@@ -1,0 +1,26 @@
+db.getCollection('game').update({}, {$rename:{"viw":"vsw"}}, false, true);
+
+
+db.getCollection('game').find({ 'vew': { $gt: 0 } } )
+
+
+
+db.getCollection('game').find({ } ).count()
+db.getCollection('game').find({ 'id5': { $gt: 0 } } ).count()
+db.getCollection('game').find({ 'id5': { $eq: 84054 } } )
+db.getCollection('game').find({ 'id5': { $eq: 168108 } } )
+db.getCollection('game').find({ 'id6': { $eq: 168108 } } )
+db.getCollection('game').find({ 'game_id': { $eq: 396078 } } )
+db.getCollection('game').find({ 'game_id': { $eq: 432211 } } )
+
+
+
+game.bson
+game.metadata.json
+
+/var/www/html/5wan/web/sites/default/files/mongo/backup
+
+
+mongorestore -h 127.0.0.1:27017 -d 5wan /var/www/html/5wan/web/sites/default/files/mongo/backup/game.bson
+
+mongodump -h 127.0.0.1:27017 -d 5wan -o /Applications/MAMP/htdocs/yourfolder/

@@ -123,11 +123,10 @@ class ManageContent extends ManageDrupalContent {
         'field_win_id_500_value'
       );
 
+      $query = ['game_id' => intval($nid)];
       $inc_array = [
         'id5' => intval(current($sql_query))
       ];
-
-      $query = ['game_id' => intval($nid)];
 
       $result = \Drupal::getContainer()
         ->get('mongo.driver.set')
