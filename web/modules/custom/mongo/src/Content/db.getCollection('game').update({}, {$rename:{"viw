@@ -24,3 +24,5 @@ game.metadata.json
 mongorestore -h 127.0.0.1:27017 -d 5wan /var/www/html/5wan/web/sites/default/files/mongo/backup/game.bson
 
 mongodump -h 127.0.0.1:27017 -d 5wan -o /Applications/MAMP/htdocs/yourfolder/
+
+echo > web/modules/custom/python/pymongo/logfilename.log
