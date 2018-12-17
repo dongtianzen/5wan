@@ -255,8 +255,7 @@ class ManageContent extends ManageDrupalContent {
    $ManageContent = new ManageContent();
    $cc = $ManageContent->runFindAndUpdateValue();
    */
-  public function runFindAndUpdateValue() {
-    $search_500_id = 167832;
+  public function runFindAndUpdateValue($search_500_id = 167832) {
     $filter = ['id5' => $search_500_id];
     $rows = \Drupal::getContainer()
       ->get('mongo.driver.set')
@@ -266,24 +265,28 @@ class ManageContent extends ManageDrupalContent {
     $nids = [];
     foreach ($rows as $document) {
       $node = \Drupal::entityManager()->getStorage('node')->load($document->game_id);
-      $node_500_id = \Drupal::getContainer()
-        ->get('flexinfo.field.service')
-        ->getFieldFirstValue($node, 'field_win_id_500');
 
-      if ($node_500_id != $search_500_id) {
-        dpm($node->id());
+      if ($node) {
+        $node_500_id = \Drupal::getContainer()
+          ->get('flexinfo.field.service')
+          ->getFieldFirstValue($node, 'field_win_id_500');
 
-        $query = ['_id' => $document->_id];
-        // dpm($document->_id->__toString());
+        // only modify the wrong one(not match one)
+        if ($node_500_id != $search_500_id) {
+          dpm($node->id());
 
-        $modify_array = [
-          'id5' => ""
-        ];
+          $query = ['_id' => $document->_id];
+          // dpm($document->_id->__toString());
 
-        $result = \Drupal::getContainer()
-          ->get('mongo.driver.set')
-          ->bulkSet()
-          ->bulkFindUpdateUnset($query, $modify_array);
+          $modify_array = [
+            'id5' => ""
+          ];
+
+          $result = \Drupal::getContainer()
+            ->get('mongo.driver.set')
+            ->bulkSet()
+            ->bulkFindUpdateUnset($query, $modify_array);
+        }
       }
 
       // dpm($document->_id->__toString());
@@ -293,5 +296,33 @@ class ManageContent extends ManageDrupalContent {
     }
 
   }
+
+  /**
+   *
+   require_once(DRUPAL_ROOT . '/modules/custom/mongo//src/Content/ManageContent.php');
+
+   $ManageContent = new ManageContent();
+   $cc = $ManageContent->runFindAndUpdate500IdDatasets();
+   */
+  public function runFindAndUpdate500IdDatasets() {
+    $sets = $this->get500IdDatasets();
+
+    foreach ($sets as $key => $value) {
+      $this->runFindAndUpdateValue($value);
+    }
+
+  }
+
+  /**
+   *
+   */
+  public function get500IdDatasets() {
+    $output = [
+      168550,
+    ];
+
+    return $output;
+  }
+
 
 }
