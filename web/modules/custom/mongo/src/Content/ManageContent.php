@@ -264,29 +264,26 @@ class ManageContent extends ManageDrupalContent {
 
     $nids = [];
     foreach ($rows as $document) {
-      $node = \Drupal::entityManager()->getStorage('node')->load($document->game_id);
+      $sql_query = $this->dbSelectFieldsValue(
+        $document->game_id,
+        'node__field_win_id_500',
+        'field_win_id_500_value'
+      );
 
-      if ($node) {
-        $node_500_id = \Drupal::getContainer()
-          ->get('flexinfo.field.service')
-          ->getFieldFirstValue($node, 'field_win_id_500');
+      // only modify the wrong one(not match one)
+      if (current($sql_query) != $search_500_id) {
 
-        // only modify the wrong one(not match one)
-        if ($node_500_id != $search_500_id) {
-          dpm($node->id());
+        $query = ['_id' => $document->_id];
+        // dpm($document->_id->__toString());
 
-          $query = ['_id' => $document->_id];
-          // dpm($document->_id->__toString());
+        $modify_array = [
+          'id5' => ""
+        ];
 
-          $modify_array = [
-            'id5' => ""
-          ];
-
-          $result = \Drupal::getContainer()
-            ->get('mongo.driver.set')
-            ->bulkSet()
-            ->bulkFindUpdateUnset($query, $modify_array);
-        }
+        $result = \Drupal::getContainer()
+          ->get('mongo.driver.set')
+          ->bulkSet()
+          ->bulkFindUpdateUnset($query, $modify_array);
       }
 
       // dpm($document->_id->__toString());
@@ -318,7 +315,11 @@ class ManageContent extends ManageDrupalContent {
    */
   public function get500IdDatasets() {
     $output = [
-      168550,
+      301904,
+      301910,
+      301914,
+      301916,
+      301920,
     ];
 
     return $output;
