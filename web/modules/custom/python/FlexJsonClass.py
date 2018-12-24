@@ -48,7 +48,7 @@ class FlexJsonBasic:
     print ('JSON generate success')
     return
 
-  #
+  # Just open the file with its "full path" directly
   def getGenerateJsonFilePath(self, fileName):
     # 运行文件从server or local command line, 在当前Repository下
     pathDir  = 'web/sites/default/files/json/5wan/'

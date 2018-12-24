@@ -44,7 +44,7 @@ class BasicQueryPyMongo:
 
     logging.warning("Running warning to")
 
-    for num in range(567000, 600000):
+    for num in range(599000, 700000):
       queryObj = { "id5": num }
 
       if ((num % 1000) == 0):
